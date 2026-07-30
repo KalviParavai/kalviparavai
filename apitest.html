@@ -1,49 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>KPOTMS API Test</title>
-</head>
-<body>
+async function testLogin() {
 
-<button onclick="testLogin()">Test Login</button>
-
-<pre id="result"></pre>
-
-<script>
-
-const WEBAPP =
-"https://script.google.com/macros/s/AKfycbzzUc90911Fzt8NY2NU-iM2nFCIHHk5Sydt-MV2PRGiT5a_0kwQPJr6le_18QBXcD-q/exec";
-
-async function testLogin(){
-
-    const response = await fetch(WEBAPP,{
-
-        method:"POST",
-
-        headers:{
-            "Content-Type":"application/json"
-        },
-
-        body:JSON.stringify({
-
-            action:"loginCoordinator",
-
-            userID:"admin",
-
-            password:"admin@123"
-
-        })
-
-    });
-
-    const result = await response.json();
-
-    document.getElementById("result").textContent =
-        JSON.stringify(result,null,4);
+    alert("Button Clicked");
 
 }
-
-</script>
-
-</body>
-</html>
