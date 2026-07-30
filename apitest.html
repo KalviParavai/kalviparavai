@@ -1,47 +1,25 @@
-<!DOCTYPE html>
-<html>
+ <!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>KPOTMS API Test</title>
 </head>
+
 <body>
 
-<button onclick="testLogin()">Test Login</button>
+<h2>KPOTMS API Test</h2>
+
+<button id="btnTest">
+    Test Login
+</button>
 
 <pre id="result"></pre>
 
 <script>
 
-const WEBAPP =
-"https://script.google.com/macros/s/AKfycbzzUc90911Fzt8NY2NU-iM2nFCIHHk5Sydt-MV2PRGiT5a_0kwQPJr6le_18QBXcD-q/exec";
-
-async function testLogin(){
-
-    const response = await fetch(WEBAPP,{
-
-        method:"POST",
-
-        headers:{
-            "Content-Type":"application/json"
-        },
-
-        body:JSON.stringify({
-
-            action:"loginCoordinator",
-
-            userID:"admin",
-
-            password:"admin@123"
-
-        })
-
-    });
-
-    const result = await response.json();
-
-    document.getElementById("result").textContent =
-        JSON.stringify(result,null,4);
-
-}
+document.getElementById("btnTest").addEventListener("click", function () {
+    alert("JavaScript is working!");
+});
 
 </script>
 
