@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -593,8 +593,9 @@ tbody tr:hover{
    KPOTMS V3.0
    COORDINATOR DASHBOARD
 
-   Data Source:
+   LIVE DATA SOURCE:
    04_Class_Master
+   through Coordinator Web App
 
    Columns:
    A = Subject_Code
@@ -607,13 +608,17 @@ tbody tr:hover{
    ===================================================== */
 
 
-const csvURL =
-"https://docs.google.com/spreadsheets/d/e/2PACX-1vSJxSOEW0y5LERF7KJQKN-ivKxL9D_1tbX9S09kAvn_jTw7719AZInIgGYwd3ent-IX4ky11N2TrS4s/pub?gid=956481198&single=true&output=csv";
+/* =====================================================
+   COORDINATOR WEB APP
+   ===================================================== */
 
 const COORDINATOR_MANAGER_URL =
 "https://script.google.com/macros/s/AKfycbyBPI1tVuHujIpBJAH5N47pmszsscx51-aqdpsTmSXYy3YeYnPc2HnuGx2SWQJlKJfX/exec";
 
-/* Coordinator name from Login */
+
+/* =====================================================
+   Coordinator name from Login
+   ===================================================== */
 
 const savedName =
     sessionStorage.getItem("coordinatorName");
@@ -629,16 +634,20 @@ if(savedName){
 
 
 /* =====================================================
-   Load Sessions
+   Current displayed sessions
    ===================================================== */
+
 window.currentSessionRows = {};
-      
+
+
+/* =====================================================
+   Load LIVE Sessions
+   ===================================================== */
+
 async function loadSessions(){
 
     const table =
         document.getElementById("sessionTable");
-
-    window.currentSessionRows = {};
 
     const message =
         document.getElementById("message");
@@ -646,34 +655,74 @@ async function loadSessions(){
 
     table.innerHTML = "";
 
+    window.currentSessionRows = {};
+
+
     message.textContent =
-        "Loading sessions...";
+        "Loading live sessions...";
 
 
     try{
 
+
+        /*
+         * Cache-busting timestamp.
+         *
+         * Every REFRESH creates a new request.
+         */
+
+        const url =
+            COORDINATOR_MANAGER_URL +
+            "?action=getSessions&t=" +
+            Date.now();
+
+
         const response =
-            await fetch(csvURL);
+            await fetch(
+                url,
+                {
+                    cache: "no-store"
+                }
+            );
 
 
-        const csv =
-            await response.text();
-
-
-        if(!csv.trim()){
+        if(!response.ok){
 
             throw new Error(
-                "Empty Class Master data"
+                "Unable to connect to Coordinator Server."
             );
 
         }
 
 
-        const rows =
-            parseCSV(csv);
+        const result =
+            await response.json();
 
 
-        if(rows.length <= 1){
+        if(!result.success){
+
+            throw new Error(
+                result.message ||
+                "Unable to load sessions."
+            );
+
+        }
+
+
+        const sessions =
+            result.data || [];
+
+
+        if(!Array.isArray(sessions)){
+
+            throw new Error(
+                "Invalid session data received."
+            );
+
+        }
+
+
+        if(sessions.length === 0){
 
             message.textContent =
                 "No sessions found.";
@@ -686,60 +735,89 @@ async function loadSessions(){
         let count = 0;
 
 
-        for(let i = 1; i < rows.length; i++){
-
-            const row = rows[i];
+        for(let i = 0; i < sessions.length; i++){
 
 
-            if(!row || row.length < 6){
-                continue;
-            }
+            const session =
+                sessions[i];
 
+
+            /*
+             * Ignore blank backend rows
+             */
 
             if(
-                row.every(
-                    value => String(value).trim() === ""
-                )
+                !session.Subject_Code ||
+                String(
+                    session.Subject_Code
+                ).trim() === ""
             ){
+
                 continue;
+
             }
 
 
             count++;
 
-            window.currentSessionRows[i] = {
 
-            subjectCode: clean(row[0]),
-
-            subjectName: clean(row[2])
-
-};
             const subjectCode =
-                clean(row[0]);
+                clean(
+                    session.Subject_Code
+                );
 
 
             const courseID =
-                clean(row[1]);
+                clean(
+                    session.CourseID
+                );
 
 
             const subjectName =
-                clean(row[2]);
+                clean(
+                    session.Subject_Name
+                );
 
 
             const teacher =
-                clean(row[3]);
+                clean(
+                    session.Teacher
+                );
 
 
             const meetingURL =
-                clean(row[4]);
+                clean(
+                    session.Meeting_URL
+                );
 
 
             const status =
-                clean(row[5]).toUpperCase();
+                clean(
+                    session.Session_Status
+                ).toUpperCase();
 
 
             const lastUpdated =
-                clean(row[6]);
+                formatDateTime(
+                    session.Last_Updated
+                );
+
+
+            /*
+             * Remember actual Subject Code.
+             *
+             * count = displayed row number.
+             */
+
+            window.currentSessionRows[count] = {
+
+                subjectCode:
+                    subjectCode,
+
+                subjectName:
+                    subjectName
+
+            };
 
 
             const tr =
@@ -752,42 +830,72 @@ async function loadSessions(){
                     ${count}
                 </td>
 
+
                 <td>
-                    ${escapeHTML(subjectCode)}
+                    ${escapeHTML(
+                        subjectCode
+                    )}
                 </td>
+
 
                 <td class="course">
-                    ${escapeHTML(courseID)}
+                    ${escapeHTML(
+                        courseID
+                    )}
                 </td>
+
 
                 <td class="subject">
-                    ${escapeHTML(subjectName)}
+                    ${escapeHTML(
+                        subjectName
+                    )}
                 </td>
+
 
                 <td class="teacher">
-                    ${escapeHTML(teacher)}
+                    ${escapeHTML(
+                        teacher
+                    )}
                 </td>
+
 
                 <td class="meeting">
+
                     ${
                         meetingURL
-                        ? `<a href="${escapeAttribute(meetingURL)}"
-                              target="_blank">
-                              OPEN LINK
-                           </a>`
-                        : "—"
+
+                        ?
+
+                        `<a
+                            href="${escapeAttribute(
+                                meetingURL
+                            )}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            OPEN LINK
+                        </a>`
+
+                        :
+
+                        "—"
                     }
+
                 </td>
 
+
                 <td class="updated">
-                    ${escapeHTML(lastUpdated)}
+                    ${escapeHTML(
+                        lastUpdated
+                    )}
                 </td>
+
 
                 <td class="status-cell">
 
                     ${createStatusHTML(
                         status,
-                        i
+                        count
                     )}
 
                 </td>
@@ -800,18 +908,31 @@ async function loadSessions(){
         }
 
 
+        if(count === 0){
+
+            message.textContent =
+                "No valid sessions found.";
+
+            return;
+
+        }
+
+
         message.textContent =
-            count + " subject sessions";
+            count +
+            " subject sessions";
 
 
     }
+
 
     catch(error){
 
         console.error(error);
 
+
         message.textContent =
-            "Unable to load Class Master data.";
+            "Unable to load live Class Master data.";
 
     }
 
@@ -822,7 +943,10 @@ async function loadSessions(){
    Status Display
    ===================================================== */
 
-function createStatusHTML(status,rowNumber){
+function createStatusHTML(
+    status,
+    rowNumber
+){
 
     if(status === "OPEN"){
 
@@ -834,7 +958,10 @@ function createStatusHTML(status,rowNumber){
 
             <button
                 class="status-button close-button"
-                onclick="changeStatus(${rowNumber}, 'CLOSED')"
+                onclick="changeStatus(
+                    ${rowNumber},
+                    'CLOSED'
+                )"
             >
                 CLOSE
             </button>
@@ -852,7 +979,10 @@ function createStatusHTML(status,rowNumber){
 
         <button
             class="status-button open-button"
-            onclick="changeStatus(${rowNumber}, 'OPEN')"
+            onclick="changeStatus(
+                ${rowNumber},
+                'OPEN'
+            )"
         >
             OPEN
         </button>
@@ -863,24 +993,25 @@ function createStatusHTML(status,rowNumber){
 
 
 /* =====================================================
-   OPEN / CLOSE
-
-   The actual Google Sheet update will be connected
-   through the Coordinator Apps Script in the next
-   step.
-
-   For now this function clearly identifies the row
-   and requested status.
+   OPEN / CLOSE SESSION
    ===================================================== */
 
- async function changeStatus(rowNumber, newStatus){
+async function changeStatus(
+    rowNumber,
+    newStatus
+){
 
     const row =
-        window.currentSessionRows[rowNumber];
+        window.currentSessionRows[
+            rowNumber
+        ];
+
 
     if(!row){
 
-        alert("Session row not found.");
+        alert(
+            "Session row not found."
+        );
 
         return;
 
@@ -891,10 +1022,14 @@ function createStatusHTML(status,rowNumber){
         row.subjectCode;
 
 
+    const subjectName =
+        row.subjectName;
+
+
     const confirmed =
         confirm(
             "Change " +
-            row.subjectName +
+            subjectName +
             " to " +
             newStatus +
             "?"
@@ -910,56 +1045,121 @@ function createStatusHTML(status,rowNumber){
 
     try{
 
+
+        /*
+         * Disable further accidental clicks
+         * while update is running.
+         */
+
+        const buttons =
+            document.querySelectorAll(
+                ".status-button"
+            );
+
+
+        buttons.forEach(
+            button => {
+                button.disabled = true;
+                button.style.opacity = "0.6";
+            }
+        );
+
+
         const url =
             COORDINATOR_MANAGER_URL +
             "?action=updateStatus" +
             "&subjectCode=" +
-            encodeURIComponent(subjectCode) +
+            encodeURIComponent(
+                subjectCode
+            ) +
             "&status=" +
-            encodeURIComponent(newStatus);
+            encodeURIComponent(
+                newStatus
+            ) +
+            "&t=" +
+            Date.now();
 
 
         const response =
-            await fetch(url);
+            await fetch(
+                url,
+                {
+                    cache: "no-store"
+                }
+            );
+
+
+        if(!response.ok){
+
+            throw new Error(
+                "Server connection failed."
+            );
+
+        }
 
 
         const result =
             await response.json();
 
 
-        if(result.success){
+        if(
+            !result.success
+        ){
 
-            alert(
-                "Session changed to " +
-                newStatus +
-                " successfully."
-            );
-
-
-            loadSessions();
-
-        }
-        else{
-
-            alert(
+            throw new Error(
                 result.message ||
-                "Unable to update session."
+                "Session update failed."
             );
 
         }
+
+
+        /*
+         * IMPORTANT:
+         *
+         * Do not simply change the screen.
+         *
+         * Reload the LIVE data from
+         * 04_Class_Master.
+         */
+
+        await loadSessions();
+
+
+        alert(
+            subjectName +
+            " is now " +
+            newStatus +
+            "."
+        );
+
 
     }
+
+
     catch(error){
 
         console.error(error);
 
+
         alert(
-            "Unable to update Session Status."
+            "Unable to update Session Status.\n\n" +
+            error.message
         );
+
+
+        /*
+         * Reload the actual backend state
+         * after an unsuccessful operation.
+         */
+
+        await loadSessions();
 
     }
 
 }
+
+
 /* =====================================================
    Logout
    ===================================================== */
@@ -970,9 +1170,11 @@ function logout(){
         "coordinatorID"
     );
 
+
     sessionStorage.removeItem(
         "coordinatorName"
     );
+
 
     sessionStorage.removeItem(
         "coordinatorUserID"
@@ -986,139 +1188,124 @@ function logout(){
 
 
 /* =====================================================
-   Simple CSV Parser
-
-   Handles quoted CSV fields as well as ordinary
-   comma-separated values.
+   Clean value
    ===================================================== */
 
-function parseCSV(text){
+function clean(value){
 
-    const rows = [];
-
-    let row = [];
-
-    let value = "";
-
-    let insideQuotes = false;
-
-
-    for(let i = 0; i < text.length; i++){
-
-        const char = text[i];
-
-        const next = text[i + 1];
-
-
-        if(char === '"' && insideQuotes && next === '"'){
-
-            value += '"';
-
-            i++;
-
-            continue;
-
-        }
-
-
-        if(char === '"'){
-
-            insideQuotes =
-                !insideQuotes;
-
-            continue;
-
-        }
-
-
-        if(char === "," && !insideQuotes){
-
-            row.push(value);
-
-            value = "";
-
-            continue;
-
-        }
-
-
-        if(
-            (char === "\n" ||
-             char === "\r") &&
-            !insideQuotes
-        ){
-
-            if(char === "\r" && next === "\n"){
-                i++;
-            }
-
-
-            row.push(value);
-
-            rows.push(row);
-
-            row = [];
-
-            value = "";
-
-            continue;
-
-        }
-
-
-        value += char;
-
-    }
-
-
-    if(value !== "" || row.length > 0){
-
-        row.push(value);
-
-        rows.push(row);
-
-    }
-
-
-    return rows;
+    return String(
+        value ?? ""
+    ).trim();
 
 }
 
 
 /* =====================================================
-   Helpers
+   Format Last Updated
    ===================================================== */
 
-function clean(value){
+function formatDateTime(value){
 
-    return String(value ?? "").trim();
+    if(
+        value === null ||
+        value === undefined ||
+        String(value).trim() === ""
+    ){
+
+        return "";
+
+    }
+
+
+    const date =
+        new Date(value);
+
+
+    if(
+        Number.isNaN(
+            date.getTime()
+        )
+    ){
+
+        return clean(value);
+
+    }
+
+
+    return date.toLocaleString();
 
 }
 
+
+/* =====================================================
+   Escape HTML
+   ===================================================== */
 
 function escapeHTML(value){
 
-    return String(value ?? "")
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+    return String(
+        value ?? ""
+    )
+
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+
+    .replace(
+        /</g,
+        "&lt;"
+    )
+
+    .replace(
+        />/g,
+        "&gt;"
+    )
+
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+
+    .replace(
+        /'/g,
+        "&#039;"
+    );
 
 }
 
+
+/* =====================================================
+   Escape URL Attribute
+   ===================================================== */
 
 function escapeAttribute(value){
 
-    return String(value ?? "")
-        .replace(/"/g,"%22")
-        .replace(/</g,"%3C")
-        .replace(/>/g,"%3E");
+    return String(
+        value ?? ""
+    )
+
+    .replace(
+        /"/g,
+        "%22"
+    )
+
+    .replace(
+        /</g,
+        "%3C"
+    )
+
+    .replace(
+        />/g,
+        "%3E"
+    );
 
 }
 
 
-/* Load immediately */
+/* =====================================================
+   Load immediately
+   ===================================================== */
 
 loadSessions();
 
