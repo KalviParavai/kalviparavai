@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Kalviparavai - Student Sessions</title>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Segoe UI, Arial, sans-serif;
+}
+
+body {
+
+    min-height: 100vh;
+
+    background: linear-gradient(
+        135deg,
+        #0D47A1,
+        #1976D2,
+        #00ACC1,
+        #43A047
+    );
+
+    background-size: 400% 400%;
+
+    animation: bgmove 15s ease infinite;
+
+    padding: 20px;
+}
+
+@keyframes bgmove {
+
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+
+}
+
+.container {
+
+    width: 100%;
+
+    max-width: 1100px;
+
+    margin: auto;
+
+    background: white;
+
+    border-radius: 20px;
+
+    padding: 25px;
+
+    box-shadow: 0 15px 40px rgba(0,0,0,.30);
+}
+
+.header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 15px;
+
+    margin-bottom: 20px;
+}
+
+.brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+.logo {
+
+    font-size: 50px;
+}
+
+.title {
+
+    color: #1565C0;
+
+    font-size: 28px;
+
+    font-weight: bold;
+}
+
+.subtitle {
+
+    color: #666;
+
+    margin-top: 4px;
+}
+
+.student-info {
+
+    text-align: right;
+
+    color: #555;
+
+    font-size: 15px;
+}
+
+.student-info strong {
+
+    color: #1565C0;
+}
+
+.actions {
+
+    display: flex;
+
+    gap: 10px;
+
+    margin-bottom: 20px;
+}
+
+.refresh-button,
+.logout-button {
+
+    border: none;
+
+    border-radius: 8px;
+
+    padding: 10px 18px;
+
+    font-size: 14px;
+
+    cursor: pointer;
+}
+
+.refresh-button {
+
+    background: #1976D2;
+
+    color: white;
+}
+
+.refresh-button:hover {
+
+    background: #0D47A1;
+}
+
+.logout-button {
+
+    background: #eeeeee;
+
+    color: #333;
+}
+
+.sessions {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(300px, 1fr));
+
+    gap: 18px;
+}
+
+.session-card {
+
+    border-radius: 15px;
+
+    padding: 20px;
+
+    background: #f7f9fc;
+
+    border: 1px solid #e0e0e0;
+
+    box-shadow: 0 5px 15px rgba(0,0,0,.08);
+}
+
+.subject-code {
+
+    color: #777;
+
+    font-size: 13px;
+
+    margin-bottom: 5px;
+}
+
+.subject-name {
+
+    color: #1565C0;
+
+    font-size: 20px;
+
+    font-weight: bold;
+
+    margin-bottom: 10px;
+}
+
+.teacher {
+
+    color: #555;
+
+    margin-bottom: 15px;
+}
+
+.status-row {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+.status {
+
+    display: inline-block;
+
+    padding: 6px 12px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    font-weight: bold;
+}
+
+.status-open {
+
+    background: #d9f7df;
+
+    color: #16803c;
+}
+
+.status-closed {
+
+    background: #ffe0e0;
+
+    color: #c62828;
+}
+
+.join-button {
+
+    border: none;
+
+    border-radius: 8px;
+
+    padding: 9px 16px;
+
+    background: #16803c;
+
+    color: white;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.join-button:hover {
+
+    background: #0b662b;
+}
+
+.closed-message {
+
+    color: #999;
+
+    font-size: 13px;
+}
+
+#message {
+
+    text-align: center;
+
+    padding: 25px;
+
+    color: #666;
+}
+
+.footer {
+
+    text-align: center;
+
+    margin-top: 25px;
+
+    color: #888;
+
+    font-size: 13px;
+}
+
+@media(max-width:650px) {
+
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        padding: 15px;
+    }
+
+    .student-info {
+        text-align: left;
+    }
+
+    .sessions {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <div class="header">
+
+
+        <div class="brand">
+
+            <div class="logo">
+                🦜
+            </div>
+
+            <div>
+
+                <div class="title">
+                    KALVIPARAVAI
+                </div>
+
+                <div class="subtitle">
+                    Student Sessions
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="student-info">
+
+            Welcome,
+
+            <strong id="studentName">
+                Student
+            </strong>
+
+            <br>
+
+            <span id="studentCourse">
+                Loading course...
+            </span>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="actions">
+
+        <button
+            class="refresh-button"
+            onclick="loadSessions()"
+        >
+            ↻ REFRESH
+        </button>
+
+
+        <button
+            class="logout-button"
+            onclick="logout()"
+        >
+            LOGOUT
+        </button>
+
+    </div>
+
+
+    <div
+        id="sessions"
+        class="sessions"
+    >
+    </div>
+
+
+    <div id="message">
+        Loading sessions...
+    </div>
+
+
+    <div class="footer">
+        KPOTMS Version 3.0
+    </div>
+
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   KPOTMS V3.0
+   STUDENT SESSIONS
+
+   LIVE DATA:
+   04_Class_Master
+
+   CourseID:
+   INTERNAL ONLY
+
+   Student sees:
+   Student Name
+   Course
+   Subject
+   Teacher
+   Status
+   JOIN SESSION
+   ===================================================== */
+
+
+/* =====================================================
+   COORDINATOR / KPOTMS WEB APP
+   ===================================================== */
+
+const KPOTMS_WEB_APP_URL =
+"https://script.google.com/macros/s/AKfycbyBPI1tVuHujIpBJAH5N47pmszsscx51-aqdpsTmSXYy3YeYnPc2HnuGx2SWQJlKJfX/exec";
+
+
+/* =====================================================
+   Read logged-in student
+   ===================================================== */
+
+const studentName =
+    sessionStorage.getItem(
+        "studentName"
+    );
+
+
+const studentCourse =
+    sessionStorage.getItem(
+        "studentCourse"
+    );
+
+
+const studentCourseID =
+    sessionStorage.getItem(
+        "studentCourseID"
+    );
+
+
+/* =====================================================
+   Verify Student Login
+   ===================================================== */
+
+if (
+    !studentName ||
+    !studentCourse ||
+    !studentCourseID
+) {
+
+    window.location.href =
+        "StudentLogin.html";
+
+}
+
+
+/* =====================================================
+   Display student information
+   ===================================================== */
+
+document.getElementById(
+    "studentName"
+).textContent =
+    studentName || "Student";
+
+
+document.getElementById(
+    "studentCourse"
+).textContent =
+    studentCourse || "";
+
+
+/* =====================================================
+   Load Live Sessions
+   ===================================================== */
+
+async function loadSessions() {
+
+
+    const sessionsContainer =
+        document.getElementById(
+            "sessions"
+        );
+
+
+    const message =
+        document.getElementById(
+            "message"
+        );
+
+
+    sessionsContainer.innerHTML = "";
+
+
+    message.textContent =
+        "Loading live sessions...";
+
+
+    try {
+
+
+        /*
+         * Read live 04_Class_Master.
+         *
+         * Cache-busting prevents an old
+         * response from being reused.
+         */
+
+        const url =
+            KPOTMS_WEB_APP_URL +
+            "?action=getSessions&t=" +
+            Date.now();
+
+
+        const response =
+            await fetch(
+                url,
+                {
+                    cache: "no-store"
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Unable to connect to session server."
+            );
+
+        }
+
+
+        const result =
+            await response.json();
+
+
+        if (!result.success) {
+
+            throw new Error(
+                result.message ||
+                "Unable to load sessions."
+            );
+
+        }
+
+
+        const allSessions =
+            result.data || [];
+
+
+        /*
+         * Filter by the student's
+         * internal CourseID.
+         *
+         * CourseID is NEVER displayed.
+         */
+
+        const studentSessions =
+            allSessions.filter(
+                session => {
+
+                    return String(
+                        session.CourseID || ""
+                    ).trim()
+                    ===
+                    String(
+                        studentCourseID
+                    ).trim();
+
+                }
+            );
+
+
+        if (
+            studentSessions.length === 0
+        ) {
+
+            message.textContent =
+                "No sessions available for your course.";
+
+            return;
+
+        }
+
+
+        /*
+         * Create one card for each
+         * subject belonging to the course.
+         */
+
+        studentSessions.forEach(
+            session => {
+
+
+                if (
+                    !session.Subject_Code
+                ) {
+
+                    return;
+
+                }
+
+
+                const subjectCode =
+                    clean(
+                        session.Subject_Code
+                    );
+
+
+                const subjectName =
+                    clean(
+                        session.Subject_Name
+                    );
+
+
+                const teacher =
+                    clean(
+                        session.Teacher
+                    );
+
+
+                const meetingURL =
+                    clean(
+                        session.Meeting_URL
+                    );
+
+
+                const status =
+                    clean(
+                        session.Session_Status
+                    ).toUpperCase();
+
+
+                const card =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                card.className =
+                    "session-card";
+
+
+                /*
+                 * OPEN session
+                 */
+
+                if (
+                    status === "OPEN"
+                ) {
+
+                    card.innerHTML = `
+
+                        <div class="subject-code">
+                            Subject ${escapeHTML(
+                                subjectCode
+                            )}
+                        </div>
+
+                        <div class="subject-name">
+                            ${escapeHTML(
+                                subjectName
+                            )}
+                        </div>
+
+                        <div class="teacher">
+                            <b>Teacher:</b>
+                            ${escapeHTML(
+                                teacher
+                            )}
+                        </div>
+
+                        <div class="status-row">
+
+                            <span class="status status-open">
+                                🟢 OPEN
+                            </span>
+
+                            ${
+                                meetingURL
+                                ?
+                                `
+                                <button
+                                    class="join-button"
+                                    onclick="joinSession(
+                                        '${escapeJS(
+                                            meetingURL
+                                        )}'
+                                    )"
+                                >
+                                    JOIN SESSION
+                                </button>
+                                `
+                                :
+                                `
+                                <span class="closed-message">
+                                    Meeting link unavailable
+                                </span>
+                                `
+                            }
+
+                        </div>
+
+                    `;
+
+                }
+
+
+                /*
+                 * CLOSED session
+                 */
+
+                else {
+
+                    card.innerHTML = `
+
+                        <div class="subject-code">
+                            Subject ${escapeHTML(
+                                subjectCode
+                            )}
+                        </div>
+
+                        <div class="subject-name">
+                            ${escapeHTML(
+                                subjectName
+                            )}
+                        </div>
+
+                        <div class="teacher">
+                            <b>Teacher:</b>
+                            ${escapeHTML(
+                                teacher
+                            )}
+                        </div>
+
+                        <div class="status-row">
+
+                            <span class="status status-closed">
+                                🔴 CLOSED
+                            </span>
+
+                            <span class="closed-message">
+                                Session not available
+                            </span>
+
+                        </div>
+
+                    `;
+
+                }
+
+
+                sessionsContainer.appendChild(
+                    card
+                );
+
+            }
+        );
+
+
+        message.textContent =
+            studentSessions.length +
+            " session(s) for your course.";
+
+
+    }
+
+    catch(error) {
+
+        console.error(error);
+
+
+        message.textContent =
+            "Unable to load live session data.";
+
+    }
+
+}
+
+
+/* =====================================================
+   JOIN SESSION
+   ===================================================== */
+
+function joinSession(
+    meetingURL
+) {
+
+
+    if (
+        !meetingURL ||
+        meetingURL.trim() === ""
+    ) {
+
+        alert(
+            "Meeting link is not available."
+        );
+
+        return;
+
+    }
+
+
+    /*
+     * Open Google Meet in a new tab.
+     */
+
+    window.open(
+        meetingURL,
+        "_blank",
+        "noopener,noreferrer"
+    );
+
+}
+
+
+/* =====================================================
+   LOGOUT
+   ===================================================== */
+
+function logout() {
+
+
+    sessionStorage.removeItem(
+        "studentKPSID"
+    );
+
+
+    sessionStorage.removeItem(
+        "studentName"
+    );
+
+
+    sessionStorage.removeItem(
+        "studentCourse"
+    );
+
+
+    sessionStorage.removeItem(
+        "studentCourseID"
+    );
+
+
+    window.location.href =
+        "StudentLogin.html";
+
+}
+
+
+/* =====================================================
+   Utility
+   ===================================================== */
+
+function clean(value) {
+
+    return String(
+        value ?? ""
+    ).trim();
+
+}
+
+
+/* =====================================================
+   Escape HTML
+   ===================================================== */
+
+function escapeHTML(value) {
+
+    return String(
+        value ?? ""
+    )
+
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+
+    .replace(
+        /</g,
+        "&lt;"
+    )
+
+    .replace(
+        />/g,
+        "&gt;"
+    )
+
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+/* =====================================================
+   Escape JavaScript string
+   ===================================================== */
+
+function escapeJS(value) {
+
+    return String(
+        value ?? ""
+    )
+
+    .replace(
+        /\\/g,
+        "\\\\"
+    )
+
+    .replace(
+        /'/g,
+        "\\'"
+    )
+
+    .replace(
+        /"/g,
+        '\\"'
+    )
+
+    .replace(
+        /\r?\n/g,
+        "\\n"
+    );
+
+}
+
+
+/* =====================================================
+   Initial Load
+   ===================================================== */
+
+loadSessions();
+
+</script>
+
+
+</body>
+
+</html>
