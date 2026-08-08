@@ -610,6 +610,8 @@ tbody tr:hover{
 const csvURL =
 "https://docs.google.com/spreadsheets/d/e/2PACX-1vSJxSOEW0y5LERF7KJQKN-ivKxL9D_1tbX9S09kAvn_jTw7719AZInIgGYwd3ent-IX4ky11N2TrS4s/pub?gid=956481198&single=true&output=csv";
 
+const COORDINATOR_MANAGER_URL =
+"https://script.google.com/macros/s/AKfycbyBPI1tVuHujIpBJAH5N47pmszsscx51-aqdpsTmSXYy3YeYnPc2HnuGx2SWQJlKJfX/exec";
 
 /* Coordinator name from Login */
 
@@ -629,11 +631,14 @@ if(savedName){
 /* =====================================================
    Load Sessions
    ===================================================== */
-
+window.currentSessionRows = {};
+      
 async function loadSessions(){
 
     const table =
         document.getElementById("sessionTable");
+
+    window.currentSessionRows = {};
 
     const message =
         document.getElementById("message");
@@ -702,7 +707,13 @@ async function loadSessions(){
 
             count++;
 
+            window.currentSessionRows[i] = {
 
+            subjectCode: clean(row[0]),
+
+            subjectName: clean(row[2])
+
+};
             const subjectCode =
                 clean(row[0]);
 
@@ -862,20 +873,93 @@ function createStatusHTML(status,rowNumber){
    and requested status.
    ===================================================== */
 
-function changeStatus(rowNumber,newStatus){
+ async function changeStatus(rowNumber, newStatus){
 
-    alert(
-        "Session status change requested: " +
-        newStatus +
-        "\n\nRow: " +
-        rowNumber +
-        "\n\nThe live Google Sheet update connection " +
-        "will be added next."
-    );
+    const row =
+        window.currentSessionRows[rowNumber];
+
+    if(!row){
+
+        alert("Session row not found.");
+
+        return;
+
+    }
+
+
+    const subjectCode =
+        row.subjectCode;
+
+
+    const confirmed =
+        confirm(
+            "Change " +
+            row.subjectName +
+            " to " +
+            newStatus +
+            "?"
+        );
+
+
+    if(!confirmed){
+
+        return;
+
+    }
+
+
+    try{
+
+        const url =
+            COORDINATOR_MANAGER_URL +
+            "?action=updateStatus" +
+            "&subjectCode=" +
+            encodeURIComponent(subjectCode) +
+            "&status=" +
+            encodeURIComponent(newStatus);
+
+
+        const response =
+            await fetch(url);
+
+
+        const result =
+            await response.json();
+
+
+        if(result.success){
+
+            alert(
+                "Session changed to " +
+                newStatus +
+                " successfully."
+            );
+
+
+            loadSessions();
+
+        }
+        else{
+
+            alert(
+                result.message ||
+                "Unable to update session."
+            );
+
+        }
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        alert(
+            "Unable to update Session Status."
+        );
+
+    }
 
 }
-
-
 /* =====================================================
    Logout
    ===================================================== */
