@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Kalviparavai - Coordinator Dashboard</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Segoe UI,Arial,sans-serif;
+}
+
+body{
+
+    min-height:100vh;
+
+    background:linear-gradient(
+        135deg,
+        #0D47A1,
+        #1976D2,
+        #00ACC1,
+        #43A047
+    );
+
+    background-size:400% 400%;
+
+    animation:bgmove 15s ease infinite;
+
+    padding:20px;
+
+}
+
+@keyframes bgmove{
+
+    0%{
+        background-position:0% 50%;
+    }
+
+    50%{
+        background-position:100% 50%;
+    }
+
+    100%{
+        background-position:0% 50%;
+    }
+
+}
+
+
+.dashboard{
+
+    width:100%;
+
+    max-width:1500px;
+
+    margin:auto;
+
+    background:white;
+
+    border-radius:18px;
+
+    padding:20px;
+
+    box-shadow:0 15px 40px rgba(0,0,0,.30);
+
+}
+
+
+.header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+
+    padding:5px 10px 20px;
+
+}
+
+
+.brand{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+
+.logo{
+
+    font-size:45px;
+
+}
+
+
+.title{
+
+    color:#1565C0;
+
+    font-size:27px;
+
+    font-weight:bold;
+
+}
+
+
+.subtitle{
+
+    color:#666;
+
+    font-size:15px;
+
+}
+
+
+.coordinator{
+
+    text-align:right;
+
+    color:#555;
+
+}
+
+
+.coordinator strong{
+
+    color:#1565C0;
+
+}
+
+
+.actions{
+
+    display:flex;
+
+    gap:10px;
+
+    margin-bottom:15px;
+
+}
+
+
+.refresh-button,
+.logout-button{
+
+    border:none;
+
+    border-radius:8px;
+
+    padding:10px 18px;
+
+    font-size:14px;
+
+    cursor:pointer;
+
+}
+
+
+.refresh-button{
+
+    background:#1976D2;
+
+    color:white;
+
+}
+
+
+.refresh-button:hover{
+
+    background:#0D47A1;
+
+}
+
+
+.logout-button{
+
+    background:#eeeeee;
+
+    color:#333;
+
+}
+
+
+.table-wrap{
+
+    width:100%;
+
+    overflow-x:auto;
+
+}
+
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    min-width:1050px;
+
+}
+
+
+thead th{
+
+    background:#1565C0;
+
+    color:white;
+
+    padding:11px 8px;
+
+    text-align:left;
+
+    font-size:14px;
+
+    white-space:nowrap;
+
+}
+
+
+tbody td{
+
+    padding:9px 8px;
+
+    border-bottom:1px solid #ddd;
+
+    font-size:14px;
+
+    vertical-align:middle;
+
+}
+
+
+tbody tr:nth-child(even){
+
+    background:#f7f9fc;
+
+}
+
+
+tbody tr:hover{
+
+    background:#e8f1ff;
+
+}
+
+
+.no{
+
+    width:45px;
+
+    text-align:center;
+
+    font-weight:bold;
+
+}
+
+
+.course{
+
+    width:70px;
+
+    text-align:center;
+
+}
+
+
+.subject{
+
+    font-weight:600;
+
+    color:#1565C0;
+
+}
+
+
+.teacher{
+
+    white-space:nowrap;
+
+}
+
+
+.meeting a{
+
+    color:#1565C0;
+
+    text-decoration:none;
+
+    font-weight:600;
+
+}
+
+
+.meeting a:hover{
+
+    text-decoration:underline;
+
+}
+
+
+.updated{
+
+    white-space:nowrap;
+
+    color:#666;
+
+}
+
+
+.status-cell{
+
+    text-align:center;
+
+    white-space:nowrap;
+
+}
+
+
+.status{
+
+    display:inline-block;
+
+    min-width:80px;
+
+    padding:5px 10px;
+
+    border-radius:20px;
+
+    font-weight:bold;
+
+    font-size:12px;
+
+    margin-right:6px;
+
+}
+
+
+.status-open{
+
+    background:#d9f7df;
+
+    color:#16803c;
+
+}
+
+
+.status-closed{
+
+    background:#ffe0e0;
+
+    color:#c62828;
+
+}
+
+
+.status-button{
+
+    border:none;
+
+    border-radius:7px;
+
+    padding:7px 11px;
+
+    color:white;
+
+    font-size:12px;
+
+    cursor:pointer;
+
+}
+
+
+.open-button{
+
+    background:#16803c;
+
+}
+
+
+.close-button{
+
+    background:#c62828;
+
+}
+
+
+.status-button:hover{
+
+    opacity:.85;
+
+}
+
+
+#message{
+
+    text-align:center;
+
+    padding:20px;
+
+    color:#666;
+
+}
+
+
+.footer{
+
+    text-align:center;
+
+    margin-top:15px;
+
+    color:#888;
+
+    font-size:13px;
+
+}
+
+
+/* Mobile */
+
+@media(max-width:700px){
+
+    body{
+
+        padding:8px;
+
+    }
+
+    .dashboard{
+
+        padding:12px;
+
+    }
+
+    .header{
+
+        align-items:flex-start;
+
+    }
+
+    .coordinator{
+
+        text-align:left;
+
+    }
+
+    .title{
+
+        font-size:22px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="dashboard">
+
+
+    <div class="header">
+
+
+        <div class="brand">
+
+            <div class="logo">🦜</div>
+
+            <div>
+
+                <div class="title">
+                    KALVIPARAVAI
+                </div>
+
+                <div class="subtitle">
+                    Coordinator Dashboard
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="coordinator">
+
+            Welcome,
+
+            <strong id="coordinatorName">
+                Coordinator
+            </strong>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="actions">
+
+        <button
+            class="refresh-button"
+            onclick="loadSessions()"
+        >
+            ↻ REFRESH
+        </button>
+
+
+        <button
+            class="logout-button"
+            onclick="logout()"
+        >
+            LOGOUT
+        </button>
+
+    </div>
+
+
+    <div class="table-wrap">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>No</th>
+
+                    <th>Subject Code</th>
+
+                    <th>CourseID</th>
+
+                    <th>Subject Name</th>
+
+                    <th>Teacher</th>
+
+                    <th>Meeting URL</th>
+
+                    <th>Last Updated</th>
+
+                    <th>Session Status</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody id="sessionTable">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    <div id="message">
+        Loading sessions...
+    </div>
+
+
+    <div class="footer">
+        KPOTMS Version 3.0
+    </div>
+
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   KPOTMS V3.0
+   COORDINATOR DASHBOARD
+
+   Data Source:
+   04_Class_Master
+
+   Columns:
+   A = Subject_Code
+   B = CourseID
+   C = Subject_Name
+   D = Teacher
+   E = Meeting_URL
+   F = Session_Status
+   G = Last_Updated
+   ===================================================== */
+
+
+const csvURL =
+"https://docs.google.com/spreadsheets/d/e/2PACX-1vSJxSOEW0y5LERF7KJQKN-ivKxL9D_1tbX9S09kAvn_jTw7719AZInIgGYwd3ent-IX4ky11N2TrS4s/pub?gid=956481198&single=true&output=csv";
+
+
+/* Coordinator name from Login */
+
+const savedName =
+    sessionStorage.getItem("coordinatorName");
+
+
+if(savedName){
+
+    document.getElementById(
+        "coordinatorName"
+    ).textContent = savedName;
+
+}
+
+
+/* =====================================================
+   Load Sessions
+   ===================================================== */
+
+async function loadSessions(){
+
+    const table =
+        document.getElementById("sessionTable");
+
+    const message =
+        document.getElementById("message");
+
+
+    table.innerHTML = "";
+
+    message.textContent =
+        "Loading sessions...";
+
+
+    try{
+
+        const response =
+            await fetch(csvURL);
+
+
+        const csv =
+            await response.text();
+
+
+        if(!csv.trim()){
+
+            throw new Error(
+                "Empty Class Master data"
+            );
+
+        }
+
+
+        const rows =
+            parseCSV(csv);
+
+
+        if(rows.length <= 1){
+
+            message.textContent =
+                "No sessions found.";
+
+            return;
+
+        }
+
+
+        let count = 0;
+
+
+        for(let i = 1; i < rows.length; i++){
+
+            const row = rows[i];
+
+
+            if(!row || row.length < 6){
+                continue;
+            }
+
+
+            if(
+                row.every(
+                    value => String(value).trim() === ""
+                )
+            ){
+                continue;
+            }
+
+
+            count++;
+
+
+            const subjectCode =
+                clean(row[0]);
+
+
+            const courseID =
+                clean(row[1]);
+
+
+            const subjectName =
+                clean(row[2]);
+
+
+            const teacher =
+                clean(row[3]);
+
+
+            const meetingURL =
+                clean(row[4]);
+
+
+            const status =
+                clean(row[5]).toUpperCase();
+
+
+            const lastUpdated =
+                clean(row[6]);
+
+
+            const tr =
+                document.createElement("tr");
+
+
+            tr.innerHTML = `
+
+                <td class="no">
+                    ${count}
+                </td>
+
+                <td>
+                    ${escapeHTML(subjectCode)}
+                </td>
+
+                <td class="course">
+                    ${escapeHTML(courseID)}
+                </td>
+
+                <td class="subject">
+                    ${escapeHTML(subjectName)}
+                </td>
+
+                <td class="teacher">
+                    ${escapeHTML(teacher)}
+                </td>
+
+                <td class="meeting">
+                    ${
+                        meetingURL
+                        ? `<a href="${escapeAttribute(meetingURL)}"
+                              target="_blank">
+                              OPEN LINK
+                           </a>`
+                        : "—"
+                    }
+                </td>
+
+                <td class="updated">
+                    ${escapeHTML(lastUpdated)}
+                </td>
+
+                <td class="status-cell">
+
+                    ${createStatusHTML(
+                        status,
+                        i
+                    )}
+
+                </td>
+
+            `;
+
+
+            table.appendChild(tr);
+
+        }
+
+
+        message.textContent =
+            count + " subject sessions";
+
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        message.textContent =
+            "Unable to load Class Master data.";
+
+    }
+
+}
+
+
+/* =====================================================
+   Status Display
+   ===================================================== */
+
+function createStatusHTML(status,rowNumber){
+
+    if(status === "OPEN"){
+
+        return `
+
+            <span class="status status-open">
+                OPEN
+            </span>
+
+            <button
+                class="status-button close-button"
+                onclick="changeStatus(${rowNumber}, 'CLOSED')"
+            >
+                CLOSE
+            </button>
+
+        `;
+
+    }
+
+
+    return `
+
+        <span class="status status-closed">
+            CLOSED
+        </span>
+
+        <button
+            class="status-button open-button"
+            onclick="changeStatus(${rowNumber}, 'OPEN')"
+        >
+            OPEN
+        </button>
+
+    `;
+
+}
+
+
+/* =====================================================
+   OPEN / CLOSE
+
+   The actual Google Sheet update will be connected
+   through the Coordinator Apps Script in the next
+   step.
+
+   For now this function clearly identifies the row
+   and requested status.
+   ===================================================== */
+
+function changeStatus(rowNumber,newStatus){
+
+    alert(
+        "Session status change requested: " +
+        newStatus +
+        "\n\nRow: " +
+        rowNumber +
+        "\n\nThe live Google Sheet update connection " +
+        "will be added next."
+    );
+
+}
+
+
+/* =====================================================
+   Logout
+   ===================================================== */
+
+function logout(){
+
+    sessionStorage.removeItem(
+        "coordinatorID"
+    );
+
+    sessionStorage.removeItem(
+        "coordinatorName"
+    );
+
+    sessionStorage.removeItem(
+        "coordinatorUserID"
+    );
+
+
+    window.location.href =
+        "CoordinatorLogin.html";
+
+}
+
+
+/* =====================================================
+   Simple CSV Parser
+
+   Handles quoted CSV fields as well as ordinary
+   comma-separated values.
+   ===================================================== */
+
+function parseCSV(text){
+
+    const rows = [];
+
+    let row = [];
+
+    let value = "";
+
+    let insideQuotes = false;
+
+
+    for(let i = 0; i < text.length; i++){
+
+        const char = text[i];
+
+        const next = text[i + 1];
+
+
+        if(char === '"' && insideQuotes && next === '"'){
+
+            value += '"';
+
+            i++;
+
+            continue;
+
+        }
+
+
+        if(char === '"'){
+
+            insideQuotes =
+                !insideQuotes;
+
+            continue;
+
+        }
+
+
+        if(char === "," && !insideQuotes){
+
+            row.push(value);
+
+            value = "";
+
+            continue;
+
+        }
+
+
+        if(
+            (char === "\n" ||
+             char === "\r") &&
+            !insideQuotes
+        ){
+
+            if(char === "\r" && next === "\n"){
+                i++;
+            }
+
+
+            row.push(value);
+
+            rows.push(row);
+
+            row = [];
+
+            value = "";
+
+            continue;
+
+        }
+
+
+        value += char;
+
+    }
+
+
+    if(value !== "" || row.length > 0){
+
+        row.push(value);
+
+        rows.push(row);
+
+    }
+
+
+    return rows;
+
+}
+
+
+/* =====================================================
+   Helpers
+   ===================================================== */
+
+function clean(value){
+
+    return String(value ?? "").trim();
+
+}
+
+
+function escapeHTML(value){
+
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+function escapeAttribute(value){
+
+    return String(value ?? "")
+        .replace(/"/g,"%22")
+        .replace(/</g,"%3C")
+        .replace(/>/g,"%3E");
+
+}
+
+
+/* Load immediately */
+
+loadSessions();
+
+</script>
+
+
+</body>
+
+</html>
