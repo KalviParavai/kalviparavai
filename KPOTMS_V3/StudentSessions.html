@@ -5,38 +5,59 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
 <title>Kalviparavai - Student Sessions</title>
 
+
 <style>
+
+/* =========================================================
+   RESET
+   ========================================================= */
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Segoe UI, Arial, sans-serif;
+    font-family: "Segoe UI", Arial, sans-serif;
 }
+
+
+/* =========================================================
+   PAGE
+   ========================================================= */
 
 body {
 
     min-height: 100vh;
 
-    background: linear-gradient(
-        135deg,
-        #0D47A1,
-        #1976D2,
-        #00ACC1,
-        #43A047
-    );
+    background:
+        linear-gradient(
+            135deg,
+            #0D47A1,
+            #1976D2,
+            #00ACC1,
+            #43A047
+        );
 
     background-size: 400% 400%;
 
     animation: bgmove 15s ease infinite;
 
+    display: flex;
+
+    justify-content: center;
+
+    align-items: flex-start;
+
     padding: 20px;
+
 }
+
 
 @keyframes bgmove {
 
@@ -54,22 +75,32 @@ body {
 
 }
 
-.container {
+
+/* =========================================================
+   MAIN CARD
+   ========================================================= */
+
+.card {
 
     width: 100%;
 
     max-width: 1100px;
 
-    margin: auto;
-
     background: white;
 
     border-radius: 20px;
 
-    padding: 25px;
+    padding: 22px;
 
-    box-shadow: 0 15px 40px rgba(0,0,0,.30);
+    box-shadow:
+        0 15px 40px rgba(0,0,0,.30);
+
 }
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
 
 .header {
 
@@ -77,14 +108,12 @@ body {
 
     justify-content: space-between;
 
-    align-items: center;
+    align-items: flex-start;
 
-    flex-wrap: wrap;
+    margin-bottom: 15px;
 
-    gap: 15px;
-
-    margin-bottom: 20px;
 }
+
 
 .brand {
 
@@ -93,136 +122,248 @@ body {
     align-items: center;
 
     gap: 12px;
+
 }
+
 
 .logo {
 
-    font-size: 50px;
+    font-size: 48px;
+
+    line-height: 1;
+
 }
+
 
 .title {
 
     color: #1565C0;
 
-    font-size: 28px;
+    font-size: 27px;
 
     font-weight: bold;
+
 }
+
 
 .subtitle {
 
     color: #666;
 
-    margin-top: 4px;
+    font-size: 14px;
+
+    margin-top: 2px;
+
 }
 
-.student-info {
+
+.welcome {
 
     text-align: right;
 
     color: #555;
 
-    font-size: 15px;
+    font-size: 14px;
+
 }
 
-.student-info strong {
+
+.welcome strong {
 
     color: #1565C0;
+
 }
 
-.actions {
+
+/* =========================================================
+   BUTTON BAR
+   ========================================================= */
+
+.toolbar {
 
     display: flex;
 
     gap: 10px;
 
-    margin-bottom: 20px;
+    margin-bottom: 16px;
+
 }
 
-.refresh-button,
-.logout-button {
+
+.toolbar button {
+
+    width: auto;
+
+    padding: 10px 18px;
+
+    margin: 0;
 
     border: none;
 
     border-radius: 8px;
 
-    padding: 10px 18px;
-
     font-size: 14px;
 
     cursor: pointer;
+
 }
 
-.refresh-button {
+
+.refresh {
 
     background: #1976D2;
 
     color: white;
+
 }
 
-.refresh-button:hover {
+
+.refresh:hover {
 
     background: #0D47A1;
+
 }
 
-.logout-button {
+
+.logout {
 
     background: #eeeeee;
 
     color: #333;
+
 }
 
-.sessions {
+
+.logout:hover {
+
+    background: #dddddd;
+
+}
+
+
+/* =========================================================
+   MESSAGE
+   ========================================================= */
+
+#message {
+
+    text-align: center;
+
+    padding: 20px;
+
+    color: #666;
+
+    font-size: 15px;
+
+}
+
+
+#error {
+
+    text-align: center;
+
+    padding: 15px;
+
+    color: #d32f2f;
+
+    font-weight: bold;
+
+    display: none;
+
+}
+
+
+/* =========================================================
+   SESSION GRID
+   ========================================================= */
+
+#sessions {
 
     display: grid;
 
     grid-template-columns:
-        repeat(auto-fit, minmax(300px, 1fr));
+        repeat(3, minmax(0, 1fr));
 
-    gap: 18px;
+    gap: 16px;
+
 }
 
-.session-card {
 
-    border-radius: 15px;
+/* =========================================================
+   SESSION CARD
+   ========================================================= */
 
-    padding: 20px;
+.session {
 
-    background: #f7f9fc;
+    background: #f8fafc;
 
-    border: 1px solid #e0e0e0;
+    border: 1px solid #d9dee5;
 
-    box-shadow: 0 5px 15px rgba(0,0,0,.08);
+    border-radius: 14px;
+
+    padding: 16px;
+
+    min-height: 145px;
+
+    box-shadow:
+        0 5px 12px rgba(0,0,0,.08);
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: space-between;
+
 }
+
 
 .subject-code {
 
     color: #777;
 
-    font-size: 13px;
+    font-size: 12px;
 
-    margin-bottom: 5px;
+    margin-bottom: 4px;
+
 }
+
 
 .subject-name {
 
     color: #1565C0;
 
-    font-size: 20px;
+    font-size: 18px;
 
     font-weight: bold;
 
     margin-bottom: 10px;
+
 }
+
 
 .teacher {
 
-    color: #555;
+    color: #444;
 
-    margin-bottom: 15px;
+    font-size: 14px;
+
 }
 
-.status-row {
+
+.teacher b {
+
+    color: #333;
+
+}
+
+
+/* =========================================================
+   SESSION FOOTER
+   ========================================================= */
+
+.session-footer {
+
+    margin-top: 15px;
 
     display: flex;
 
@@ -231,102 +372,203 @@ body {
     align-items: center;
 
     gap: 10px;
+
 }
+
+
+/* =========================================================
+   STATUS
+   ========================================================= */
 
 .status {
 
     display: inline-block;
 
-    padding: 6px 12px;
+    padding: 5px 12px;
 
     border-radius: 20px;
 
-    font-size: 12px;
+    font-size: 11px;
 
     font-weight: bold;
+
 }
 
-.status-open {
 
-    background: #d9f7df;
+.status.open {
 
-    color: #16803c;
+    background: #d8f5df;
+
+    color: #087f23;
+
 }
 
-.status-closed {
 
-    background: #ffe0e0;
+.status.closed {
+
+    background: #ffdede;
 
     color: #c62828;
+
 }
+
+
+/* =========================================================
+   JOIN BUTTON
+   ========================================================= */
 
 .join-button {
 
     border: none;
 
-    border-radius: 8px;
+    border-radius: 7px;
 
-    padding: 9px 16px;
+    padding: 8px 15px;
 
-    background: #16803c;
+    background: #138a3d;
 
     color: white;
 
-    font-size: 14px;
+    font-size: 12px;
 
     font-weight: bold;
 
     cursor: pointer;
+
 }
+
 
 .join-button:hover {
 
-    background: #0b662b;
+    background: #0b6d2e;
+
 }
 
-.closed-message {
 
-    color: #999;
+.join-button:active {
 
-    font-size: 13px;
+    transform: scale(.98);
+
 }
 
-#message {
+
+/* =========================================================
+   NOT AVAILABLE
+   ========================================================= */
+
+.not-available {
+
+    color: #888;
+
+    font-size: 12px;
+
+    text-align: right;
+
+}
+
+
+/* =========================================================
+   SUMMARY
+   ========================================================= */
+
+#summary {
 
     text-align: center;
 
-    padding: 25px;
+    color: #555;
 
-    color: #666;
+    font-size: 14px;
+
+    margin-top: 22px;
+
 }
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
 
 .footer {
 
     text-align: center;
 
-    margin-top: 25px;
-
     color: #888;
 
-    font-size: 13px;
+    font-size: 12px;
+
+    margin-top: 28px;
+
 }
 
-@media(max-width:650px) {
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 850px) {
+
+    #sessions {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+    }
+
+}
+
+
+@media (max-width: 600px) {
 
     body {
+
         padding: 10px;
+
     }
 
-    .container {
+
+    .card {
+
         padding: 15px;
+
+        border-radius: 15px;
+
     }
 
-    .student-info {
+
+    .header {
+
+        flex-direction: column;
+
+        gap: 12px;
+
+    }
+
+
+    .welcome {
+
         text-align: left;
+
     }
 
-    .sessions {
+
+    #sessions {
+
         grid-template-columns: 1fr;
+
+    }
+
+
+    .title {
+
+        font-size: 23px;
+
+    }
+
+
+    .logo {
+
+        font-size: 40px;
+
     }
 
 }
@@ -339,11 +581,14 @@ body {
 <body>
 
 
-<div class="container">
+<div class="card">
 
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
 
     <div class="header">
-
 
         <div class="brand">
 
@@ -366,10 +611,9 @@ body {
         </div>
 
 
-        <div class="student-info">
+        <div class="welcome">
 
             Welcome,
-
             <strong id="studentName">
                 Student
             </strong>
@@ -377,19 +621,22 @@ body {
             <br>
 
             <span id="studentCourse">
-                Loading course...
+                Loading...
             </span>
 
         </div>
 
-
     </div>
 
 
-    <div class="actions">
+    <!-- =====================================================
+         TOOLBAR
+         ===================================================== -->
+
+    <div class="toolbar">
 
         <button
-            class="refresh-button"
+            class="refresh"
             onclick="loadSessions()"
         >
             ↻ REFRESH
@@ -397,7 +644,7 @@ body {
 
 
         <button
-            class="logout-button"
+            class="logout"
             onclick="logout()"
         >
             LOGOUT
@@ -406,20 +653,44 @@ body {
     </div>
 
 
-    <div
-        id="sessions"
-        class="sessions"
-    >
-    </div>
+    <!-- =====================================================
+         ERROR
+         ===================================================== -->
 
+    <div id="error"></div>
+
+
+    <!-- =====================================================
+         LOADING MESSAGE
+         ===================================================== -->
 
     <div id="message">
-        Loading sessions...
+        Loading your sessions...
     </div>
 
 
+    <!-- =====================================================
+         SESSION CARDS
+         ===================================================== -->
+
+    <div id="sessions"></div>
+
+
+    <!-- =====================================================
+         SUMMARY
+         ===================================================== -->
+
+    <div id="summary"></div>
+
+
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
+
     <div class="footer">
+
         KPOTMS Version 3.0
+
     </div>
 
 
@@ -428,408 +699,986 @@ body {
 
 <script>
 
-/* =====================================================
+/* =========================================================
    KPOTMS V3.0
-   STUDENT SESSIONS
+   Student Sessions
 
-   LIVE DATA:
+   DATA FLOW
+
+   01_Students_Login
+          |
+          | KPSID + DOB
+          v
+      Student Login
+          |
+          | CourseID
+          v
+      Course Master
+          |
+          | Eligible Subject Codes
+          v
+      04_Class_Master
+          |
+          | Subject Name
+          | Teacher
+          | Meeting URL
+          | OPEN / CLOSED
+          v
+      Student Sessions
+
+
+   IMPORTANT
+
+   CourseID is used internally only.
+
+   CourseID is NOT displayed to the student.
+   ========================================================= */
+
+
+/* =========================================================
+   GOOGLE SHEET CSV URLS
+   ========================================================= */
+
+
+/*
+   Course Master
+*/
+
+const COURSE_MASTER_CSV_URL =
+"https://docs.google.com/spreadsheets/d/e/2PACX-1vSJxSOEW0y5LERF7KJQKN-ivKxL9D_1tbX9S09kAvn_jTw7719AZInIgGYwd3ent-IX4ky11N2TrS4s/pub?gid=630763762&single=true&output=csv";
+
+
+/*
    04_Class_Master
+*/
 
-   CourseID:
-   INTERNAL ONLY
-
-   Student sees:
-   Student Name
-   Course
-   Subject
-   Teacher
-   Status
-   JOIN SESSION
-   ===================================================== */
+const CLASS_MASTER_CSV_URL =
+"https://docs.google.com/spreadsheets/d/e/2PACX-1vSJxSOEW0y5LERF7KJQKN-ivKxL9D_1tbX9S09kAvn_jTw7719AZInIgGYwd3ent-IX4ky11N2TrS4s/pub?gid=956481198&single=true&output=csv";
 
 
-/* =====================================================
-   COORDINATOR / KPOTMS WEB APP
-   ===================================================== */
+/* =========================================================
+   STORAGE KEYS
+   ========================================================= */
 
-const KPOTMS_WEB_APP_URL =
-"https://script.google.com/macros/s/AKfycbyBPI1tVuHujIpBJAH5N47pmszsscx51-aqdpsTmSXYy3YeYnPc2HnuGx2SWQJlKJfX/exec";
+const STORAGE_NAME =
+    "kpotms_student_name";
 
+const STORAGE_ID =
+    "kpotms_student_id";
 
-/* =====================================================
-   Read logged-in student
-   ===================================================== */
+const STORAGE_COURSE =
+    "kpotms_student_course";
 
-const studentName =
-    sessionStorage.getItem(
-        "studentName"
-    );
-
-
-const studentCourse =
-    sessionStorage.getItem(
-        "studentCourse"
-    );
+const STORAGE_COURSE_ID =
+    "kpotms_student_course_id";
 
 
-const studentCourseID =
-    sessionStorage.getItem(
-        "studentCourseID"
-    );
+/* =========================================================
+   CSV PARSER
+   =========================================================
+
+   Handles commas inside quoted CSV values.
+   ========================================================= */
+
+function parseCSV(text) {
+
+    const rows = [];
+
+    let row = [];
+
+    let value = "";
+
+    let insideQuotes = false;
 
 
-/* =====================================================
-   Verify Student Login
-   ===================================================== */
+    for (let i = 0; i < text.length; i++) {
 
-if (
-    !studentName ||
-    !studentCourse ||
-    !studentCourseID
-) {
+        const char = text[i];
 
-    window.location.href =
-        "StudentLogin.html";
+        const next = text[i + 1];
+
+
+        if (char === '"' && insideQuotes && next === '"') {
+
+            value += '"';
+
+            i++;
+
+            continue;
+
+        }
+
+
+        if (char === '"') {
+
+            insideQuotes = !insideQuotes;
+
+            continue;
+
+        }
+
+
+        if (char === "," && !insideQuotes) {
+
+            row.push(value);
+
+            value = "";
+
+            continue;
+
+        }
+
+
+        if (
+            (char === "\n" || char === "\r") &&
+            !insideQuotes
+        ) {
+
+            if (
+                char === "\r" &&
+                next === "\n"
+            ) {
+                i++;
+            }
+
+
+            row.push(value);
+
+            value = "";
+
+
+            if (
+                row.some(
+                    cell =>
+                    String(cell).trim() !== ""
+                )
+            ) {
+
+                rows.push(row);
+
+            }
+
+
+            row = [];
+
+            continue;
+
+        }
+
+
+        value += char;
+
+    }
+
+
+    if (value !== "" || row.length > 0) {
+
+        row.push(value);
+
+        if (
+            row.some(
+                cell =>
+                String(cell).trim() !== ""
+            )
+        ) {
+
+            rows.push(row);
+
+        }
+
+    }
+
+
+    return rows;
 
 }
 
 
-/* =====================================================
-   Display student information
-   ===================================================== */
+/* =========================================================
+   NORMALIZE TEXT
+   ========================================================= */
 
-document.getElementById(
-    "studentName"
-).textContent =
-    studentName || "Student";
+function clean(value) {
 
+    return String(value ?? "")
+        .replace(/^\uFEFF/, "")
+        .trim();
 
-document.getElementById(
-    "studentCourse"
-).textContent =
-    studentCourse || "";
+}
 
 
-/* =====================================================
-   Load Live Sessions
-   ===================================================== */
+/* =========================================================
+   FIND HEADER
+   ========================================================= */
+
+function findHeader(headers, names) {
+
+    for (const name of names) {
+
+        const index =
+            headers.findIndex(
+                h =>
+                clean(h).toLowerCase() ===
+                name.toLowerCase()
+            );
+
+
+        if (index !== -1) {
+
+            return index;
+
+        }
+
+    }
+
+
+    return -1;
+
+}
+
+
+/* =========================================================
+   GET STUDENT INFORMATION
+   ========================================================= */
+
+function getStudentInformation() {
+
+    const name =
+        sessionStorage.getItem(
+            STORAGE_NAME
+        ) || sessionStorage.getItem("studentName");
+
+
+    const studentID =
+        sessionStorage.getItem(
+            STORAGE_ID
+        ) || sessionStorage.getItem("studentID");
+
+
+    const course =
+        sessionStorage.getItem(
+            STORAGE_COURSE
+        ) || sessionStorage.getItem("studentCourse");
+
+
+    const courseID =
+        sessionStorage.getItem(
+            STORAGE_COURSE_ID
+        ) || sessionStorage.getItem("courseID");
+
+
+    return {
+
+        name: clean(name),
+
+        studentID: clean(studentID),
+
+        course: clean(course),
+
+        courseID: clean(courseID)
+
+    };
+
+}
+
+
+/* =========================================================
+   LOAD SESSIONS
+   ========================================================= */
 
 async function loadSessions() {
 
+    const message =
+        document.getElementById("message");
+
+    const error =
+        document.getElementById("error");
 
     const sessionsContainer =
-        document.getElementById(
-            "sessions"
-        );
+        document.getElementById("sessions");
+
+    const summary =
+        document.getElementById("summary");
 
 
-    const message =
-        document.getElementById(
-            "message"
-        );
+    message.style.display = "block";
 
+    message.innerHTML =
+        "Loading your sessions...";
+
+
+    error.style.display = "none";
+
+    error.innerHTML = "";
 
     sessionsContainer.innerHTML = "";
 
-
-    message.textContent =
-        "Loading live sessions...";
+    summary.innerHTML = "";
 
 
     try {
 
 
-        /*
-         * Read live 04_Class_Master.
-         *
-         * Cache-busting prevents an old
-         * response from being reused.
-         */
+        /* -------------------------------------------------
+           STUDENT INFORMATION
+           ------------------------------------------------- */
 
-        const url =
-            KPOTMS_WEB_APP_URL +
-            "?action=getSessions&t=" +
-            Date.now();
+        const student =
+            getStudentInformation();
 
 
-        const response =
+        if (!student.courseID) {
+
+            throw new Error(
+                "Student CourseID is not available."
+            );
+
+        }
+
+
+        /* -------------------------------------------------
+           DISPLAY STUDENT INFORMATION
+           ------------------------------------------------- */
+
+        document.getElementById(
+            "studentName"
+        ).textContent =
+            student.name || "Student";
+
+
+        document.getElementById(
+            "studentCourse"
+        ).textContent =
+            student.course || "";
+
+
+        /* -------------------------------------------------
+           FETCH COURSE MASTER
+           ------------------------------------------------- */
+
+        const courseResponse =
             await fetch(
-                url,
-                {
-                    cache: "no-store"
-                }
+                COURSE_MASTER_CSV_URL +
+                "&t=" +
+                Date.now()
             );
 
 
-        if (!response.ok) {
+        if (!courseResponse.ok) {
 
             throw new Error(
-                "Unable to connect to session server."
+                "Unable to read Course Master."
             );
 
         }
 
 
-        const result =
-            await response.json();
+        const courseCSV =
+            await courseResponse.text();
 
 
-        if (!result.success) {
+        const courseRows =
+            parseCSV(courseCSV);
+
+
+        if (courseRows.length < 2) {
 
             throw new Error(
-                result.message ||
-                "Unable to load sessions."
+                "Course Master contains no records."
             );
 
         }
 
 
-        const allSessions =
-            result.data || [];
+        /* -------------------------------------------------
+           COURSE MASTER HEADERS
+           ------------------------------------------------- */
+
+        const courseHeaders =
+            courseRows[0].map(
+                h => clean(h)
+            );
 
 
-        /*
-         * Filter by the student's
-         * internal CourseID.
-         *
-         * CourseID is NEVER displayed.
-         */
+        const courseIDColumn =
+            findHeader(
+                courseHeaders,
+                [
+                    "CourseID",
+                    "Course_ID",
+                    "Course ID"
+                ]
+            );
 
-        const studentSessions =
-            allSessions.filter(
-                session => {
 
-                    return String(
-                        session.CourseID || ""
-                    ).trim()
-                    ===
-                    String(
-                        studentCourseID
-                    ).trim();
+        if (courseIDColumn === -1) {
+
+            throw new Error(
+                "CourseID column not found in Course Master."
+            );
+
+        }
+
+
+        /* -------------------------------------------------
+           FIND STUDENT COURSE RECORD
+           ------------------------------------------------- */
+
+        let courseRecord = null;
+
+
+        for (
+            let i = 1;
+            i < courseRows.length;
+            i++
+        ) {
+
+            const row =
+                courseRows[i];
+
+
+            if (!row) {
+                continue;
+            }
+
+
+            const rowCourseID =
+                clean(
+                    row[courseIDColumn]
+                );
+
+
+            if (
+                rowCourseID ===
+                student.courseID
+            ) {
+
+                courseRecord = row;
+
+                break;
+
+            }
+
+        }
+
+
+        if (!courseRecord) {
+
+            throw new Error(
+                "CourseID " +
+                student.courseID +
+                " was not found in Course Master."
+            );
+
+        }
+
+
+        /* -------------------------------------------------
+           COLLECT ELIGIBLE SUBJECT CODES
+           -------------------------------------------------
+
+           Course Master may contain:
+
+           Subject_Code1
+           Subject_Code2
+           Subject_Code3
+           Subject_Code4
+           Subject_Code5
+
+           We dynamically collect every header
+           beginning with Subject_Code.
+           ------------------------------------------------- */
+
+        const eligibleSubjectCodes = [];
+
+
+        for (
+            let i = 0;
+            i < courseHeaders.length;
+            i++
+        ) {
+
+            const header =
+                clean(
+                    courseHeaders[i]
+                );
+
+
+            if (
+                /^Subject[_ ]?Code/i.test(header)
+            ) {
+
+                const code =
+                    clean(
+                        courseRecord[i]
+                    );
+
+
+                if (
+                    code !== "" &&
+                    code !== "0"
+                ) {
+
+                    if (
+                        !eligibleSubjectCodes.includes(
+                            code
+                        )
+                    ) {
+
+                        eligibleSubjectCodes.push(
+                            code
+                        );
+
+                    }
 
                 }
+
+            }
+
+        }
+
+
+        if (
+            eligibleSubjectCodes.length === 0
+        ) {
+
+            throw new Error(
+                "No eligible Subject Codes found for this CourseID."
+            );
+
+        }
+
+
+        /* -------------------------------------------------
+           FETCH 04_CLASS_MASTER
+           ------------------------------------------------- */
+
+        const classResponse =
+            await fetch(
+                CLASS_MASTER_CSV_URL +
+                "&t=" +
+                Date.now()
+            );
+
+
+        if (!classResponse.ok) {
+
+            throw new Error(
+                "Unable to read 04_Class_Master."
+            );
+
+        }
+
+
+        const classCSV =
+            await classResponse.text();
+
+
+        const classRows =
+            parseCSV(classCSV);
+
+
+        if (classRows.length < 2) {
+
+            throw new Error(
+                "04_Class_Master contains no records."
+            );
+
+        }
+
+
+        /* -------------------------------------------------
+           CLASS MASTER HEADERS
+           ------------------------------------------------- */
+
+        const classHeaders =
+            classRows[0].map(
+                h => clean(h)
+            );
+
+
+        const subjectCodeColumn =
+            findHeader(
+                classHeaders,
+                [
+                    "Subject_Code",
+                    "Subject Code"
+                ]
+            );
+
+
+        const subjectNameColumn =
+            findHeader(
+                classHeaders,
+                [
+                    "Subject_Name",
+                    "Subject Name"
+                ]
+            );
+
+
+        const teacherColumn =
+            findHeader(
+                classHeaders,
+                [
+                    "Teacher"
+                ]
+            );
+
+
+        const meetingURLColumn =
+            findHeader(
+                classHeaders,
+                [
+                    "Meeting_URL",
+                    "Meeting URL"
+                ]
+            );
+
+
+        const statusColumn =
+            findHeader(
+                classHeaders,
+                [
+                    "Session_Status",
+                    "Session Status"
+                ]
             );
 
 
         if (
-            studentSessions.length === 0
+            subjectCodeColumn === -1 ||
+            subjectNameColumn === -1 ||
+            teacherColumn === -1 ||
+            meetingURLColumn === -1 ||
+            statusColumn === -1
         ) {
 
-            message.textContent =
-                "No sessions available for your course.";
-
-            return;
+            throw new Error(
+                "Required columns are missing in 04_Class_Master."
+            );
 
         }
 
 
-        /*
-         * Create one card for each
-         * subject belonging to the course.
-         */
+        /* -------------------------------------------------
+           CREATE CLASS MASTER LOOKUP
+           ------------------------------------------------- */
 
-        studentSessions.forEach(
-            session => {
+        const classMaster = {};
 
 
-                if (
-                    !session.Subject_Code
-                ) {
+        for (
+            let i = 1;
+            i < classRows.length;
+            i++
+        ) {
 
-                    return;
+            const row =
+                classRows[i];
 
-                }
+
+            if (!row) {
+                continue;
+            }
 
 
-                const subjectCode =
+            const subjectCode =
+                clean(
+                    row[subjectCodeColumn]
+                );
+
+
+            if (!subjectCode) {
+                continue;
+            }
+
+
+            classMaster[subjectCode] = {
+
+                subjectCode:
+                    subjectCode,
+
+                subjectName:
                     clean(
-                        session.Subject_Code
-                    );
+                        row[subjectNameColumn]
+                    ),
 
-
-                const subjectName =
+                teacher:
                     clean(
-                        session.Subject_Name
-                    );
+                        row[teacherColumn]
+                    ),
 
-
-                const teacher =
+                meetingURL:
                     clean(
-                        session.Teacher
-                    );
+                        row[meetingURLColumn]
+                    ),
 
-
-                const meetingURL =
+                sessionStatus:
                     clean(
-                        session.Meeting_URL
-                    );
+                        row[statusColumn]
+                    ).toUpperCase()
+
+            };
+
+        }
 
 
-                const status =
-                    clean(
-                        session.Session_Status
-                    ).toUpperCase();
+        /* -------------------------------------------------
+           BUILD ELIGIBLE SUBJECT LIST
+           ------------------------------------------------- */
+
+        const sessions = [];
 
 
-                const card =
-                    document.createElement(
-                        "div"
-                    );
+        for (
+            const subjectCode
+            of eligibleSubjectCodes
+        ) {
 
+            if (
+                classMaster[subjectCode]
+            ) {
 
-                card.className =
-                    "session-card";
-
-
-                /*
-                 * OPEN session
-                 */
-
-                if (
-                    status === "OPEN"
-                ) {
-
-                    card.innerHTML = `
-
-                        <div class="subject-code">
-                            Subject ${escapeHTML(
-                                subjectCode
-                            )}
-                        </div>
-
-                        <div class="subject-name">
-                            ${escapeHTML(
-                                subjectName
-                            )}
-                        </div>
-
-                        <div class="teacher">
-                            <b>Teacher:</b>
-                            ${escapeHTML(
-                                teacher
-                            )}
-                        </div>
-
-                        <div class="status-row">
-
-                            <span class="status status-open">
-                                🟢 OPEN
-                            </span>
-
-                            ${
-                                meetingURL
-                                ?
-                                `
-                                <button
-                                    class="join-button"
-                                    onclick="joinSession(
-                                        '${escapeJS(
-                                            meetingURL
-                                        )}'
-                                    )"
-                                >
-                                    JOIN SESSION
-                                </button>
-                                `
-                                :
-                                `
-                                <span class="closed-message">
-                                    Meeting link unavailable
-                                </span>
-                                `
-                            }
-
-                        </div>
-
-                    `;
-
-                }
-
-
-                /*
-                 * CLOSED session
-                 */
-
-                else {
-
-                    card.innerHTML = `
-
-                        <div class="subject-code">
-                            Subject ${escapeHTML(
-                                subjectCode
-                            )}
-                        </div>
-
-                        <div class="subject-name">
-                            ${escapeHTML(
-                                subjectName
-                            )}
-                        </div>
-
-                        <div class="teacher">
-                            <b>Teacher:</b>
-                            ${escapeHTML(
-                                teacher
-                            )}
-                        </div>
-
-                        <div class="status-row">
-
-                            <span class="status status-closed">
-                                🔴 CLOSED
-                            </span>
-
-                            <span class="closed-message">
-                                Session not available
-                            </span>
-
-                        </div>
-
-                    `;
-
-                }
-
-
-                sessionsContainer.appendChild(
-                    card
+                sessions.push(
+                    classMaster[subjectCode]
                 );
 
             }
+
+        }
+
+
+        /* -------------------------------------------------
+           DISPLAY
+           ------------------------------------------------- */
+
+        renderSessions(
+            sessions
         );
-
-
-        message.textContent =
-            studentSessions.length +
-            " session(s) for your course.";
 
 
     }
 
-    catch(error) {
+    catch (err) {
 
-        console.error(error);
+        console.error(err);
 
 
-        message.textContent =
-            "Unable to load live session data.";
+        message.style.display =
+            "none";
+
+
+        error.style.display =
+            "block";
+
+
+        error.innerHTML =
+            err.message ||
+            "Unable to load Student Sessions.";
 
     }
 
 }
 
 
-/* =====================================================
-   JOIN SESSION
-   ===================================================== */
+/* =========================================================
+   RENDER SESSIONS
+   ========================================================= */
 
-function joinSession(
-    meetingURL
-) {
+function renderSessions(sessions) {
+
+    const message =
+        document.getElementById("message");
+
+    const container =
+        document.getElementById("sessions");
+
+    const summary =
+        document.getElementById("summary");
+
+
+    container.innerHTML = "";
+
+
+    message.style.display =
+        "none";
+
+
+    if (
+        !sessions ||
+        sessions.length === 0
+    ) {
+
+        message.style.display =
+            "block";
+
+        message.innerHTML =
+            "No subjects are available for your course.";
+
+        return;
+
+    }
+
+
+    let openCount = 0;
+
+
+    sessions.forEach(
+        session => {
+
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+
+            card.className =
+                "session";
+
+
+            const status =
+                session.sessionStatus ===
+                "OPEN"
+                    ? "OPEN"
+                    : "CLOSED";
+
+
+            if (status === "OPEN") {
+
+                openCount++;
+
+            }
+
+
+            const statusClass =
+                status === "OPEN"
+                    ? "open"
+                    : "closed";
+
+
+            let actionHTML = "";
+
+
+            /* ---------------------------------------------
+               OPEN SESSION
+               --------------------------------------------- */
+
+            if (
+                status === "OPEN"
+            ) {
+
+                actionHTML = `
+                    <button
+                        class="join-button"
+                        onclick='joinSession(${JSON.stringify(
+                            session.meetingURL
+                        )})'
+                    >
+                        JOIN SESSION
+                    </button>
+                `;
+
+            }
+
+
+            /* ---------------------------------------------
+               CLOSED SESSION
+               --------------------------------------------- */
+
+            else {
+
+                actionHTML = `
+                    <span class="not-available">
+                        Session not available
+                    </span>
+                `;
+
+            }
+
+
+            card.innerHTML = `
+
+                <div>
+
+                    <div class="subject-code">
+                        Subject ${escapeHTML(
+                            session.subjectCode
+                        )}
+                    </div>
+
+
+                    <div class="subject-name">
+                        ${escapeHTML(
+                            session.subjectName
+                        )}
+                    </div>
+
+
+                    <div class="teacher">
+                        <b>Teacher:</b>
+                        ${escapeHTML(
+                            session.teacher
+                        )}
+                    </div>
+
+                </div>
+
+
+                <div class="session-footer">
+
+                    <span
+                        class="status ${statusClass}"
+                    >
+                        ● ${status}
+                    </span>
+
+                    ${actionHTML}
+
+                </div>
+
+            `;
+
+
+            container.appendChild(
+                card
+            );
+
+        }
+    );
+
+
+    summary.innerHTML =
+        sessions.length +
+        " subject(s) for your course.";
+
+
+    if (openCount > 0) {
+
+        summary.innerHTML +=
+            " " +
+            openCount +
+            " session(s) currently open.";
+
+    }
+
+}
+
+
+/* =========================================================
+   JOIN SESSION
+   ========================================================= */
+
+function joinSession(url) {
+
+    const meetingURL =
+        clean(url);
 
 
     if (
         !meetingURL ||
-        meetingURL.trim() === ""
+        meetingURL === "Meet Link"
     ) {
 
         alert(
@@ -841,43 +1690,72 @@ function joinSession(
     }
 
 
-    /*
-     * Open Google Meet in a new tab.
-     */
-
     window.open(
         meetingURL,
-        "_blank",
-        "noopener,noreferrer"
+        "_blank"
     );
 
 }
 
 
-/* =====================================================
+/* =========================================================
+   ESCAPE HTML
+   ========================================================= */
+
+function escapeHTML(value) {
+
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* =========================================================
    LOGOUT
-   ===================================================== */
+   ========================================================= */
 
 function logout() {
 
-
     sessionStorage.removeItem(
-        "studentKPSID"
+        STORAGE_NAME
     );
 
+    sessionStorage.removeItem(
+        STORAGE_ID
+    );
+
+    sessionStorage.removeItem(
+        STORAGE_COURSE
+    );
+
+    sessionStorage.removeItem(
+        STORAGE_COURSE_ID
+    );
+
+
+    /*
+       Also remove the alternative keys
+       used by earlier StudentLogin versions.
+    */
 
     sessionStorage.removeItem(
         "studentName"
     );
 
+    sessionStorage.removeItem(
+        "studentID"
+    );
 
     sessionStorage.removeItem(
         "studentCourse"
     );
 
-
     sessionStorage.removeItem(
-        "studentCourseID"
+        "courseID"
     );
 
 
@@ -887,95 +1765,18 @@ function logout() {
 }
 
 
-/* =====================================================
-   Utility
-   ===================================================== */
+/* =========================================================
+   INITIAL LOAD
+   ========================================================= */
 
-function clean(value) {
+window.addEventListener(
+    "DOMContentLoaded",
+    function() {
 
-    return String(
-        value ?? ""
-    ).trim();
+        loadSessions();
 
-}
-
-
-/* =====================================================
-   Escape HTML
-   ===================================================== */
-
-function escapeHTML(value) {
-
-    return String(
-        value ?? ""
-    )
-
-    .replace(
-        /&/g,
-        "&amp;"
-    )
-
-    .replace(
-        /</g,
-        "&lt;"
-    )
-
-    .replace(
-        />/g,
-        "&gt;"
-    )
-
-    .replace(
-        /"/g,
-        "&quot;"
-    )
-
-    .replace(
-        /'/g,
-        "&#039;"
-    );
-
-}
-
-
-/* =====================================================
-   Escape JavaScript string
-   ===================================================== */
-
-function escapeJS(value) {
-
-    return String(
-        value ?? ""
-    )
-
-    .replace(
-        /\\/g,
-        "\\\\"
-    )
-
-    .replace(
-        /'/g,
-        "\\'"
-    )
-
-    .replace(
-        /"/g,
-        '\\"'
-    )
-
-    .replace(
-        /\r?\n/g,
-        "\\n"
-    );
-
-}
-
-
-/* =====================================================
-   Initial Load
-   ===================================================== */
-
-loadSessions();
+    }
+);
 
 </script>
 
