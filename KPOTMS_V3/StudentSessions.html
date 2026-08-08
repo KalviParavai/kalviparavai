@@ -258,17 +258,27 @@ body {
 }
 
 
+/* =========================================================
+   ERROR
+   ========================================================= */
+
 #error {
+
+    display: none;
 
     text-align: center;
 
     padding: 15px;
 
-    color: #d32f2f;
+    color: #c62828;
+
+    background: #ffebee;
+
+    border-radius: 10px;
+
+    margin-bottom: 15px;
 
     font-weight: bold;
-
-    display: none;
 
 }
 
@@ -295,7 +305,7 @@ body {
 
 .session {
 
-    background: #f8fafc;
+    background: #f7f9fc;
 
     border: 1px solid #d9dee5;
 
@@ -305,17 +315,29 @@ body {
 
     min-height: 145px;
 
-    box-shadow:
-        0 5px 12px rgba(0,0,0,.08);
-
     display: flex;
 
     flex-direction: column;
 
     justify-content: space-between;
 
+    box-shadow:
+        0 5px 12px rgba(0,0,0,.08);
+
 }
 
+
+.session:hover {
+
+    box-shadow:
+        0 8px 18px rgba(0,0,0,.12);
+
+}
+
+
+/* =========================================================
+   SUBJECT CODE
+   ========================================================= */
 
 .subject-code {
 
@@ -327,6 +349,10 @@ body {
 
 }
 
+
+/* =========================================================
+   SUBJECT NAME
+   ========================================================= */
 
 .subject-name {
 
@@ -341,18 +367,15 @@ body {
 }
 
 
+/* =========================================================
+   TEACHER
+   ========================================================= */
+
 .teacher {
 
-    color: #444;
+    color: #555;
 
-    font-size: 14px;
-
-}
-
-
-.teacher b {
-
-    color: #333;
+    font-size: 13px;
 
 }
 
@@ -363,8 +386,6 @@ body {
 
 .session-footer {
 
-    margin-top: 15px;
-
     display: flex;
 
     justify-content: space-between;
@@ -372,6 +393,8 @@ body {
     align-items: center;
 
     gap: 10px;
+
+    margin-top: 18px;
 
 }
 
@@ -384,7 +407,7 @@ body {
 
     display: inline-block;
 
-    padding: 5px 12px;
+    padding: 6px 12px;
 
     border-radius: 20px;
 
@@ -715,7 +738,11 @@ body {
           v
       Course Master
           |
-          | Eligible Subject Codes
+          | Subject_Code1
+          | Subject_Code2
+          | Subject_Code3
+          | Subject_Code4
+          | Subject_Code5
           v
       04_Class_Master
           |
@@ -729,9 +756,20 @@ body {
 
    IMPORTANT
 
-   CourseID is used internally only.
+   CourseID is an INTERNAL KEY.
 
    CourseID is NOT displayed to the student.
+
+
+   EXAMPLE
+
+   CourseID 6
+       |
+       +-- Subject_Code1 = 12
+       +-- Subject_Code2 = 13
+       +-- Subject_Code3 = 14
+       +-- Subject_Code4 = 15
+       +-- Subject_Code5 = 17
    ========================================================= */
 
 
@@ -740,17 +778,17 @@ body {
    ========================================================= */
 
 
-/*
+/* ---------------------------------------------------------
    Course Master
-*/
+   --------------------------------------------------------- */
 
 const COURSE_MASTER_CSV_URL =
 "https://docs.google.com/spreadsheets/d/e/2PACX-1vSJxSOEW0y5LERF7KJQKN-ivKxL9D_1tbX9S09kAvn_jTw7719AZInIgGYwd3ent-IX4ky11N2TrS4s/pub?gid=630763762&single=true&output=csv";
 
 
-/*
+/* ---------------------------------------------------------
    04_Class_Master
-*/
+   --------------------------------------------------------- */
 
 const CLASS_MASTER_CSV_URL =
 "https://docs.google.com/spreadsheets/d/e/2PACX-1vSJxSOEW0y5LERF7KJQKN-ivKxL9D_1tbX9S09kAvn_jTw7719AZInIgGYwd3ent-IX4ky11N2TrS4s/pub?gid=956481198&single=true&output=csv";
@@ -777,7 +815,7 @@ const STORAGE_COURSE_ID =
    CSV PARSER
    =========================================================
 
-   Handles commas inside quoted CSV values.
+   Handles quoted CSV fields and commas inside quotes.
    ========================================================= */
 
 function parseCSV(text) {
@@ -791,14 +829,24 @@ function parseCSV(text) {
     let insideQuotes = false;
 
 
-    for (let i = 0; i < text.length; i++) {
+    for (
+        let i = 0;
+        i < text.length;
+        i++
+    ) {
 
-        const char = text[i];
+        const char =
+            text[i];
 
-        const next = text[i + 1];
+        const next =
+            text[i + 1];
 
 
-        if (char === '"' && insideQuotes && next === '"') {
+        if (
+            char === '"' &&
+            insideQuotes &&
+            next === '"'
+        ) {
 
             value += '"';
 
@@ -811,14 +859,18 @@ function parseCSV(text) {
 
         if (char === '"') {
 
-            insideQuotes = !insideQuotes;
+            insideQuotes =
+                !insideQuotes;
 
             continue;
 
         }
 
 
-        if (char === "," && !insideQuotes) {
+        if (
+            char === "," &&
+            !insideQuotes
+        ) {
 
             row.push(value);
 
@@ -830,7 +882,10 @@ function parseCSV(text) {
 
 
         if (
-            (char === "\n" || char === "\r") &&
+            (
+                char === "\n" ||
+                char === "\r"
+            ) &&
             !insideQuotes
         ) {
 
@@ -838,7 +893,9 @@ function parseCSV(text) {
                 char === "\r" &&
                 next === "\n"
             ) {
+
                 i++;
+
             }
 
 
@@ -871,9 +928,13 @@ function parseCSV(text) {
     }
 
 
-    if (value !== "" || row.length > 0) {
+    if (
+        value !== "" ||
+        row.length > 0
+    ) {
 
         row.push(value);
+
 
         if (
             row.some(
@@ -895,7 +956,7 @@ function parseCSV(text) {
 
 
 /* =========================================================
-   NORMALIZE TEXT
+   CLEAN VALUE
    ========================================================= */
 
 function clean(value) {
@@ -913,7 +974,9 @@ function clean(value) {
 
 function findHeader(headers, names) {
 
-    for (const name of names) {
+    for (
+        const name of names
+    ) {
 
         const index =
             headers.findIndex(
@@ -946,36 +1009,52 @@ function getStudentInformation() {
     const name =
         sessionStorage.getItem(
             STORAGE_NAME
-        ) || sessionStorage.getItem("studentName");
+        ) ||
+        sessionStorage.getItem(
+            "studentName"
+        );
 
 
     const studentID =
         sessionStorage.getItem(
             STORAGE_ID
-        ) || sessionStorage.getItem("studentID");
+        ) ||
+        sessionStorage.getItem(
+            "studentID"
+        );
 
 
     const course =
         sessionStorage.getItem(
             STORAGE_COURSE
-        ) || sessionStorage.getItem("studentCourse");
+        ) ||
+        sessionStorage.getItem(
+            "studentCourse"
+        );
 
 
     const courseID =
         sessionStorage.getItem(
             STORAGE_COURSE_ID
-        ) || sessionStorage.getItem("courseID");
+        ) ||
+        sessionStorage.getItem(
+            "courseID"
+        );
 
 
     return {
 
-        name: clean(name),
+        name:
+            clean(name),
 
-        studentID: clean(studentID),
+        studentID:
+            clean(studentID),
 
-        course: clean(course),
+        course:
+            clean(course),
 
-        courseID: clean(courseID)
+        courseID:
+            clean(courseID)
 
     };
 
@@ -989,39 +1068,54 @@ function getStudentInformation() {
 async function loadSessions() {
 
     const message =
-        document.getElementById("message");
+        document.getElementById(
+            "message"
+        );
 
     const error =
-        document.getElementById("error");
+        document.getElementById(
+            "error"
+        );
 
     const sessionsContainer =
-        document.getElementById("sessions");
+        document.getElementById(
+            "sessions"
+        );
 
     const summary =
-        document.getElementById("summary");
+        document.getElementById(
+            "summary"
+        );
 
 
-    message.style.display = "block";
+    message.style.display =
+        "block";
 
     message.innerHTML =
         "Loading your sessions...";
 
 
-    error.style.display = "none";
+    error.style.display =
+        "none";
 
-    error.innerHTML = "";
+    error.innerHTML =
+        "";
 
-    sessionsContainer.innerHTML = "";
 
-    summary.innerHTML = "";
+    sessionsContainer.innerHTML =
+        "";
+
+    summary.innerHTML =
+        "";
 
 
     try {
 
 
-        /* -------------------------------------------------
-           STUDENT INFORMATION
-           ------------------------------------------------- */
+        /* =================================================
+           STEP 1
+           GET LOGGED-IN STUDENT
+           ================================================= */
 
         const student =
             getStudentInformation();
@@ -1036,25 +1130,30 @@ async function loadSessions() {
         }
 
 
-        /* -------------------------------------------------
+        /* =================================================
            DISPLAY STUDENT INFORMATION
-           ------------------------------------------------- */
+
+           CourseID deliberately NOT displayed.
+           ================================================= */
 
         document.getElementById(
             "studentName"
         ).textContent =
-            student.name || "Student";
+            student.name ||
+            "Student";
 
 
         document.getElementById(
             "studentCourse"
         ).textContent =
-            student.course || "";
+            student.course ||
+            "";
 
 
-        /* -------------------------------------------------
-           FETCH COURSE MASTER
-           ------------------------------------------------- */
+        /* =================================================
+           STEP 2
+           READ COURSE MASTER
+           ================================================= */
 
         const courseResponse =
             await fetch(
@@ -1077,11 +1176,22 @@ async function loadSessions() {
             await courseResponse.text();
 
 
+        if (!courseCSV.trim()) {
+
+            throw new Error(
+                "Course Master returned empty data."
+            );
+
+        }
+
+
         const courseRows =
             parseCSV(courseCSV);
 
 
-        if (courseRows.length < 2) {
+        if (
+            courseRows.length < 2
+        ) {
 
             throw new Error(
                 "Course Master contains no records."
@@ -1090,9 +1200,10 @@ async function loadSessions() {
         }
 
 
-        /* -------------------------------------------------
-           COURSE MASTER HEADERS
-           ------------------------------------------------- */
+        /* =================================================
+           STEP 3
+           READ COURSE MASTER HEADERS
+           ================================================= */
 
         const courseHeaders =
             courseRows[0].map(
@@ -1111,7 +1222,60 @@ async function loadSessions() {
             );
 
 
-        if (courseIDColumn === -1) {
+        /*
+           IMPORTANT:
+           Explicitly identify the five
+           subject-code columns.
+        */
+
+        const subjectCode1Column =
+            findHeader(
+                courseHeaders,
+                [
+                    "Subject_Code1"
+                ]
+            );
+
+
+        const subjectCode2Column =
+            findHeader(
+                courseHeaders,
+                [
+                    "Subject_Code2"
+                ]
+            );
+
+
+        const subjectCode3Column =
+            findHeader(
+                courseHeaders,
+                [
+                    "Subject_Code3"
+                ]
+            );
+
+
+        const subjectCode4Column =
+            findHeader(
+                courseHeaders,
+                [
+                    "Subject_Code4"
+                ]
+            );
+
+
+        const subjectCode5Column =
+            findHeader(
+                courseHeaders,
+                [
+                    "Subject_Code5"
+                ]
+            );
+
+
+        if (
+            courseIDColumn === -1
+        ) {
 
             throw new Error(
                 "CourseID column not found in Course Master."
@@ -1120,11 +1284,28 @@ async function loadSessions() {
         }
 
 
-        /* -------------------------------------------------
-           FIND STUDENT COURSE RECORD
-           ------------------------------------------------- */
+        if (
+            subjectCode1Column === -1 ||
+            subjectCode2Column === -1 ||
+            subjectCode3Column === -1 ||
+            subjectCode4Column === -1 ||
+            subjectCode5Column === -1
+        ) {
 
-        let courseRecord = null;
+            throw new Error(
+                "One or more Subject_Code1 to Subject_Code5 columns are missing in Course Master."
+            );
+
+        }
+
+
+        /* =================================================
+           STEP 4
+           FIND EXACT COURSE RECORD
+           ================================================= */
+
+        let courseRecord =
+            null;
 
 
         for (
@@ -1138,13 +1319,17 @@ async function loadSessions() {
 
 
             if (!row) {
+
                 continue;
+
             }
 
 
             const rowCourseID =
                 clean(
-                    row[courseIDColumn]
+                    row[
+                        courseIDColumn
+                    ]
                 );
 
 
@@ -1153,7 +1338,8 @@ async function loadSessions() {
                 student.courseID
             ) {
 
-                courseRecord = row;
+                courseRecord =
+                    row;
 
                 break;
 
@@ -1173,85 +1359,110 @@ async function loadSessions() {
         }
 
 
-        /* -------------------------------------------------
-           COLLECT ELIGIBLE SUBJECT CODES
-           -------------------------------------------------
+        /* =================================================
+           STEP 5
+           EXPLICITLY COLLECT FIVE SUBJECT CODES
+           ================================================= */
 
-           Course Master may contain:
+        const eligibleSubjectCodes = [
 
-           Subject_Code1
-           Subject_Code2
-           Subject_Code3
-           Subject_Code4
-           Subject_Code5
+            clean(
+                courseRecord[
+                    subjectCode1Column
+                ]
+            ),
 
-           We dynamically collect every header
-           beginning with Subject_Code.
-           ------------------------------------------------- */
+            clean(
+                courseRecord[
+                    subjectCode2Column
+                ]
+            ),
 
-        const eligibleSubjectCodes = [];
+            clean(
+                courseRecord[
+                    subjectCode3Column
+                ]
+            ),
 
+            clean(
+                courseRecord[
+                    subjectCode4Column
+                ]
+            ),
 
-        for (
-            let i = 0;
-            i < courseHeaders.length;
-            i++
-        ) {
+            clean(
+                courseRecord[
+                    subjectCode5Column
+                ]
+            )
 
-            const header =
-                clean(
-                    courseHeaders[i]
-                );
-
-
-            if (
-                /^Subject[_ ]?Code/i.test(header)
-            ) {
-
-                const code =
-                    clean(
-                        courseRecord[i]
-                    );
+        ];
 
 
-                if (
+        /*
+           Remove empty / zero entries.
+
+           Preserve the original order.
+        */
+
+        const filteredSubjectCodes =
+            eligibleSubjectCodes.filter(
+                code =>
                     code !== "" &&
                     code !== "0"
-                ) {
+            );
 
-                    if (
-                        !eligibleSubjectCodes.includes(
-                            code
-                        )
-                    ) {
 
-                        eligibleSubjectCodes.push(
-                            code
-                        );
+        /*
+           Remove duplicates if any.
+        */
 
-                    }
-
-                }
-
-            }
-
-        }
+        const uniqueSubjectCodes =
+            [
+                ...new Set(
+                    filteredSubjectCodes
+                )
+            ];
 
 
         if (
-            eligibleSubjectCodes.length === 0
+            uniqueSubjectCodes.length === 0
         ) {
 
             throw new Error(
-                "No eligible Subject Codes found for this CourseID."
+                "No eligible Subject Codes found for CourseID " +
+                student.courseID +
+                "."
             );
 
         }
 
 
-        /* -------------------------------------------------
-           FETCH 04_CLASS_MASTER
-           ------------------------------------------------- */
+        /*
+           DEBUG INFORMATION
+
+           This will appear only in the
+           browser console.
+
+           It does NOT expose CourseID
+           on the student screen.
+        */
+
+        console.log(
+            "KPOTMS CourseID:",
+            student.courseID
+        );
+
+        console.log(
+            "KPOTMS Eligible Subject Codes:",
+            uniqueSubjectCodes
+        );
+
+
+        /* =================================================
+           STEP 6
+           READ 04_CLASS_MASTER LIVE
+           ================================================= */
 
         const classResponse =
             await fetch(
@@ -1274,11 +1485,22 @@ async function loadSessions() {
             await classResponse.text();
 
 
+        if (!classCSV.trim()) {
+
+            throw new Error(
+                "04_Class_Master returned empty data."
+            );
+
+        }
+
+
         const classRows =
             parseCSV(classCSV);
 
 
-        if (classRows.length < 2) {
+        if (
+            classRows.length < 2
+        ) {
 
             throw new Error(
                 "04_Class_Master contains no records."
@@ -1287,9 +1509,10 @@ async function loadSessions() {
         }
 
 
-        /* -------------------------------------------------
+        /* =================================================
+           STEP 7
            CLASS MASTER HEADERS
-           ------------------------------------------------- */
+           ================================================= */
 
         const classHeaders =
             classRows[0].map(
@@ -1361,11 +1584,13 @@ async function loadSessions() {
         }
 
 
-        /* -------------------------------------------------
-           CREATE CLASS MASTER LOOKUP
-           ------------------------------------------------- */
+        /* =================================================
+           STEP 8
+           BUILD CLASS MASTER LOOKUP
+           ================================================= */
 
-        const classMaster = {};
+        const classMaster =
+            {};
 
 
         for (
@@ -1379,44 +1604,60 @@ async function loadSessions() {
 
 
             if (!row) {
+
                 continue;
+
             }
 
 
             const subjectCode =
                 clean(
-                    row[subjectCodeColumn]
+                    row[
+                        subjectCodeColumn
+                    ]
                 );
 
 
             if (!subjectCode) {
+
                 continue;
+
             }
 
 
-            classMaster[subjectCode] = {
+            classMaster[
+                subjectCode
+            ] = {
 
                 subjectCode:
                     subjectCode,
 
                 subjectName:
                     clean(
-                        row[subjectNameColumn]
+                        row[
+                            subjectNameColumn
+                        ]
                     ),
 
                 teacher:
                     clean(
-                        row[teacherColumn]
+                        row[
+                            teacherColumn
+                        ]
                     ),
 
                 meetingURL:
                     clean(
-                        row[meetingURLColumn]
+                        row[
+                            meetingURLColumn
+                        ]
                     ),
 
                 sessionStatus:
                     clean(
-                        row[statusColumn]
+                        row[
+                            statusColumn
+                        ]
                     ).toUpperCase()
 
             };
@@ -1424,24 +1665,31 @@ async function loadSessions() {
         }
 
 
-        /* -------------------------------------------------
-           BUILD ELIGIBLE SUBJECT LIST
-           ------------------------------------------------- */
+        /* =================================================
+           STEP 9
+           MATCH ELIGIBLE SUBJECT CODES
+           AGAINST 04_CLASS_MASTER
+           ================================================= */
 
-        const sessions = [];
+        const sessions =
+            [];
 
 
         for (
             const subjectCode
-            of eligibleSubjectCodes
+            of uniqueSubjectCodes
         ) {
 
-            if (
-                classMaster[subjectCode]
-            ) {
+            const session =
+                classMaster[
+                    subjectCode
+                ];
+
+
+            if (session) {
 
                 sessions.push(
-                    classMaster[subjectCode]
+                    session
                 );
 
             }
@@ -1449,20 +1697,24 @@ async function loadSessions() {
         }
 
 
-        /* -------------------------------------------------
+        /* =================================================
+           STEP 10
            DISPLAY
-           ------------------------------------------------- */
+           ================================================= */
 
         renderSessions(
             sessions
         );
 
-
     }
+
 
     catch (err) {
 
-        console.error(err);
+        console.error(
+            "KPOTMS Student Sessions Error:",
+            err
+        );
 
 
         message.style.display =
@@ -1473,7 +1725,7 @@ async function loadSessions() {
             "block";
 
 
-        error.innerHTML =
+        error.textContent =
             err.message ||
             "Unable to load Student Sessions.";
 
@@ -1486,19 +1738,28 @@ async function loadSessions() {
    RENDER SESSIONS
    ========================================================= */
 
-function renderSessions(sessions) {
+function renderSessions(
+    sessions
+) {
 
     const message =
-        document.getElementById("message");
+        document.getElementById(
+            "message"
+        );
 
     const container =
-        document.getElementById("sessions");
+        document.getElementById(
+            "sessions"
+        );
 
     const summary =
-        document.getElementById("summary");
+        document.getElementById(
+            "summary"
+        );
 
 
-    container.innerHTML = "";
+    container.innerHTML =
+        "";
 
 
     message.style.display =
@@ -1521,7 +1782,8 @@ function renderSessions(sessions) {
     }
 
 
-    let openCount = 0;
+    let openCount =
+        0;
 
 
     sessions.forEach(
@@ -1545,7 +1807,9 @@ function renderSessions(sessions) {
                     : "CLOSED";
 
 
-            if (status === "OPEN") {
+            if (
+                status === "OPEN"
+            ) {
 
                 openCount++;
 
@@ -1558,7 +1822,8 @@ function renderSessions(sessions) {
                     : "closed";
 
 
-            let actionHTML = "";
+            let actionHTML =
+                "";
 
 
             /* ---------------------------------------------
@@ -1654,7 +1919,9 @@ function renderSessions(sessions) {
         " subject(s) for your course.";
 
 
-    if (openCount > 0) {
+    if (
+        openCount > 0
+    ) {
 
         summary.innerHTML +=
             " " +
@@ -1705,11 +1972,26 @@ function joinSession(url) {
 function escapeHTML(value) {
 
     return String(value ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
 
@@ -1738,8 +2020,7 @@ function logout() {
 
 
     /*
-       Also remove the alternative keys
-       used by earlier StudentLogin versions.
+       Remove older StudentLogin keys.
     */
 
     sessionStorage.removeItem(
@@ -1769,14 +2050,7 @@ function logout() {
    INITIAL LOAD
    ========================================================= */
 
-window.addEventListener(
-    "DOMContentLoaded",
-    function() {
-
-        loadSessions();
-
-    }
-);
+loadSessions();
 
 </script>
 
