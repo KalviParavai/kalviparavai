@@ -1,10 +1,12 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
 <title>Kalviparavai - Student Login</title>
 
@@ -19,7 +21,13 @@
 
 body{
 
-    background:linear-gradient(135deg,#0D47A1,#1976D2,#00ACC1,#43A047);
+    background:linear-gradient(
+        135deg,
+        #0D47A1,
+        #1976D2,
+        #00ACC1,
+        #43A047
+    );
 
     background-size:400% 400%;
 
@@ -37,11 +45,17 @@ body{
 
 @keyframes bgmove{
 
-0%{background-position:0% 50%;}
+    0%{
+        background-position:0% 50%;
+    }
 
-50%{background-position:100% 50%;}
+    50%{
+        background-position:100% 50%;
+    }
 
-100%{background-position:0% 50%;}
+    100%{
+        background-position:0% 50%;
+    }
 
 }
 
@@ -207,119 +221,182 @@ button:hover{
 
 </head>
 
+
 <body>
+
 
 <div class="card">
 
-<div class="logo">🦜</div>
 
-<div class="title">
+    <div class="logo">
+        🦜
+    </div>
 
-KALVIPARAVAI
+
+    <div class="title">
+        KALVIPARAVAI
+    </div>
+
+
+    <div class="subtitle">
+        Student Login
+    </div>
+
+
+    <input
+        id="kpsid"
+        type="text"
+        placeholder="Enter KPSID"
+        autocomplete="username"
+    >
+
+
+    <input
+        id="dob"
+        type="password"
+        placeholder="Date of Birth"
+        autocomplete="current-password"
+    >
+
+
+    <button onclick="login()">
+        LOGIN
+    </button>
+
+
+    <div id="error"></div>
+
+
+    <div id="student">
+
+
+        <h2>
+            Welcome
+        </h2>
+
+
+        <div class="info">
+
+            <b>Student :</b>
+
+            <span id="studentName"></span>
+
+        </div>
+
+
+        <div class="info">
+
+            <b>KPSID :</b>
+
+            <span id="studentID"></span>
+
+        </div>
+
+
+        <div class="info">
+
+            <b>Course :</b>
+
+            <span id="studentCourse"></span>
+
+        </div>
+
+
+        <div class="info">
+
+            <b>Course ID :</b>
+
+            <span id="studentCourseID"></span>
+
+        </div>
+
+
+        <button
+            class="join"
+            onclick="goToSessions()"
+        >
+            VIEW SESSIONS
+        </button>
+
+
+    </div>
+
+
+    <div class="footer">
+        KPOTMS Version 3.0
+    </div>
+
 
 </div>
 
-<div class="subtitle">
-
-Student Login
-
-</div>
-
-<input
-id="kpsid"
-type="text"
-placeholder="Enter KPSID">
-
-<input
-id="dob"
-type="password"
-placeholder="Date of Birth">
-
-<button onclick="login()">
-
-LOGIN
-
-</button>
-
-<div id="error"></div>
-
-<div id="student">
-
-<h2>Welcome</h2>
-
-<div class="info">
-<b>Student :</b>
-<span id="studentName"></span>
-</div>
-
-<div class="info">
-<b>KPSID :</b>
-<span id="studentID"></span>
-</div>
-
-<div class="info">
-<b>Course :</b>
-<span id="studentCourse"></span>
-</div>
-
-<button class="join">
-
-JOIN SESSION
-
-</button>
-
-</div>
-
-<div class="footer">
-
-KPOTMS Version 3.0
-
-</div>
-
-</div>
 
 <script>
 
+
 /* =====================================================
    KPOTMS V3.0
-   Student Login Data Source
+   Student Login
 
    Google Sheet:
    01_Students_Login
 
    Columns:
+
    A = KPSID
    B = Date_of_Birth
    C = Student_Name
    D = Course
+   E = CourseID
    ===================================================== */
+
 
 const csvURL =
 "https://docs.google.com/spreadsheets/d/e/2PACX-1vSJxSOEW0y5LERF7KJQKN-ivKxL9D_1tbX9S09kAvn_jTw7719AZInIgGYwd3ent-IX4ky11N2TrS4s/pub?gid=55364272&single=true&output=csv";
 
 
+/* =====================================================
+   STUDENT LOGIN
+   ===================================================== */
+
 async function login(){
 
-    document.getElementById("error").innerHTML="";
 
-    document.getElementById("student").style.display="none";
+    document.getElementById(
+        "error"
+    ).innerHTML = "";
+
+
+    document.getElementById(
+        "student"
+    ).style.display = "none";
+
 
     const kpsid =
-        document.getElementById("kpsid")
+        document.getElementById(
+            "kpsid"
+        )
         .value
         .trim()
         .toUpperCase();
 
+
     const dob =
-        document.getElementById("dob")
+        document.getElementById(
+            "dob"
+        )
         .value
         .trim();
 
 
-    if(kpsid==="" || dob===""){
+    if(
+        kpsid === "" ||
+        dob === ""
+    ){
 
-        document.getElementById("error").innerHTML =
-        "Please enter KPSID and Date of Birth.";
+        document.getElementById(
+            "error"
+        ).innerHTML =
+            "Please enter KPSID and Date of Birth.";
 
         return;
 
@@ -328,21 +405,68 @@ async function login(){
 
     try{
 
-        const response = await fetch(csvURL);
 
-        const csv = await response.text();
+        /*
+         * Cache-busting.
+         *
+         * This makes the login read
+         * the latest published data.
+         */
 
-        const rows = csv.split(/\r?\n/);
+        const response =
+            await fetch(
+                csvURL +
+                "&t=" +
+                Date.now(),
+                {
+                    cache:"no-store"
+                }
+            );
 
 
-        for(let i=1; i<rows.length; i++){
+        if(!response.ok){
 
-            if(rows[i].trim()===""){
+            throw new Error(
+                "Unable to connect to Student Database."
+            );
+
+        }
+
+
+        const csv =
+            await response.text();
+
+
+        const rows =
+            csv.split(/\r?\n/);
+
+
+        for(
+            let i = 1;
+            i < rows.length;
+            i++
+        ){
+
+
+            if(
+                rows[i].trim() === ""
+            ){
+
                 continue;
+
             }
 
 
-            const cols = rows[i].split(",");
+            /*
+             * The login sheet contains only
+             * simple login fields.
+             *
+             * No address/school-name commas
+             * are involved here.
+             */
+
+            const cols =
+                rows[i].split(",");
 
 
             const id =
@@ -370,19 +494,84 @@ async function login(){
                 .trim();
 
 
-            if(id === kpsid && birth === dob){
+            const courseID =
+                (cols[4] || "")
+                .replace(/"/g,"")
+                .trim();
 
-                document.getElementById("studentName").innerHTML =
+
+            /*
+             * Authenticate
+             */
+
+            if(
+                id === kpsid &&
+                birth === dob
+            ){
+
+
+                /*
+                 * Store authenticated student
+                 * information for the next page.
+                 */
+
+                sessionStorage.setItem(
+                    "studentKPSID",
+                    id
+                );
+
+
+                sessionStorage.setItem(
+                    "studentName",
+                    name
+                );
+
+
+                sessionStorage.setItem(
+                    "studentCourse",
+                    course
+                );
+
+
+                sessionStorage.setItem(
+                    "studentCourseID",
+                    courseID
+                );
+
+
+                /*
+                 * Display student information.
+                 */
+
+                document.getElementById(
+                    "studentName"
+                ).textContent =
                     name;
 
-                document.getElementById("studentID").innerHTML =
+
+                document.getElementById(
+                    "studentID"
+                ).textContent =
                     id;
 
-                document.getElementById("studentCourse").innerHTML =
+
+                document.getElementById(
+                    "studentCourse"
+                ).textContent =
                     course;
 
-                document.getElementById("student").style.display =
+
+                document.getElementById(
+                    "studentCourseID"
+                ).textContent =
+                    courseID;
+
+
+                document.getElementById(
+                    "student"
+                ).style.display =
                     "block";
+
 
                 return;
 
@@ -391,21 +580,70 @@ async function login(){
         }
 
 
-        document.getElementById("error").innerHTML =
+        document.getElementById(
+            "error"
+        ).innerHTML =
             "Invalid KPSID or Date of Birth.";
+
 
     }
 
+
     catch(error){
 
-        document.getElementById("error").innerHTML =
+        console.error(error);
+
+
+        document.getElementById(
+            "error"
+        ).innerHTML =
             "Unable to connect to Student Database.";
 
     }
 
 }
 
+
+/* =====================================================
+   GO TO STUDENT SESSIONS
+   ===================================================== */
+
+function goToSessions(){
+
+
+    const courseID =
+        sessionStorage.getItem(
+            "studentCourseID"
+        );
+
+
+    if(
+        !courseID
+    ){
+
+        document.getElementById(
+            "error"
+        ).innerHTML =
+            "Course information is not available.";
+
+        return;
+
+    }
+
+
+    /*
+     * This page will be created
+     * in the next Stage 3 step.
+     */
+
+    window.location.href =
+        "StudentSessions.html";
+
+}
+
+
 </script>
+
 
 </body>
 
