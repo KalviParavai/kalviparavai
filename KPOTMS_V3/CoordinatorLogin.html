@@ -11,174 +11,152 @@
 <title>Kalviparavai - Coordinator Login</title>
 
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Segoe UI, Arial, sans-serif;
-}
+<script>
 
-body {
+const csvURL =
+"https://docs.google.com/spreadsheets/d/e/2PACX-1vSJxSOEW0y5LERF7KJQKN-ivKxL9D_1tbX9S09kAvn_jTw7719AZInIgGYwd3ent-IX4ky11N2TrS4s/pub?gid=247052099&single=true&output=csv";
 
-    min-height: 100vh;
 
-    display: flex;
+async function login() {
 
-    justify-content: center;
+    const userid =
+        document.getElementById("userid")
+        .value
+        .trim();
 
-    align-items: center;
+    const password =
+        document.getElementById("password")
+        .value
+        .trim();
 
-    background: linear-gradient(
-        135deg,
-        #0D47A1,
-        #1976D2,
-        #00ACC1,
-        #43A047
-    );
+    const errorBox =
+        document.getElementById("error");
 
-    background-size: 400% 400%;
+    errorBox.textContent = "";
+    errorBox.style.color = "red";
 
-    animation: bgmove 15s ease infinite;
 
-}
+    if (userid === "" || password === "") {
 
-@keyframes bgmove {
+        errorBox.textContent =
+            "Please enter User ID and Password.";
 
-    0% {
-        background-position: 0% 50%;
+        return;
     }
 
-    50% {
-        background-position: 100% 50%;
+
+    try {
+
+        const response = await fetch(csvURL);
+
+        const csv = await response.text();
+
+
+        if (!csv || csv.trim() === "") {
+
+            throw new Error("Empty CSV");
+
+        }
+
+
+        const rows =
+            csv.split(/\r?\n/);
+
+
+        for (let i = 1; i < rows.length; i++) {
+
+            if (rows[i].trim() === "") {
+                continue;
+            }
+
+
+            /*
+             * 02_Coordinator columns:
+             *
+             * A = CoordinatorID
+             * B = Name
+             * C = UserID
+             * D = Password
+             * E = Active
+             */
+
+            const cols =
+                rows[i]
+                .split(",")
+                .map(value =>
+                    value
+                    .replace(/^"|"$/g, "")
+                    .trim()
+                );
+
+
+            const coordinatorID = cols[0] || "";
+            const name          = cols[1] || "";
+            const user          = cols[2] || "";
+            const pass          = cols[3] || "";
+            const active        = (cols[4] || "")
+                                  .toUpperCase();
+
+
+            if (
+                user === userid &&
+                pass === password &&
+                active === "Y"
+            ) {
+
+
+                sessionStorage.setItem(
+                    "coordinatorID",
+                    coordinatorID
+                );
+
+
+                sessionStorage.setItem(
+                    "coordinatorName",
+                    name
+                );
+
+
+                sessionStorage.setItem(
+                    "coordinatorUserID",
+                    user
+                );
+
+
+                errorBox.style.color =
+                    "#16803c";
+
+                errorBox.textContent =
+                    "Login successful. Coordinator Dashboard ready.";
+
+                return;
+            }
+
+        }
+
+
+        errorBox.style.color = "red";
+
+        errorBox.textContent =
+            "Invalid User ID or Password.";
+
     }
 
-    100% {
-        background-position: 0% 50%;
+
+    catch (error) {
+
+        console.error(error);
+
+        errorBox.style.color = "red";
+
+        errorBox.textContent =
+            "Unable to connect to Coordinator Database.";
+
     }
 
 }
 
-.login-card {
-
-    width: 420px;
-
-    max-width: 92%;
-
-    background: white;
-
-    border-radius: 20px;
-
-    padding: 35px;
-
-    text-align: center;
-
-    box-shadow:
-        0 15px 40px rgba(0,0,0,0.30);
-
-}
-
-.logo {
-
-    font-size: 65px;
-
-}
-
-.title {
-
-    color: #1565C0;
-
-    font-size: 30px;
-
-    font-weight: bold;
-
-    margin-top: 10px;
-
-}
-
-.subtitle {
-
-    color: #666;
-
-    font-size: 18px;
-
-    margin-top: 6px;
-
-    margin-bottom: 25px;
-
-}
-
-input {
-
-    width: 100%;
-
-    padding: 15px;
-
-    margin: 10px 0;
-
-    border: 1px solid #ccc;
-
-    border-radius: 10px;
-
-    font-size: 16px;
-
-}
-
-input:focus {
-
-    outline: none;
-
-    border-color: #1565C0;
-
-}
-
-.login-button {
-
-    width: 100%;
-
-    padding: 15px;
-
-    margin-top: 15px;
-
-    border: none;
-
-    border-radius: 10px;
-
-    background: #1565C0;
-
-    color: white;
-
-    font-size: 18px;
-
-    cursor: pointer;
-
-}
-
-.login-button:hover {
-
-    background: #0D47A1;
-
-}
-
-#error {
-
-    color: red;
-
-    font-weight: bold;
-
-    margin-top: 15px;
-
-}
-
-.footer {
-
-    color: #888;
-
-    font-size: 13px;
-
-    margin-top: 20px;
-
-}
-
+</script>
 </style>
 
 </head>
