@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>Teacher Login - Kalviparavai</title>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #eef5ff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .login-container {
+      width: 100%;
+      max-width: 430px;
+      padding: 20px;
+    }
+
+    .login-card {
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 35px;
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+    }
+
+    .brand {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .brand img {
+      width: 85px;
+      height: auto;
+      margin-bottom: 10px;
+    }
+
+    .brand h1 {
+      margin: 0;
+      color: #0b2a57;
+      font-size: 27px;
+    }
+
+    .brand h2 {
+      margin: 5px 0 0;
+      color: #f5a623;
+      font-size: 20px;
+    }
+
+    .role-label {
+      text-align: center;
+      margin: 18px 0 25px;
+      color: #2b5fb3;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 7px;
+      color: #233;
+      font-weight: 600;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #ccd6e5;
+      border-radius: 8px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #2b5fb3;
+      box-shadow: 0 0 0 3px rgba(43, 95, 179, 0.10);
+    }
+
+    .login-button {
+      width: 100%;
+      padding: 13px;
+      border: none;
+      border-radius: 8px;
+      background: #2b5fb3;
+      color: white;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+
+    .login-button:hover {
+      background: #0b2a57;
+    }
+
+    .login-button:disabled {
+      background: #9aa9bd;
+      cursor: not-allowed;
+    }
+
+    .message {
+      margin-top: 18px;
+      padding: 10px;
+      border-radius: 7px;
+      text-align: center;
+      display: none;
+      font-size: 14px;
+    }
+
+    .error {
+      display: block;
+      background: #ffe8e8;
+      color: #a00000;
+    }
+
+    .success {
+      display: block;
+      background: #e7f7ed;
+      color: #176b36;
+    }
+
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 22px;
+      color: #2b5fb3;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    .loading {
+      display: none;
+      text-align: center;
+      margin-top: 12px;
+      color: #2b5fb3;
+      font-size: 14px;
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <div class="login-container">
+
+    <div class="login-card">
+
+      <div class="brand">
+
+        <img
+          src="images/logo.png"
+          alt="Kalviparavai Logo"
+        >
+
+        <h1>Kalviparavai</h1>
+
+        <h2>Digital Class Room</h2>
+
+      </div>
+
+      <div class="role-label">
+        Teacher Login
+      </div>
+
+      <form id="teacherLoginForm">
+
+        <div class="form-group">
+
+          <label for="subjectCode">
+            Subject Code
+          </label>
+
+          <input
+            type="number"
+            id="subjectCode"
+            name="subjectCode"
+            placeholder="Enter Subject Code"
+            required
+            min="1"
+          >
+
+        </div>
+
+        <div class="form-group">
+
+          <label for="password">
+            Password
+          </label>
+
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Enter Password"
+            required
+          >
+
+        </div>
+
+        <button
+          type="submit"
+          class="login-button"
+          id="loginButton"
+        >
+          LOGIN
+        </button>
+
+      </form>
+
+      <div
+        id="loadingMessage"
+        class="loading"
+      >
+        Verifying Teacher Login...
+      </div>
+
+      <div
+        id="message"
+        class="message"
+      ></div>
+
+      <a
+        href="#"
+        class="back-link"
+        onclick="goHome(); return false;"
+      >
+        ← Back to Kalviparavai Home
+      </a>
+
+    </div>
+
+  </div>
+
+
+<script>
+
+/* ==========================================================
+   TEACHER LOGIN
+   ========================================================== */
+
+document
+  .getElementById("teacherLoginForm")
+  .addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    const subjectCode =
+      document
+        .getElementById("subjectCode")
+        .value
+        .trim();
+
+    const password =
+      document
+        .getElementById("password")
+        .value
+        .trim();
+
+    if (!subjectCode || !password) {
+
+      showMessage(
+        "Subject Code and Password are required.",
+        "error"
+      );
+
+      return;
+
+    }
+
+    setLoading(true);
+
+    /*
+     * Backend function to be created:
+     *
+     * loginTeacher(request)
+     *
+     * IMPORTANT:
+     * The backend must return role = "TEACHER"
+     * after successful authentication.
+     */
+
+    google.script.run
+      .withSuccessHandler(handleLoginResult)
+      .withFailureHandler(handleLoginError)
+      .loginTeacher({
+
+        subjectCode: subjectCode,
+        password: password
+
+      });
+
+  });
+
+
+/* ==========================================================
+   LOGIN RESULT
+   ========================================================== */
+
+function handleLoginResult(result) {
+
+  setLoading(false);
+
+  if (!result || result.login !== true) {
+
+    showMessage(
+      result && result.reason
+        ? result.reason
+        : "Teacher Login failed.",
+      "error"
+    );
+
+    return;
+
+  }
+
+  /*
+   * ========================================================
+   * ROLE VERIFICATION
+   * ========================================================
+   *
+   * NEVER trust login=true alone.
+   *
+   * Teacher portal requires:
+   *
+   * role === "TEACHER"
+   *
+   * ========================================================
+   */
+
+  if (result.role !== "TEACHER") {
+
+    showMessage(
+      "Access denied. Invalid user role.",
+      "error"
+    );
+
+    return;
+
+  }
+
+  /*
+   * Store only the authenticated session information
+   * required by the next Teacher page.
+   */
+
+  sessionStorage.setItem(
+    "kpotms_role",
+    "TEACHER"
+  );
+
+  sessionStorage.setItem(
+    "kpotms_subjectCode",
+    String(result.subjectCode || "")
+  );
+
+  sessionStorage.setItem(
+    "kpotms_teacherName",
+    String(result.teacherName || "")
+  );
+
+  sessionStorage.setItem(
+    "kpotms_courseID",
+    String(result.courseID || "")
+  );
+
+  sessionStorage.setItem(
+    "kpotms_subjectName",
+    String(result.subjectName || "")
+  );
+
+  sessionStorage.setItem(
+    "kpotms_meetingURL",
+    String(result.meetingURL || "")
+  );
+
+  sessionStorage.setItem(
+    "kpotms_sessionStatus",
+    String(result.sessionStatus || "")
+  );
+
+  showMessage(
+    "Login successful. Opening Teacher Portal...",
+    "success"
+  );
+
+  /*
+   * Teacher Dashboard will be created next.
+   *
+   * Do NOT redirect to it until the actual file exists.
+   */
+
+  setTimeout(function() {
+
+    window.location.href =
+      "TeacherDashboard.html";
+
+  }, 700);
+
+}
+
+
+/* ==========================================================
+   LOGIN ERROR
+   ========================================================== */
+
+function handleLoginError(error) {
+
+  setLoading(false);
+
+  showMessage(
+    "Unable to process Teacher Login. Please try again.",
+    "error"
+  );
+
+  console.error(error);
+
+}
+
+
+/* ==========================================================
+   UI HELPERS
+   ========================================================== */
+
+function showMessage(text, type) {
+
+  const message =
+    document.getElementById("message");
+
+  message.textContent = text;
+
+  message.className =
+    "message " + type;
+
+}
+
+
+function setLoading(isLoading) {
+
+  const button =
+    document.getElementById("loginButton");
+
+  const loading =
+    document.getElementById("loadingMessage");
+
+  button.disabled = isLoading;
+
+  loading.style.display =
+    isLoading ? "block" : "none";
+
+}
+
+
+/* ==========================================================
+   HOME
+   ========================================================== */
+
+function goHome() {
+
+  /*
+   * We will replace this with the correct
+   * production home URL/path when the V3
+   * navigation is finalized.
+   */
+
+  window.location.href = "../index.html";
+
+}
+
+</script>
+
+</body>
+
+</html>
