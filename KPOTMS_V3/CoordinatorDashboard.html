@@ -670,19 +670,17 @@ window.currentSessionRows = {};
    LOAD ALL SESSIONS
    ========================================================== */
 
-async function loadSessions() {
+ async function loadSessions() {
 
     const table =
         document.getElementById(
             "sessionTable"
         );
 
-
     const message =
         document.getElementById(
             "message"
         );
-
 
     const refreshButton =
         document.getElementById(
@@ -694,12 +692,10 @@ async function loadSessions() {
 
     window.currentSessionRows = {};
 
-
     message.className = "";
 
     message.textContent =
         "Loading live sessions...";
-
 
     refreshButton.disabled = true;
 
@@ -752,16 +748,14 @@ async function loadSessions() {
         );
 
 
+        /* ==================================================
+           Validate API response
+           ================================================== */
+
         let sessions = [];
 
 
-        if (Array.isArray(result)) {
-
-            sessions = result;
-
-        }
-
-        else if (
+        if (
             result &&
             result.success === true &&
             Array.isArray(result.data)
@@ -772,33 +766,26 @@ async function loadSessions() {
 
         }
 
-        else if (
-            result &&
-            result.success === false
-        ) {
-
-            throw new Error(
-                result.message ||
-                "Unable to load sessions."
-            );
-
-        }
-
         else {
 
             throw new Error(
-                "Invalid session data received from server."
+                result &&
+                result.message
+                    ? result.message
+                    : "Invalid session data received from server."
             );
 
         }
 
+
+        /* ==================================================
+           No sessions
+           ================================================== */
 
         if (sessions.length === 0) {
 
             message.textContent =
                 "No sessions found.";
-
-            refreshButton.disabled = false;
 
             return;
 
@@ -807,6 +794,10 @@ async function loadSessions() {
 
         let count = 0;
 
+
+        /* ==================================================
+           Build session rows
+           ================================================== */
 
         for (
             let i = 0;
@@ -818,11 +809,21 @@ async function loadSessions() {
                 sessions[i];
 
 
+            /* ----------------------------------------------
+               IMPORTANT:
+               API field names are exactly as returned by
+               Code.gs / CoordinatorManager.gs
+               ---------------------------------------------- */
+
             const subjectCode =
                 clean(
-                    session.subjectCode
+                    session.Subject_Code
                 );
 
+
+            /* ----------------------------------------------
+               Skip blank final spreadsheet row
+               ---------------------------------------------- */
 
             if (
                 subjectCode === ""
@@ -838,39 +839,44 @@ async function loadSessions() {
 
             const courseID =
                 clean(
-                    session.courseID
+                    session.CourseID
                 );
 
 
             const subjectName =
                 clean(
-                    session.subjectName
+                    session.Subject_Name
                 );
 
 
             const teacher =
                 clean(
-                    session.teacher
+                    session.Teacher
                 );
 
 
             const meetingURL =
                 clean(
-                    session.meetingURL
+                    session.Meeting_URL
                 );
 
 
             const status =
                 clean(
-                    session.sessionStatus
-                ).toUpperCase();
+                    session.Session_Status
+                )
+                .toUpperCase();
 
 
             const lastUpdated =
                 formatDateTime(
-                    session.lastUpdated
+                    session.Last_Updated
                 );
 
+
+            /* ----------------------------------------------
+               Store row information
+               ---------------------------------------------- */
 
             window.currentSessionRows[count] = {
 
@@ -882,6 +888,10 @@ async function loadSessions() {
 
             };
 
+
+            /* ----------------------------------------------
+               Create table row
+               ---------------------------------------------- */
 
             const tr =
                 document.createElement(
@@ -895,11 +905,13 @@ async function loadSessions() {
                     ${count}
                 </td>
 
+
                 <td>
                     ${escapeHTML(
                         subjectCode
                     )}
                 </td>
+
 
                 <td class="course">
                     ${escapeHTML(
@@ -907,17 +919,20 @@ async function loadSessions() {
                     )}
                 </td>
 
+
                 <td class="subject">
                     ${escapeHTML(
                         subjectName
                     )}
                 </td>
 
+
                 <td class="teacher">
                     ${escapeHTML(
                         teacher
                     )}
                 </td>
+
 
                 <td class="meeting">
 
@@ -943,11 +958,13 @@ async function loadSessions() {
 
                 </td>
 
+
                 <td class="updated">
                     ${escapeHTML(
                         lastUpdated
                     )}
                 </td>
+
 
                 <td class="status-cell">
 
@@ -968,17 +985,23 @@ async function loadSessions() {
         }
 
 
+        /* ==================================================
+           All rows were blank
+           ================================================== */
+
         if (count === 0) {
 
             message.textContent =
                 "No valid sessions found.";
 
-            refreshButton.disabled = false;
-
             return;
 
         }
 
+
+        /* ==================================================
+           Success
+           ================================================== */
 
         message.textContent =
             count +
@@ -1003,7 +1026,6 @@ async function loadSessions() {
         message.textContent =
             "Unable to load live Class Master data.";
 
-
     }
 
 
@@ -1014,8 +1036,6 @@ async function loadSessions() {
     }
 
 }
-
-
 /* ==========================================================
    CREATE STATUS HTML
    ========================================================== */
