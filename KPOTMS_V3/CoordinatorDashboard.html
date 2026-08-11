@@ -10,82 +10,49 @@
 
 <title>Kalviparavai - Coordinator Dashboard</title>
 
-
 <style>
 
-/* ==========================================================
-   KPOTMS V3.0
-   COORDINATOR DASHBOARD
-   ========================================================== */
-
 * {
-
-    box-sizing: border-box;
-
     margin: 0;
-
     padding: 0;
-
-    font-family:
-        "Segoe UI",
-        Arial,
-        sans-serif;
-
+    box-sizing: border-box;
+    font-family: "Segoe UI", Arial, sans-serif;
 }
-
 
 body {
 
     min-height: 100vh;
 
-    background:
-        linear-gradient(
-            135deg,
-            #0d47a1,
-            #1976d2,
-            #00acc1,
-            #43a047
-        );
+    background: linear-gradient(
+        135deg,
+        #0D47A1,
+        #1976D2,
+        #00ACC1,
+        #43A047
+    );
 
     background-size: 400% 400%;
 
-    animation:
-        backgroundMove 15s ease infinite;
+    animation: bgmove 15s ease infinite;
 
     padding: 20px;
-
 }
 
-
-@keyframes backgroundMove {
+@keyframes bgmove {
 
     0% {
-
-        background-position:
-            0% 50%;
-
+        background-position: 0% 50%;
     }
 
     50% {
-
-        background-position:
-            100% 50%;
-
+        background-position: 100% 50%;
     }
 
     100% {
-
-        background-position:
-            0% 50%;
-
+        background-position: 0% 50%;
     }
 
 }
-
-
-/* ==========================================================
-   MAIN DASHBOARD CARD
-   ========================================================== */
 
 .dashboard {
 
@@ -95,43 +62,29 @@ body {
 
     margin: auto;
 
-    background: #ffffff;
+    background: white;
 
     border-radius: 18px;
 
     padding: 20px;
 
-    box-shadow:
-        0 15px 40px
-        rgba(0, 0, 0, 0.30);
-
+    box-shadow: 0 15px 40px rgba(0,0,0,.30);
 }
-
-
-/* ==========================================================
-   HEADER
-   ========================================================== */
 
 .header {
 
     display: flex;
 
-    justify-content:
-        space-between;
+    justify-content: space-between;
 
     align-items: center;
 
     flex-wrap: wrap;
 
-    gap: 15px;
+    gap: 10px;
 
-    padding:
-        5px
-        10px
-        20px;
-
+    padding: 5px 10px 20px;
 }
-
 
 .brand {
 
@@ -139,16 +92,14 @@ body {
 
     align-items: center;
 
-    gap: 15px;
-
+    gap: 12px;
 }
-
 
 .logo {
 
-    width: 70px;
+    width: 60px;
 
-    height: 70px;
+    height: 60px;
 
     display: flex;
 
@@ -156,63 +107,45 @@ body {
 
     justify-content: center;
 
+    overflow: hidden;
 }
-
 
 .logo img {
 
-    width: 65px;
+    width: 55px;
 
-    height: 65px;
+    height: 55px;
 
     object-fit: contain;
-
 }
-
 
 .title {
 
-    color: #1565c0;
+    color: #1565C0;
 
-    font-size: 28px;
+    font-size: 27px;
 
-    font-weight: 700;
-
+    font-weight: bold;
 }
-
 
 .subtitle {
 
-    color: #666666;
+    color: #666;
 
-    font-size: 16px;
-
-    margin-top: 2px;
-
+    font-size: 15px;
 }
-
 
 .coordinator {
 
     text-align: right;
 
-    color: #555555;
-
-    font-size: 18px;
-
+    color: #555;
 }
-
 
 .coordinator strong {
 
-    color: #1565c0;
-
+    color: #1565C0;
 }
-
-
-/* ==========================================================
-   ACTION BUTTONS
-   ========================================================== */
 
 .actions {
 
@@ -220,10 +153,8 @@ body {
 
     gap: 10px;
 
-    margin-bottom: 18px;
-
+    margin-bottom: 15px;
 }
-
 
 .refresh-button,
 .logout-button {
@@ -232,252 +163,182 @@ body {
 
     border-radius: 8px;
 
-    padding:
-        11px
-        20px;
+    padding: 10px 18px;
 
-    font-size: 15px;
+    font-size: 14px;
 
     cursor: pointer;
-
 }
-
 
 .refresh-button {
 
-    background: #1976d2;
+    background: #1976D2;
 
-    color: #ffffff;
-
+    color: white;
 }
-
 
 .refresh-button:hover {
 
-    background: #0d47a1;
-
+    background: #0D47A1;
 }
-
 
 .refresh-button:disabled {
 
-    opacity: 0.6;
+    opacity: .6;
 
     cursor: not-allowed;
-
 }
-
 
 .logout-button {
 
     background: #eeeeee;
 
-    color: #333333;
-
+    color: #333;
 }
-
 
 .logout-button:hover {
 
     background: #dddddd;
-
 }
-
-
-/* ==========================================================
-   TABLE
-   ========================================================== */
 
 .table-wrap {
 
     width: 100%;
 
     overflow-x: auto;
-
 }
-
 
 table {
 
     width: 100%;
 
-    border-collapse:
-        collapse;
+    border-collapse: collapse;
 
-    min-width: 1100px;
-
+    min-width: 1050px;
 }
-
 
 thead th {
 
-    background: #1565c0;
+    background: #1565C0;
 
-    color: #ffffff;
+    color: white;
 
-    padding:
-        12px
-        10px;
+    padding: 11px 8px;
 
     text-align: left;
 
-    font-size: 15px;
+    font-size: 14px;
 
     white-space: nowrap;
-
 }
-
 
 tbody td {
 
-    padding:
-        10px;
+    padding: 9px 8px;
 
-    border-bottom:
-        1px solid #dddddd;
+    border-bottom: 1px solid #ddd;
 
     font-size: 14px;
 
     vertical-align: middle;
-
 }
-
 
 tbody tr:nth-child(even) {
 
     background: #f7f9fc;
-
 }
-
 
 tbody tr:hover {
 
     background: #e8f1ff;
-
 }
-
 
 .no {
 
-    width: 50px;
+    width: 45px;
 
     text-align: center;
 
-    font-weight: 700;
-
+    font-weight: bold;
 }
-
 
 .course {
 
-    width: 80px;
+    width: 70px;
 
     text-align: center;
-
 }
-
 
 .subject {
 
     font-weight: 600;
 
-    color: #1565c0;
-
+    color: #1565C0;
 }
-
 
 .teacher {
 
     white-space: nowrap;
-
 }
-
-
-.meeting {
-
-    white-space: nowrap;
-
-}
-
 
 .meeting a {
 
-    color: #1565c0;
+    color: #1565C0;
 
     text-decoration: none;
 
     font-weight: 600;
-
 }
-
 
 .meeting a:hover {
 
     text-decoration: underline;
-
 }
-
 
 .updated {
 
     white-space: nowrap;
 
-    color: #666666;
-
+    color: #666;
 }
-
-
-/* ==========================================================
-   SESSION STATUS
-   ========================================================== */
 
 .status-cell {
 
     text-align: center;
 
     white-space: nowrap;
-
 }
-
 
 .status {
 
     display: inline-block;
 
-    min-width: 78px;
+    min-width: 80px;
 
-    padding:
-        6px
-        11px;
+    padding: 5px 10px;
 
     border-radius: 20px;
 
+    font-weight: bold;
+
     font-size: 12px;
 
-    font-weight: 700;
-
     margin-right: 6px;
-
 }
-
 
 .status-open {
 
     background: #d9f7df;
 
     color: #16803c;
-
 }
-
 
 .status-closed {
 
     background: #ffe0e0;
 
     color: #c62828;
-
 }
-
 
 .status-button {
 
@@ -485,162 +346,89 @@ tbody tr:hover {
 
     border-radius: 7px;
 
-    padding:
-        7px
-        12px;
+    padding: 7px 11px;
 
-    color: #ffffff;
+    color: white;
 
     font-size: 12px;
 
-    font-weight: 600;
-
     cursor: pointer;
-
 }
-
-
-.status-button:hover {
-
-    opacity: 0.85;
-
-}
-
-
-.status-button:disabled {
-
-    opacity: 0.5;
-
-    cursor: not-allowed;
-
-}
-
 
 .open-button {
 
     background: #16803c;
-
 }
-
 
 .close-button {
 
     background: #c62828;
-
 }
 
+.status-button:hover {
 
-/* ==========================================================
-   MESSAGE
-   ========================================================== */
+    opacity: .85;
+}
+
+.status-button:disabled {
+
+    opacity: .5;
+
+    cursor: not-allowed;
+}
 
 #message {
 
     text-align: center;
 
-    padding:
-        20px
-        10px;
+    padding: 20px;
 
-    color: #666666;
-
-    font-size: 16px;
-
+    color: #666;
 }
-
 
 .error-message {
 
     color: #c62828 !important;
 
     font-weight: 600;
-
 }
-
-
-/* ==========================================================
-   FOOTER
-   ========================================================== */
 
 .footer {
 
     text-align: center;
 
-    margin-top: 5px;
+    margin-top: 15px;
 
-    color: #888888;
+    color: #888;
 
     font-size: 13px;
-
 }
 
-
-/* ==========================================================
-   MOBILE
-   ========================================================== */
-
-@media (max-width: 700px) {
+@media(max-width:700px) {
 
     body {
 
         padding: 8px;
-
     }
-
 
     .dashboard {
 
         padding: 12px;
-
     }
-
 
     .header {
 
-        align-items:
-            flex-start;
-
+        align-items: flex-start;
     }
-
 
     .coordinator {
 
         text-align: left;
-
-        font-size: 16px;
-
     }
-
 
     .title {
 
         font-size: 22px;
-
-    }
-
-
-    .subtitle {
-
-        font-size: 14px;
-
-    }
-
-
-    .logo {
-
-        width: 55px;
-
-        height: 55px;
-
-    }
-
-
-    .logo img {
-
-        width: 50px;
-
-        height: 50px;
-
     }
 
 }
@@ -665,7 +453,6 @@ tbody tr:hover {
 
         <div class="brand">
 
-
             <div class="logo">
 
                 <img
@@ -675,24 +462,17 @@ tbody tr:hover {
 
             </div>
 
-
             <div>
 
                 <div class="title">
-
                     KALVIPARAVAI
-
                 </div>
 
-
                 <div class="subtitle">
-
                     Coordinator Dashboard
-
                 </div>
 
             </div>
-
 
         </div>
 
@@ -701,9 +481,7 @@ tbody tr:hover {
 
             Welcome,
 
-            <strong
-                id="coordinatorName"
-            >
+            <strong id="coordinatorName">
                 Coordinator
             </strong>
 
@@ -719,15 +497,12 @@ tbody tr:hover {
 
     <div class="actions">
 
-
         <button
             id="refreshButton"
             class="refresh-button"
             onclick="loadSessions()"
         >
-
             ↻ REFRESH
-
         </button>
 
 
@@ -735,11 +510,8 @@ tbody tr:hover {
             class="logout-button"
             onclick="logout()"
         >
-
             LOGOUT
-
         </button>
-
 
     </div>
 
@@ -750,9 +522,7 @@ tbody tr:hover {
 
     <div class="table-wrap">
 
-
         <table>
-
 
             <thead>
 
@@ -760,68 +530,45 @@ tbody tr:hover {
 
                     <th>No</th>
 
-                    <th>
-                        Subject Code
-                    </th>
+                    <th>Subject Code</th>
 
-                    <th>
-                        CourseID
-                    </th>
+                    <th>CourseID</th>
 
-                    <th>
-                        Subject Name
-                    </th>
+                    <th>Subject Name</th>
 
-                    <th>
-                        Teacher
-                    </th>
+                    <th>Teacher</th>
 
-                    <th>
-                        Meeting URL
-                    </th>
+                    <th>Meeting URL</th>
 
-                    <th>
-                        Last Updated
-                    </th>
+                    <th>Last Updated</th>
 
-                    <th>
-                        Session Status
-                    </th>
+                    <th>Session Status</th>
 
                 </tr>
 
             </thead>
 
 
-            <tbody
-                id="sessionTable"
-            >
+            <tbody id="sessionTable">
 
             </tbody>
 
-
         </table>
-
 
     </div>
 
 
-    <div
-        id="message"
-    >
+    <div id="message">
         Loading sessions...
     </div>
 
 
     <div class="footer">
-
         KPOTMS Version 3.0
-
     </div>
 
 
 </div>
-
 
 
 <script>
@@ -829,8 +576,6 @@ tbody tr:hover {
 /* ==========================================================
    KPOTMS V3.0
    COORDINATOR DASHBOARD
-
-   FLOW
 
    GitHub Pages
         ↓
@@ -850,17 +595,15 @@ tbody tr:hover {
 
 
 /* ==========================================================
-   COORDINATOR DASHBOARD ACCESS GUARD
+   ACCESS CONTROL
    ========================================================== */
 
 (function checkCoordinatorAccess() {
-
 
     const loggedIn =
         sessionStorage.getItem(
             "kpotmsLoggedIn"
         );
-
 
     const role =
         sessionStorage.getItem(
@@ -868,16 +611,10 @@ tbody tr:hover {
         );
 
 
-    /*
-     * Direct dashboard access is NOT allowed
-     * unless a Coordinator is already logged in.
-     */
-
     if (
         loggedIn !== "true" ||
         role !== "COORDINATOR"
     ) {
-
 
         sessionStorage.setItem(
             "kpotmsCoordinatorLoginAllowed",
@@ -894,16 +631,15 @@ tbody tr:hover {
 
     }
 
-
 })();
 
 
 /* ==========================================================
-   COORDINATOR WEB APP
+   COORDINATOR WEB APP URL
    ========================================================== */
 
 const COORDINATOR_MANAGER_URL =
-"https://script.google.com/macros/s/AKfycbyBPI1tVuHujIpBJAH5N47pmszsscx51-aqdpsTmSXYy3YeYnPc2HnuGx2SWQJlKJfX/exec";
+"https://script.google.com/macros/s/AKfycbyBPI1tVuHujIpBJAH5N47pmszsscx51-aqdpsTmSXYy3YeYnPc2HnuGx2SWQJlFjKfX/exec";
 
 
 /* ==========================================================
@@ -918,17 +654,15 @@ const savedName =
 
 if (savedName) {
 
-
     document.getElementById(
         "coordinatorName"
-    ).textContent =
-        savedName;
+    ).textContent = savedName;
 
 }
 
 
 /* ==========================================================
-   CURRENT DISPLAYED SESSIONS
+   CURRENT SESSION ROWS
    ========================================================== */
 
 window.currentSessionRows = {};
@@ -939,7 +673,6 @@ window.currentSessionRows = {};
    ========================================================== */
 
 async function loadSessions() {
-
 
     const table =
         document.getElementById(
@@ -961,27 +694,19 @@ async function loadSessions() {
 
     table.innerHTML = "";
 
-
     window.currentSessionRows = {};
 
 
     message.className = "";
 
-
     message.textContent =
         "Loading live sessions...";
 
 
-    refreshButton.disabled =
-        true;
+    refreshButton.disabled = true;
 
 
     try {
-
-
-        /* ==================================================
-           V3 POST API REQUEST
-           ================================================== */
 
         const response =
             await fetch(
@@ -1004,8 +729,7 @@ async function loadSessions() {
 
                     }),
 
-                    cache:
-                        "no-store"
+                    cache: "no-store"
 
                 }
             );
@@ -1030,65 +754,237 @@ async function loadSessions() {
         );
 
 
-        /* ==================================================
-           CURRENT WebAPI.gs RETURNS:
-
-           [
-               {
-                   Subject_Code: 1,
-                   CourseID: 1,
-                   Subject_Name: "...",
-                   Teacher: "...",
-                   Meeting_URL: "...",
-                   Session_Status: "...",
-                   Last_Updated: "..."
-               }
-           ]
-           ================================================== */
+        let sessions = [];
 
 
-        if (!Array.isArray(result)) {
+        if (Array.isArray(result)) {
 
+            sessions = result;
 
-            /*
-             * Also tolerate a wrapped response
-             * if WebAPI.gs is changed later.
-             */
+        }
 
-            if (
-                result &&
-                result.success === true &&
-                Array.isArray(
-                    result.data
-                )
-            ) {
+        else if (
+            result &&
+            result.success === true &&
+            Array.isArray(result.data)
+        ) {
 
-                renderSessions(
-                    result.data
-                );
+            sessions =
+                result.data;
 
-                return;
+        }
 
-            }
-
+        else if (
+            result &&
+            result.success === false
+        ) {
 
             throw new Error(
-                result &&
-                result.message
+                result.message ||
+                "Unable to load sessions."
+            );
 
-                    ?
+        }
 
-                    result.message
+        else {
 
-                    :
-
-                    "Invalid session data received from server."
+            throw new Error(
+                "Invalid session data received from server."
             );
 
         }
 
 
-        renderSessions(result);
+        if (sessions.length === 0) {
+
+            message.textContent =
+                "No sessions found.";
+
+            refreshButton.disabled = false;
+
+            return;
+
+        }
+
+
+        let count = 0;
+
+
+        for (
+            let i = 0;
+            i < sessions.length;
+            i++
+        ) {
+
+            const session =
+                sessions[i];
+
+
+            const subjectCode =
+                clean(
+                    session.subjectCode
+                );
+
+
+            if (
+                subjectCode === ""
+            ) {
+
+                continue;
+
+            }
+
+
+            count++;
+
+
+            const courseID =
+                clean(
+                    session.courseID
+                );
+
+
+            const subjectName =
+                clean(
+                    session.subjectName
+                );
+
+
+            const teacher =
+                clean(
+                    session.teacher
+                );
+
+
+            const meetingURL =
+                clean(
+                    session.meetingURL
+                );
+
+
+            const status =
+                clean(
+                    session.sessionStatus
+                ).toUpperCase();
+
+
+            const lastUpdated =
+                formatDateTime(
+                    session.lastUpdated
+                );
+
+
+            window.currentSessionRows[count] = {
+
+                subjectCode:
+                    subjectCode,
+
+                subjectName:
+                    subjectName
+
+            };
+
+
+            const tr =
+                document.createElement(
+                    "tr"
+                );
+
+
+            tr.innerHTML = `
+
+                <td class="no">
+                    ${count}
+                </td>
+
+                <td>
+                    ${escapeHTML(
+                        subjectCode
+                    )}
+                </td>
+
+                <td class="course">
+                    ${escapeHTML(
+                        courseID
+                    )}
+                </td>
+
+                <td class="subject">
+                    ${escapeHTML(
+                        subjectName
+                    )}
+                </td>
+
+                <td class="teacher">
+                    ${escapeHTML(
+                        teacher
+                    )}
+                </td>
+
+                <td class="meeting">
+
+                    ${
+                        meetingURL
+
+                        ?
+
+                        `<a
+                            href="${escapeAttribute(
+                                meetingURL
+                            )}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            OPEN LINK
+                        </a>`
+
+                        :
+
+                        "—"
+                    }
+
+                </td>
+
+                <td class="updated">
+                    ${escapeHTML(
+                        lastUpdated
+                    )}
+                </td>
+
+                <td class="status-cell">
+
+                    ${createStatusHTML(
+                        status,
+                        count
+                    )}
+
+                </td>
+
+            `;
+
+
+            table.appendChild(
+                tr
+            );
+
+        }
+
+
+        if (count === 0) {
+
+            message.textContent =
+                "No valid sessions found.";
+
+            refreshButton.disabled = false;
+
+            return;
+
+        }
+
+
+        message.textContent =
+            count +
+            " subject sessions";
 
 
     }
@@ -1096,9 +992,8 @@ async function loadSessions() {
 
     catch (error) {
 
-
         console.error(
-            "Coordinator Dashboard Error:",
+            "Coordinator Dashboard error:",
             error
         );
 
@@ -1116,267 +1011,9 @@ async function loadSessions() {
 
     finally {
 
-
-        refreshButton.disabled =
-            false;
+        refreshButton.disabled = false;
 
     }
-
-}
-
-
-/* ==========================================================
-   RENDER SESSIONS
-   ========================================================== */
-
-function renderSessions(
-    sessions
-) {
-
-
-    const table =
-        document.getElementById(
-            "sessionTable"
-        );
-
-
-    const message =
-        document.getElementById(
-            "message"
-        );
-
-
-    table.innerHTML = "";
-
-
-    window.currentSessionRows = {};
-
-
-    if (
-        !Array.isArray(sessions)
-    ) {
-
-        throw new Error(
-            "Session data is not an array."
-        );
-
-    }
-
-
-    let count = 0;
-
-
-    for (
-        let i = 0;
-        i < sessions.length;
-        i++
-    ) {
-
-
-        const session =
-            sessions[i];
-
-
-        /*
-         * ==================================================
-         * ACTUAL BACKEND FIELD NAMES
-         *
-         * These names were confirmed by
-         * testGetAllSessions().
-         * ==================================================
-         */
-
-        const subjectCode =
-            clean(
-                session.Subject_Code
-            );
-
-
-        /*
-         * Ignore blank final row.
-         */
-
-        if (
-            subjectCode === ""
-        ) {
-
-            continue;
-
-        }
-
-
-        count++;
-
-
-        const courseID =
-            clean(
-                session.CourseID
-            );
-
-
-        const subjectName =
-            clean(
-                session.Subject_Name
-            );
-
-
-        const teacher =
-            clean(
-                session.Teacher
-            );
-
-
-        const meetingURL =
-            clean(
-                session.Meeting_URL
-            );
-
-
-        const status =
-            clean(
-                session.Session_Status
-            )
-            .toUpperCase();
-
-
-        const lastUpdated =
-            formatDateTime(
-                session.Last_Updated
-            );
-
-
-        /*
-         * Store the actual Subject Code
-         * for OPEN / CLOSE operations.
-         */
-
-        window.currentSessionRows[
-            count
-        ] = {
-
-            subjectCode:
-                subjectCode,
-
-            subjectName:
-                subjectName
-
-        };
-
-
-        const tr =
-            document.createElement(
-                "tr"
-            );
-
-
-        tr.innerHTML = `
-
-            <td class="no">
-                ${count}
-            </td>
-
-
-            <td>
-                ${escapeHTML(
-                    subjectCode
-                )}
-            </td>
-
-
-            <td class="course">
-                ${escapeHTML(
-                    courseID
-                )}
-            </td>
-
-
-            <td class="subject">
-                ${escapeHTML(
-                    subjectName
-                )}
-            </td>
-
-
-            <td class="teacher">
-                ${escapeHTML(
-                    teacher
-                )}
-            </td>
-
-
-            <td class="meeting">
-
-                ${
-                    meetingURL
-
-                    ?
-
-                    `<a
-                        href="${escapeAttribute(
-                            meetingURL
-                        )}"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        OPEN LINK
-                    </a>`
-
-                    :
-
-                    "—"
-                }
-
-            </td>
-
-
-            <td class="updated">
-
-                ${escapeHTML(
-                    lastUpdated
-                )}
-
-            </td>
-
-
-            <td class="status-cell">
-
-                ${createStatusHTML(
-                    status,
-                    count
-                )}
-
-            </td>
-
-        `;
-
-
-        table.appendChild(
-            tr
-        );
-
-    }
-
-
-    /* ==================================================
-       RESULT MESSAGE
-       ================================================== */
-
-    if (count === 0) {
-
-
-        message.textContent =
-            "No valid sessions found.";
-
-
-        return;
-
-    }
-
-
-    message.textContent =
-        count +
-        " subject sessions";
-
 
 }
 
@@ -1391,19 +1028,13 @@ function createStatusHTML(
 ) {
 
 
-    if (
-        status === "OPEN"
-    ) {
-
+    if (status === "OPEN") {
 
         return `
 
-            <span
-                class="status status-open"
-            >
+            <span class="status status-open">
                 OPEN
             </span>
-
 
             <button
                 class="status-button close-button"
@@ -1422,12 +1053,9 @@ function createStatusHTML(
 
     return `
 
-        <span
-            class="status status-closed"
-        >
+        <span class="status status-closed">
             CLOSED
         </span>
-
 
         <button
             class="status-button open-button"
@@ -1445,7 +1073,7 @@ function createStatusHTML(
 
 
 /* ==========================================================
-   CHANGE SESSION STATUS
+   OPEN / CLOSE SESSION
    ========================================================== */
 
 async function changeStatus(
@@ -1462,11 +1090,9 @@ async function changeStatus(
 
     if (!row) {
 
-
         alert(
             "Session row not found."
         );
-
 
         return;
 
@@ -1474,18 +1100,46 @@ async function changeStatus(
 
 
     const subjectCode =
-        row.subjectCode;
+        String(
+            row.subjectCode || ""
+        ).trim();
 
 
     const subjectName =
-        row.subjectName;
+        String(
+            row.subjectName || ""
+        ).trim();
+
+
+    /*
+     * IMPORTANT
+     *
+     * The backend error was:
+     *
+     * "Subject_Code is required."
+     *
+     * Therefore we validate BEFORE sending.
+     */
+
+    if (!subjectCode) {
+
+        alert(
+            "Unable to update Session Status.\n\n" +
+            "Subject Code is missing from the selected row."
+        );
+
+        return;
+
+    }
 
 
     const confirmed =
         confirm(
             "Change " +
             subjectName +
-            " to " +
+            " (Subject Code " +
+            subjectCode +
+            ") to " +
             newStatus +
             "?"
         );
@@ -1501,11 +1155,6 @@ async function changeStatus(
     try {
 
 
-        /*
-         * Disable all status buttons
-         * during the update.
-         */
-
         const buttons =
             document.querySelectorAll(
                 ".status-button"
@@ -1513,10 +1162,9 @@ async function changeStatus(
 
 
         buttons.forEach(
-            function(button) {
+            button => {
 
-                button.disabled =
-                    true;
+                button.disabled = true;
 
                 button.style.opacity =
                     "0.6";
@@ -1525,9 +1173,48 @@ async function changeStatus(
         );
 
 
-        /* ==================================================
-           V3 POST API REQUEST
-           ================================================== */
+        /*
+         * ==================================================
+         * UPDATE SESSION STATUS
+         *
+         * We send BOTH naming conventions:
+         *
+         * subjectCode
+         * Subject_Code
+         *
+         * status
+         * Session_Status
+         *
+         * This keeps the V3 dashboard compatible with
+         * the deployed Web API validation.
+         * ==================================================
+         */
+
+        const requestBody = {
+
+            action:
+                "updateSessionStatus",
+
+            subjectCode:
+                subjectCode,
+
+            Subject_Code:
+                subjectCode,
+
+            status:
+                newStatus,
+
+            Session_Status:
+                newStatus
+
+        };
+
+
+        console.log(
+            "updateSessionStatus request:",
+            requestBody
+        );
+
 
         const response =
             await fetch(
@@ -1543,21 +1230,12 @@ async function changeStatus(
 
                     },
 
-                    body: JSON.stringify({
+                    body:
+                        JSON.stringify(
+                            requestBody
+                        ),
 
-                        action:
-                            "updateSessionStatus",
-
-                        subjectCode:
-                            subjectCode,
-
-                        status:
-                            newStatus
-
-                    }),
-
-                    cache:
-                        "no-store"
+                    cache: "no-store"
 
                 }
             );
@@ -1587,14 +1265,19 @@ async function changeStatus(
             result.success !== true
         ) {
 
-
             throw new Error(
                 result &&
-                result.message
+                (
+                    result.message ||
+                    result.error
+                )
 
                     ?
 
-                    result.message
+                    (
+                        result.message ||
+                        result.error
+                    )
 
                     :
 
@@ -1605,12 +1288,7 @@ async function changeStatus(
 
 
         /*
-         * IMPORTANT:
-         *
-         * Do not merely change the screen.
-         *
-         * Reload the real backend data
-         * from 04_Class_Master.
+         * Reload the actual backend data.
          */
 
         await loadSessions();
@@ -1618,7 +1296,9 @@ async function changeStatus(
 
         alert(
             subjectName +
-            " is now " +
+            " (Subject Code " +
+            subjectCode +
+            ") is now " +
             newStatus +
             "."
         );
@@ -1629,7 +1309,6 @@ async function changeStatus(
 
     catch (error) {
 
-
         console.error(
             "Session update error:",
             error
@@ -1638,13 +1317,10 @@ async function changeStatus(
 
         alert(
             "Unable to update Session Status.\n\n" +
+            "Error: " +
             error.message
         );
 
-
-        /*
-         * Restore the actual backend state.
-         */
 
         await loadSessions();
 
@@ -1659,10 +1335,6 @@ async function changeStatus(
 
 function logout() {
 
-
-    /*
-     * Coordinator identity
-     */
 
     sessionStorage.removeItem(
         "coordinatorID"
@@ -1679,10 +1351,6 @@ function logout() {
     );
 
 
-    /*
-     * V3 authentication
-     */
-
     sessionStorage.removeItem(
         "kpotmsLoggedIn"
     );
@@ -1698,10 +1366,6 @@ function logout() {
     );
 
 
-    /*
-     * Return to V3 Landing Page.
-     */
-
     window.location.replace(
         "index.html"
     );
@@ -1715,7 +1379,6 @@ function logout() {
 
 function clean(value) {
 
-
     return String(
         value ?? ""
     ).trim();
@@ -1727,9 +1390,7 @@ function clean(value) {
    FORMAT LAST UPDATED
    ========================================================== */
 
-function formatDateTime(
-    value
-) {
+function formatDateTime(value) {
 
 
     if (
@@ -1767,10 +1428,7 @@ function formatDateTime(
    ESCAPE HTML
    ========================================================== */
 
-function escapeHTML(
-    value
-) {
-
+function escapeHTML(value) {
 
     return String(
         value ?? ""
@@ -1808,10 +1466,7 @@ function escapeHTML(
    ESCAPE URL ATTRIBUTE
    ========================================================== */
 
-function escapeAttribute(
-    value
-) {
-
+function escapeAttribute(value) {
 
     return String(
         value ?? ""
@@ -1836,11 +1491,10 @@ function escapeAttribute(
 
 
 /* ==========================================================
-   START DASHBOARD
+   LOAD DASHBOARD
    ========================================================== */
 
 loadSessions();
-
 
 </script>
 
