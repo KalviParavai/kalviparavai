@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -280,6 +280,108 @@
 
 
   <!-- =====================================================
+       KPOTMS V3 NAVIGATION GATE
+       =====================================================
+
+       CoordinatorLogin.html is intended to be reached from:
+
+       1. Landing Page
+       2. Coordinator Dashboard when authentication is absent
+
+       A temporary sessionStorage navigation token is used.
+
+       NOTE:
+       This is a navigation-control mechanism only.
+       Authentication is still performed by Apps Script.
+       ===================================================== -->
+
+  <script>
+
+    (function () {
+
+      /*
+       * ---------------------------------------------------
+       * If already authenticated as Coordinator,
+       * do not show the Login page again.
+       * ---------------------------------------------------
+       */
+
+      const loggedIn =
+        sessionStorage.getItem(
+          "kpotmsLoggedIn"
+        );
+
+      const role =
+        sessionStorage.getItem(
+          "kpotmsRole"
+        );
+
+
+      if (
+        loggedIn === "true" &&
+        role === "COORDINATOR"
+      ) {
+
+        window.location.replace(
+          "CoordinatorDashboard.html"
+        );
+
+        return;
+
+      }
+
+
+      /*
+       * ---------------------------------------------------
+       * Check navigation permission.
+       * ---------------------------------------------------
+       */
+
+      const loginAllowed =
+        sessionStorage.getItem(
+          "kpotmsCoordinatorLoginAllowed"
+        );
+
+
+      /*
+       * ---------------------------------------------------
+       * Direct URL entry without permission
+       * ---------------------------------------------------
+       */
+
+      if (
+        loginAllowed !== "true"
+      ) {
+
+        window.location.replace(
+          "index.html"
+        );
+
+        return;
+
+      }
+
+
+      /*
+       * ---------------------------------------------------
+       * Consume the navigation token.
+       *
+       * This means the permission is valid for this
+       * navigation only.
+       * ---------------------------------------------------
+       */
+
+      sessionStorage.removeItem(
+        "kpotmsCoordinatorLoginAllowed"
+      );
+
+    })();
+
+  </script>
+
+
+
+  <!-- =====================================================
        HEADER
        ===================================================== -->
 
@@ -512,11 +614,7 @@
 
     /*
      * -----------------------------------------------------
-     * KPOTMS V3 Web App URL
-     *
-     * IMPORTANT:
-     * Replace the value below with the
-     * VERSION 10 Web App URL that you copied.
+     * VERSION 10 WEB APP
      * -----------------------------------------------------
      */
 
@@ -556,7 +654,6 @@
       const messageBox =
         document
           .getElementById("messageBox");
-
 
 
       /*
@@ -723,14 +820,6 @@
          * -------------------------------------------------
          * ROLE VERIFICATION
          * -------------------------------------------------
-         *
-         * Successful credentials alone are NOT enough.
-         *
-         * The returned role MUST be:
-         *
-         *     COORDINATOR
-         *
-         * -------------------------------------------------
          */
 
         if (
@@ -836,15 +925,15 @@
 
           function() {
 
-            window.location.href =
-              "CoordinatorDashboard.html";
+            window.location.replace(
+              "CoordinatorDashboard.html"
+            );
 
           },
 
           700
 
         );
-
 
 
       }
