@@ -631,11 +631,15 @@ tbody tr:hover{
     if (
         loggedIn !== "true" ||
         role !== "COORDINATOR"
-    ) {
+    ) sessionStorage.setItem(
+    "kpotmsCoordinatorLoginAllowed",
+    "true"
+      );
 
-        window.location.replace(
-            "CoordinatorLogin.html"
-        );
+      window.location.replace(
+    "      CoordinatorLogin.html"
+      );
+          
 
         return;
 
