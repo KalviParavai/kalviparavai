@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -593,7 +593,60 @@ tbody tr:hover{
    KPOTMS V3.0
    COORDINATOR DASHBOARD
 
-   LIVE DATA SOURCE:
+   ACCESS CONTROL
+   ===================================================== */
+
+
+/* =====================================================
+   COORDINATOR DASHBOARD ACCESS GUARD
+   =====================================================
+
+   A Coordinator Dashboard must NOT be entered directly.
+
+   Required session values:
+
+       kpotmsLoggedIn = "true"
+       kpotmsRole     = "COORDINATOR"
+
+   If either condition fails:
+
+       → CoordinatorLogin.html
+
+   ===================================================== */
+
+(function () {
+
+    const loggedIn =
+        sessionStorage.getItem(
+            "kpotmsLoggedIn"
+        );
+
+
+    const role =
+        sessionStorage.getItem(
+            "kpotmsRole"
+        );
+
+
+    if (
+        loggedIn !== "true" ||
+        role !== "COORDINATOR"
+    ) {
+
+        window.location.replace(
+            "CoordinatorLogin.html"
+        );
+
+        return;
+
+    }
+
+})();
+
+
+/* =====================================================
+   LIVE DATA SOURCE
+
    04_Class_Master
    through Coordinator Web App
 
@@ -621,7 +674,9 @@ const COORDINATOR_MANAGER_URL =
    ===================================================== */
 
 const savedName =
-    sessionStorage.getItem("coordinatorName");
+    sessionStorage.getItem(
+        "coordinatorName"
+    );
 
 
 if(savedName){
@@ -647,10 +702,14 @@ window.currentSessionRows = {};
 async function loadSessions(){
 
     const table =
-        document.getElementById("sessionTable");
+        document.getElementById(
+            "sessionTable"
+        );
 
     const message =
-        document.getElementById("message");
+        document.getElementById(
+            "message"
+        );
 
 
     table.innerHTML = "";
@@ -664,12 +723,6 @@ async function loadSessions(){
 
     try{
 
-
-        /*
-         * Cache-busting timestamp.
-         *
-         * Every REFRESH creates a new request.
-         */
 
         const url =
             COORDINATOR_MANAGER_URL +
@@ -742,10 +795,6 @@ async function loadSessions(){
                 sessions[i];
 
 
-            /*
-             * Ignore blank backend rows
-             */
-
             if(
                 !session.Subject_Code ||
                 String(
@@ -803,12 +852,6 @@ async function loadSessions(){
                 );
 
 
-            /*
-             * Remember actual Subject Code.
-             *
-             * count = displayed row number.
-             */
-
             window.currentSessionRows[count] = {
 
                 subjectCode:
@@ -830,13 +873,11 @@ async function loadSessions(){
                     ${count}
                 </td>
 
-
                 <td>
                     ${escapeHTML(
                         subjectCode
                     )}
                 </td>
-
 
                 <td class="course">
                     ${escapeHTML(
@@ -844,20 +885,17 @@ async function loadSessions(){
                     )}
                 </td>
 
-
                 <td class="subject">
                     ${escapeHTML(
                         subjectName
                     )}
                 </td>
 
-
                 <td class="teacher">
                     ${escapeHTML(
                         teacher
                     )}
                 </td>
-
 
                 <td class="meeting">
 
@@ -883,13 +921,11 @@ async function loadSessions(){
 
                 </td>
 
-
                 <td class="updated">
                     ${escapeHTML(
                         lastUpdated
                     )}
                 </td>
-
 
                 <td class="status-cell">
 
@@ -1046,11 +1082,6 @@ async function changeStatus(
     try{
 
 
-        /*
-         * Disable further accidental clicks
-         * while update is running.
-         */
-
         const buttons =
             document.querySelectorAll(
                 ".status-button"
@@ -1114,15 +1145,6 @@ async function changeStatus(
         }
 
 
-        /*
-         * IMPORTANT:
-         *
-         * Do not simply change the screen.
-         *
-         * Reload the LIVE data from
-         * 04_Class_Master.
-         */
-
         await loadSessions();
 
 
@@ -1148,11 +1170,6 @@ async function changeStatus(
         );
 
 
-        /*
-         * Reload the actual backend state
-         * after an unsuccessful operation.
-         */
-
         await loadSessions();
 
     }
@@ -1161,10 +1178,14 @@ async function changeStatus(
 
 
 /* =====================================================
-   Logout
+   LOGOUT
    ===================================================== */
 
 function logout(){
+
+    /*
+     * Clear Coordinator identity
+     */
 
     sessionStorage.removeItem(
         "coordinatorID"
@@ -1181,8 +1202,27 @@ function logout(){
     );
 
 
-    window.location.href =
-        "CoordinatorLogin.html";
+    /*
+     * Clear V3 authentication state
+     */
+
+    sessionStorage.removeItem(
+        "kpotmsLoggedIn"
+    );
+
+
+    sessionStorage.removeItem(
+        "kpotmsRole"
+    );
+
+
+    /*
+     * Return to Coordinator Login
+     */
+
+    window.location.replace(
+        "CoordinatorLogin.html"
+    );
 
 }
 
