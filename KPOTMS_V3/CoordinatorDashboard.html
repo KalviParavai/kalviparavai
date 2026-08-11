@@ -10,49 +10,82 @@
 
 <title>Kalviparavai - Coordinator Dashboard</title>
 
+
 <style>
 
+/* ==========================================================
+   KPOTMS V3.0
+   COORDINATOR DASHBOARD
+   ========================================================== */
+
 * {
-    margin: 0;
-    padding: 0;
+
     box-sizing: border-box;
-    font-family: "Segoe UI", Arial, sans-serif;
+
+    margin: 0;
+
+    padding: 0;
+
+    font-family:
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
 }
+
 
 body {
 
     min-height: 100vh;
 
-    background: linear-gradient(
-        135deg,
-        #0D47A1,
-        #1976D2,
-        #00ACC1,
-        #43A047
-    );
+    background:
+        linear-gradient(
+            135deg,
+            #0d47a1,
+            #1976d2,
+            #00acc1,
+            #43a047
+        );
 
     background-size: 400% 400%;
 
-    animation: bgmove 15s ease infinite;
+    animation:
+        backgroundMove 15s ease infinite;
 
     padding: 20px;
+
 }
 
-@keyframes bgmove {
+
+@keyframes backgroundMove {
 
     0% {
-        background-position: 0% 50%;
+
+        background-position:
+            0% 50%;
+
     }
 
     50% {
-        background-position: 100% 50%;
+
+        background-position:
+            100% 50%;
+
     }
 
     100% {
-        background-position: 0% 50%;
+
+        background-position:
+            0% 50%;
+
     }
 
 }
+
+
+/* ==========================================================
+   MAIN DASHBOARD CARD
+   ========================================================== */
 
 .dashboard {
 
@@ -62,29 +95,43 @@ body {
 
     margin: auto;
 
-    background: white;
+    background: #ffffff;
 
     border-radius: 18px;
 
     padding: 20px;
 
-    box-shadow: 0 15px 40px rgba(0,0,0,.30);
+    box-shadow:
+        0 15px 40px
+        rgba(0, 0, 0, 0.30);
+
 }
+
+
+/* ==========================================================
+   HEADER
+   ========================================================== */
 
 .header {
 
     display: flex;
 
-    justify-content: space-between;
+    justify-content:
+        space-between;
 
     align-items: center;
 
     flex-wrap: wrap;
 
-    gap: 10px;
+    gap: 15px;
 
-    padding: 5px 10px 20px;
+    padding:
+        5px
+        10px
+        20px;
+
 }
+
 
 .brand {
 
@@ -92,14 +139,16 @@ body {
 
     align-items: center;
 
-    gap: 12px;
+    gap: 15px;
+
 }
+
 
 .logo {
 
-    width: 60px;
+    width: 70px;
 
-    height: 60px;
+    height: 70px;
 
     display: flex;
 
@@ -107,45 +156,63 @@ body {
 
     justify-content: center;
 
-    overflow: hidden;
 }
+
 
 .logo img {
 
-    width: 55px;
+    width: 65px;
 
-    height: 55px;
+    height: 65px;
 
     object-fit: contain;
+
 }
+
 
 .title {
 
-    color: #1565C0;
+    color: #1565c0;
 
-    font-size: 27px;
+    font-size: 28px;
 
-    font-weight: bold;
+    font-weight: 700;
+
 }
+
 
 .subtitle {
 
-    color: #666;
+    color: #666666;
 
-    font-size: 15px;
+    font-size: 16px;
+
+    margin-top: 2px;
+
 }
+
 
 .coordinator {
 
     text-align: right;
 
-    color: #555;
+    color: #555555;
+
+    font-size: 18px;
+
 }
+
 
 .coordinator strong {
 
-    color: #1565C0;
+    color: #1565c0;
+
 }
+
+
+/* ==========================================================
+   ACTION BUTTONS
+   ========================================================== */
 
 .actions {
 
@@ -153,8 +220,10 @@ body {
 
     gap: 10px;
 
-    margin-bottom: 15px;
+    margin-bottom: 18px;
+
 }
+
 
 .refresh-button,
 .logout-button {
@@ -163,182 +232,252 @@ body {
 
     border-radius: 8px;
 
-    padding: 10px 18px;
+    padding:
+        11px
+        20px;
 
-    font-size: 14px;
+    font-size: 15px;
 
     cursor: pointer;
+
 }
+
 
 .refresh-button {
 
-    background: #1976D2;
+    background: #1976d2;
 
-    color: white;
+    color: #ffffff;
+
 }
+
 
 .refresh-button:hover {
 
-    background: #0D47A1;
+    background: #0d47a1;
+
 }
+
 
 .refresh-button:disabled {
 
-    opacity: .6;
+    opacity: 0.6;
 
     cursor: not-allowed;
+
 }
+
 
 .logout-button {
 
     background: #eeeeee;
 
-    color: #333;
+    color: #333333;
+
 }
+
 
 .logout-button:hover {
 
     background: #dddddd;
+
 }
+
+
+/* ==========================================================
+   TABLE
+   ========================================================== */
 
 .table-wrap {
 
     width: 100%;
 
     overflow-x: auto;
+
 }
+
 
 table {
 
     width: 100%;
 
-    border-collapse: collapse;
+    border-collapse:
+        collapse;
 
-    min-width: 1050px;
+    min-width: 1100px;
+
 }
+
 
 thead th {
 
-    background: #1565C0;
+    background: #1565c0;
 
-    color: white;
+    color: #ffffff;
 
-    padding: 11px 8px;
+    padding:
+        12px
+        10px;
 
     text-align: left;
 
-    font-size: 14px;
+    font-size: 15px;
 
     white-space: nowrap;
+
 }
+
 
 tbody td {
 
-    padding: 9px 8px;
+    padding:
+        10px;
 
-    border-bottom: 1px solid #ddd;
+    border-bottom:
+        1px solid #dddddd;
 
     font-size: 14px;
 
     vertical-align: middle;
+
 }
+
 
 tbody tr:nth-child(even) {
 
     background: #f7f9fc;
+
 }
+
 
 tbody tr:hover {
 
     background: #e8f1ff;
+
 }
+
 
 .no {
 
-    width: 45px;
+    width: 50px;
 
     text-align: center;
 
-    font-weight: bold;
+    font-weight: 700;
+
 }
+
 
 .course {
 
-    width: 70px;
+    width: 80px;
 
     text-align: center;
+
 }
+
 
 .subject {
 
     font-weight: 600;
 
-    color: #1565C0;
+    color: #1565c0;
+
 }
+
 
 .teacher {
 
     white-space: nowrap;
+
 }
+
+
+.meeting {
+
+    white-space: nowrap;
+
+}
+
 
 .meeting a {
 
-    color: #1565C0;
+    color: #1565c0;
 
     text-decoration: none;
 
     font-weight: 600;
+
 }
+
 
 .meeting a:hover {
 
     text-decoration: underline;
+
 }
+
 
 .updated {
 
     white-space: nowrap;
 
-    color: #666;
+    color: #666666;
+
 }
+
+
+/* ==========================================================
+   SESSION STATUS
+   ========================================================== */
 
 .status-cell {
 
     text-align: center;
 
     white-space: nowrap;
+
 }
+
 
 .status {
 
     display: inline-block;
 
-    min-width: 80px;
+    min-width: 78px;
 
-    padding: 5px 10px;
+    padding:
+        6px
+        11px;
 
     border-radius: 20px;
 
-    font-weight: bold;
-
     font-size: 12px;
 
+    font-weight: 700;
+
     margin-right: 6px;
+
 }
+
 
 .status-open {
 
     background: #d9f7df;
 
     color: #16803c;
+
 }
+
 
 .status-closed {
 
     background: #ffe0e0;
 
     color: #c62828;
+
 }
+
 
 .status-button {
 
@@ -346,89 +485,162 @@ tbody tr:hover {
 
     border-radius: 7px;
 
-    padding: 7px 11px;
+    padding:
+        7px
+        12px;
 
-    color: white;
+    color: #ffffff;
 
     font-size: 12px;
 
+    font-weight: 600;
+
     cursor: pointer;
+
 }
+
+
+.status-button:hover {
+
+    opacity: 0.85;
+
+}
+
+
+.status-button:disabled {
+
+    opacity: 0.5;
+
+    cursor: not-allowed;
+
+}
+
 
 .open-button {
 
     background: #16803c;
+
 }
+
 
 .close-button {
 
     background: #c62828;
+
 }
 
-.status-button:hover {
 
-    opacity: .85;
-}
-
-.status-button:disabled {
-
-    opacity: .5;
-
-    cursor: not-allowed;
-}
+/* ==========================================================
+   MESSAGE
+   ========================================================== */
 
 #message {
 
     text-align: center;
 
-    padding: 20px;
+    padding:
+        20px
+        10px;
 
-    color: #666;
+    color: #666666;
+
+    font-size: 16px;
+
 }
+
 
 .error-message {
 
     color: #c62828 !important;
 
     font-weight: 600;
+
 }
+
+
+/* ==========================================================
+   FOOTER
+   ========================================================== */
 
 .footer {
 
     text-align: center;
 
-    margin-top: 15px;
+    margin-top: 5px;
 
-    color: #888;
+    color: #888888;
 
     font-size: 13px;
+
 }
 
-@media(max-width:700px) {
+
+/* ==========================================================
+   MOBILE
+   ========================================================== */
+
+@media (max-width: 700px) {
 
     body {
 
         padding: 8px;
+
     }
+
 
     .dashboard {
 
         padding: 12px;
+
     }
+
 
     .header {
 
-        align-items: flex-start;
+        align-items:
+            flex-start;
+
     }
+
 
     .coordinator {
 
         text-align: left;
+
+        font-size: 16px;
+
     }
+
 
     .title {
 
         font-size: 22px;
+
+    }
+
+
+    .subtitle {
+
+        font-size: 14px;
+
+    }
+
+
+    .logo {
+
+        width: 55px;
+
+        height: 55px;
+
+    }
+
+
+    .logo img {
+
+        width: 50px;
+
+        height: 50px;
+
     }
 
 }
@@ -453,6 +665,7 @@ tbody tr:hover {
 
         <div class="brand">
 
+
             <div class="logo">
 
                 <img
@@ -462,17 +675,24 @@ tbody tr:hover {
 
             </div>
 
+
             <div>
 
                 <div class="title">
+
                     KALVIPARAVAI
+
                 </div>
 
+
                 <div class="subtitle">
+
                     Coordinator Dashboard
+
                 </div>
 
             </div>
+
 
         </div>
 
@@ -481,7 +701,9 @@ tbody tr:hover {
 
             Welcome,
 
-            <strong id="coordinatorName">
+            <strong
+                id="coordinatorName"
+            >
                 Coordinator
             </strong>
 
@@ -497,12 +719,15 @@ tbody tr:hover {
 
     <div class="actions">
 
+
         <button
             id="refreshButton"
             class="refresh-button"
             onclick="loadSessions()"
         >
+
             ↻ REFRESH
+
         </button>
 
 
@@ -510,8 +735,11 @@ tbody tr:hover {
             class="logout-button"
             onclick="logout()"
         >
+
             LOGOUT
+
         </button>
+
 
     </div>
 
@@ -522,7 +750,9 @@ tbody tr:hover {
 
     <div class="table-wrap">
 
+
         <table>
+
 
             <thead>
 
@@ -530,45 +760,68 @@ tbody tr:hover {
 
                     <th>No</th>
 
-                    <th>Subject Code</th>
+                    <th>
+                        Subject Code
+                    </th>
 
-                    <th>CourseID</th>
+                    <th>
+                        CourseID
+                    </th>
 
-                    <th>Subject Name</th>
+                    <th>
+                        Subject Name
+                    </th>
 
-                    <th>Teacher</th>
+                    <th>
+                        Teacher
+                    </th>
 
-                    <th>Meeting URL</th>
+                    <th>
+                        Meeting URL
+                    </th>
 
-                    <th>Last Updated</th>
+                    <th>
+                        Last Updated
+                    </th>
 
-                    <th>Session Status</th>
+                    <th>
+                        Session Status
+                    </th>
 
                 </tr>
 
             </thead>
 
 
-            <tbody id="sessionTable">
+            <tbody
+                id="sessionTable"
+            >
 
             </tbody>
 
+
         </table>
+
 
     </div>
 
 
-    <div id="message">
+    <div
+        id="message"
+    >
         Loading sessions...
     </div>
 
 
     <div class="footer">
+
         KPOTMS Version 3.0
+
     </div>
 
 
 </div>
+
 
 
 <script>
@@ -577,7 +830,7 @@ tbody tr:hover {
    KPOTMS V3.0
    COORDINATOR DASHBOARD
 
-   Architecture:
+   FLOW
 
    GitHub Pages
         ↓
@@ -597,15 +850,17 @@ tbody tr:hover {
 
 
 /* ==========================================================
-   ACCESS CONTROL
+   COORDINATOR DASHBOARD ACCESS GUARD
    ========================================================== */
 
 (function checkCoordinatorAccess() {
+
 
     const loggedIn =
         sessionStorage.getItem(
             "kpotmsLoggedIn"
         );
+
 
     const role =
         sessionStorage.getItem(
@@ -613,15 +868,16 @@ tbody tr:hover {
         );
 
 
+    /*
+     * Direct dashboard access is NOT allowed
+     * unless a Coordinator is already logged in.
+     */
+
     if (
         loggedIn !== "true" ||
         role !== "COORDINATOR"
     ) {
 
-        /*
-         * Allow the Coordinator Login page
-         * to know that dashboard access was attempted.
-         */
 
         sessionStorage.setItem(
             "kpotmsCoordinatorLoginAllowed",
@@ -638,11 +894,12 @@ tbody tr:hover {
 
     }
 
+
 })();
 
 
 /* ==========================================================
-   COORDINATOR WEB APP URL
+   COORDINATOR WEB APP
    ========================================================== */
 
 const COORDINATOR_MANAGER_URL =
@@ -661,15 +918,17 @@ const savedName =
 
 if (savedName) {
 
+
     document.getElementById(
         "coordinatorName"
-    ).textContent = savedName;
+    ).textContent =
+        savedName;
 
 }
 
 
 /* ==========================================================
-   CURRENT SESSION ROWS
+   CURRENT DISPLAYED SESSIONS
    ========================================================== */
 
 window.currentSessionRows = {};
@@ -680,6 +939,7 @@ window.currentSessionRows = {};
    ========================================================== */
 
 async function loadSessions() {
+
 
     const table =
         document.getElementById(
@@ -701,30 +961,27 @@ async function loadSessions() {
 
     table.innerHTML = "";
 
+
     window.currentSessionRows = {};
 
 
     message.className = "";
 
+
     message.textContent =
         "Loading live sessions...";
 
 
-    refreshButton.disabled = true;
+    refreshButton.disabled =
+        true;
 
 
     try {
 
 
-        /*
-         * ==================================================
-         * V3 API REQUEST
-         *
-         * IMPORTANT:
-         * The current WebAPI.gs uses doPost().
-         * Therefore we MUST use POST here.
-         * ==================================================
-         */
+        /* ==================================================
+           V3 POST API REQUEST
+           ================================================== */
 
         const response =
             await fetch(
@@ -747,7 +1004,8 @@ async function loadSessions() {
 
                     }),
 
-                    cache: "no-store"
+                    cache:
+                        "no-store"
 
                 }
             );
@@ -772,278 +1030,65 @@ async function loadSessions() {
         );
 
 
-        /*
-         * ==================================================
-         * SUPPORT BOTH:
-         *
-         * 1. Current WebAPI:
-         *
-         *    {
-         *       success:true,
-         *       data:[]
-         *    }
-         *
-         * 2. Direct array response:
-         *
-         *    []
-         *
-         * This makes the dashboard tolerant of the
-         * current backend response structure.
-         * ==================================================
-         */
+        /* ==================================================
+           CURRENT WebAPI.gs RETURNS:
 
-        let sessions = [];
+           [
+               {
+                   Subject_Code: 1,
+                   CourseID: 1,
+                   Subject_Name: "...",
+                   Teacher: "...",
+                   Meeting_URL: "...",
+                   Session_Status: "...",
+                   Last_Updated: "..."
+               }
+           ]
+           ================================================== */
 
 
-        if (Array.isArray(result)) {
-
-            sessions = result;
-
-        }
-
-        else if (
-            result &&
-            result.success === true &&
-            Array.isArray(result.data)
-        ) {
-
-            sessions =
-                result.data;
-
-        }
-
-        else if (
-            result &&
-            result.success === false
-        ) {
-
-            throw new Error(
-                result.message ||
-                "Unable to load sessions."
-            );
-
-        }
-
-        else {
-
-            throw new Error(
-                "Invalid session data received from server."
-            );
-
-        }
-
-
-        if (sessions.length === 0) {
-
-            message.textContent =
-                "No sessions found.";
-
-            refreshButton.disabled = false;
-
-            return;
-
-        }
-
-
-        let count = 0;
-
-
-        for (
-            let i = 0;
-            i < sessions.length;
-            i++
-        ) {
-
-
-            const session =
-                sessions[i];
+        if (!Array.isArray(result)) {
 
 
             /*
-             * ==================================================
-             * CoordinatorManager.gs returns camelCase:
-             *
-             * subjectCode
-             * courseID
-             * subjectName
-             * teacher
-             * meetingURL
-             * sessionStatus
-             * lastUpdated
-             * ==================================================
+             * Also tolerate a wrapped response
+             * if WebAPI.gs is changed later.
              */
 
-
-            const subjectCode =
-                clean(
-                    session.subjectCode
-                );
-
-
             if (
-                subjectCode === ""
+                result &&
+                result.success === true &&
+                Array.isArray(
+                    result.data
+                )
             ) {
 
-                continue;
+                renderSessions(
+                    result.data
+                );
+
+                return;
 
             }
 
 
-            count++;
+            throw new Error(
+                result &&
+                result.message
 
+                    ?
 
-            const courseID =
-                clean(
-                    session.courseID
-                );
+                    result.message
 
+                    :
 
-            const subjectName =
-                clean(
-                    session.subjectName
-                );
-
-
-            const teacher =
-                clean(
-                    session.teacher
-                );
-
-
-            const meetingURL =
-                clean(
-                    session.meetingURL
-                );
-
-
-            const status =
-                clean(
-                    session.sessionStatus
-                ).toUpperCase();
-
-
-            const lastUpdated =
-                formatDateTime(
-                    session.lastUpdated
-                );
-
-
-            /*
-             * Store row information for
-             * OPEN / CLOSE buttons.
-             */
-
-            window.currentSessionRows[count] = {
-
-                subjectCode:
-                    subjectCode,
-
-                subjectName:
-                    subjectName
-
-            };
-
-
-            const tr =
-                document.createElement(
-                    "tr"
-                );
-
-
-            tr.innerHTML = `
-
-                <td class="no">
-                    ${count}
-                </td>
-
-                <td>
-                    ${escapeHTML(
-                        subjectCode
-                    )}
-                </td>
-
-                <td class="course">
-                    ${escapeHTML(
-                        courseID
-                    )}
-                </td>
-
-                <td class="subject">
-                    ${escapeHTML(
-                        subjectName
-                    )}
-                </td>
-
-                <td class="teacher">
-                    ${escapeHTML(
-                        teacher
-                    )}
-                </td>
-
-                <td class="meeting">
-
-                    ${
-                        meetingURL
-
-                        ?
-
-                        `<a
-                            href="${escapeAttribute(
-                                meetingURL
-                            )}"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            OPEN LINK
-                        </a>`
-
-                        :
-
-                        "—"
-                    }
-
-                </td>
-
-                <td class="updated">
-                    ${escapeHTML(
-                        lastUpdated
-                    )}
-                </td>
-
-                <td class="status-cell">
-
-                    ${createStatusHTML(
-                        status,
-                        count
-                    )}
-
-                </td>
-
-            `;
-
-
-            table.appendChild(
-                tr
+                    "Invalid session data received from server."
             );
 
         }
 
 
-        if (count === 0) {
-
-            message.textContent =
-                "No valid sessions found.";
-
-            refreshButton.disabled = false;
-
-            return;
-
-        }
-
-
-        message.textContent =
-            count +
-            " subject sessions";
+        renderSessions(result);
 
 
     }
@@ -1051,8 +1096,9 @@ async function loadSessions() {
 
     catch (error) {
 
+
         console.error(
-            "Coordinator Dashboard error:",
+            "Coordinator Dashboard Error:",
             error
         );
 
@@ -1070,9 +1116,267 @@ async function loadSessions() {
 
     finally {
 
-        refreshButton.disabled = false;
+
+        refreshButton.disabled =
+            false;
 
     }
+
+}
+
+
+/* ==========================================================
+   RENDER SESSIONS
+   ========================================================== */
+
+function renderSessions(
+    sessions
+) {
+
+
+    const table =
+        document.getElementById(
+            "sessionTable"
+        );
+
+
+    const message =
+        document.getElementById(
+            "message"
+        );
+
+
+    table.innerHTML = "";
+
+
+    window.currentSessionRows = {};
+
+
+    if (
+        !Array.isArray(sessions)
+    ) {
+
+        throw new Error(
+            "Session data is not an array."
+        );
+
+    }
+
+
+    let count = 0;
+
+
+    for (
+        let i = 0;
+        i < sessions.length;
+        i++
+    ) {
+
+
+        const session =
+            sessions[i];
+
+
+        /*
+         * ==================================================
+         * ACTUAL BACKEND FIELD NAMES
+         *
+         * These names were confirmed by
+         * testGetAllSessions().
+         * ==================================================
+         */
+
+        const subjectCode =
+            clean(
+                session.Subject_Code
+            );
+
+
+        /*
+         * Ignore blank final row.
+         */
+
+        if (
+            subjectCode === ""
+        ) {
+
+            continue;
+
+        }
+
+
+        count++;
+
+
+        const courseID =
+            clean(
+                session.CourseID
+            );
+
+
+        const subjectName =
+            clean(
+                session.Subject_Name
+            );
+
+
+        const teacher =
+            clean(
+                session.Teacher
+            );
+
+
+        const meetingURL =
+            clean(
+                session.Meeting_URL
+            );
+
+
+        const status =
+            clean(
+                session.Session_Status
+            )
+            .toUpperCase();
+
+
+        const lastUpdated =
+            formatDateTime(
+                session.Last_Updated
+            );
+
+
+        /*
+         * Store the actual Subject Code
+         * for OPEN / CLOSE operations.
+         */
+
+        window.currentSessionRows[
+            count
+        ] = {
+
+            subjectCode:
+                subjectCode,
+
+            subjectName:
+                subjectName
+
+        };
+
+
+        const tr =
+            document.createElement(
+                "tr"
+            );
+
+
+        tr.innerHTML = `
+
+            <td class="no">
+                ${count}
+            </td>
+
+
+            <td>
+                ${escapeHTML(
+                    subjectCode
+                )}
+            </td>
+
+
+            <td class="course">
+                ${escapeHTML(
+                    courseID
+                )}
+            </td>
+
+
+            <td class="subject">
+                ${escapeHTML(
+                    subjectName
+                )}
+            </td>
+
+
+            <td class="teacher">
+                ${escapeHTML(
+                    teacher
+                )}
+            </td>
+
+
+            <td class="meeting">
+
+                ${
+                    meetingURL
+
+                    ?
+
+                    `<a
+                        href="${escapeAttribute(
+                            meetingURL
+                        )}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        OPEN LINK
+                    </a>`
+
+                    :
+
+                    "—"
+                }
+
+            </td>
+
+
+            <td class="updated">
+
+                ${escapeHTML(
+                    lastUpdated
+                )}
+
+            </td>
+
+
+            <td class="status-cell">
+
+                ${createStatusHTML(
+                    status,
+                    count
+                )}
+
+            </td>
+
+        `;
+
+
+        table.appendChild(
+            tr
+        );
+
+    }
+
+
+    /* ==================================================
+       RESULT MESSAGE
+       ================================================== */
+
+    if (count === 0) {
+
+
+        message.textContent =
+            "No valid sessions found.";
+
+
+        return;
+
+    }
+
+
+    message.textContent =
+        count +
+        " subject sessions";
+
 
 }
 
@@ -1087,13 +1391,19 @@ function createStatusHTML(
 ) {
 
 
-    if (status === "OPEN") {
+    if (
+        status === "OPEN"
+    ) {
+
 
         return `
 
-            <span class="status status-open">
+            <span
+                class="status status-open"
+            >
                 OPEN
             </span>
+
 
             <button
                 class="status-button close-button"
@@ -1112,9 +1422,12 @@ function createStatusHTML(
 
     return `
 
-        <span class="status status-closed">
+        <span
+            class="status status-closed"
+        >
             CLOSED
         </span>
+
 
         <button
             class="status-button open-button"
@@ -1132,7 +1445,7 @@ function createStatusHTML(
 
 
 /* ==========================================================
-   OPEN / CLOSE SESSION
+   CHANGE SESSION STATUS
    ========================================================== */
 
 async function changeStatus(
@@ -1149,9 +1462,11 @@ async function changeStatus(
 
     if (!row) {
 
+
         alert(
             "Session row not found."
         );
+
 
         return;
 
@@ -1186,6 +1501,11 @@ async function changeStatus(
     try {
 
 
+        /*
+         * Disable all status buttons
+         * during the update.
+         */
+
         const buttons =
             document.querySelectorAll(
                 ".status-button"
@@ -1193,9 +1513,10 @@ async function changeStatus(
 
 
         buttons.forEach(
-            button => {
+            function(button) {
 
-                button.disabled = true;
+                button.disabled =
+                    true;
 
                 button.style.opacity =
                     "0.6";
@@ -1204,14 +1525,9 @@ async function changeStatus(
         );
 
 
-        /*
-         * ==================================================
-         * V3 API
-         *
-         * updateSessionStatus()
-         * is called through POST.
-         * ==================================================
-         */
+        /* ==================================================
+           V3 POST API REQUEST
+           ================================================== */
 
         const response =
             await fetch(
@@ -1240,7 +1556,8 @@ async function changeStatus(
 
                     }),
 
-                    cache: "no-store"
+                    cache:
+                        "no-store"
 
                 }
             );
@@ -1270,6 +1587,7 @@ async function changeStatus(
             result.success !== true
         ) {
 
+
             throw new Error(
                 result &&
                 result.message
@@ -1287,8 +1605,12 @@ async function changeStatus(
 
 
         /*
-         * Reload the latest data from
-         * 04_Class_Master.
+         * IMPORTANT:
+         *
+         * Do not merely change the screen.
+         *
+         * Reload the real backend data
+         * from 04_Class_Master.
          */
 
         await loadSessions();
@@ -1307,6 +1629,7 @@ async function changeStatus(
 
     catch (error) {
 
+
         console.error(
             "Session update error:",
             error
@@ -1318,6 +1641,10 @@ async function changeStatus(
             error.message
         );
 
+
+        /*
+         * Restore the actual backend state.
+         */
 
         await loadSessions();
 
@@ -1353,7 +1680,7 @@ function logout() {
 
 
     /*
-     * V3 authentication state
+     * V3 authentication
      */
 
     sessionStorage.removeItem(
@@ -1372,9 +1699,7 @@ function logout() {
 
 
     /*
-     * Return to Landing Page.
-     *
-     * KPOTMS_V3/index.html is the V3 home.
+     * Return to V3 Landing Page.
      */
 
     window.location.replace(
@@ -1390,6 +1715,7 @@ function logout() {
 
 function clean(value) {
 
+
     return String(
         value ?? ""
     ).trim();
@@ -1401,7 +1727,9 @@ function clean(value) {
    FORMAT LAST UPDATED
    ========================================================== */
 
-function formatDateTime(value) {
+function formatDateTime(
+    value
+) {
 
 
     if (
@@ -1439,7 +1767,10 @@ function formatDateTime(value) {
    ESCAPE HTML
    ========================================================== */
 
-function escapeHTML(value) {
+function escapeHTML(
+    value
+) {
+
 
     return String(
         value ?? ""
@@ -1477,7 +1808,10 @@ function escapeHTML(value) {
    ESCAPE URL ATTRIBUTE
    ========================================================== */
 
-function escapeAttribute(value) {
+function escapeAttribute(
+    value
+) {
+
 
     return String(
         value ?? ""
@@ -1502,10 +1836,11 @@ function escapeAttribute(value) {
 
 
 /* ==========================================================
-   LOAD DASHBOARD
+   START DASHBOARD
    ========================================================== */
 
 loadSessions();
+
 
 </script>
 
