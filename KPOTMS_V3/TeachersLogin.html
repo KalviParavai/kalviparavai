@@ -10,189 +10,456 @@
 
   <title>Teacher Login - Kalviparavai</title>
 
+
   <style>
 
     * {
       box-sizing: border-box;
     }
 
+
     body {
+
       margin: 0;
+
       font-family: Arial, sans-serif;
+
       background: #eef5ff;
+
       min-height: 100vh;
+
       display: flex;
+
       align-items: center;
+
       justify-content: center;
+
     }
+
 
     .login-container {
+
       width: 100%;
+
       max-width: 430px;
+
       padding: 20px;
+
     }
+
 
     .login-card {
+
       background: #ffffff;
+
       border-radius: 18px;
+
       padding: 35px;
-      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+
+      box-shadow:
+        0 8px 28px rgba(0, 0, 0, 0.12);
+
     }
+
 
     .brand {
+
       text-align: center;
+
       margin-bottom: 25px;
+
     }
+
 
     .brand img {
+
       width: 85px;
+
       height: auto;
+
       margin-bottom: 10px;
+
     }
+
 
     .brand h1 {
+
       margin: 0;
+
       color: #0b2a57;
+
       font-size: 27px;
+
     }
+
 
     .brand h2 {
+
       margin: 5px 0 0;
+
       color: #f5a623;
+
       font-size: 20px;
+
     }
+
 
     .role-label {
+
       text-align: center;
+
       margin: 18px 0 25px;
+
       color: #2b5fb3;
+
       font-size: 20px;
+
       font-weight: bold;
+
     }
+
 
     .form-group {
+
       margin-bottom: 18px;
+
     }
+
 
     label {
+
       display: block;
+
       margin-bottom: 7px;
+
       color: #233;
+
       font-weight: 600;
+
     }
+
 
     input {
+
       width: 100%;
+
       padding: 12px 14px;
+
       border: 1px solid #ccd6e5;
+
       border-radius: 8px;
+
       font-size: 16px;
+
       outline: none;
+
     }
+
 
     input:focus {
+
       border-color: #2b5fb3;
-      box-shadow: 0 0 0 3px rgba(43, 95, 179, 0.10);
+
+      box-shadow:
+        0 0 0 3px rgba(
+          43,
+          95,
+          179,
+          0.10
+        );
+
     }
+
 
     .login-button {
+
       width: 100%;
+
       padding: 13px;
+
       border: none;
+
       border-radius: 8px;
+
       background: #2b5fb3;
+
       color: white;
+
       font-size: 17px;
+
       font-weight: bold;
+
       cursor: pointer;
+
       margin-top: 8px;
+
     }
+
 
     .login-button:hover {
+
       background: #0b2a57;
+
     }
+
 
     .login-button:disabled {
+
       background: #9aa9bd;
+
       cursor: not-allowed;
+
     }
+
 
     .message {
+
       margin-top: 18px;
+
       padding: 10px;
+
       border-radius: 7px;
+
       text-align: center;
+
       display: none;
+
       font-size: 14px;
+
     }
+
 
     .error {
+
       display: block;
+
       background: #ffe8e8;
+
       color: #a00000;
+
     }
+
 
     .success {
+
       display: block;
+
       background: #e7f7ed;
+
       color: #176b36;
+
     }
+
 
     .back-link {
+
       display: block;
+
       text-align: center;
+
       margin-top: 22px;
+
       color: #2b5fb3;
+
       text-decoration: none;
+
       font-size: 14px;
+
     }
+
 
     .back-link:hover {
+
       text-decoration: underline;
+
     }
 
+
     .loading {
+
       display: none;
+
       text-align: center;
+
       margin-top: 12px;
+
       color: #2b5fb3;
+
       font-size: 14px;
+
     }
 
   </style>
 
 </head>
 
+
 <body>
+
+
+  <!-- =====================================================
+       KPOTMS V3
+       TEACHER LOGIN NAVIGATION GATE
+       =====================================================
+
+       Teacher Login should normally be reached from:
+
+           index.html
+
+       or from a Teacher page which needs to send an
+       unauthenticated user back to Teacher Login.
+
+       Direct URL entry without the navigation token
+       returns the visitor to index.html.
+
+       NOTE:
+       This is navigation control only.
+       Authentication is performed by Apps Script.
+       ===================================================== -->
+
+  <script>
+
+    (function () {
+
+
+      /*
+       * ---------------------------------------------------
+       * Already authenticated as Teacher?
+       * ---------------------------------------------------
+       */
+
+      const loggedIn =
+        sessionStorage.getItem(
+          "kpotmsLoggedIn"
+        );
+
+
+      const role =
+        sessionStorage.getItem(
+          "kpotmsRole"
+        );
+
+
+      if (
+        loggedIn === "true" &&
+        role === "TEACHER"
+      ) {
+
+        /*
+         * Teacher Dashboard will exist after
+         * the next stage is completed.
+         */
+
+        window.location.replace(
+          "TeacherDashboard.html"
+        );
+
+        return;
+
+      }
+
+
+      /*
+       * ---------------------------------------------------
+       * Check navigation permission
+       * ---------------------------------------------------
+       */
+
+      const loginAllowed =
+        sessionStorage.getItem(
+          "kpotmsTeacherLoginAllowed"
+        );
+
+
+      /*
+       * ---------------------------------------------------
+       * Direct URL entry
+       * ---------------------------------------------------
+       */
+
+      if (
+        loginAllowed !== "true"
+      ) {
+
+        window.location.replace(
+          "index.html"
+        );
+
+        return;
+
+      }
+
+
+      /*
+       * ---------------------------------------------------
+       * Consume token
+       * ---------------------------------------------------
+       */
+
+      sessionStorage.removeItem(
+        "kpotmsTeacherLoginAllowed"
+      );
+
+
+    })();
+
+  </script>
+
+
 
   <div class="login-container">
 
+
     <div class="login-card">
 
+
       <div class="brand">
+
 
         <img
           src="images/logo.png"
           alt="Kalviparavai Logo"
         >
 
-        <h1>Kalviparavai</h1>
 
-        <h2>Digital Class Room</h2>
+        <h1>
+          Kalviparavai
+        </h1>
+
+
+        <h2>
+          Digital Class Room
+        </h2>
+
 
       </div>
+
+
 
       <div class="role-label">
         Teacher Login
       </div>
 
-      <form id="teacherLoginForm">
+
+
+      <form
+        id="teacherLoginForm"
+      >
+
+
+        <!-- =================================================
+             SUBJECT CODE
+             ================================================= -->
 
         <div class="form-group">
 
-          <label for="subjectCode">
+
+          <label
+            for="subjectCode"
+          >
             Subject Code
           </label>
+
 
           <input
             type="number"
@@ -203,13 +470,24 @@
             min="1"
           >
 
+
         </div>
+
+
+
+        <!-- =================================================
+             PASSWORD
+             ================================================= -->
 
         <div class="form-group">
 
-          <label for="password">
+
+          <label
+            for="password"
+          >
             Password
           </label>
+
 
           <input
             type="password"
@@ -219,7 +497,14 @@
             required
           >
 
+
         </div>
+
+
+
+        <!-- =================================================
+             LOGIN BUTTON
+             ================================================= -->
 
         <button
           type="submit"
@@ -229,7 +514,10 @@
           LOGIN
         </button>
 
+
       </form>
+
+
 
       <div
         id="loadingMessage"
@@ -238,219 +526,511 @@
         Verifying Teacher Login...
       </div>
 
+
+
       <div
         id="message"
         class="message"
+        aria-live="polite"
       ></div>
 
+
+
       <a
-        href="#"
+        href="index.html"
         class="back-link"
-        onclick="goHome(); return false;"
       >
         ← Back to Kalviparavai Home
       </a>
+
 
     </div>
 
   </div>
 
 
+
 <script>
 
+
 /* ==========================================================
+   KPOTMS V3.0
    TEACHER LOGIN
+
+   Browser
+       ↓
+   Apps Script Web App
+       ↓
+   WebAPI.gs
+       ↓
+   loginTeacher()
+       ↓
+   Auth.gs
+       ↓
+   role = TEACHER
+   ========================================================== */
+
+
+/* ==========================================================
+   VERSION 10 WEB APP URL
+   ==========================================================
+
+   IMPORTANT:
+
+   Put the SAME Version 10 Web App URL here that is
+   already successfully used by CoordinatorLogin.html.
+
+   Do NOT create another deployment.
+
+   ========================================================== */
+
+const WEB_APP_URL =
+  "https://script.google.com/macros/s/AKfycbwC2PHcaVlF0X0vB8mOVB1Vek_QC7mnI4m_4qXKx9iosFuQRQWdUVtSzGozQ8RUw0LO/exec";
+
+
+
+/* ==========================================================
+   FORM SUBMIT
    ========================================================== */
 
 document
-  .getElementById("teacherLoginForm")
-  .addEventListener("submit", function(event) {
+  .getElementById(
+    "teacherLoginForm"
+  )
+  .addEventListener(
+    "submit",
+    function (event) {
 
-    event.preventDefault();
+      event.preventDefault();
 
-    const subjectCode =
-      document
-        .getElementById("subjectCode")
-        .value
-        .trim();
+      loginTeacher();
 
-    const password =
-      document
-        .getElementById("password")
-        .value
-        .trim();
+    }
+  );
 
-    if (!subjectCode || !password) {
+
+
+/* ==========================================================
+   LOGIN TEACHER
+   ========================================================== */
+
+async function loginTeacher() {
+
+
+  const subjectCode =
+    document
+      .getElementById(
+        "subjectCode"
+      )
+      .value
+      .trim();
+
+
+  const password =
+    document
+      .getElementById(
+        "password"
+      )
+      .value
+      .trim();
+
+
+  if (
+    !subjectCode ||
+    !password
+  ) {
+
+    showMessage(
+      "Subject Code and Password are required.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  setLoading(true);
+
+
+  /*
+   * --------------------------------------------------------
+   * Clear old Teacher session before a new login
+   * --------------------------------------------------------
+   */
+
+  clearTeacherSession();
+
+
+
+  /*
+   * --------------------------------------------------------
+   * Request
+   * --------------------------------------------------------
+   */
+
+  const request = {
+
+    action:
+      "loginTeacher",
+
+    subjectCode:
+      subjectCode,
+
+    password:
+      password
+
+  };
+
+
+
+  try {
+
+
+    /*
+     * ------------------------------------------------------
+     * Send request to Apps Script Web App
+     * ------------------------------------------------------
+     */
+
+    const response =
+      await fetch(
+
+        WEB_APP_URL,
+
+        {
+
+          method: "POST",
+
+          headers: {
+
+            "Content-Type":
+              "text/plain;charset=utf-8"
+
+          },
+
+          body:
+            JSON.stringify(
+              request
+            )
+
+        }
+
+      );
+
+
+
+    /*
+     * ------------------------------------------------------
+     * Read response
+     * ------------------------------------------------------
+     */
+
+    const responseText =
+      await response.text();
+
+
+    let result;
+
+
+    try {
+
+      result =
+        JSON.parse(
+          responseText
+        );
+
+    }
+
+    catch (parseError) {
+
+      console.error(
+        "Invalid server response:",
+        responseText
+      );
+
+      throw new Error(
+        "Invalid response received from KPOTMS server."
+      );
+
+    }
+
+
+
+    /*
+     * ------------------------------------------------------
+     * Login failed
+     * ------------------------------------------------------
+     */
+
+    if (
+      !result ||
+      result.login !== true
+    ) {
 
       showMessage(
-        "Subject Code and Password are required.",
+
+        result && result.reason
+
+          ? result.reason
+
+          : "Teacher Login failed.",
+
         "error"
+
       );
+
+
+      setLoading(false);
 
       return;
 
     }
 
-    setLoading(true);
+
 
     /*
-     * Backend function to be created:
+     * ======================================================
+     * ROLE VERIFICATION
+     * ======================================================
      *
-     * loginTeacher(request)
+     * Login success alone is NOT enough.
      *
-     * IMPORTANT:
-     * The backend must return role = "TEACHER"
-     * after successful authentication.
+     * Teacher portal requires:
+     *
+     *     role === "TEACHER"
+     *
+     * ======================================================
      */
 
-    google.script.run
-      .withSuccessHandler(handleLoginResult)
-      .withFailureHandler(handleLoginError)
-      .loginTeacher({
-
-        subjectCode: subjectCode,
-        password: password
-
-      });
-
-  });
+    if (
+      result.role !==
+      "TEACHER"
+    ) {
 
 
-/* ==========================================================
-   LOGIN RESULT
-   ========================================================== */
+      console.error(
+        "Unexpected login role:",
+        result.role
+      );
 
-function handleLoginResult(result) {
 
-  setLoading(false);
+      showMessage(
+        "Access denied. Teacher role verification failed.",
+        "error"
+      );
 
-  if (!result || result.login !== true) {
 
-    showMessage(
-      result && result.reason
-        ? result.reason
-        : "Teacher Login failed.",
-      "error"
+      setLoading(false);
+
+      return;
+
+    }
+
+
+
+    /*
+     * ======================================================
+     * STORE AUTHENTICATED TEACHER SESSION
+     * ======================================================
+     */
+
+
+    sessionStorage.setItem(
+      "kpotmsLoggedIn",
+      "true"
     );
 
-    return;
+
+    sessionStorage.setItem(
+      "kpotmsRole",
+      "TEACHER"
+    );
+
+
+    sessionStorage.setItem(
+      "kpotms_subjectCode",
+      String(
+        result.subjectCode || ""
+      )
+    );
+
+
+    sessionStorage.setItem(
+      "kpotms_teacherName",
+      String(
+        result.teacherName || ""
+      )
+    );
+
+
+    sessionStorage.setItem(
+      "kpotms_courseID",
+      String(
+        result.courseID || ""
+      )
+    );
+
+
+    sessionStorage.setItem(
+      "kpotms_subjectName",
+      String(
+        result.subjectName || ""
+      )
+    );
+
+
+    sessionStorage.setItem(
+      "kpotms_meetingURL",
+      String(
+        result.meetingURL || ""
+      )
+    );
+
+
+    sessionStorage.setItem(
+      "kpotms_sessionStatus",
+      String(
+        result.sessionStatus || ""
+      )
+    );
+
+
+
+    /*
+     * ------------------------------------------------------
+     * Successful login
+     * ------------------------------------------------------
+     */
+
+    showMessage(
+      "Login successful. Opening Teacher Portal...",
+      "success"
+    );
+
+
+    setLoading(false);
+
+
+
+    /*
+     * ------------------------------------------------------
+     * Teacher Dashboard
+     *
+     * The file will be created in the next stage.
+     * ------------------------------------------------------
+     */
+
+    setTimeout(
+
+      function () {
+
+        window.location.replace(
+          "TeacherDashboard.html"
+        );
+
+      },
+
+      700
+
+    );
+
 
   }
 
-  /*
-   * ========================================================
-   * ROLE VERIFICATION
-   * ========================================================
-   *
-   * NEVER trust login=true alone.
-   *
-   * Teacher portal requires:
-   *
-   * role === "TEACHER"
-   *
-   * ========================================================
-   */
 
-  if (result.role !== "TEACHER") {
+  catch (error) {
+
+
+    console.error(
+      "Teacher Login Error:",
+      error
+    );
+
 
     showMessage(
-      "Access denied. Invalid user role.",
+      "Unable to connect to KPOTMS server. Please try again.",
       "error"
     );
 
-    return;
+
+    setLoading(false);
 
   }
-
-  /*
-   * Store only the authenticated session information
-   * required by the next Teacher page.
-   */
-
-  sessionStorage.setItem(
-    "kpotms_role",
-    "TEACHER"
-  );
-
-  sessionStorage.setItem(
-    "kpotms_subjectCode",
-    String(result.subjectCode || "")
-  );
-
-  sessionStorage.setItem(
-    "kpotms_teacherName",
-    String(result.teacherName || "")
-  );
-
-  sessionStorage.setItem(
-    "kpotms_courseID",
-    String(result.courseID || "")
-  );
-
-  sessionStorage.setItem(
-    "kpotms_subjectName",
-    String(result.subjectName || "")
-  );
-
-  sessionStorage.setItem(
-    "kpotms_meetingURL",
-    String(result.meetingURL || "")
-  );
-
-  sessionStorage.setItem(
-    "kpotms_sessionStatus",
-    String(result.sessionStatus || "")
-  );
-
-  showMessage(
-    "Login successful. Opening Teacher Portal...",
-    "success"
-  );
-
-  /*
-   * Teacher Dashboard will be created next.
-   *
-   * Do NOT redirect to it until the actual file exists.
-   */
-
-  setTimeout(function() {
-
-    window.location.href =
-      "TeacherDashboard.html";
-
-  }, 700);
 
 }
 
 
+
 /* ==========================================================
-   LOGIN ERROR
+   CLEAR TEACHER SESSION
    ========================================================== */
 
-function handleLoginError(error) {
+function clearTeacherSession() {
 
-  setLoading(false);
 
-  showMessage(
-    "Unable to process Teacher Login. Please try again.",
-    "error"
+  sessionStorage.removeItem(
+    "kpotmsLoggedIn"
   );
 
-  console.error(error);
+
+  sessionStorage.removeItem(
+    "kpotmsRole"
+  );
+
+
+  sessionStorage.removeItem(
+    "kpotms_subjectCode"
+  );
+
+
+  sessionStorage.removeItem(
+    "kpotms_teacherName"
+  );
+
+
+  sessionStorage.removeItem(
+    "kpotms_courseID"
+  );
+
+
+  sessionStorage.removeItem(
+    "kpotms_subjectName"
+  );
+
+
+  sessionStorage.removeItem(
+    "kpotms_meetingURL"
+  );
+
+
+  sessionStorage.removeItem(
+    "kpotms_sessionStatus"
+  );
 
 }
 
 
+
 /* ==========================================================
-   UI HELPERS
+   MESSAGE
    ========================================================== */
 
-function showMessage(text, type) {
+function showMessage(
+  text,
+  type
+) {
+
 
   const message =
-    document.getElementById("message");
+    document.getElementById(
+      "message"
+    );
 
-  message.textContent = text;
+
+  message.textContent =
+    text;
+
 
   message.className =
     "message " + type;
@@ -458,39 +1038,57 @@ function showMessage(text, type) {
 }
 
 
-function setLoading(isLoading) {
-
-  const button =
-    document.getElementById("loginButton");
-
-  const loading =
-    document.getElementById("loadingMessage");
-
-  button.disabled = isLoading;
-
-  loading.style.display =
-    isLoading ? "block" : "none";
-
-}
-
 
 /* ==========================================================
-   HOME
+   LOADING
    ========================================================== */
 
-function goHome() {
+function setLoading(
+  isLoading
+) {
 
-  /*
-   * We will replace this with the correct
-   * production home URL/path when the V3
-   * navigation is finalized.
-   */
 
-  window.location.href = "../index.html";
+  const button =
+    document.getElementById(
+      "loginButton"
+    );
+
+
+  const loading =
+    document.getElementById(
+      "loadingMessage"
+    );
+
+
+  button.disabled =
+    isLoading;
+
+
+  loading.style.display =
+    isLoading
+      ? "block"
+      : "none";
+
+
+  if (isLoading) {
+
+    button.textContent =
+      "VERIFYING...";
+
+  }
+
+  else {
+
+    button.textContent =
+      "LOGIN";
+
+  }
 
 }
 
+
 </script>
+
 
 </body>
 
