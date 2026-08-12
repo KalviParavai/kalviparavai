@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kalviparavai - Jitsi Test</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;min-height:100%;font-family:"Segoe UI",Tahoma,Arial,sans-serif}
+body{background:#f5f8fc;color:#1f2937}
+.page{min-height:100vh;padding:22px}
+.header{max-width:1400px;margin:0 auto 18px;display:flex;align-items:center;gap:15px}
+.logo{width:68px;height:auto}
+.brand-name{color:#1268c4;font-size:30px;font-weight:800}
+.brand-subtitle{margin-top:5px;color:#5b6573;font-size:17px}
+.panel{max-width:1400px;margin:auto;background:#fff;border-radius:12px;box-shadow:0 5px 20px rgba(0,0,0,.08);padding:20px}
+.controls{display:flex;flex-wrap:wrap;align-items:end;gap:12px;margin-bottom:18px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:14px;font-weight:700}
+.field input{width:270px;height:42px;border:1px solid #cbd5e1;border-radius:7px;padding:0 12px;font-size:15px;font-family:inherit}
+.button{height:42px;border:0;border-radius:7px;padding:0 20px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer}
+.join{background:#1769c2;color:#fff}.leave{background:#dc3545;color:#fff}
+.button:disabled{opacity:.55;cursor:default}
+.status{min-height:30px;margin-bottom:10px;color:#5b6573;font-size:14px}
+.status.success{color:#16803c;font-weight:600}.status.error{color:#c82333;font-weight:600}
+#jitsi-container{width:100%;height:680px;min-height:500px;border:1px solid #d8e0ea;border-radius:9px;overflow:hidden;background:#101820}
+.footer{max-width:1400px;margin:14px auto 0;text-align:center;color:#8a94a3;font-size:13px}
+@media(max-width:700px){.page{padding:12px}.field,.field input{width:100%}.controls{flex-direction:column;align-items:stretch}.button{width:100%}#jitsi-container{height:600px}}
+</style>
+</head>
+<body>
+<div class="page">
+<header class="header">
+<img class="logo" src="https://kalviparavai.github.io/kalviparavai/KPOTMS_V3/images/logo.png" alt="Kalviparavai Logo">
+<div><div class="brand-name">KALVIPARAVAI</div><div class="brand-subtitle">Jitsi Video Platform - Test</div></div>
+</header>
+<main class="panel">
+<div class="controls">
+<div class="field"><label for="participantName">Participant Name</label><input id="participantName" value="KPOTMS Test User" autocomplete="off"></div>
+<div class="field"><label for="roomName">Test Room</label><input id="roomName" value="KPOTMS-X-MATHS-TEST" autocomplete="off"></div>
+<button id="joinButton" class="button join" type="button">JOIN JITSI</button>
+<button id="leaveButton" class="button leave" type="button" disabled>LEAVE</button>
+</div>
+<div id="status" class="status">Enter a participant name and click JOIN JITSI.</div>
+<div id="jitsi-container"></div>
+</main>
+<div class="footer">KPOTMS V3 - Isolated Jitsi Integration Test</div>
+</div>
+
+<script src="https://meet.jit.si/external_api.js"></script>
+<script>
+let jitsiAPI=null;
+const joinButton=document.getElementById("joinButton");
+const leaveButton=document.getElementById("leaveButton");
+const participantName=document.getElementById("participantName");
+const roomName=document.getElementById("roomName");
+const statusElement=document.getElementById("status");
+const container=document.getElementById("jitsi-container");
+
+function setStatus(message,type){
+    statusElement.className="status"+(type?" "+type:"");
+    statusElement.textContent=message;
+}
+
+function joinJitsi(){
+    const name=participantName.value.trim();
+    const room=roomName.value.trim();
+
+    if(!name){setStatus("Please enter a participant name.","error");participantName.focus();return;}
+    if(!room){setStatus("Please enter a test room name.","error");roomName.focus();return;}
+
+    if(typeof JitsiMeetExternalAPI==="undefined"){
+        setStatus("Jitsi IFrame API could not be loaded.","error");
+        return;
+    }
+
+    if(jitsiAPI){try{jitsiAPI.dispose()}catch(e){} jitsiAPI=null;}
+    container.innerHTML="";
+    setStatus("Connecting to Jitsi...","");
+    joinButton.disabled=true;
+
+    try{
+        jitsiAPI=new JitsiMeetExternalAPI("meet.jit.si",{
+            roomName:room,
+            width:"100%",
+            height:"100%",
+            parentNode:container,
+            userInfo:{displayName:name},
+            configOverwrite:{prejoinConfig:{enabled:true}}
+        });
+
+        jitsiAPI.addEventListener("videoConferenceJoined",function(){
+            setStatus("Connected to Jitsi room: "+room,"success");
+            leaveButton.disabled=false;
+        });
+
+        jitsiAPI.addEventListener("videoConferenceLeft",function(){
+            setStatus("You have left the Jitsi room.","");
+            leaveButton.disabled=true;
+            joinButton.disabled=false;
+        });
+
+        jitsiAPI.addEventListener("readyToClose",leaveJitsi);
+
+    }catch(error){
+        console.error(error);
+        setStatus("Unable to start Jitsi: "+error.message,"error");
+        joinButton.disabled=false;
+        leaveButton.disabled=true;
+    }
+}
+
+function leaveJitsi(){
+    if(jitsiAPI){
+        try{jitsiAPI.executeCommand("hangup")}catch(e){}
+        try{jitsiAPI.dispose()}catch(e){}
+        jitsiAPI=null;
+    }
+    container.innerHTML="";
+    joinButton.disabled=false;
+    leaveButton.disabled=true;
+    setStatus("You have left the Jitsi room.","");
+}
+
+joinButton.addEventListener("click",joinJitsi);
+leaveButton.addEventListener("click",leaveJitsi);
+window.addEventListener("beforeunload",function(){if(jitsiAPI){try{jitsiAPI.dispose()}catch(e){}}});
+</script>
+</body>
+</html>
