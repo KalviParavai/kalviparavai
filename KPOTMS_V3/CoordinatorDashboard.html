@@ -619,9 +619,7 @@
              MESSAGE
              ================================================= -->
 
-        <div
-            id="message"
-        >
+        <div id="message">
             Loading live sessions...
         </div>
 
@@ -673,9 +671,7 @@
                 </thead>
 
 
-                <tbody
-                    id="sessionTable"
-                >
+                <tbody id="sessionTable">
 
                 </tbody>
 
@@ -698,38 +694,39 @@
 </div>
 
 
-
 <script>
+
 
 /* ==========================================================
    KPOTMS V3
-   Coordinator Dashboard
-   Production API
+   COORDINATOR DASHBOARD
+
+   IMPORTANT:
+   This file communicates with the EXISTING production
+   Web App only.
+
+   No Apps Script changes are required.
    ========================================================== */
 
 
 /* ==========================================================
-   PRODUCTION WEB APP URL
+   EXISTING PRODUCTION WEB APP
+   DO NOT CHANGE
    ========================================================== */
 
 const COORDINATOR_MANAGER_URL =
     "https://script.google.com/macros/s/AKfycbzxJ0qJ_uIVVCm_VZrCItEp6y_sniqVX52oD3WhTWwohuK_liNX8v9Wcm2IdEWbZbJs/exec";
 
 
-
 /* ==========================================================
-   GLOBAL ROW STORAGE
+   GLOBAL SESSION ROWS
    ========================================================== */
 
 window.currentSessionRows = {};
 
 
-
 /* ==========================================================
    CLEAN VALUE
-   Always converts value to string first.
-   This is important because Subject_Code and CourseID
-   are numbers in the API response.
    ========================================================== */
 
 function clean(value) {
@@ -743,11 +740,9 @@ function clean(value) {
 
     }
 
-
     return String(value).trim();
 
 }
-
 
 
 /* ==========================================================
@@ -757,29 +752,13 @@ function clean(value) {
 function escapeHTML(value) {
 
     return String(value)
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-        .replace(
-            /</g,
-            "&lt;"
-        )
-        .replace(
-            />/g,
-            "&gt;"
-        )
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-        .replace(
-            /'/g,
-            "&#039;"
-        );
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 
 }
-
 
 
 /* ==========================================================
@@ -789,32 +768,16 @@ function escapeHTML(value) {
 function escapeAttribute(value) {
 
     return String(value)
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-        .replace(
-            /</g,
-            "&lt;"
-        )
-        .replace(
-            />/g,
-            "&gt;"
-        );
-}
+        .replace(/&/g, "&amp;")
+        .replace(/"/g, "&quot;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
 
+}
 
 
 /* ==========================================================
    NORMALIZE MEETING URL
-   Handles:
-      normal URL
-      [URL](URL)
-      leading/trailing spaces
    ========================================================== */
 
 function normalizeMeetingURL(value) {
@@ -830,10 +793,11 @@ function normalizeMeetingURL(value) {
     }
 
 
-    /* ------------------------------------------------------
-       Markdown-style link:
-       [https://example.com](https://example.com)
-       ------------------------------------------------------ */
+    /*
+     * Handles:
+     *
+     * [https://meet.google.com/xxx](https://meet.google.com/xxx)
+     */
 
     const markdownMatch =
         url.match(
@@ -854,9 +818,8 @@ function normalizeMeetingURL(value) {
 }
 
 
-
 /* ==========================================================
-   FORMAT DATE/TIME
+   FORMAT DATE / TIME
    ========================================================== */
 
 function formatDateTime(value) {
@@ -892,9 +855,8 @@ function formatDateTime(value) {
 }
 
 
-
 /* ==========================================================
-   CREATE STATUS HTML
+   CREATE STATUS DISPLAY
    ========================================================== */
 
 function createStatusHTML(
@@ -967,9 +929,18 @@ function createStatusHTML(
 }
 
 
-
 /* ==========================================================
-   LOAD ALL SESSIONS
+   LOAD SESSIONS
+
+   THIS IS THE IMPORTANT CHANGE.
+
+   The verified production API is:
+
+       GET ?action=getSessions
+
+   NOT:
+
+       POST action=getAllSessions
    ========================================================== */
 
 async function loadSessions() {
@@ -1011,45 +982,40 @@ async function loadSessions() {
 
     try {
 
-        /* ==================================================
-           CALL PRODUCTION API
-           ================================================== */
+        /*
+         * Cache-busting parameter.
+         *
+         * This ensures that clicking REFRESH
+         * asks the Web App for fresh data.
+         */
+
+        const requestURL =
+            COORDINATOR_MANAGER_URL +
+            "?action=getSessions&_=" +
+            Date.now();
+
+
+        console.log(
+            "Coordinator getSessions URL:",
+            requestURL
+        );
+
 
         const response =
             await fetch(
-                COORDINATOR_MANAGER_URL,
+                requestURL,
                 {
-
-                    method: "POST",
-
-                    headers: {
-
-                        "Content-Type":
-                            "text/plain;charset=utf-8"
-
-                    },
-
-                    body:
-                        JSON.stringify({
-
-                            action:
-                                "getAllSessions"
-
-                        }),
-
-                    cache:
-                        "no-store"
-
+                    method: "GET",
+                    cache: "no-store"
                 }
             );
 
 
-        if (
-            !response.ok
-        ) {
+        if (!response.ok) {
 
             throw new Error(
-                "Unable to connect to Coordinator Server."
+                "Unable to connect to Coordinator Server. HTTP " +
+                response.status
             );
 
         }
@@ -1060,14 +1026,19 @@ async function loadSessions() {
 
 
         console.log(
-            "Coordinator API response:",
+            "Coordinator getSessions response:",
             result
         );
 
 
-        /* ==================================================
-           VALIDATE RESPONSE
-           ================================================== */
+        /*
+         * EXPECTED VERIFIED RESPONSE:
+         *
+         * {
+         *     success: true,
+         *     data: [...]
+         * }
+         */
 
         if (
             !result ||
@@ -1091,28 +1062,14 @@ async function loadSessions() {
             result.data;
 
 
-        /* ==================================================
-           EMPTY RESPONSE
-           ================================================== */
-
-        if (
-            sessions.length === 0
-        ) {
-
-            message.textContent =
-                "No sessions found.";
-
-            return;
-
-        }
-
-
         let count = 0;
 
 
-        /* ==================================================
-           BUILD TABLE
-           ================================================== */
+        /*
+         * ----------------------------------------------------
+         * BUILD ALL VALID SUBJECT ROWS
+         * ----------------------------------------------------
+         */
 
         for (
             let i = 0;
@@ -1124,18 +1081,10 @@ async function loadSessions() {
                 sessions[i];
 
 
-            /* ------------------------------------------------
-               IMPORTANT:
-               These names EXACTLY match the verified API:
-
-               Subject_Code
-               CourseID
-               Subject_Name
-               Teacher
-               Meeting_URL
-               Session_Status
-               Last_Updated
-               ------------------------------------------------ */
+            /*
+             * EXACT property names returned by
+             * the verified API.
+             */
 
             const subjectCode =
                 clean(
@@ -1143,13 +1092,11 @@ async function loadSessions() {
                 );
 
 
-            /* ------------------------------------------------
-               Ignore blank spreadsheet row
-               ------------------------------------------------ */
+            /*
+             * Ignore the final blank spreadsheet row.
+             */
 
-            if (
-                subjectCode === ""
-            ) {
+            if (!subjectCode) {
 
                 continue;
 
@@ -1196,9 +1143,10 @@ async function loadSessions() {
                 );
 
 
-            /* ------------------------------------------------
-               Save row information
-               ------------------------------------------------ */
+            /*
+             * Store the exact Subject Code against
+             * the displayed row.
+             */
 
             window.currentSessionRows[
                 count
@@ -1213,9 +1161,9 @@ async function loadSessions() {
             };
 
 
-            /* ------------------------------------------------
-               Create row
-               ------------------------------------------------ */
+            /*
+             * Create table row.
+             */
 
             const tr =
                 document.createElement(
@@ -1229,13 +1177,11 @@ async function loadSessions() {
                     ${count}
                 </td>
 
-
                 <td>
                     ${escapeHTML(
                         subjectCode
                     )}
                 </td>
-
 
                 <td class="course">
                     ${escapeHTML(
@@ -1243,13 +1189,11 @@ async function loadSessions() {
                     )}
                 </td>
 
-
                 <td class="subject">
                     ${escapeHTML(
                         subjectName
                     )}
                 </td>
-
 
                 <td>
                     ${escapeHTML(
@@ -1257,12 +1201,10 @@ async function loadSessions() {
                     )}
                 </td>
 
-
                 <td class="meeting">
 
                     ${
                         meetingURL
-
                         ?
 
                         `<a
@@ -1282,13 +1224,11 @@ async function loadSessions() {
 
                 </td>
 
-
                 <td>
                     ${escapeHTML(
                         lastUpdated
                     )}
                 </td>
-
 
                 <td class="status-cell">
 
@@ -1309,9 +1249,9 @@ async function loadSessions() {
         }
 
 
-        /* ==================================================
-           NO VALID ROWS
-           ================================================== */
+        /*
+         * No valid subjects.
+         */
 
         if (
             count === 0
@@ -1325,9 +1265,9 @@ async function loadSessions() {
         }
 
 
-        /* ==================================================
-           SUCCESS
-           ================================================== */
+        /*
+         * SUCCESS
+         */
 
         message.textContent =
             count +
@@ -1365,9 +1305,14 @@ async function loadSessions() {
 }
 
 
-
 /* ==========================================================
    CHANGE SESSION STATUS
+
+   Uses the EXISTING Code.gs doGet():
+
+       ?action=updateStatus
+       &subjectCode=...
+       &status=...
    ========================================================== */
 
 async function changeSessionStatus(
@@ -1455,51 +1400,50 @@ async function changeSessionStatus(
 
     try {
 
-        /* ==================================================
-           POST STATUS UPDATE
-           ================================================== */
+        /*
+         * Use the existing GET API.
+         *
+         * No POST.
+         * No new Apps Script.
+         * No new deployment.
+         */
+
+        const requestURL =
+            COORDINATOR_MANAGER_URL +
+            "?action=updateStatus" +
+            "&subjectCode=" +
+            encodeURIComponent(
+                subjectCode
+            ) +
+            "&status=" +
+            encodeURIComponent(
+                newStatus
+            ) +
+            "&_=" +
+            Date.now();
+
+
+        console.log(
+            "Coordinator updateStatus URL:",
+            requestURL
+        );
+
 
         const response =
             await fetch(
-                COORDINATOR_MANAGER_URL,
+                requestURL,
                 {
-
-                    method: "POST",
-
-                    headers: {
-
-                        "Content-Type":
-                            "text/plain;charset=utf-8"
-
-                    },
-
-                    body:
-                        JSON.stringify({
-
-                            action:
-                                "updateStatus",
-
-                            subjectCode:
-                                subjectCode,
-
-                            status:
-                                newStatus
-
-                        }),
-
-                    cache:
-                        "no-store"
-
+                    method: "GET",
+                    cache: "no-store"
                 }
             );
 
 
-        if (
-            !response.ok
-        ) {
+        if (!response.ok) {
 
             throw new Error(
-                "Unable to connect to Coordinator Server."
+                "Unable to connect to Coordinator Server. HTTP " +
+                response.status
             );
 
         }
@@ -1510,14 +1454,21 @@ async function changeSessionStatus(
 
 
         console.log(
-            "updateStatus response:",
+            "Coordinator updateStatus response:",
             result
         );
 
 
-        /* ==================================================
-           VALIDATE UPDATE RESULT
-           ================================================== */
+        /*
+         * Code.gs returns:
+         *
+         * {
+         *     success: true,
+         *     data: result
+         * }
+         *
+         * Therefore check BOTH levels.
+         */
 
         if (
             !result ||
@@ -1528,32 +1479,38 @@ async function changeSessionStatus(
                 result &&
                 result.message
                     ? result.message
-                    : (
-                        result &&
-                        result.data &&
-                        result.data.message
-                            ? result.data.message
-                            : "Unable to update Session Status."
-                    )
+                    : "Unable to update Session Status."
             );
 
         }
 
 
-        /* ==================================================
-           SUCCESS
-           ================================================== */
+        /*
+         * If the underlying updateSessionStatus()
+         * returned its own failure result, catch it here.
+         */
+
+        if (
+            result.data &&
+            result.data.success === false
+        ) {
+
+            throw new Error(
+                result.data.message ||
+                "Session Status update was rejected by the server."
+            );
+
+        }
+
 
         alert(
             "Session status updated successfully."
         );
 
 
-        /* --------------------------------------------------
-           Reload from server.
-           This guarantees that the screen reflects the
-           actual spreadsheet state.
-           -------------------------------------------------- */
+        /*
+         * Reload the actual server data.
+         */
 
         await loadSessions();
 
@@ -1577,7 +1534,6 @@ async function changeSessionStatus(
     }
 
 }
-
 
 
 /* ==========================================================
@@ -1628,7 +1584,6 @@ function logout() {
         "index.html";
 
 }
-
 
 
 /* ==========================================================
@@ -1690,7 +1645,6 @@ function loadCoordinatorName() {
 }
 
 
-
 /* ==========================================================
    BUTTON EVENTS
    ========================================================== */
@@ -1715,9 +1669,8 @@ document
     );
 
 
-
 /* ==========================================================
-   INITIALIZE DASHBOARD
+   INITIALIZE
    ========================================================== */
 
 document.addEventListener(
@@ -1730,6 +1683,7 @@ document.addEventListener(
 
     }
 );
+
 
 </script>
 
