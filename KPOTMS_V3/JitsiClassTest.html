@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Kalviparavai - Jitsi Class Test</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+}
+
+body {
+    font-family:
+        "Segoe UI",
+        Tahoma,
+        Arial,
+        sans-serif;
+
+    background: #f5f8fc;
+    color: #1f2937;
+}
+
+.page {
+    min-height: 100vh;
+    padding: 22px;
+}
+
+.header {
+    max-width: 1400px;
+    margin: 0 auto 18px auto;
+
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo {
+    width: 68px;
+    height: auto;
+}
+
+.brand-name {
+    color: #1268c4;
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1.1;
+}
+
+.brand-subtitle {
+    margin-top: 5px;
+    color: #5b6573;
+    font-size: 17px;
+}
+
+.class-card {
+    max-width: 1400px;
+    margin: 0 auto 18px auto;
+
+    background: #ffffff;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 5px 20px
+        rgba(0, 0, 0, 0.08);
+
+    padding: 22px;
+}
+
+.class-title {
+    color: #17324d;
+    font-size: 27px;
+    font-weight: 800;
+    margin-bottom: 5px;
+}
+
+.class-details {
+    color: #5b6573;
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+.status-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.status-label {
+    color: #4b5563;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 88px;
+    height: 32px;
+
+    border-radius: 18px;
+
+    background: #e8f7ee;
+    color: #16803c;
+
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.controls-card {
+    max-width: 1400px;
+    margin: 0 auto 18px auto;
+
+    background: #ffffff;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 5px 20px
+        rgba(0, 0, 0, 0.08);
+
+    padding: 20px;
+}
+
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    gap: 12px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.field label {
+    color: #374151;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.field input {
+    width: 270px;
+    height: 42px;
+
+    border: 1px solid #cbd5e1;
+    border-radius: 7px;
+
+    padding: 0 12px;
+
+    font-family: inherit;
+    font-size: 15px;
+}
+
+.button {
+    height: 42px;
+
+    border: none;
+    border-radius: 7px;
+
+    padding: 0 20px;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.join-button {
+    background: #1769c2;
+    color: #ffffff;
+}
+
+.join-button:hover {
+    background: #125aa6;
+}
+
+.leave-button {
+    background: #dc3545;
+    color: #ffffff;
+}
+
+.leave-button:hover {
+    background: #c82333;
+}
+
+.button:disabled {
+    opacity: 0.55;
+    cursor: default;
+}
+
+.message {
+    min-height: 28px;
+    margin-top: 14px;
+
+    color: #5b6573;
+    font-size: 14px;
+}
+
+.message.success {
+    color: #16803c;
+    font-weight: 600;
+}
+
+.message.error {
+    color: #c82333;
+    font-weight: 600;
+}
+
+#jitsi-container {
+    max-width: 1400px;
+    height: 680px;
+    min-height: 500px;
+
+    margin: 0 auto;
+
+    border: 1px solid #d8e0ea;
+    border-radius: 9px;
+
+    overflow: hidden;
+
+    background: #101820;
+
+    box-shadow:
+        0 5px 20px
+        rgba(0, 0, 0, 0.08);
+}
+
+.footer {
+    max-width: 1400px;
+
+    margin: 14px auto 0 auto;
+
+    text-align: center;
+
+    color: #8a94a3;
+    font-size: 13px;
+}
+
+@media (max-width: 700px) {
+
+    .page {
+        padding: 12px;
+    }
+
+    .header {
+        align-items: flex-start;
+    }
+
+    .brand-name {
+        font-size: 25px;
+    }
+
+    .controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .field,
+    .field input {
+        width: 100%;
+    }
+
+    .button {
+        width: 100%;
+    }
+
+    #jitsi-container {
+        height: 600px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+    <!-- =================================================
+         KPOTMS HEADER
+         ================================================= -->
+
+    <header class="header">
+
+        <img
+            class="logo"
+            src="https://kalviparavai.github.io/kalviparavai/KPOTMS_V3/images/logo.png"
+            alt="Kalviparavai Logo">
+
+        <div>
+
+            <div class="brand-name">
+                KALVIPARAVAI
+            </div>
+
+            <div class="brand-subtitle">
+                KPOTMS V3 - Online Classroom Test
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =================================================
+         CLASS INFORMATION
+         ================================================= -->
+
+    <section class="class-card">
+
+        <div class="class-title">
+            X-Mathematics
+        </div>
+
+        <div class="class-details">
+
+            <strong>Subject Code:</strong>
+            1
+
+            &nbsp;&nbsp;|&nbsp;&nbsp;
+
+            <strong>Teacher:</strong>
+            X Maths Teacher
+
+            &nbsp;&nbsp;|&nbsp;&nbsp;
+
+            <strong>Test Room:</strong>
+            KPOTMS-X-MATHEMATICS-1
+
+        </div>
+
+        <div class="status-row">
+
+            <span class="status-label">
+                Session Status:
+            </span>
+
+            <span class="status-badge">
+                OPEN
+            </span>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         PARTICIPANT / CLASS CONTROLS
+         ================================================= -->
+
+    <section class="controls-card">
+
+        <div class="controls">
+
+            <div class="field">
+
+                <label for="participantName">
+                    Participant Name
+                </label>
+
+                <input
+                    id="participantName"
+                    type="text"
+                    value="KPOTMS Test User"
+                    autocomplete="off">
+
+            </div>
+
+
+            <button
+                id="joinButton"
+                class="button join-button"
+                type="button">
+
+                JOIN CLASS
+
+            </button>
+
+
+            <button
+                id="leaveButton"
+                class="button leave-button"
+                type="button"
+                disabled>
+
+                LEAVE CLASS
+
+            </button>
+
+        </div>
+
+
+        <div
+            id="message"
+            class="message">
+
+            Session is OPEN.
+            Enter your name and click JOIN CLASS.
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         JITSI CLASSROOM
+         ================================================= -->
+
+    <div id="jitsi-container"></div>
+
+
+    <div class="footer">
+
+        KPOTMS V3
+        -
+        Jitsi Classroom Integration Test
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     JITSI IFRAME API
+     ===================================================== -->
+
+<script src="https://meet.jit.si/external_api.js"></script>
+
+
+<script>
+
+/* =========================================================
+   KPOTMS JITSI CLASS TEST
+   ---------------------------------------------------------
+   Subject:
+       X-Mathematics
+
+   Subject Code:
+       1
+
+   Session:
+       OPEN
+
+   Room:
+       KPOTMS-X-MATHEMATICS-1
+
+   IMPORTANT:
+       This page is intentionally isolated.
+
+       No Apps Script.
+       No Google Sheets.
+       No KPOTMS backend.
+   ========================================================= */
+
+
+let jitsiAPI = null;
+
+
+const SUBJECT_CODE =
+    "1";
+
+
+const SUBJECT_NAME =
+    "X-Mathematics";
+
+
+const TEACHER_NAME =
+    "X Maths Teacher";
+
+
+const SESSION_STATUS =
+    "OPEN";
+
+
+const ROOM_NAME =
+    "KPOTMS-X-MATHEMATICS-1";
+
+
+const joinButton =
+    document.getElementById(
+        "joinButton"
+    );
+
+
+const leaveButton =
+    document.getElementById(
+        "leaveButton"
+    );
+
+
+const participantName =
+    document.getElementById(
+        "participantName"
+    );
+
+
+const message =
+    document.getElementById(
+        "message"
+    );
+
+
+const container =
+    document.getElementById(
+        "jitsi-container"
+    );
+
+
+/* =========================================================
+   MESSAGE
+   ========================================================= */
+
+function showMessage(
+    text,
+    type
+) {
+
+    message.className =
+        "message" +
+        (
+            type
+                ? " " + type
+                : ""
+        );
+
+    message.textContent =
+        text;
+
+}
+
+
+/* =========================================================
+   JOIN CLASS
+   ========================================================= */
+
+function joinClass() {
+
+
+    const name =
+        participantName
+            .value
+            .trim();
+
+
+    /* -----------------------------------------------------
+       Session check
+       ----------------------------------------------------- */
+
+    if (
+        SESSION_STATUS !==
+        "OPEN"
+    ) {
+
+        showMessage(
+            "This session is currently CLOSED.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    /* -----------------------------------------------------
+       Participant name
+       ----------------------------------------------------- */
+
+    if (!name) {
+
+        showMessage(
+            "Please enter your participant name.",
+            "error"
+        );
+
+        participantName.focus();
+
+        return;
+
+    }
+
+
+    /* -----------------------------------------------------
+       Check Jitsi API
+       ----------------------------------------------------- */
+
+    if (
+        typeof
+        JitsiMeetExternalAPI ===
+        "undefined"
+    ) {
+
+        showMessage(
+            "Jitsi IFrame API could not be loaded.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    /* -----------------------------------------------------
+       Dispose previous meeting
+       ----------------------------------------------------- */
+
+    if (jitsiAPI) {
+
+        try {
+
+            jitsiAPI.dispose();
+
+        }
+        catch (error) {
+
+            console.warn(
+                error
+            );
+
+        }
+
+        jitsiAPI = null;
+
+    }
+
+
+    container.innerHTML =
+        "";
+
+
+    showMessage(
+        "Connecting to " +
+        SUBJECT_NAME +
+        "...",
+        ""
+    );
+
+
+    joinButton.disabled =
+        true;
+
+
+    /* -----------------------------------------------------
+       Jitsi options
+       ----------------------------------------------------- */
+
+    const options = {
+
+        roomName:
+            ROOM_NAME,
+
+        width:
+            "100%",
+
+        height:
+            "100%",
+
+        parentNode:
+            container,
+
+        userInfo: {
+
+            displayName:
+                name
+
+        },
+
+        configOverwrite: {
+
+            prejoinConfig: {
+
+                enabled:
+                    true
+
+            }
+
+        }
+
+    };
+
+
+    /* -----------------------------------------------------
+       Start Jitsi
+       ----------------------------------------------------- */
+
+    try {
+
+        jitsiAPI =
+            new JitsiMeetExternalAPI(
+                "meet.jit.si",
+                options
+            );
+
+
+        /* -------------------------------------------------
+           Participant joined
+           ------------------------------------------------- */
+
+        jitsiAPI.addEventListener(
+            "videoConferenceJoined",
+            function() {
+
+                showMessage(
+                    "Connected to " +
+                    SUBJECT_NAME +
+                    ".",
+                    "success"
+                );
+
+
+                leaveButton.disabled =
+                    false;
+
+            }
+        );
+
+
+        /* -------------------------------------------------
+           Participant left
+           ------------------------------------------------- */
+
+        jitsiAPI.addEventListener(
+            "videoConferenceLeft",
+            function() {
+
+                showMessage(
+                    "You have left the " +
+                    SUBJECT_NAME +
+                    " session.",
+                    ""
+                );
+
+
+                joinButton.disabled =
+                    false;
+
+
+                leaveButton.disabled =
+                    true;
+
+            }
+        );
+
+
+        /* -------------------------------------------------
+           Jitsi ready-to-close
+           ------------------------------------------------- */
+
+        jitsiAPI.addEventListener(
+            "readyToClose",
+            function() {
+
+                leaveClass();
+
+            }
+        );
+
+
+        /* -------------------------------------------------
+           Participant joined room
+           ------------------------------------------------- */
+
+        jitsiAPI.addEventListener(
+            "participantJoined",
+            function(event) {
+
+                console.log(
+                    "Participant joined:",
+                    event
+                );
+
+            }
+        );
+
+
+        /* -------------------------------------------------
+           Participant left room
+           ------------------------------------------------- */
+
+        jitsiAPI.addEventListener(
+            "participantLeft",
+            function(event) {
+
+                console.log(
+                    "Participant left:",
+                    event
+                );
+
+            }
+        );
+
+    }
+    catch (error) {
+
+        console.error(
+            "Jitsi initialization error:",
+            error
+        );
+
+
+        showMessage(
+            "Unable to start the classroom: " +
+            error.message,
+            "error"
+        );
+
+
+        joinButton.disabled =
+            false;
+
+
+        leaveButton.disabled =
+            true;
+
+    }
+
+}
+
+
+/* =========================================================
+   LEAVE CLASS
+   ========================================================= */
+
+function leaveClass() {
+
+
+    if (jitsiAPI) {
+
+
+        try {
+
+            jitsiAPI.executeCommand(
+                "hangup"
+            );
+
+        }
+        catch (error) {
+
+            console.warn(
+                "Jitsi hangup warning:",
+                error
+            );
+
+        }
+
+
+        try {
+
+            jitsiAPI.dispose();
+
+        }
+        catch (error) {
+
+            console.warn(
+                "Jitsi dispose warning:",
+                error
+            );
+
+        }
+
+
+        jitsiAPI =
+            null;
+
+    }
+
+
+    container.innerHTML =
+        "";
+
+
+    joinButton.disabled =
+        false;
+
+
+    leaveButton.disabled =
+        true;
+
+
+    showMessage(
+        "You have left the " +
+        SUBJECT_NAME +
+        " session.",
+        ""
+    );
+
+}
+
+
+/* =========================================================
+   BUTTON EVENTS
+   ========================================================= */
+
+joinButton.addEventListener(
+    "click",
+    joinClass
+);
+
+
+leaveButton.addEventListener(
+    "click",
+    leaveClass
+);
+
+
+/* =========================================================
+   PAGE CLOSE
+   ========================================================= */
+
+window.addEventListener(
+    "beforeunload",
+    function() {
+
+        if (jitsiAPI) {
+
+            try {
+
+                jitsiAPI.dispose();
+
+            }
+            catch (error) {
+
+                console.warn(
+                    error
+                );
+
+            }
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>
