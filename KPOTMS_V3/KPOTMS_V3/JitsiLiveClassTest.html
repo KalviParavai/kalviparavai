@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>KPOTMS - Live Class Test</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+}
+
+body {
+    font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+    background: #f5f8fc;
+    color: #1f2937;
+}
+
+.page {
+    min-height: 100vh;
+    padding: 22px;
+}
+
+.header {
+    max-width: 1400px;
+    margin: 0 auto 18px auto;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo {
+    width: 68px;
+    height: auto;
+}
+
+.brand-name {
+    color: #1268c4;
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1.1;
+}
+
+.brand-subtitle {
+    margin-top: 5px;
+    color: #5b6573;
+    font-size: 17px;
+}
+
+.class-card,
+.control-card {
+    max-width: 1400px;
+    margin: 0 auto 18px auto;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    padding: 22px;
+}
+
+.class-title {
+    color: #17324d;
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 6px;
+}
+
+.class-details {
+    color: #5b6573;
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+.status-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.status-label {
+    color: #4b5563;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 90px;
+    height: 32px;
+    padding: 0 14px;
+    border-radius: 18px;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.status-badge.open {
+    background: #d9f1e3;
+    color: #16803c;
+}
+
+.status-badge.closed {
+    background: #fbdcdf;
+    color: #b42318;
+}
+
+.status-badge.loading {
+    background: #e9eef5;
+    color: #52606d;
+}
+
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    gap: 12px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.field label {
+    color: #374151;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.field input {
+    width: 280px;
+    height: 42px;
+    border: 1px solid #cbd5e1;
+    border-radius: 7px;
+    padding: 0 12px;
+    font-family: inherit;
+    font-size: 15px;
+}
+
+.button {
+    height: 42px;
+    border: none;
+    border-radius: 7px;
+    padding: 0 20px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.refresh-button {
+    background: #1769c2;
+    color: #ffffff;
+}
+
+.refresh-button:hover {
+    background: #125aa6;
+}
+
+.join-button {
+    background: #16803c;
+    color: #ffffff;
+}
+
+.join-button:hover {
+    background: #126d32;
+}
+
+.leave-button {
+    background: #dc3545;
+    color: #ffffff;
+}
+
+.leave-button:hover {
+    background: #c82333;
+}
+
+.button:disabled {
+    opacity: 0.55;
+    cursor: default;
+}
+
+.message {
+    min-height: 28px;
+    margin-top: 14px;
+    color: #5b6573;
+    font-size: 14px;
+}
+
+.message.success {
+    color: #16803c;
+    font-weight: 600;
+}
+
+.message.error {
+    color: #b42318;
+    font-weight: 600;
+}
+
+.message.closed {
+    color: #b42318;
+    font-weight: 700;
+}
+
+#jitsi-container {
+    max-width: 1400px;
+    height: 680px;
+    min-height: 500px;
+    margin: 0 auto;
+    border: 1px solid #d8e0ea;
+    border-radius: 9px;
+    overflow: hidden;
+    background: #101820;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.footer {
+    max-width: 1400px;
+    margin: 14px auto 0 auto;
+    text-align: center;
+    color: #8a94a3;
+    font-size: 13px;
+}
+
+@media (max-width: 700px) {
+
+    .page {
+        padding: 12px;
+    }
+
+    .header {
+        align-items: flex-start;
+    }
+
+    .brand-name {
+        font-size: 25px;
+    }
+
+    .controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .field,
+    .field input,
+    .button {
+        width: 100%;
+    }
+
+    #jitsi-container {
+        height: 600px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+    <!-- =================================================
+         KPOTMS HEADER
+         ================================================= -->
+
+    <header class="header">
+
+        <img
+            class="logo"
+            src="https://kalviparavai.github.io/kalviparavai/KPOTMS_V3/images/logo.png"
+            alt="Kalviparavai Logo">
+
+        <div>
+
+            <div class="brand-name">
+                KALVIPARAVAI
+            </div>
+
+            <div class="brand-subtitle">
+                KPOTMS V3 - Live Classroom Integration Test
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =================================================
+         CLASS INFORMATION
+         ================================================= -->
+
+    <section class="class-card">
+
+        <div class="class-title">
+            X-Mathematics
+        </div>
+
+        <div class="class-details">
+
+            <strong>Subject Code:</strong>
+            1
+
+            &nbsp;&nbsp;|&nbsp;&nbsp;
+
+            <strong>Teacher:</strong>
+            X Maths Teacher
+
+            &nbsp;&nbsp;|&nbsp;&nbsp;
+
+            <strong>Jitsi Room:</strong>
+            KPOTMS-X-MATHEMATICS-1
+
+        </div>
+
+        <div class="status-row">
+
+            <span class="status-label">
+                Session Status:
+            </span>
+
+            <span
+                id="statusBadge"
+                class="status-badge loading">
+                READING
+            </span>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         CONTROLS
+         ================================================= -->
+
+    <section class="control-card">
+
+        <div class="controls">
+
+            <div class="field">
+
+                <label for="participantName">
+                    Participant Name
+                </label>
+
+                <input
+                    id="participantName"
+                    type="text"
+                    value="KPOTMS Test User"
+                    autocomplete="off">
+
+            </div>
+
+
+            <button
+                id="refreshButton"
+                class="button refresh-button"
+                type="button">
+
+                REFRESH SESSION
+
+            </button>
+
+
+            <button
+                id="joinButton"
+                class="button join-button"
+                type="button"
+                disabled>
+
+                JOIN CLASS
+
+            </button>
+
+
+            <button
+                id="leaveButton"
+                class="button leave-button"
+                type="button"
+                disabled>
+
+                LEAVE CLASS
+
+            </button>
+
+        </div>
+
+
+        <div
+            id="message"
+            class="message">
+
+            Reading current session status...
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         JITSI CLASSROOM
+         ================================================= -->
+
+    <div id="jitsi-container"></div>
+
+
+    <div class="footer">
+        KPOTMS V3 - Read-only session control + Jitsi test
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     JITSI IFRAME API
+     ===================================================== -->
+
+<script src="https://meet.jit.si/external_api.js"></script>
+
+
+<script>
+
+/* =========================================================
+   KPOTMS V3 - LIVE CLASS TEST
+   ---------------------------------------------------------
+   Stage 3B
+
+   This page combines two already-proven components:
+
+   1. Existing KPOTMS getSessions READ path
+   2. Existing Jitsi classroom mechanism
+
+   IMPORTANT:
+   - No Apps Script write operation
+   - No OPEN/CLOSE operation
+   - No spreadsheet modification
+   - No updateSessionStatus call
+   ========================================================= */
+
+
+/* =========================================================
+   CONFIGURATION
+   ========================================================= */
+
+const WEB_APP_URL =
+    "https://script.google.com/macros/s/AKfycbzxJ0qJ_uIVVCm_VZrCItEp6y_sniqVX52oD3WhTWwohuK_liNX8v9Wcm2IdEWbZbJs/exec";
+
+
+const TEST_SUBJECT_CODE =
+    "1";
+
+
+const TEST_SUBJECT_NAME =
+    "X-Mathematics";
+
+
+const TEST_TEACHER_NAME =
+    "X Maths Teacher";
+
+
+const JITSI_ROOM =
+    "KPOTMS-X-MATHEMATICS-1";
+
+
+/* =========================================================
+   DOM
+   ========================================================= */
+
+const statusBadge =
+    document.getElementById(
+        "statusBadge"
+    );
+
+
+const message =
+    document.getElementById(
+        "message"
+    );
+
+
+const refreshButton =
+    document.getElementById(
+        "refreshButton"
+    );
+
+
+const joinButton =
+    document.getElementById(
+        "joinButton"
+    );
+
+
+const leaveButton =
+    document.getElementById(
+        "leaveButton"
+    );
+
+
+const participantName =
+    document.getElementById(
+        "participantName"
+    );
+
+
+const container =
+    document.getElementById(
+        "jitsi-container"
+    );
+
+
+/* =========================================================
+   CURRENT SESSION STATE
+   ========================================================= */
+
+let currentSessionStatus =
+    "";
+
+
+let jitsiAPI =
+    null;
+
+
+/* =========================================================
+   MESSAGE
+   ========================================================= */
+
+function showMessage(
+    text,
+    type
+) {
+
+    message.className =
+        "message" +
+        (
+            type
+                ? " " + type
+                : ""
+        );
+
+    message.textContent =
+        text;
+
+}
+
+
+/* =========================================================
+   STATUS BADGE
+   ========================================================= */
+
+function setStatusBadge(
+    status
+) {
+
+    statusBadge.className =
+        "status-badge";
+
+
+    if (
+        status === "OPEN"
+    ) {
+
+        statusBadge.classList.add(
+            "open"
+        );
+
+        statusBadge.textContent =
+            "OPEN";
+
+        return;
+
+    }
+
+
+    if (
+        status === "CLOSED"
+    ) {
+
+        statusBadge.classList.add(
+            "closed"
+        );
+
+        statusBadge.textContent =
+            "CLOSED";
+
+        return;
+
+    }
+
+
+    statusBadge.classList.add(
+        "loading"
+    );
+
+    statusBadge.textContent =
+        status || "READING";
+
+}
+
+
+/* =========================================================
+   READ CURRENT SESSION STATUS
+   ========================================================= */
+
+async function readSessionStatus() {
+
+    refreshButton.disabled =
+        true;
+
+    joinButton.disabled =
+        true;
+
+
+    setStatusBadge(
+        "READING"
+    );
+
+
+    showMessage(
+        "Reading current Session_Status...",
+        ""
+    );
+
+
+    const url =
+        WEB_APP_URL +
+        "?action=getSessions";
+
+
+    try {
+
+        const response =
+            await fetch(
+                url,
+                {
+                    method: "GET",
+                    cache: "no-store"
+                }
+            );
+
+
+        if (
+            !response.ok
+        ) {
+
+            throw new Error(
+                "HTTP status " +
+                response.status
+            );
+
+        }
+
+
+        const result =
+            await response.json();
+
+
+        if (
+            !result ||
+            result.success !== true
+        ) {
+
+            throw new Error(
+                result &&
+                result.message
+                    ? result.message
+                    : "Session data could not be read."
+            );
+
+        }
+
+
+        const sessions =
+            Array.isArray(
+                result.data
+            )
+                ? result.data
+                : [];
+
+
+        const record =
+            sessions.find(
+                function(item) {
+
+                    return String(
+                        item.Subject_Code
+                    ).trim() ===
+                    TEST_SUBJECT_CODE;
+
+                }
+            );
+
+
+        if (!record) {
+
+            currentSessionStatus =
+                "";
+
+            setStatusBadge(
+                "NOT FOUND"
+            );
+
+
+            showMessage(
+                "Subject Code " +
+                TEST_SUBJECT_CODE +
+                " was not found.",
+                "error"
+            );
+
+
+            return;
+
+        }
+
+
+        currentSessionStatus =
+            String(
+                record.Session_Status ||
+                ""
+            )
+            .trim()
+            .toUpperCase();
+
+
+        /* -------------------------------------------------
+           OPEN
+           ------------------------------------------------- */
+
+        if (
+            currentSessionStatus ===
+            "OPEN"
+        ) {
+
+            setStatusBadge(
+                "OPEN"
+            );
+
+
+            joinButton.disabled =
+                false;
+
+
+            showMessage(
+                TEST_SUBJECT_NAME +
+                " is OPEN. JOIN CLASS is available.",
+                "success"
+            );
+
+
+            return;
+
+        }
+
+
+        /* -------------------------------------------------
+           CLOSED
+           ------------------------------------------------- */
+
+        if (
+            currentSessionStatus ===
+            "CLOSED"
+        ) {
+
+            setStatusBadge(
+                "CLOSED"
+            );
+
+
+            joinButton.disabled =
+                true;
+
+
+            showMessage(
+                TEST_SUBJECT_NAME +
+                " is CLOSED. JOIN CLASS is disabled.",
+                "closed"
+            );
+
+
+            return;
+
+        }
+
+
+        /* -------------------------------------------------
+           Unexpected status
+           ------------------------------------------------- */
+
+        setStatusBadge(
+            currentSessionStatus ||
+            "UNKNOWN"
+        );
+
+
+        joinButton.disabled =
+            true;
+
+
+        showMessage(
+            "Unexpected Session_Status: " +
+            (
+                currentSessionStatus ||
+                "(blank)"
+            ),
+            "error"
+        );
+
+    }
+    catch (error) {
+
+        console.error(
+            "Session status read error:",
+            error
+        );
+
+
+        currentSessionStatus =
+            "";
+
+
+        setStatusBadge(
+            "ERROR"
+        );
+
+
+        joinButton.disabled =
+            true;
+
+
+        showMessage(
+            "Unable to read the current session status. " +
+            (
+                error &&
+                error.message
+                    ? error.message
+                    : "Unknown error."
+            ),
+            "error"
+        );
+
+    }
+    finally {
+
+        refreshButton.disabled =
+            false;
+
+    }
+
+}
+
+
+/* =========================================================
+   JOIN CLASS
+   ========================================================= */
+
+function joinClass() {
+
+
+    /* -----------------------------------------------------
+       Safety check
+       ----------------------------------------------------- */
+
+    if (
+        currentSessionStatus !==
+        "OPEN"
+    ) {
+
+        showMessage(
+            "This session is not OPEN. The classroom cannot be joined.",
+            "closed"
+        );
+
+        joinButton.disabled =
+            true;
+
+        return;
+
+    }
+
+
+    /* -----------------------------------------------------
+       Participant name
+       ----------------------------------------------------- */
+
+    const name =
+        participantName
+            .value
+            .trim();
+
+
+    if (!name) {
+
+        showMessage(
+            "Please enter your participant name.",
+            "error"
+        );
+
+        participantName.focus();
+
+        return;
+
+    }
+
+
+    /* -----------------------------------------------------
+       Jitsi API check
+       ----------------------------------------------------- */
+
+    if (
+        typeof
+        JitsiMeetExternalAPI ===
+        "undefined"
+    ) {
+
+        showMessage(
+            "Jitsi IFrame API could not be loaded.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    /* -----------------------------------------------------
+       Close any previous Jitsi instance
+       ----------------------------------------------------- */
+
+    if (jitsiAPI) {
+
+        try {
+
+            jitsiAPI.dispose();
+
+        }
+        catch (error) {
+
+            console.warn(
+                error
+            );
+
+        }
+
+        jitsiAPI =
+            null;
+
+    }
+
+
+    container.innerHTML =
+        "";
+
+
+    joinButton.disabled =
+        true;
+
+
+    refreshButton.disabled =
+        true;
+
+
+    showMessage(
+        "Connecting to " +
+        TEST_SUBJECT_NAME +
+        "...",
+        ""
+    );
+
+
+    /* -----------------------------------------------------
+       Jitsi configuration
+       ----------------------------------------------------- */
+
+    const options = {
+
+        roomName:
+            JITSI_ROOM,
+
+        width:
+            "100%",
+
+        height:
+            "100%",
+
+        parentNode:
+            container,
+
+        userInfo: {
+
+            displayName:
+                name
+
+        },
+
+        configOverwrite: {
+
+            prejoinConfig: {
+
+                enabled:
+                    true
+
+            }
+
+        }
+
+    };
+
+
+    /* -----------------------------------------------------
+       Start Jitsi
+       ----------------------------------------------------- */
+
+    try {
+
+        jitsiAPI =
+            new JitsiMeetExternalAPI(
+                "meet.jit.si",
+                options
+            );
+
+
+        jitsiAPI.addEventListener(
+            "videoConferenceJoined",
+            function() {
+
+                showMessage(
+                    "Connected to " +
+                    TEST_SUBJECT_NAME +
+                    ". Session is OPEN.",
+                    "success"
+                );
+
+
+                leaveButton.disabled =
+                    false;
+
+            }
+        );
+
+
+        jitsiAPI.addEventListener(
+            "videoConferenceLeft",
+            function() {
+
+                joinButton.disabled =
+                    currentSessionStatus !==
+                    "OPEN";
+
+
+                refreshButton.disabled =
+                    false;
+
+
+                leaveButton.disabled =
+                    true;
+
+
+                showMessage(
+                    "You have left the " +
+                    TEST_SUBJECT_NAME +
+                    " classroom.",
+                    ""
+                );
+
+            }
+        );
+
+
+        jitsiAPI.addEventListener(
+            "readyToClose",
+            function() {
+
+                leaveClass();
+
+            }
+        );
+
+
+        jitsiAPI.addEventListener(
+            "participantJoined",
+            function(event) {
+
+                console.log(
+                    "Jitsi participant joined:",
+                    event
+                );
+
+            }
+        );
+
+
+        jitsiAPI.addEventListener(
+            "participantLeft",
+            function(event) {
+
+                console.log(
+                    "Jitsi participant left:",
+                    event
+                );
+
+            }
+        );
+
+    }
+    catch (error) {
+
+        console.error(
+            "Jitsi initialization error:",
+            error
+        );
+
+
+        refreshButton.disabled =
+            false;
+
+
+        joinButton.disabled =
+            currentSessionStatus !==
+            "OPEN";
+
+
+        leaveButton.disabled =
+            true;
+
+
+        showMessage(
+            "Unable to start the classroom: " +
+            error.message,
+            "error"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   LEAVE CLASS
+   ========================================================= */
+
+function leaveClass() {
+
+
+    if (jitsiAPI) {
+
+        try {
+
+            jitsiAPI.executeCommand(
+                "hangup"
+            );
+
+        }
+        catch (error) {
+
+            console.warn(
+                "Jitsi hangup warning:",
+                error
+            );
+
+        }
+
+
+        try {
+
+            jitsiAPI.dispose();
+
+        }
+        catch (error) {
+
+            console.warn(
+                "Jitsi dispose warning:",
+                error
+            );
+
+        }
+
+
+        jitsiAPI =
+            null;
+
+    }
+
+
+    container.innerHTML =
+        "";
+
+
+    refreshButton.disabled =
+        false;
+
+
+    leaveButton.disabled =
+        true;
+
+
+    joinButton.disabled =
+        currentSessionStatus !==
+        "OPEN";
+
+
+    showMessage(
+        "You have left the " +
+        TEST_SUBJECT_NAME +
+        " classroom.",
+        ""
+    );
+
+}
+
+
+/* =========================================================
+   BUTTON EVENTS
+   ========================================================= */
+
+refreshButton.addEventListener(
+    "click",
+    readSessionStatus
+);
+
+
+joinButton.addEventListener(
+    "click",
+    joinClass
+);
+
+
+leaveButton.addEventListener(
+    "click",
+    leaveClass
+);
+
+
+/* =========================================================
+   INITIAL STATUS READ
+   ========================================================= */
+
+readSessionStatus();
+
+
+/* =========================================================
+   PAGE CLOSE
+   ========================================================= */
+
+window.addEventListener(
+    "beforeunload",
+    function() {
+
+        if (jitsiAPI) {
+
+            try {
+
+                jitsiAPI.dispose();
+
+            }
+            catch (error) {
+
+                console.warn(
+                    error
+                );
+
+            }
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>
