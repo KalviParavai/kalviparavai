@@ -1,4 +1,3 @@
- ```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -272,30 +271,6 @@ button:disabled {
 
 }
 
-
-/* ==========================================================
-   DIRECT ENTRY BLOCK
-   ========================================================== */
-
-#accessDenied {
-
-    display: none;
-
-    color: #C62828;
-
-    font-weight: bold;
-
-    line-height: 1.6;
-
-}
-
-
-#loginContent {
-
-    display: block;
-
-}
-
 </style>
 
 </head>
@@ -308,140 +283,108 @@ button:disabled {
 
 
     <!-- =====================================================
-         ACCESS DENIED MESSAGE
+         STUDENT LOGIN
          ===================================================== -->
 
-    <div id="accessDenied">
 
-        <div class="logo">
-            🦜
-        </div>
-
-        <div class="title">
-            KALVIPARAVAI
-        </div>
-
-        <div class="subtitle">
-            Student Login
-        </div>
-
-        <p>
-            Direct access to Student Login is not permitted.
-        </p>
-
-        <p style="margin-top:10px;color:#666;">
-            Please enter through the Kalviparavai home page.
-        </p>
-
+    <div class="logo">
+        🦜
     </div>
 
 
-    <!-- =====================================================
-         NORMAL LOGIN CONTENT
-         ===================================================== -->
-
-    <div id="loginContent">
+    <div class="title">
+        KALVIPARAVAI
+    </div>
 
 
-        <div class="logo">
-            🦜
+    <div class="subtitle">
+        Student Login
+    </div>
+
+
+    <!-- =================================================
+         LOGIN INPUTS
+         ================================================= -->
+
+
+    <input
+        id="kpsid"
+        type="text"
+        placeholder="Enter KPSID"
+        autocomplete="username"
+    >
+
+
+    <input
+        id="dob"
+        type="text"
+        placeholder="Date of Birth (DD-MM-YYYY)"
+        autocomplete="off"
+    >
+
+
+    <button
+        id="loginButton"
+        onclick="login()"
+    >
+        LOGIN
+    </button>
+
+
+    <div id="loading"></div>
+
+
+    <div id="error"></div>
+
+
+    <!-- =================================================
+         STUDENT INFORMATION
+
+         CourseID is deliberately NOT displayed.
+         ================================================= -->
+
+
+    <div id="student">
+
+
+        <h2>
+            Welcome
+        </h2>
+
+
+        <div class="info">
+
+            <b>Student :</b>
+
+            <span id="studentName"></span>
+
         </div>
 
 
-        <div class="title">
-            KALVIPARAVAI
+        <div class="info">
+
+            <b>KPSID :</b>
+
+            <span id="studentID"></span>
+
         </div>
 
 
-        <div class="subtitle">
-            Student Login
+        <div class="info">
+
+            <b>Course :</b>
+
+            <span id="studentCourse"></span>
+
         </div>
-
-
-        <!-- =================================================
-             LOGIN INPUTS
-             ================================================= -->
-
-        <input
-            id="kpsid"
-            type="text"
-            placeholder="Enter KPSID"
-            autocomplete="username"
-        >
-
-
-        <input
-            id="dob"
-            type="text"
-            placeholder="Date of Birth (DD-MM-YYYY)"
-            autocomplete="off"
-        >
 
 
         <button
-            id="loginButton"
-            onclick="login()"
+            class="continue"
+            onclick="openStudentSessions()"
         >
-            LOGIN
+            CONTINUE
         </button>
-
-
-        <div id="loading"></div>
-
-
-        <div id="error"></div>
-
-
-        <!-- =================================================
-             STUDENT INFORMATION
-
-             CourseID is deliberately NOT displayed.
-             ================================================= -->
-
-        <div id="student">
-
-
-            <h2>
-                Welcome
-            </h2>
-
-
-            <div class="info">
-
-                <b>Student :</b>
-
-                <span id="studentName"></span>
-
-            </div>
-
-
-            <div class="info">
-
-                <b>KPSID :</b>
-
-                <span id="studentID"></span>
-
-            </div>
-
-
-            <div class="info">
-
-                <b>Course :</b>
-
-                <span id="studentCourse"></span>
-
-            </div>
-
-
-            <button
-                class="continue"
-                onclick="openStudentSessions()"
-            >
-                CONTINUE
-            </button>
-
-
-        </div>
 
 
     </div>
@@ -462,31 +405,24 @@ button:disabled {
 
 /* ==========================================================
    KPOTMS V3.0
-   Student Login
+   STUDENT LOGIN ENTRY CONTROL
 
-   ENTRY CONTROL
    ----------------------------------------------------------
-   StudentLogin.html must be entered through index.html.
-
-   Direct browser entry is blocked.
-
-   Allowed example:
+   Normal entry:
 
        index.html
             ↓
-       StudentLogin.html
+       StudentsLogin.html
 
-   Direct entry:
+   Direct browser entry:
 
-       StudentLogin.html
+       StudentsLogin.html
+            ↓
+       index.html
 
-   is rejected.
+   No access-denied screen is displayed.
    ========================================================== */
 
-
-/* ==========================================================
-   CHECK ENTRY SOURCE
-   ========================================================== */
 
 (function checkStudentLoginEntry() {
 
@@ -495,32 +431,14 @@ button:disabled {
         document.referrer || "";
 
 
-    const loginContent =
-        document.getElementById(
-            "loginContent"
-        );
-
-
-    const accessDenied =
-        document.getElementById(
-            "accessDenied"
-        );
-
-
-    /*
-     * StudentLogin.html must come from index.html.
-     *
-     * We deliberately check the final path component
-     * rather than the complete domain so this continues
-     * to work on the Kalviparavai GitHub Pages site.
-     */
-
     let allowed = false;
 
 
     try {
 
+
         if (referrer) {
+
 
             const referrerURL =
                 new URL(
@@ -535,13 +453,16 @@ button:disabled {
 
 
             /*
-             * Accept:
+             * Allow entry from index.html.
+             *
+             * Examples:
              *
              * /index.html
              *
              * /kalviparavai/index.html
              *
-             * or an index.html path ending the URL.
+             * /some-folder/index.html
+             *
              */
 
             if (
@@ -554,35 +475,59 @@ button:disabled {
 
             }
 
+
+            /*
+             * Also allow the site root.
+             */
+
+            if (
+                path.endsWith("/")
+            ) {
+
+                allowed = true;
+
+            }
+
         }
 
     }
 
+
     catch (error) {
+
 
         console.error(
             "Student Login entry check failed:",
             error
         );
 
+
+        allowed = false;
+
     }
 
 
     /*
-     * If the page was opened directly,
-     * do not display the login form.
+     * ------------------------------------------------------
+     * DIRECT ACCESS BLOCK
+     * ------------------------------------------------------
+     *
+     * If StudentsLogin.html was opened directly,
+     * immediately return to index.html.
+     *
+     * No message is displayed.
      */
 
     if (!allowed) {
 
-        loginContent.style.display =
-            "none";
 
+        window.location.replace(
+            "index.html"
+        );
 
-        accessDenied.style.display =
-            "block";
 
     }
+
 
 })();
 
@@ -591,6 +536,7 @@ button:disabled {
    DATA SOURCE
    ========================================================== */
 
+
 const csvURL =
 "https://docs.google.com/spreadsheets/d/e/2PACX-1vSJxSOEW0y5LERF7KJQKN-ivKxL9D_1tbX9S09kAvn_jTw7719AZInIgGYwd3ent-IX4ky11N2TrS4s/pub?gid=55364272&single=true&output=csv";
 
@@ -598,6 +544,7 @@ const csvURL =
 /* ==========================================================
    CSV PARSER
    ========================================================== */
+
 
 function parseCSVLine(line) {
 
@@ -628,16 +575,20 @@ function parseCSVLine(line) {
                 line[i + 1] === '"'
             ) {
 
+
                 current += '"';
 
                 i++;
+
 
             }
 
             else {
 
+
                 insideQuotes =
                     !insideQuotes;
+
 
             }
 
@@ -649,27 +600,36 @@ function parseCSVLine(line) {
             !insideQuotes
         ) {
 
-            result.push(current);
+
+            result.push(
+                current
+            );
 
             current = "";
+
 
         }
 
 
         else {
 
+
             current += char;
+
 
         }
 
     }
 
 
-    result.push(current);
+    result.push(
+        current
+    );
 
 
     return result.map(
         function(value) {
+
 
             return value
                 .trim()
@@ -678,6 +638,7 @@ function parseCSVLine(line) {
                     ""
                 )
                 .trim();
+
 
         }
     );
@@ -689,14 +650,19 @@ function parseCSVLine(line) {
    NORMALIZE DATE
    ========================================================== */
 
+
 function normalizeDOB(value) {
 
-    return String(value || "")
-        .trim()
-        .replace(
-            /[./]/g,
-            "-"
-        );
+
+    return String(
+        value || ""
+    )
+    .trim()
+    .replace(
+        /[./]/g,
+        "-"
+    );
+
 
 }
 
@@ -704,6 +670,7 @@ function normalizeDOB(value) {
 /* ==========================================================
    LOGIN
    ========================================================== */
+
 
 async function login() {
 
@@ -732,9 +699,13 @@ async function login() {
         );
 
 
-    errorElement.innerHTML = "";
+    errorElement.innerHTML =
+        "";
 
-    loadingElement.innerHTML = "";
+
+    loadingElement.innerHTML =
+        "";
+
 
     studentElement.style.display =
         "none";
@@ -742,7 +713,9 @@ async function login() {
 
     const kpsid =
         document
-            .getElementById("kpsid")
+            .getElementById(
+                "kpsid"
+            )
             .value
             .trim()
             .toUpperCase();
@@ -750,7 +723,9 @@ async function login() {
 
     const dob =
         document
-            .getElementById("dob")
+            .getElementById(
+                "dob"
+            )
             .value
             .trim();
 
@@ -760,15 +735,19 @@ async function login() {
         dob === ""
     ) {
 
+
         errorElement.innerHTML =
             "Please enter KPSID and Date of Birth.";
 
+
         return;
+
 
     }
 
 
-    loginButton.disabled = true;
+    loginButton.disabled =
+        true;
 
 
     loadingElement.innerHTML =
@@ -782,6 +761,7 @@ async function login() {
            Read 01_Students_Login LIVE
            -------------------------------------------------- */
 
+
         const response =
             await fetch(
                 csvURL +
@@ -792,9 +772,11 @@ async function login() {
 
         if (!response.ok) {
 
+
             throw new Error(
                 "Student database could not be loaded."
             );
+
 
         }
 
@@ -810,7 +792,9 @@ async function login() {
 
 
         const enteredDOB =
-            normalizeDOB(dob);
+            normalizeDOB(
+                dob
+            );
 
 
         let studentFound =
@@ -820,6 +804,7 @@ async function login() {
         /* --------------------------------------------------
            Search student
            -------------------------------------------------- */
+
 
         for (
             let i = 1;
@@ -832,7 +817,9 @@ async function login() {
                 rows[i].trim() === ""
             ) {
 
+
                 continue;
+
 
             }
 
@@ -850,6 +837,7 @@ async function login() {
              * D = Course
              * E = CourseID
              */
+
 
             const id =
                 String(
@@ -890,6 +878,7 @@ async function login() {
                MATCH KPSID + DOB
                ------------------------------------------------ */
 
+
             if (
                 id === kpsid &&
                 birth === enteredDOB
@@ -900,13 +889,16 @@ async function login() {
                  * CourseID MUST exist.
                  */
 
+
                 if (
                     courseID === ""
                 ) {
 
+
                     throw new Error(
                         "Student CourseID is missing in 01_Students_Login."
                     );
+
 
                 }
 
@@ -915,17 +907,21 @@ async function login() {
                  * Clear previous student session data.
                  */
 
+
                 sessionStorage.removeItem(
                     "kpotms_student_name"
                 );
+
 
                 sessionStorage.removeItem(
                     "kpotms_student_id"
                 );
 
+
                 sessionStorage.removeItem(
                     "kpotms_student_course"
                 );
+
 
                 sessionStorage.removeItem(
                     "kpotms_student_course_id"
@@ -935,6 +931,7 @@ async function login() {
                 /*
                  * Store student information.
                  */
+
 
                 sessionStorage.setItem(
                     "kpotms_student_name",
@@ -964,6 +961,7 @@ async function login() {
                  * Compatibility values.
                  */
 
+
                 sessionStorage.setItem(
                     "studentName",
                     name
@@ -991,6 +989,7 @@ async function login() {
                 /*
                  * Display student information.
                  */
+
 
                 document
                     .getElementById(
@@ -1030,7 +1029,9 @@ async function login() {
 
                 return;
 
+
             }
+
 
         }
 
@@ -1039,10 +1040,13 @@ async function login() {
            STUDENT NOT FOUND
            -------------------------------------------------- */
 
+
         if (!studentFound) {
+
 
             errorElement.innerHTML =
                 "Invalid KPSID or Date of Birth.";
+
 
         }
 
@@ -1063,18 +1067,23 @@ async function login() {
             error.message ||
             "Unable to connect to Student Database.";
 
+
     }
 
 
     finally {
 
+
         loginButton.disabled =
             false;
+
 
         loadingElement.innerHTML =
             "";
 
+
     }
+
 
 }
 
@@ -1082,6 +1091,7 @@ async function login() {
 /* ==========================================================
    OPEN STUDENT SESSIONS
    ========================================================== */
+
 
 function openStudentSessions() {
 
@@ -1094,18 +1104,24 @@ function openStudentSessions() {
 
     if (!courseID) {
 
+
         document
-            .getElementById("error")
+            .getElementById(
+                "error"
+            )
             .innerHTML =
                 "Student CourseID is not available.";
 
+
         return;
+
 
     }
 
 
     window.location.href =
         "StudentSessions.html";
+
 
 }
 
@@ -1114,37 +1130,50 @@ function openStudentSessions() {
    ENTER KEY SUPPORT
    ========================================================== */
 
+
 document
-    .getElementById("kpsid")
+    .getElementById(
+        "kpsid"
+    )
     .addEventListener(
         "keydown",
         function(event) {
+
 
             if (
                 event.key === "Enter"
             ) {
 
+
                 login();
 
+
             }
+
 
         }
     );
 
 
 document
-    .getElementById("dob")
+    .getElementById(
+        "dob"
+    )
     .addEventListener(
         "keydown",
         function(event) {
+
 
             if (
                 event.key === "Enter"
             ) {
 
+
                 login();
 
+
             }
+
 
         }
     );
@@ -1156,4 +1185,3 @@ document
 </body>
 
 </html>
-```
