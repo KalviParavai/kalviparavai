@@ -700,18 +700,11 @@
 /* ==========================================================
    KPOTMS V3
    COORDINATOR DASHBOARD
-
-   IMPORTANT:
-   This file communicates with the EXISTING production
-   Web App only.
-
-   No Apps Script changes are required.
    ========================================================== */
 
 
 /* ==========================================================
    EXISTING PRODUCTION WEB APP
-   DO NOT CHANGE
    ========================================================== */
 
 const COORDINATOR_MANAGER_URL =
@@ -792,12 +785,6 @@ function normalizeMeetingURL(value) {
 
     }
 
-
-    /*
-     * Handles:
-     *
-     * [https://meet.google.com/xxx](https://meet.google.com/xxx)
-     */
 
     const markdownMatch =
         url.match(
@@ -932,15 +919,9 @@ function createStatusHTML(
 /* ==========================================================
    LOAD SESSIONS
 
-   THIS IS THE IMPORTANT CHANGE.
-
-   The verified production API is:
+   VERIFIED API:
 
        GET ?action=getSessions
-
-   NOT:
-
-       POST action=getAllSessions
    ========================================================== */
 
 async function loadSessions() {
@@ -981,13 +962,6 @@ async function loadSessions() {
 
 
     try {
-
-        /*
-         * Cache-busting parameter.
-         *
-         * This ensures that clicking REFRESH
-         * asks the Web App for fresh data.
-         */
 
         const requestURL =
             COORDINATOR_MANAGER_URL +
@@ -1031,15 +1005,6 @@ async function loadSessions() {
         );
 
 
-        /*
-         * EXPECTED VERIFIED RESPONSE:
-         *
-         * {
-         *     success: true,
-         *     data: [...]
-         * }
-         */
-
         if (
             !result ||
             result.success !== true ||
@@ -1065,12 +1030,6 @@ async function loadSessions() {
         let count = 0;
 
 
-        /*
-         * ----------------------------------------------------
-         * BUILD ALL VALID SUBJECT ROWS
-         * ----------------------------------------------------
-         */
-
         for (
             let i = 0;
             i < sessions.length;
@@ -1082,8 +1041,8 @@ async function loadSessions() {
 
 
             /*
-             * EXACT property names returned by
-             * the verified API.
+             * Exact property names returned
+             * by the verified API.
              */
 
             const subjectCode =
@@ -1093,7 +1052,7 @@ async function loadSessions() {
 
 
             /*
-             * Ignore the final blank spreadsheet row.
+             * Ignore blank final row.
              */
 
             if (!subjectCode) {
@@ -1144,8 +1103,7 @@ async function loadSessions() {
 
 
             /*
-             * Store the exact Subject Code against
-             * the displayed row.
+             * Store exact Subject Code.
              */
 
             window.currentSessionRows[
@@ -1160,10 +1118,6 @@ async function loadSessions() {
 
             };
 
-
-            /*
-             * Create table row.
-             */
 
             const tr =
                 document.createElement(
@@ -1249,10 +1203,6 @@ async function loadSessions() {
         }
 
 
-        /*
-         * No valid subjects.
-         */
-
         if (
             count === 0
         ) {
@@ -1264,10 +1214,6 @@ async function loadSessions() {
 
         }
 
-
-        /*
-         * SUCCESS
-         */
 
         message.textContent =
             count +
@@ -1308,11 +1254,13 @@ async function loadSessions() {
 /* ==========================================================
    CHANGE SESSION STATUS
 
-   Uses the EXISTING Code.gs doGet():
+   IMPORTANT:
+   Subject_Code is now explicitly sent.
 
-       ?action=updateStatus
-       &subjectCode=...
-       &status=...
+   We also send subjectCode for compatibility with
+   the current Code.gs doGet().
+
+   This avoids changing the rest of the application.
    ========================================================== */
 
 async function changeSessionStatus(
@@ -1337,13 +1285,18 @@ async function changeSessionStatus(
     }
 
 
-    const subjectCode =
+    /*
+     * The displayed row contains the exact
+     * Subject_Code returned by the API.
+     */
+
+    const Subject_Code =
         clean(
             row.subjectCode
         );
 
 
-    if (!subjectCode) {
+    if (!Subject_Code) {
 
         alert(
             "Subject Code is missing."
@@ -1401,19 +1354,31 @@ async function changeSessionStatus(
     try {
 
         /*
-         * Use the existing GET API.
+         * ----------------------------------------------------
+         * IMPORTANT
          *
-         * No POST.
-         * No new Apps Script.
-         * No new deployment.
+         * Send Subject_Code explicitly.
+         *
+         * Also send subjectCode because the current
+         * Code.gs doGet() presently reads:
+         *
+         *     e.parameter.subjectCode
+         *
+         * This gives us compatibility without disturbing
+         * the rest of the application.
+         * ----------------------------------------------------
          */
 
         const requestURL =
             COORDINATOR_MANAGER_URL +
             "?action=updateStatus" +
+            "&Subject_Code=" +
+            encodeURIComponent(
+                Subject_Code
+            ) +
             "&subjectCode=" +
             encodeURIComponent(
-                subjectCode
+                Subject_Code
             ) +
             "&status=" +
             encodeURIComponent(
@@ -1459,17 +1424,6 @@ async function changeSessionStatus(
         );
 
 
-        /*
-         * Code.gs returns:
-         *
-         * {
-         *     success: true,
-         *     data: result
-         * }
-         *
-         * Therefore check BOTH levels.
-         */
-
         if (
             !result ||
             result.success !== true
@@ -1486,8 +1440,8 @@ async function changeSessionStatus(
 
 
         /*
-         * If the underlying updateSessionStatus()
-         * returned its own failure result, catch it here.
+         * Code.gs may return its actual update result
+         * inside result.data.
          */
 
         if (
@@ -1509,7 +1463,7 @@ async function changeSessionStatus(
 
 
         /*
-         * Reload the actual server data.
+         * Reload actual server data.
          */
 
         await loadSessions();
