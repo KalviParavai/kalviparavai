@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>KPOTMS - Jitsi Session Test</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+    background: #f5f8fc;
+    color: #1f2937;
+}
+
+.page {
+    min-height: 100vh;
+    padding: 22px;
+}
+
+.header,
+.card {
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.logo {
+    width: 68px;
+}
+
+.brand {
+    color: #1268c4;
+    font-size: 30px;
+    font-weight: 800;
+}
+
+.subtitle {
+    color: #5b6573;
+    margin-top: 4px;
+    font-size: 16px;
+}
+
+.card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.08);
+}
+
+.subject {
+    font-size: 26px;
+    font-weight: 800;
+    color: #17324d;
+    margin-bottom: 6px;
+}
+
+.details {
+    color: #5b6573;
+    line-height: 1.7;
+}
+
+.status {
+    margin-top: 18px;
+    padding: 14px 16px;
+    border-radius: 8px;
+    background: #f1f5f9;
+    font-size: 15px;
+}
+
+.status.open {
+    background: #e8f7ee;
+    color: #16803c;
+    font-weight: 700;
+}
+
+.status.closed {
+    background: #fbeaec;
+    color: #b42318;
+    font-weight: 700;
+}
+
+.status.error {
+    background: #fff1f2;
+    color: #b42318;
+    font-weight: 700;
+}
+
+button {
+    margin-top: 18px;
+    height: 42px;
+    padding: 0 22px;
+    border: 0;
+    border-radius: 7px;
+    background: #1769c2;
+    color: #fff;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+button:disabled {
+    opacity: .55;
+    cursor: default;
+}
+
+pre {
+    margin-top: 20px;
+    padding: 14px;
+    background: #f6f8fa;
+    border: 1px solid #e1e7ef;
+    border-radius: 8px;
+    overflow: auto;
+    font-size: 12px;
+}
+
+.note {
+    margin-top: 18px;
+    color: #667085;
+    font-size: 13px;
+    line-height: 1.6;
+}
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+<header class="header">
+    <img
+        class="logo"
+        src="https://kalviparavai.github.io/kalviparavai/KPOTMS_V3/images/logo.png"
+        alt="Kalviparavai Logo">
+
+    <div>
+        <div class="brand">KALVIPARAVAI</div>
+        <div class="subtitle">
+            KPOTMS V3 - Read-Only Session Status Test
+        </div>
+    </div>
+</header>
+
+<section class="card">
+
+    <div class="subject">
+        X-Mathematics
+    </div>
+
+    <div class="details">
+        <strong>Subject Code:</strong> 1
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        <strong>Expected Subject:</strong> X-Mathematics
+    </div>
+
+    <div id="status" class="status">
+        Reading current Session_Status from the existing KPOTMS Web App...
+    </div>
+
+    <button id="refreshButton" type="button">
+        READ SESSION STATUS
+    </button>
+
+    <pre id="rawData">Waiting for response...</pre>
+
+    <div class="note">
+        This is a READ-ONLY test. It does not OPEN, CLOSE, or modify
+        any session. It does not call the Coordinator update function.
+    </div>
+
+</section>
+
+</div>
+
+<script>
+/*
+ * ============================================================
+ * KPOTMS V3 - Jitsi Session Test
+ *
+ * Stage 3A:
+ *   Read-only verification of Subject_Code 1.
+ *
+ * IMPORTANT:
+ *   No write operation is performed.
+ *   No OPEN/CLOSE operation is performed.
+ *   No Jitsi meeting is started.
+ * ============================================================
+ */
+
+const WEB_APP_URL =
+    "https://script.google.com/macros/s/AKfycbzxJ0qJ_uIVVCm_VZrCItEp6y_sniqVX52oD3WhTWwohuK_liNX8v9Wcm2IdEWbZbJs/exec";
+
+const TEST_SUBJECT_CODE = "1";
+
+const statusElement =
+    document.getElementById("status");
+
+const rawDataElement =
+    document.getElementById("rawData");
+
+const refreshButton =
+    document.getElementById("refreshButton");
+
+
+function showStatus(
+    text,
+    type
+) {
+
+    statusElement.className =
+        "status" +
+        (type ? " " + type : "");
+
+    statusElement.textContent =
+        text;
+
+}
+
+
+async function readSessionStatus() {
+
+    refreshButton.disabled = true;
+
+    showStatus(
+        "Reading current Session_Status...",
+        ""
+    );
+
+    rawDataElement.textContent =
+        "Waiting for response...";
+
+    const url =
+        WEB_APP_URL +
+        "?action=getSessions";
+
+    try {
+
+        const response =
+            await fetch(
+                url,
+                {
+                    method: "GET",
+                    cache: "no-store"
+                }
+            );
+
+        if (!response.ok) {
+
+            throw new Error(
+                "HTTP status " +
+                response.status
+            );
+
+        }
+
+        const result =
+            await response.json();
+
+        rawDataElement.textContent =
+            JSON.stringify(
+                result,
+                null,
+                2
+            );
+
+        if (
+            !result ||
+            result.success !== true
+        ) {
+
+            throw new Error(
+                result &&
+                result.message
+                    ? result.message
+                    : "The Web App did not return success."
+            );
+
+        }
+
+        const sessions =
+            Array.isArray(result.data)
+                ? result.data
+                : [];
+
+        const record =
+            sessions.find(
+                function(item) {
+
+                    return String(
+                        item.Subject_Code
+                    ).trim() ===
+                    TEST_SUBJECT_CODE;
+
+                }
+            );
+
+        if (!record) {
+
+            showStatus(
+                "Subject Code 1 was not found.",
+                "error"
+            );
+
+            return;
+        }
+
+        const sessionStatus =
+            String(
+                record.Session_Status || ""
+            )
+            .trim()
+            .toUpperCase();
+
+        if (
+            sessionStatus ===
+            "OPEN"
+        ) {
+
+            showStatus(
+                "Subject 1 - X-Mathematics is currently OPEN.",
+                "open"
+            );
+
+        }
+        else if (
+            sessionStatus ===
+            "CLOSED"
+        ) {
+
+            showStatus(
+                "Subject 1 - X-Mathematics is currently CLOSED.",
+                "closed"
+            );
+
+        }
+        else {
+
+            showStatus(
+                "Subject 1 returned Session_Status: " +
+                sessionStatus,
+                "error"
+            );
+
+        }
+
+    }
+    catch (error) {
+
+        console.error(
+            "Session read error:",
+            error
+        );
+
+        showStatus(
+            "Unable to read the session status. " +
+            "Browser security/CORS may be blocking the GitHub page from reading the Apps Script Web App.",
+            "error"
+        );
+
+        rawDataElement.textContent =
+            String(
+                error &&
+                error.message
+                    ? error.message
+                    : error
+            );
+
+    }
+    finally {
+
+        refreshButton.disabled =
+            false;
+
+    }
+
+}
+
+
+refreshButton.addEventListener(
+    "click",
+    readSessionStatus
+);
+
+
+readSessionStatus();
+
+</script>
+
+</body>
+</html>
