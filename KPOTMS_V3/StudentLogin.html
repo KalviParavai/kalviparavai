@@ -1,21 +1,34 @@
+ ```html
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
 <title>Kalviparavai - Student Login</title>
+
 
 <style>
 
 * {
+
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Segoe UI", Arial, sans-serif;
+
+    font-family:
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
 }
+
 
 body {
 
@@ -30,7 +43,8 @@ body {
 
     background-size: 400% 400%;
 
-    animation: bgmove 15s ease infinite;
+    animation:
+        bgmove 15s ease infinite;
 
     min-height: 100vh;
 
@@ -39,22 +53,32 @@ body {
     justify-content: center;
 
     align-items: center;
+
 }
+
 
 @keyframes bgmove {
 
     0% {
+
         background-position: 0% 50%;
+
     }
 
     50% {
+
         background-position: 100% 50%;
+
     }
 
     100% {
+
         background-position: 0% 50%;
+
     }
+
 }
+
 
 .card {
 
@@ -72,12 +96,16 @@ body {
 
     box-shadow:
         0 15px 40px rgba(0,0,0,.30);
+
 }
+
 
 .logo {
 
     font-size: 65px;
+
 }
+
 
 .title {
 
@@ -88,7 +116,9 @@ body {
     font-weight: bold;
 
     margin-top: 10px;
+
 }
+
 
 .subtitle {
 
@@ -97,7 +127,9 @@ body {
     margin-top: 5px;
 
     margin-bottom: 25px;
+
 }
+
 
 input {
 
@@ -112,14 +144,18 @@ input {
     border: 1px solid #cccccc;
 
     font-size: 16px;
+
 }
+
 
 input:focus {
 
     outline: none;
 
     border: 1px solid #1565C0;
+
 }
+
 
 button {
 
@@ -140,19 +176,25 @@ button {
     font-size: 18px;
 
     cursor: pointer;
+
 }
+
 
 button:hover {
 
     background: #0D47A1;
+
 }
+
 
 button:disabled {
 
     background: #999;
 
     cursor: wait;
+
 }
+
 
 #error {
 
@@ -161,7 +203,9 @@ button:disabled {
     margin-top: 15px;
 
     font-weight: bold;
+
 }
+
 
 #student {
 
@@ -176,7 +220,9 @@ button:disabled {
     padding: 20px;
 
     text-align: left;
+
 }
+
 
 #student h2 {
 
@@ -185,19 +231,25 @@ button:disabled {
     text-align: center;
 
     margin-bottom: 15px;
+
 }
+
 
 .info {
 
     margin: 10px 0;
 
     font-size: 17px;
+
 }
+
 
 .continue {
 
     margin-top: 20px;
+
 }
+
 
 .footer {
 
@@ -206,7 +258,9 @@ button:disabled {
     color: #888;
 
     font-size: 13px;
+
 }
+
 
 .loading {
 
@@ -215,6 +269,31 @@ button:disabled {
     margin-top: 15px;
 
     font-weight: bold;
+
+}
+
+
+/* ==========================================================
+   DIRECT ENTRY BLOCK
+   ========================================================== */
+
+#accessDenied {
+
+    display: none;
+
+    color: #C62828;
+
+    font-weight: bold;
+
+    line-height: 1.6;
+
+}
+
+
+#loginContent {
+
+    display: block;
+
 }
 
 </style>
@@ -228,103 +307,141 @@ button:disabled {
 <div class="card">
 
 
-    <div class="logo">
-        🦜
-    </div>
+    <!-- =====================================================
+         ACCESS DENIED MESSAGE
+         ===================================================== -->
 
+    <div id="accessDenied">
 
-    <div class="title">
-        KALVIPARAVAI
-    </div>
+        <div class="logo">
+            🦜
+        </div>
 
+        <div class="title">
+            KALVIPARAVAI
+        </div>
 
-    <div class="subtitle">
-        Student Login
+        <div class="subtitle">
+            Student Login
+        </div>
+
+        <p>
+            Direct access to Student Login is not permitted.
+        </p>
+
+        <p style="margin-top:10px;color:#666;">
+            Please enter through the Kalviparavai home page.
+        </p>
+
     </div>
 
 
     <!-- =====================================================
-         LOGIN INPUTS
+         NORMAL LOGIN CONTENT
          ===================================================== -->
 
-    <input
-        id="kpsid"
-        type="text"
-        placeholder="Enter KPSID"
-        autocomplete="username"
-    >
+    <div id="loginContent">
 
 
-    <input
-        id="dob"
-        type="text"
-        placeholder="Date of Birth (DD-MM-YYYY)"
-        autocomplete="off"
-    >
-
-
-    <button
-        id="loginButton"
-        onclick="login()"
-    >
-        LOGIN
-    </button>
-
-
-    <div id="loading"></div>
-
-
-    <div id="error"></div>
-
-
-    <!-- =====================================================
-         STUDENT INFORMATION
-         
-         CourseID is deliberately NOT displayed.
-         It is an internal backend key only.
-         ===================================================== -->
-
-    <div id="student">
-
-
-        <h2>
-            Welcome
-        </h2>
-
-
-        <div class="info">
-
-            <b>Student :</b>
-
-            <span id="studentName"></span>
-
+        <div class="logo">
+            🦜
         </div>
 
 
-        <div class="info">
-
-            <b>KPSID :</b>
-
-            <span id="studentID"></span>
-
+        <div class="title">
+            KALVIPARAVAI
         </div>
 
 
-        <div class="info">
-
-            <b>Course :</b>
-
-            <span id="studentCourse"></span>
-
+        <div class="subtitle">
+            Student Login
         </div>
+
+
+        <!-- =================================================
+             LOGIN INPUTS
+             ================================================= -->
+
+        <input
+            id="kpsid"
+            type="text"
+            placeholder="Enter KPSID"
+            autocomplete="username"
+        >
+
+
+        <input
+            id="dob"
+            type="text"
+            placeholder="Date of Birth (DD-MM-YYYY)"
+            autocomplete="off"
+        >
 
 
         <button
-            class="continue"
-            onclick="openStudentSessions()"
+            id="loginButton"
+            onclick="login()"
         >
-            CONTINUE
+            LOGIN
         </button>
+
+
+        <div id="loading"></div>
+
+
+        <div id="error"></div>
+
+
+        <!-- =================================================
+             STUDENT INFORMATION
+
+             CourseID is deliberately NOT displayed.
+             ================================================= -->
+
+        <div id="student">
+
+
+            <h2>
+                Welcome
+            </h2>
+
+
+            <div class="info">
+
+                <b>Student :</b>
+
+                <span id="studentName"></span>
+
+            </div>
+
+
+            <div class="info">
+
+                <b>KPSID :</b>
+
+                <span id="studentID"></span>
+
+            </div>
+
+
+            <div class="info">
+
+                <b>Course :</b>
+
+                <span id="studentCourse"></span>
+
+            </div>
+
+
+            <button
+                class="continue"
+                onclick="openStudentSessions()"
+            >
+                CONTINUE
+            </button>
+
+
+        </div>
 
 
     </div>
@@ -347,26 +464,132 @@ button:disabled {
    KPOTMS V3.0
    Student Login
 
-   DATA SOURCE
+   ENTRY CONTROL
    ----------------------------------------------------------
-   Google Sheet:
-   01_Students_Login
+   StudentLogin.html must be entered through index.html.
 
-   Columns:
-   A = KPSID
-   B = Date_of_Birth
-   C = Student_Name
-   D = Course
-   E = CourseID
+   Direct browser entry is blocked.
 
-   IMPORTANT
-   ----------------------------------------------------------
-   CourseID is NOT displayed to the student.
+   Allowed example:
 
-   CourseID is stored internally in sessionStorage and
-   passed to StudentSessions.html.
+       index.html
+            ↓
+       StudentLogin.html
+
+   Direct entry:
+
+       StudentLogin.html
+
+   is rejected.
    ========================================================== */
 
+
+/* ==========================================================
+   CHECK ENTRY SOURCE
+   ========================================================== */
+
+(function checkStudentLoginEntry() {
+
+
+    const referrer =
+        document.referrer || "";
+
+
+    const loginContent =
+        document.getElementById(
+            "loginContent"
+        );
+
+
+    const accessDenied =
+        document.getElementById(
+            "accessDenied"
+        );
+
+
+    /*
+     * StudentLogin.html must come from index.html.
+     *
+     * We deliberately check the final path component
+     * rather than the complete domain so this continues
+     * to work on the Kalviparavai GitHub Pages site.
+     */
+
+    let allowed = false;
+
+
+    try {
+
+        if (referrer) {
+
+            const referrerURL =
+                new URL(
+                    referrer,
+                    window.location.href
+                );
+
+
+            const path =
+                referrerURL.pathname
+                    .toLowerCase();
+
+
+            /*
+             * Accept:
+             *
+             * /index.html
+             *
+             * /kalviparavai/index.html
+             *
+             * or an index.html path ending the URL.
+             */
+
+            if (
+                path.endsWith(
+                    "/index.html"
+                )
+            ) {
+
+                allowed = true;
+
+            }
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Student Login entry check failed:",
+            error
+        );
+
+    }
+
+
+    /*
+     * If the page was opened directly,
+     * do not display the login form.
+     */
+
+    if (!allowed) {
+
+        loginContent.style.display =
+            "none";
+
+
+        accessDenied.style.display =
+            "block";
+
+    }
+
+})();
+
+
+/* ==========================================================
+   DATA SOURCE
+   ========================================================== */
 
 const csvURL =
 "https://docs.google.com/spreadsheets/d/e/2PACX-1vSJxSOEW0y5LERF7KJQKN-ivKxL9D_1tbX9S09kAvn_jTw7719AZInIgGYwd3ent-IX4ky11N2TrS4s/pub?gid=55364272&single=true&output=csv";
@@ -374,10 +597,10 @@ const csvURL =
 
 /* ==========================================================
    CSV PARSER
-   Handles quoted fields and commas safely.
    ========================================================== */
 
 function parseCSVLine(line) {
+
 
     const result = [];
 
@@ -386,12 +609,19 @@ function parseCSVLine(line) {
     let insideQuotes = false;
 
 
-    for (let i = 0; i < line.length; i++) {
+    for (
+        let i = 0;
+        i < line.length;
+        i++
+    ) {
 
-        const char = line[i];
+
+        const char =
+            line[i];
 
 
         if (char === '"') {
+
 
             if (
                 insideQuotes &&
@@ -402,13 +632,17 @@ function parseCSVLine(line) {
 
                 i++;
 
-            } else {
+            }
 
-                insideQuotes = !insideQuotes;
+            else {
+
+                insideQuotes =
+                    !insideQuotes;
 
             }
 
         }
+
 
         else if (
             char === "," &&
@@ -420,6 +654,7 @@ function parseCSVLine(line) {
             current = "";
 
         }
+
 
         else {
 
@@ -433,34 +668,35 @@ function parseCSVLine(line) {
     result.push(current);
 
 
-    return result.map(function(value) {
+    return result.map(
+        function(value) {
 
-        return value
-            .trim()
-            .replace(/^"|"$/g, "")
-            .trim();
+            return value
+                .trim()
+                .replace(
+                    /^"|"$/g,
+                    ""
+                )
+                .trim();
 
-    });
+        }
+    );
 
 }
 
 
 /* ==========================================================
    NORMALIZE DATE
-
-   Allows:
-   07-10-2010
-   07.10.2010
-   07/10/2010
-
-   to be compared consistently.
    ========================================================== */
 
 function normalizeDOB(value) {
 
     return String(value || "")
         .trim()
-        .replace(/[./]/g, "-");
+        .replace(
+            /[./]/g,
+            "-"
+        );
 
 }
 
@@ -473,26 +709,35 @@ async function login() {
 
 
     const errorElement =
-        document.getElementById("error");
+        document.getElementById(
+            "error"
+        );
 
 
     const loadingElement =
-        document.getElementById("loading");
+        document.getElementById(
+            "loading"
+        );
 
 
     const studentElement =
-        document.getElementById("student");
+        document.getElementById(
+            "student"
+        );
 
 
     const loginButton =
-        document.getElementById("loginButton");
+        document.getElementById(
+            "loginButton"
+        );
 
 
     errorElement.innerHTML = "";
 
     loadingElement.innerHTML = "";
 
-    studentElement.style.display = "none";
+    studentElement.style.display =
+        "none";
 
 
     const kpsid =
@@ -539,7 +784,9 @@ async function login() {
 
         const response =
             await fetch(
-                csvURL + "&t=" + Date.now()
+                csvURL +
+                "&t=" +
+                Date.now()
             );
 
 
@@ -557,14 +804,17 @@ async function login() {
 
 
         const rows =
-            csv.split(/\r?\n/);
+            csv.split(
+                /\r?\n/
+            );
 
 
         const enteredDOB =
             normalizeDOB(dob);
 
 
-        let studentFound = false;
+        let studentFound =
+            false;
 
 
         /* --------------------------------------------------
@@ -588,18 +838,18 @@ async function login() {
 
 
             const cols =
-                parseCSVLine(rows[i]);
+                parseCSVLine(
+                    rows[i]
+                );
 
 
-            /* ----------------------------------------------
-               Explicit column mapping
-
-               A = KPSID
-               B = Date_of_Birth
-               C = Student_Name
-               D = Course
-               E = CourseID
-               ---------------------------------------------- */
+            /*
+             * A = KPSID
+             * B = Date_of_Birth
+             * C = Student_Name
+             * D = Course
+             * E = CourseID
+             */
 
             const id =
                 String(
@@ -636,9 +886,9 @@ async function login() {
                 .trim();
 
 
-            /* ----------------------------------------------
-               Match KPSID + DOB
-               ---------------------------------------------- */
+            /* ------------------------------------------------
+               MATCH KPSID + DOB
+               ------------------------------------------------ */
 
             if (
                 id === kpsid &&
@@ -646,9 +896,9 @@ async function login() {
             ) {
 
 
-                /* ------------------------------------------
-                   CourseID MUST exist
-                   ------------------------------------------ */
+                /*
+                 * CourseID MUST exist.
+                 */
 
                 if (
                     courseID === ""
@@ -661,9 +911,9 @@ async function login() {
                 }
 
 
-                /* ------------------------------------------
-                   Clear any previous student session data
-                   ------------------------------------------ */
+                /*
+                 * Clear previous student session data.
+                 */
 
                 sessionStorage.removeItem(
                     "kpotms_student_name"
@@ -682,12 +932,9 @@ async function login() {
                 );
 
 
-                /* ------------------------------------------
-                   STORE STUDENT INFORMATION
-
-                   CourseID is INTERNAL ONLY.
-                   It is NOT displayed.
-                   ------------------------------------------ */
+                /*
+                 * Store student information.
+                 */
 
                 sessionStorage.setItem(
                     "kpotms_student_name",
@@ -713,10 +960,9 @@ async function login() {
                 );
 
 
-                /* ------------------------------------------
-                   Also store the same values under simple
-                   names for compatibility.
-                   ------------------------------------------ */
+                /*
+                 * Compatibility values.
+                 */
 
                 sessionStorage.setItem(
                     "studentName",
@@ -742,33 +988,44 @@ async function login() {
                 );
 
 
-                /* ------------------------------------------
-                   Display student information
-                   ------------------------------------------ */
+                /*
+                 * Display student information.
+                 */
 
                 document
-                    .getElementById("studentName")
-                    .textContent = name;
-
-
-                document
-                    .getElementById("studentID")
-                    .textContent = id;
+                    .getElementById(
+                        "studentName"
+                    )
+                    .textContent =
+                        name;
 
 
                 document
-                    .getElementById("studentCourse")
-                    .textContent = course;
+                    .getElementById(
+                        "studentID"
+                    )
+                    .textContent =
+                        id;
 
 
-                loadingElement.innerHTML = "";
+                document
+                    .getElementById(
+                        "studentCourse"
+                    )
+                    .textContent =
+                        course;
+
+
+                loadingElement.innerHTML =
+                    "";
 
 
                 studentElement.style.display =
                     "block";
 
 
-                studentFound = true;
+                studentFound =
+                    true;
 
 
                 return;
@@ -779,7 +1036,7 @@ async function login() {
 
 
         /* --------------------------------------------------
-           Student not found
+           STUDENT NOT FOUND
            -------------------------------------------------- */
 
         if (!studentFound) {
@@ -791,6 +1048,7 @@ async function login() {
 
 
     }
+
 
     catch (error) {
 
@@ -810,9 +1068,11 @@ async function login() {
 
     finally {
 
-        loginButton.disabled = false;
+        loginButton.disabled =
+            false;
 
-        loadingElement.innerHTML = "";
+        loadingElement.innerHTML =
+            "";
 
     }
 
@@ -821,14 +1081,6 @@ async function login() {
 
 /* ==========================================================
    OPEN STUDENT SESSIONS
-
-   CourseID is already stored internally.
-
-   StudentSessions.html will use:
-
-   kpotms_student_course_id
-
-   to read Course_Master and then 04_Class_Master.
    ========================================================== */
 
 function openStudentSessions() {
@@ -842,18 +1094,15 @@ function openStudentSessions() {
 
     if (!courseID) {
 
-        document.getElementById("error").innerHTML =
-            "Student CourseID is not available.";
+        document
+            .getElementById("error")
+            .innerHTML =
+                "Student CourseID is not available.";
 
         return;
 
     }
 
-
-    /*
-       Relative URL keeps this page compatible with
-       GitHub Pages inside the KPOTMS_V3 folder.
-    */
 
     window.location.href =
         "StudentSessions.html";
@@ -871,7 +1120,9 @@ document
         "keydown",
         function(event) {
 
-            if (event.key === "Enter") {
+            if (
+                event.key === "Enter"
+            ) {
 
                 login();
 
@@ -887,7 +1138,9 @@ document
         "keydown",
         function(event) {
 
-            if (event.key === "Enter") {
+            if (
+                event.key === "Enter"
+            ) {
 
                 login();
 
@@ -903,3 +1156,4 @@ document
 </body>
 
 </html>
+```
