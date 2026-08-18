@@ -5,8 +5,9 @@
 
   <meta charset="UTF-8">
 
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
 
   <title>
     Kalviparavai - Administrator Dashboard
@@ -40,7 +41,6 @@
        Theme:
        Kalviparavai Blue + Gold
        ===================================================== */
-
 
     :root {
 
@@ -1016,6 +1016,227 @@
 
 
     /* =====================================================
+       EDIT FORM
+       ===================================================== */
+
+    .edit-section-title {
+
+      color:
+        var(--kp-blue);
+
+      font-size: 1rem;
+
+      font-weight: 800;
+
+      border-bottom:
+        2px solid #e9eef5;
+
+      padding-bottom: 8px;
+
+      margin-bottom: 16px;
+
+    }
+
+
+    .edit-label {
+
+      font-size: 0.78rem;
+
+      font-weight: 700;
+
+      color:
+        var(--kp-blue);
+
+      margin-bottom: 5px;
+
+    }
+
+
+    .edit-control {
+
+      border:
+        1px solid #ccd6e2;
+
+      border-radius: 7px;
+
+      min-height: 42px;
+
+      font-size: 0.88rem;
+
+    }
+
+
+    .edit-control:focus {
+
+      border-color:
+        var(--kp-blue-light);
+
+      box-shadow:
+        0 0 0 0.15rem
+        rgba(13, 110, 253, 0.12);
+
+    }
+
+
+    .readonly-control {
+
+      background:
+        #eef1f4 !important;
+
+      color:
+        #6c757d !important;
+
+      cursor:
+        not-allowed;
+
+    }
+
+
+    .readonly-note {
+
+      font-size: 0.70rem;
+
+      color:
+        var(--kp-muted);
+
+      margin-top: 4px;
+
+    }
+
+
+    .required-mark {
+
+      color:
+        var(--kp-red);
+
+    }
+
+
+    .validation-message {
+
+      color:
+        var(--kp-red);
+
+      font-size: 0.74rem;
+
+      margin-top: 4px;
+
+    }
+
+
+    .save-status {
+
+      min-height: 22px;
+
+      font-size: 0.82rem;
+
+      font-weight: 600;
+
+    }
+
+
+    .review-mode-badge {
+
+      display: inline-flex;
+
+      align-items: center;
+
+      gap: 6px;
+
+      padding:
+        5px 10px;
+
+      border-radius: 15px;
+
+      background:
+        #eaf7f0;
+
+      color:
+        #146c43;
+
+      border:
+        1px solid #badbcc;
+
+      font-size: 0.74rem;
+
+      font-weight: 700;
+
+    }
+
+
+    /* =====================================================
+       QUICK ACTIONS
+       ===================================================== */
+
+    .quick-action {
+
+      background:
+        #f8fafc;
+
+      border:
+        1px solid #dfe6ef !important;
+
+      padding:
+        14px;
+
+      border-radius: 8px;
+
+      min-height: 95px;
+
+      transition:
+        0.2s ease;
+
+    }
+
+
+    .quick-action:hover {
+
+      background:
+        #eef5ff;
+
+      border-color:
+        #c8d7e9 !important;
+
+    }
+
+
+    .quick-icon {
+
+      color:
+        var(--kp-blue);
+
+      font-size: 20px;
+
+      margin-bottom: 7px;
+
+    }
+
+
+    .quick-title {
+
+      color:
+        var(--kp-blue);
+
+      font-weight: 700;
+
+      font-size: 0.88rem;
+
+    }
+
+
+    .quick-description {
+
+      color:
+        var(--kp-muted);
+
+      font-size: 0.74rem;
+
+      margin-top: 2px;
+
+    }
+
+
+    /* =====================================================
        FOOTER
        ===================================================== */
 
@@ -1494,6 +1715,7 @@
          =================================================== -->
 
     <section
+      id="pendingRegistrationsSection"
       class="section-card">
 
 
@@ -1646,7 +1868,7 @@
 
             <button
               type="button"
-              class="quick-action w-100 text-start border"
+              class="quick-action w-100 text-start"
               onclick="focusPendingRegistrations()">
 
               <div class="quick-icon">
@@ -1665,7 +1887,7 @@
                 </div>
 
                 <div class="quick-description">
-                  Review pending student registrations
+                  Review and correct pending student registrations
                 </div>
 
               </div>
@@ -1681,7 +1903,7 @@
 
             <button
               type="button"
-              class="quick-action w-100 text-start border"
+              class="quick-action w-100 text-start"
               onclick="showComingSoon('Student Management')">
 
               <div class="quick-icon">
@@ -1716,7 +1938,7 @@
 
             <button
               type="button"
-              class="quick-action w-100 text-start border"
+              class="quick-action w-100 text-start"
               onclick="showComingSoon('Approval History')">
 
               <div class="quick-icon">
@@ -1751,7 +1973,7 @@
 
             <button
               type="button"
-              class="quick-action w-100 text-start border"
+              class="quick-action w-100 text-start"
               onclick="showComingSoon('Administrator Reports')">
 
               <div class="quick-icon">
@@ -1887,7 +2109,7 @@
                   class="fa-solid fa-lock me-1">
                 </i>
 
-                Read-Only Phase
+                Read-Only / Review Phase
 
               </div>
 
@@ -1927,7 +2149,7 @@
 
 
   <!-- =====================================================
-       REVIEW MODAL
+       REVIEW / EDIT MODAL
        ===================================================== -->
 
   <div
@@ -1937,23 +2159,37 @@
     aria-hidden="true">
 
     <div
-      class="modal-dialog modal-lg modal-dialog-scrollable">
+      class="modal-dialog modal-xl modal-dialog-scrollable">
 
       <div class="modal-content">
 
 
+        <!-- MODAL HEADER -->
+
         <div class="modal-header">
 
-          <h5
-            class="modal-title">
+          <div>
 
-            <i
-              class="fa-solid fa-user-check me-2">
-            </i>
+            <h5
+              class="modal-title">
 
-            Registration Details
+              <i
+                class="fa-solid fa-user-pen me-2">
+              </i>
 
-          </h5>
+              Administrator Review
+
+            </h5>
+
+            <div
+              class="small mt-1"
+              style="opacity:0.85;">
+
+              Review, correct and validate the student's registration.
+
+            </div>
+
+          </div>
 
 
           <button
@@ -1966,6 +2202,8 @@
         </div>
 
 
+        <!-- MODAL BODY -->
+
         <div
           id="reviewModalBody"
           class="modal-body">
@@ -1973,15 +2211,15 @@
         </div>
 
 
+        <!-- MODAL FOOTER -->
+
         <div class="modal-footer">
 
-          <span
-            class="me-auto text-muted small">
+          <div
+            id="saveStatusMessage"
+            class="save-status me-auto">
 
-            Approval / Rejection will be enabled
-            in the next phase.
-
-          </span>
+          </div>
 
 
           <button
@@ -1989,7 +2227,26 @@
             class="btn btn-secondary"
             data-bs-dismiss="modal">
 
+            <i
+              class="fa-solid fa-xmark me-1">
+            </i>
+
             Close
+
+          </button>
+
+
+          <button
+            type="button"
+            id="saveCorrectionsButton"
+            class="btn btn-kp-primary"
+            onclick="saveCorrections()">
+
+            <i
+              class="fa-solid fa-floppy-disk me-1">
+            </i>
+
+            Save Corrections
 
           </button>
 
@@ -2026,11 +2283,28 @@
       "https://script.google.com/macros/s/AKfycbzxJ0qJ_uIVVCm_VZrCItEp6y_sniqVX52oD3WhTWwohuK_liNX8v9Wcm2IdEWbZbJs/exec";
 
 
+    /*
+     * Backend action for the next V4 phase.
+     *
+     * This action will update the SAME row in
+     * Form Responses 1.
+     */
+
+    const UPDATE_PENDING_ACTION =
+      "updatePendingRegistration";
+
+
     /* =====================================================
        GLOBAL DATA
        ===================================================== */
 
     let pendingRegistrations = [];
+
+    let currentRegistration =
+      null;
+
+    let currentRegistrationIndex =
+      -1;
 
 
     /* =====================================================
@@ -2109,8 +2383,19 @@
        ===================================================== */
 
     async function callWebAPI(
-      action
+      action,
+      payload = {}
     ) {
+
+      const requestBody = {
+
+        action:
+          action,
+
+        ...payload
+
+      };
+
 
       const response =
         await fetch(
@@ -2127,12 +2412,9 @@
             },
 
             body:
-              JSON.stringify({
-
-                action:
-                  action
-
-              })
+              JSON.stringify(
+                requestBody
+              )
 
           }
         );
@@ -2211,11 +2493,8 @@
 
 
       /*
-       * Inactive is NOT stored in Form Responses 1.
-       *
+       * Inactive is not stored in Form Responses 1.
        * It will be connected later to 01_Students_Login.
-       *
-       * Therefore we deliberately keep it as —
        */
 
       document
@@ -2648,9 +2927,9 @@
               class="btn btn-sm btn-kp-primary"
               onclick="reviewRegistration(${index})">
 
-              <i class="fa-solid fa-eye me-1"></i>
+              <i class="fa-solid fa-pen-to-square me-1"></i>
 
-              Review
+              Review / Edit
 
             </button>
 
@@ -2682,63 +2961,33 @@
       }
 
 
+      currentRegistration =
+        registration;
+
+      currentRegistrationIndex =
+        index;
+
+
       const modalBody =
         document.getElementById(
           "reviewModalBody"
         );
 
 
-      const excludedFields = [
-        "_rowNumber"
-      ];
+      const saveStatus =
+        document.getElementById(
+          "saveStatusMessage"
+        );
 
 
-      let html = "";
-
-
-      Object.keys(
-        registration
-      )
-      .forEach(
-        function(key) {
-
-          if (
-            excludedFields.includes(key)
-          ) {
-
-            return;
-
-          }
-
-
-          const value =
-            registration[key];
-
-
-          html += `
-
-            <div class="review-field">
-
-              <div class="review-field-label">
-                ${escapeHtml(key)}
-              </div>
-
-              <div class="review-field-value">
-                ${escapeHtml(
-                  value || "—"
-                )}
-              </div>
-
-            </div>
-
-          `;
-
-        }
-      );
+      saveStatus.innerHTML =
+        "";
 
 
       modalBody.innerHTML =
-        html;
+        buildEditForm(
+          registration
+        );
 
 
       const modal =
@@ -2750,6 +2999,1588 @@
 
 
       modal.show();
+
+    }
+
+
+    /* =====================================================
+       BUILD EDIT FORM
+       ===================================================== */
+
+    function buildEditForm(
+      registration
+    ) {
+
+      const timestamp =
+        getField(
+          registration,
+          "Timestamp"
+        );
+
+
+      const status =
+        getField(
+          registration,
+          "Status"
+        ) ||
+        "PENDING";
+
+
+      return `
+
+        <div class="mb-3">
+
+          <span class="review-mode-badge">
+
+            <i class="fa-solid fa-pen-to-square"></i>
+
+            Administrator Review / Correction
+
+          </span>
+
+        </div>
+
+
+        <div class="alert alert-info py-2">
+
+          <i class="fa-solid fa-circle-info me-1"></i>
+
+          Please verify the information with the student.
+          Correct any wrong or incomplete entries before
+          saving the registration.
+
+        </div>
+
+
+        <!-- =============================================
+             REGISTRATION CONTROL INFORMATION
+             ============================================= -->
+
+        <div class="edit-section-title">
+
+          <i class="fa-solid fa-lock me-2"></i>
+
+          Registration Control Information
+
+        </div>
+
+
+        <div class="row g-3 mb-4">
+
+
+          <!-- Timestamp -->
+
+          <div class="col-12 col-md-6">
+
+            <label class="edit-label">
+
+              Registration Timestamp
+
+            </label>
+
+            <input
+              type="text"
+              class="form-control edit-control readonly-control"
+              value="${escapeHtml(timestamp || "—")}"
+              readonly>
+
+            <div class="readonly-note">
+
+              <i class="fa-solid fa-lock me-1"></i>
+
+              Original Google Form submission timestamp.
+              Administrator cannot edit this field.
+
+            </div>
+
+          </div>
+
+
+          <!-- Status -->
+
+          <div class="col-12 col-md-6">
+
+            <label class="edit-label">
+
+              Registration Status
+
+            </label>
+
+            <input
+              type="text"
+              id="editStatus"
+              class="form-control edit-control readonly-control"
+              value="${escapeHtml(status)}"
+              readonly>
+
+            <div class="readonly-note">
+
+              <i class="fa-solid fa-lock me-1"></i>
+
+              Status is controlled by the Administrator workflow.
+
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+        <!-- =============================================
+             STUDENT DETAILS
+             ============================================= -->
+
+        <div class="edit-section-title">
+
+          <i class="fa-solid fa-user-graduate me-2"></i>
+
+          Student Details
+
+        </div>
+
+
+        <div class="row g-3 mb-4">
+
+
+          <!-- Student Name -->
+
+          <div class="col-12 col-md-6">
+
+            <label
+              for="editStudentName"
+              class="edit-label">
+
+              Student Name
+              <span class="required-mark">*</span>
+
+            </label>
+
+            <input
+              type="text"
+              id="editStudentName"
+              class="form-control edit-control"
+              value="${escapeHtml(
+                getField(
+                  registration,
+                  "Student Name"
+                )
+              )}"
+              maxlength="100">
+
+            <div
+              id="studentNameError"
+              class="validation-message">
+            </div>
+
+          </div>
+
+
+          <!-- Course -->
+
+          <div class="col-12 col-md-6">
+
+            <label
+              for="editCourse"
+              class="edit-label">
+
+              Course
+              <span class="required-mark">*</span>
+
+            </label>
+
+            <input
+              type="text"
+              id="editCourse"
+              class="form-control edit-control"
+              value="${escapeHtml(
+                getField(
+                  registration,
+                  "Course"
+                )
+              )}"
+              maxlength="100">
+
+            <div
+              id="courseError"
+              class="validation-message">
+            </div>
+
+          </div>
+
+
+          <!-- School -->
+
+          <div class="col-12">
+
+            <label
+              for="editSchool"
+              class="edit-label">
+
+              School Name (Full)
+              <span class="required-mark">*</span>
+
+            </label>
+
+            <input
+              type="text"
+              id="editSchool"
+              class="form-control edit-control"
+              value="${escapeHtml(
+                getField(
+                  registration,
+                  "School Name (Full)"
+                )
+              )}"
+              maxlength="200">
+
+            <div
+              id="schoolError"
+              class="validation-message">
+            </div>
+
+          </div>
+
+
+          <!-- Medium -->
+
+          <div class="col-12 col-md-6">
+
+            <label
+              for="editMedium"
+              class="edit-label">
+
+              Medium
+              <span class="required-mark">*</span>
+
+            </label>
+
+            <select
+              id="editMedium"
+              class="form-select edit-control">
+
+              ${buildSelectOption(
+                "English Medium",
+                getField(
+                  registration,
+                  "Medium"
+                )
+              )}
+
+              ${buildSelectOption(
+                "Tamil Medium",
+                getField(
+                  registration,
+                  "Medium"
+                )
+              )}
+
+              ${buildSelectOption(
+                "Other",
+                getField(
+                  registration,
+                  "Medium"
+                )
+              )}
+
+            </select>
+
+            <div
+              id="mediumError"
+              class="validation-message">
+            </div>
+
+          </div>
+
+
+          <!-- EMIS -->
+
+          <div class="col-12 col-md-6">
+
+            <label
+              for="editEmis"
+              class="edit-label">
+
+              EMIS Number
+
+            </label>
+
+            <input
+              type="text"
+              id="editEmis"
+              class="form-control edit-control"
+              value="${escapeHtml(
+                getField(
+                  registration,
+                  "EMIS Number"
+                )
+              )}"
+              maxlength="30">
+
+            <div
+              id="emisError"
+              class="validation-message">
+            </div>
+
+          </div>
+
+
+          <!-- Gender -->
+
+          <div class="col-12 col-md-6">
+
+            <label
+              for="editGender"
+              class="edit-label">
+
+              Gender
+              <span class="required-mark">*</span>
+
+            </label>
+
+            <select
+              id="editGender"
+              class="form-select edit-control">
+
+              ${buildSelectOption(
+                "Male",
+                getField(
+                  registration,
+                  "Gender"
+                )
+              )}
+
+              ${buildSelectOption(
+                "Female",
+                getField(
+                  registration,
+                  "Gender"
+                )
+              )}
+
+              ${buildSelectOption(
+                "Other",
+                getField(
+                  registration,
+                  "Gender"
+                )
+              )}
+
+            </select>
+
+            <div
+              id="genderError"
+              class="validation-message">
+            </div>
+
+          </div>
+
+
+          <!-- Date of Birth -->
+
+          <div class="col-12 col-md-6">
+
+            <label
+              for="editDob"
+              class="edit-label">
+
+              Date of Birth
+              <span class="required-mark">*</span>
+
+            </label>
+
+            <input
+              type="text"
+              id="editDob"
+              class="form-control edit-control"
+              value="${escapeHtml(
+                getField(
+                  registration,
+                  "Date of Birth"
+                )
+              )}"
+              placeholder="DD-MM-YYYY">
+
+            <div
+              id="dobError"
+              class="validation-message">
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+        <!-- =============================================
+             PARENT / CONTACT DETAILS
+             ============================================= -->
+
+        <div class="edit-section-title">
+
+          <i class="fa-solid fa-address-book me-2"></i>
+
+          Parent / Contact Details
+
+        </div>
+
+
+        <div class="row g-3 mb-4">
+
+
+          <!-- Parent Name -->
+
+          <div class="col-12 col-md-6">
+
+            <label
+              for="editParentName"
+              class="edit-label">
+
+              Parent Name
+              <span class="required-mark">*</span>
+
+            </label>
+
+            <input
+              type="text"
+              id="editParentName"
+              class="form-control edit-control"
+              value="${escapeHtml(
+                getField(
+                  registration,
+                  "Parent Name"
+                )
+              )}"
+              maxlength="100">
+
+            <div
+              id="parentNameError"
+              class="validation-message">
+            </div>
+
+          </div>
+
+
+          <!-- Parent Mobile -->
+
+          <div class="col-12 col-md-6">
+
+            <label
+              for="editParentMobile"
+              class="edit-label">
+
+              Parent Mobile Number
+              <span class="required-mark">*</span>
+
+            </label>
+
+            <input
+              type="tel"
+              id="editParentMobile"
+              class="form-control edit-control"
+              value="${escapeHtml(
+                getField(
+                  registration,
+                  "Parent Mobile Number"
+                )
+              )}"
+              maxlength="10"
+              inputmode="numeric">
+
+            <div
+              id="parentMobileError"
+              class="validation-message">
+            </div>
+
+          </div>
+
+
+          <!-- Student Mobile -->
+
+          <div class="col-12 col-md-6">
+
+            <label
+              for="editStudentMobile"
+              class="edit-label">
+
+              Student Mobile No
+
+            </label>
+
+            <input
+              type="tel"
+              id="editStudentMobile"
+              class="form-control edit-control"
+              value="${escapeHtml(
+                getField(
+                  registration,
+                  "Student Mobile No"
+                )
+              )}"
+              maxlength="10"
+              inputmode="numeric">
+
+            <div
+              id="studentMobileError"
+              class="validation-message">
+            </div>
+
+          </div>
+
+
+          <!-- Google Email -->
+
+          <div class="col-12 col-md-6">
+
+            <label
+              for="editEmail"
+              class="edit-label">
+
+              Google Email ID
+              <span class="required-mark">*</span>
+
+            </label>
+
+            <input
+              type="email"
+              id="editEmail"
+              class="form-control edit-control"
+              value="${escapeHtml(
+                getField(
+                  registration,
+                  "Google Email ID"
+                )
+              )}"
+              maxlength="150">
+
+            <div
+              id="emailError"
+              class="validation-message">
+            </div>
+
+          </div>
+
+
+          <!-- Address -->
+
+          <div class="col-12">
+
+            <label
+              for="editAddress"
+              class="edit-label">
+
+              Address
+              <span class="required-mark">*</span>
+
+            </label>
+
+            <textarea
+              id="editAddress"
+              class="form-control edit-control"
+              rows="3"
+              maxlength="500">${escapeHtml(
+                getField(
+                  registration,
+                  "Address"
+                )
+              )}</textarea>
+
+            <div
+              id="addressError"
+              class="validation-message">
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+        <!-- =============================================
+             CONFIRMATION
+             ============================================= -->
+
+        <div class="edit-section-title">
+
+          <i class="fa-solid fa-circle-check me-2"></i>
+
+          Student Confirmation
+
+        </div>
+
+
+        <div class="row g-3">
+
+
+          <div class="col-12">
+
+            <label
+              for="editAgreement"
+              class="edit-label">
+
+              I Agree / Confirmation
+              <span class="required-mark">*</span>
+
+            </label>
+
+            <textarea
+              id="editAgreement"
+              class="form-control edit-control"
+              rows="2"
+              maxlength="300">${escapeHtml(
+                getField(
+                  registration,
+                  "I agree"
+                )
+              )}</textarea>
+
+            <div
+              id="agreementError"
+              class="validation-message">
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+        <!-- =============================================
+             REVIEW NOTE
+             ============================================= -->
+
+        <div class="alert alert-warning mt-4 mb-0">
+
+          <i class="fa-solid fa-triangle-exclamation me-1"></i>
+
+          <strong>Important:</strong>
+
+          Saving corrections will update the
+          <strong>same row</strong> in
+          <strong>Form Responses 1</strong>.
+
+          The original submission timestamp will remain unchanged.
+
+        </div>
+
+      `;
+
+    }
+
+
+    /* =====================================================
+       BUILD SELECT OPTION
+       ===================================================== */
+
+    function buildSelectOption(
+      value,
+      currentValue
+    ) {
+
+      const selected =
+        String(
+          currentValue || ""
+        ).trim().toLowerCase() ===
+        String(
+          value
+        ).trim().toLowerCase()
+          ? "selected"
+          : "";
+
+
+      return `
+
+        <option
+          value="${escapeHtml(value)}"
+          ${selected}>
+
+          ${escapeHtml(value)}
+
+        </option>
+
+      `;
+
+    }
+
+
+    /* =====================================================
+       COLLECT EDITED FORM DATA
+       ===================================================== */
+
+    function collectEditedData() {
+
+      return {
+
+        "Student Name":
+          getInputValue(
+            "editStudentName"
+          ),
+
+        "Course":
+          getInputValue(
+            "editCourse"
+          ),
+
+        "School Name (Full)":
+          getInputValue(
+            "editSchool"
+          ),
+
+        "Medium":
+          getInputValue(
+            "editMedium"
+          ),
+
+        "EMIS Number":
+          getInputValue(
+            "editEmis"
+          ),
+
+        "Parent Name":
+          getInputValue(
+            "editParentName"
+          ),
+
+        "Parent Mobile Number":
+          getInputValue(
+            "editParentMobile"
+          ),
+
+        "Address":
+          getInputValue(
+            "editAddress"
+          ),
+
+        "I agree":
+          getInputValue(
+            "editAgreement"
+          ),
+
+        "Gender":
+          getInputValue(
+            "editGender"
+          ),
+
+        "Date of Birth":
+          getInputValue(
+            "editDob"
+          ),
+
+        "Student Mobile No":
+          getInputValue(
+            "editStudentMobile"
+          ),
+
+        "Google Email ID":
+          getInputValue(
+            "editEmail"
+          )
+
+      };
+
+    }
+
+
+    /* =====================================================
+       GET INPUT VALUE
+       ===================================================== */
+
+    function getInputValue(
+      id
+    ) {
+
+      const element =
+        document.getElementById(
+          id
+        );
+
+
+      if (!element) {
+
+        return "";
+
+      }
+
+
+      return String(
+        element.value || ""
+      ).trim();
+
+    }
+
+
+    /* =====================================================
+       VALIDATE EDITED DATA
+       ===================================================== */
+
+    function validateEditedData(
+      data
+    ) {
+
+      clearValidationMessages();
+
+
+      let valid =
+        true;
+
+
+      /*
+       * Student Name
+       */
+
+      if (
+        data["Student Name"] === ""
+      ) {
+
+        setValidationMessage(
+          "studentNameError",
+          "Student Name is required."
+        );
+
+        valid =
+          false;
+
+      }
+
+
+      /*
+       * Course
+       */
+
+      if (
+        data["Course"] === ""
+      ) {
+
+        setValidationMessage(
+          "courseError",
+          "Course is required."
+        );
+
+        valid =
+          false;
+
+      }
+
+
+      /*
+       * School
+       */
+
+      if (
+        data["School Name (Full)"] === ""
+      ) {
+
+        setValidationMessage(
+          "schoolError",
+          "School Name is required."
+        );
+
+        valid =
+          false;
+
+      }
+
+
+      /*
+       * Medium
+       */
+
+      if (
+        data["Medium"] === ""
+      ) {
+
+        setValidationMessage(
+          "mediumError",
+          "Medium is required."
+        );
+
+        valid =
+          false;
+
+      }
+
+
+      /*
+       * EMIS
+       *
+       * Optional at registration stage.
+       */
+
+      if (
+        data["EMIS Number"] !== "" &&
+        !/^[0-9A-Za-z\-\/ ]+$/.test(
+          data["EMIS Number"]
+        )
+      ) {
+
+        setValidationMessage(
+          "emisError",
+          "EMIS Number contains invalid characters."
+        );
+
+        valid =
+          false;
+
+      }
+
+
+      /*
+       * Parent Name
+       */
+
+      if (
+        data["Parent Name"] === ""
+      ) {
+
+        setValidationMessage(
+          "parentNameError",
+          "Parent Name is required."
+        );
+
+        valid =
+          false;
+
+      }
+
+
+      /*
+       * Parent Mobile
+       */
+
+      if (
+        !/^[0-9]{10}$/.test(
+          data["Parent Mobile Number"]
+        )
+      ) {
+
+        setValidationMessage(
+          "parentMobileError",
+          "Parent Mobile Number must contain exactly 10 digits."
+        );
+
+        valid =
+          false;
+
+      }
+
+
+      /*
+       * Student Mobile
+       *
+       * Optional.
+       */
+
+      if (
+        data["Student Mobile No"] !== "" &&
+        !/^[0-9]{10}$/.test(
+          data["Student Mobile No"]
+        )
+      ) {
+
+        setValidationMessage(
+          "studentMobileError",
+          "Student Mobile Number must contain exactly 10 digits."
+        );
+
+        valid =
+          false;
+
+      }
+
+
+      /*
+       * Address
+       */
+
+      if (
+        data["Address"] === ""
+      ) {
+
+        setValidationMessage(
+          "addressError",
+          "Address is required."
+        );
+
+        valid =
+          false;
+
+      }
+
+
+      /*
+       * Agreement
+       */
+
+      if (
+        data["I agree"] === ""
+      ) {
+
+        setValidationMessage(
+          "agreementError",
+          "Student confirmation is required."
+        );
+
+        valid =
+          false;
+
+      }
+
+
+      /*
+       * Gender
+       */
+
+      if (
+        data["Gender"] === ""
+      ) {
+
+        setValidationMessage(
+          "genderError",
+          "Gender is required."
+        );
+
+        valid =
+          false;
+
+      }
+
+
+      /*
+       * Date of Birth
+       */
+
+      if (
+        data["Date of Birth"] === ""
+      ) {
+
+        setValidationMessage(
+          "dobError",
+          "Date of Birth is required."
+        );
+
+        valid =
+          false;
+
+      }
+
+      else if (
+        !isValidDateValue(
+          data["Date of Birth"]
+        )
+      ) {
+
+        setValidationMessage(
+          "dobError",
+          "Enter a valid Date of Birth."
+        );
+
+        valid =
+          false;
+
+      }
+
+
+      /*
+       * Google Email
+       */
+
+      if (
+        data["Google Email ID"] === ""
+      ) {
+
+        setValidationMessage(
+          "emailError",
+          "Google Email ID is required."
+        );
+
+        valid =
+          false;
+
+      }
+
+      else if (
+        !isValidEmail(
+          data["Google Email ID"]
+        )
+      ) {
+
+        setValidationMessage(
+          "emailError",
+          "Enter a valid email address."
+        );
+
+        valid =
+          false;
+
+      }
+
+
+      return valid;
+
+    }
+
+
+    /* =====================================================
+       DATE VALIDATION
+       ===================================================== */
+
+    function isValidDateValue(
+      value
+    ) {
+
+      const text =
+        String(
+          value || ""
+        ).trim();
+
+
+      /*
+       * Accept the common formats already
+       * present in Form Responses 1.
+       */
+
+      const match =
+        text.match(
+          /^(\d{1,2})[-\/](\d{1,2})[-\/](\d{4})$/
+        );
+
+
+      if (!match) {
+
+        return false;
+
+      }
+
+
+      const day =
+        Number(
+          match[1]
+        );
+
+
+      const month =
+        Number(
+          match[2]
+        );
+
+
+      const year =
+        Number(
+          match[3]
+        );
+
+
+      if (
+        month < 1 ||
+        month > 12 ||
+        day < 1 ||
+        day > 31 ||
+        year < 1900 ||
+        year > new Date().getFullYear()
+      ) {
+
+        return false;
+
+      }
+
+
+      const date =
+        new Date(
+          year,
+          month - 1,
+          day
+        );
+
+
+      return (
+        date.getFullYear() === year &&
+        date.getMonth() === month - 1 &&
+        date.getDate() === day
+      );
+
+    }
+
+
+    /* =====================================================
+       EMAIL VALIDATION
+       ===================================================== */
+
+    function isValidEmail(
+      email
+    ) {
+
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
+        String(
+          email || ""
+        ).trim()
+      );
+
+    }
+
+
+    /* =====================================================
+       CLEAR VALIDATION MESSAGES
+       ===================================================== */
+
+    function clearValidationMessages() {
+
+      const ids = [
+
+        "studentNameError",
+
+        "courseError",
+
+        "schoolError",
+
+        "mediumError",
+
+        "emisError",
+
+        "parentNameError",
+
+        "parentMobileError",
+
+        "studentMobileError",
+
+        "addressError",
+
+        "agreementError",
+
+        "genderError",
+
+        "dobError",
+
+        "emailError"
+
+      ];
+
+
+      ids.forEach(
+        function(id) {
+
+          setValidationMessage(
+            id,
+            ""
+          );
+
+        }
+      );
+
+    }
+
+
+    /* =====================================================
+       SET VALIDATION MESSAGE
+       ===================================================== */
+
+    function setValidationMessage(
+      id,
+      message
+    ) {
+
+      const element =
+        document.getElementById(
+          id
+        );
+
+
+      if (
+        element
+      ) {
+
+        element.textContent =
+          message;
+
+      }
+
+    }
+
+
+    /* =====================================================
+       SAVE CORRECTIONS
+       ===================================================== */
+
+    async function saveCorrections() {
+
+      if (
+        !currentRegistration
+      ) {
+
+        showSaveStatus(
+          "No registration is currently selected.",
+          "danger"
+        );
+
+        return;
+
+      }
+
+
+      const data =
+        collectEditedData();
+
+
+      if (
+        !validateEditedData(
+          data
+        )
+      ) {
+
+        showSaveStatus(
+          "Please correct the highlighted fields.",
+          "danger"
+        );
+
+        return;
+
+      }
+
+
+      const rowNumber =
+        currentRegistration._rowNumber;
+
+
+      if (
+        !rowNumber
+      ) {
+
+        showSaveStatus(
+          "Form Responses 1 row number is missing.",
+          "danger"
+        );
+
+        return;
+
+      }
+
+
+      const button =
+        document.getElementById(
+          "saveCorrectionsButton"
+        );
+
+
+      button.disabled =
+        true;
+
+
+      button.innerHTML = `
+
+        <i class="fa-solid fa-spinner fa-spin me-1"></i>
+
+        Saving...
+
+      `;
+
+
+      showSaveStatus(
+        "Saving corrections to Form Responses 1...",
+        "muted"
+      );
+
+
+      try {
+
+        /*
+         * IMPORTANT
+         *
+         * This sends the row number and corrected
+         * fields to the Apps Script backend.
+         *
+         * The backend will update the SAME row.
+         */
+
+        const result =
+          await callWebAPI(
+            UPDATE_PENDING_ACTION,
+            {
+
+              rowNumber:
+                rowNumber,
+
+              data:
+                data
+
+            }
+          );
+
+
+        if (
+          !result ||
+          result.success !== true
+        ) {
+
+          throw new Error(
+            result &&
+            result.message
+              ? result.message
+              : "Unable to save corrections."
+          );
+
+        }
+
+
+        showSaveStatus(
+          "Corrections saved successfully.",
+          "success"
+        );
+
+
+        /*
+         * Update local copy immediately.
+         */
+
+        Object.keys(
+          data
+        )
+        .forEach(
+          function(key) {
+
+            currentRegistration[key] =
+              data[key];
+
+          }
+        );
+
+
+        /*
+         * Refresh the dashboard after a
+         * successful backend update.
+         */
+
+        await loadDashboardData();
+
+
+        /*
+         * Close modal after successful save.
+         */
+
+        setTimeout(
+          function() {
+
+            const modal =
+              bootstrap.Modal.getInstance(
+                document.getElementById(
+                  "reviewModal"
+                )
+              );
+
+
+            if (
+              modal
+            ) {
+
+              modal.hide();
+
+            }
+
+          },
+          700
+        );
+
+      }
+
+      catch (error) {
+
+        console.error(
+          "Save corrections error:",
+          error
+        );
+
+
+        showSaveStatus(
+          error.message ||
+          "Unable to save corrections.",
+          "danger"
+        );
+
+      }
+
+      finally {
+
+        button.disabled =
+          false;
+
+
+        button.innerHTML = `
+
+          <i class="fa-solid fa-floppy-disk me-1"></i>
+
+          Save Corrections
+
+        `;
+
+      }
+
+    }
+
+
+    /* =====================================================
+       SHOW SAVE STATUS
+       ===================================================== */
+
+    function showSaveStatus(
+      message,
+      type
+    ) {
+
+      const element =
+        document.getElementById(
+          "saveStatusMessage"
+        );
+
+
+      if (
+        type === "success"
+      ) {
+
+        element.className =
+          "save-status me-auto text-success";
+
+
+        element.innerHTML = `
+
+          <i class="fa-solid fa-circle-check me-1"></i>
+
+          ${escapeHtml(message)}
+
+        `;
+
+      }
+
+      else if (
+        type === "danger"
+      ) {
+
+        element.className =
+          "save-status me-auto text-danger";
+
+
+        element.innerHTML = `
+
+          <i class="fa-solid fa-circle-xmark me-1"></i>
+
+          ${escapeHtml(message)}
+
+        `;
+
+      }
+
+      else {
+
+        element.className =
+          "save-status me-auto text-muted";
+
+
+        element.innerHTML = `
+
+          <i class="fa-solid fa-spinner fa-spin me-1"></i>
+
+          ${escapeHtml(message)}
+
+        `;
+
+      }
 
     }
 
@@ -3090,8 +4921,8 @@
     function focusPendingRegistrations() {
 
       const section =
-        document.querySelector(
-          ".section-card"
+        document.getElementById(
+          "pendingRegistrationsSection"
         );
 
 
