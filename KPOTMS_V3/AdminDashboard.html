@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -2238,9 +2238,25 @@
 
           <button
             type="button"
+            id="validateCorrectionsButton"
+            class="btn btn-outline-primary"
+            onclick="validateCorrections()">
+
+            <i
+              class="fa-solid fa-circle-check me-1">
+            </i>
+
+            Validate
+
+          </button>
+
+
+          <button
+            type="button"
             id="saveCorrectionsButton"
             class="btn btn-kp-primary"
-            onclick="saveCorrections()">
+            onclick="saveCorrections()"
+            disabled>
 
             <i
               class="fa-solid fa-floppy-disk me-1">
@@ -2294,9 +2310,94 @@
       "updatePendingRegistration";
 
 
+    /*
+     * =====================================================
+     * COURSE MASTER
+     * =====================================================
+     *
+     * Current Course Master supplied for KPOTMS V4 testing.
+     *
+     * CourseID is retained internally so the Administrator
+     * selects only a valid Course Master entry.
+     *
+     * The value written back to Form Responses 1 remains
+     * the CourseName shown to the user, preserving the
+     * existing Form Responses 1 structure.
+     *
+     * Current Course Master:
+     *
+     * 1 | X   | X   | General
+     * 2 | XI  | XI  | Maths - BIO
+     * 3 | XI  | XI  | Maths - CS
+     * 4 | XI  | XI  | Pure Science
+     * 5 | XII | XII | Maths-BIO
+     * 6 | XII | XII | Maths - CS
+     * 7 | XII | XII | Pure Science
+     *
+     * IMPORTANT:
+     * The Apps Script save function must validate the
+     * selected Course against the actual Course Master
+     * before writing to Form Responses 1.
+     */
+
+    const COURSE_MASTER =
+      [
+
+        {
+          courseID: "1",
+          classCode: "10",
+          courseCode: "X",
+          courseName: "General"
+        },
+
+        {
+          courseID: "2",
+          classCode: "11",
+          courseCode: "XI",
+          courseName: "Maths - BIO"
+        },
+
+        {
+          courseID: "3",
+          classCode: "11",
+          courseCode: "XI",
+          courseName: "Maths - CS"
+        },
+
+        {
+          courseID: "4",
+          classCode: "11",
+          courseCode: "XI",
+          courseName: "Pure Science"
+        },
+
+        {
+          courseID: "5",
+          classCode: "12",
+          courseCode: "XII",
+          courseName: "Maths-BIO"
+        },
+
+        {
+          courseID: "6",
+          classCode: "12",
+          courseCode: "XII",
+          courseName: "Maths - CS"
+        },
+
+        {
+          courseID: "7",
+          classCode: "12",
+          courseCode: "XII",
+          courseName: "Pure Science"
+        }
+
+      ];
+
+
     /* =====================================================
        GLOBAL DATA
-       ===================================================== */
+       =====================================================
 
     let pendingRegistrations = [];
 
@@ -2305,6 +2406,10 @@
 
     let currentRegistrationIndex =
       -1;
+
+
+    let correctionsValidated =
+      false;
 
 
     /* =====================================================
@@ -2984,10 +3089,19 @@
         "";
 
 
+      correctionsValidated =
+        false;
+
+
       modalBody.innerHTML =
         buildEditForm(
           registration
         );
+
+
+      setSaveButtonEnabled(
+        false
+      );
 
 
       const modal =
@@ -3189,17 +3303,27 @@
 
             </label>
 
-            <input
-              type="text"
+            <select
               id="editCourse"
-              class="form-control edit-control"
-              value="${escapeHtml(
+              class="form-select edit-control">
+
+              ${buildCourseMasterOptions(
                 getField(
                   registration,
                   "Course"
                 )
-              )}"
-              maxlength="100">
+              )}
+
+            </select>
+
+            <div class="readonly-note">
+
+              <i class="fa-solid fa-book-open me-1"></i>
+
+              Course is selected from the current Course Master.
+              Administrator cannot enter an invalid free-text course.
+
+            </div>
 
             <div
               id="courseError"
@@ -3660,10 +3784,149 @@
           <strong>Form Responses 1</strong>.
 
           The original submission timestamp will remain unchanged.
+          Course must be selected from the Course Master list.
+          No new data sheet is created.
 
         </div>
 
       `;
+
+    }
+
+
+    /* =====================================================
+       BUILD COURSE MASTER OPTIONS
+       ===================================================== */
+
+    function buildCourseMasterOptions(
+      currentValue
+    ) {
+
+      const current =
+        String(
+          currentValue || ""
+        ).trim();
+
+
+      let html = `
+
+        <option value="">
+          Select Course
+        </option>
+
+      `;
+
+
+      COURSE_MASTER.forEach(
+        function(course) {
+
+          const fullCourseName =
+            String(
+              course.courseCode || ""
+            ).trim() +
+            " - " +
+            String(
+              course.courseName || ""
+            ).trim();
+
+
+          const selected =
+            (
+              current.toLowerCase() ===
+              fullCourseName.toLowerCase()
+            ) ||
+            (
+              current.toLowerCase() ===
+              String(
+                course.courseName || ""
+              ).trim().toLowerCase()
+            )
+              ? "selected"
+              : "";
+
+
+          html += `
+
+            <option
+              value="${escapeHtml(fullCourseName)}"
+              data-course-id="${escapeHtml(course.courseID)}"
+              data-class-code="${escapeHtml(course.classCode)}"
+              data-course-code="${escapeHtml(course.courseCode)}"
+              ${selected}>
+
+              ${escapeHtml(fullCourseName)}
+
+            </option>
+
+          `;
+
+        }
+      );
+
+
+      /*
+       * If an old/current Form Responses 1 value is not
+       * present in Course Master, preserve it visibly so
+       * the Administrator is not shown a blank course.
+       *
+       * The value must still be corrected to a valid
+       * Course Master entry before saving.
+       */
+
+      const exists =
+        COURSE_MASTER.some(
+          function(course) {
+
+            const fullCourseName =
+              String(
+                course.courseCode || ""
+              ).trim() +
+              " - " +
+              String(
+                course.courseName || ""
+              ).trim();
+
+
+            return (
+              current.toLowerCase() ===
+              fullCourseName.toLowerCase()
+            ) ||
+            (
+              current.toLowerCase() ===
+              String(
+                course.courseName || ""
+              ).trim().toLowerCase()
+            );
+
+          }
+        );
+
+
+      if (
+        current !== "" &&
+        !exists
+      ) {
+
+        html =
+          `
+
+            <option
+              value=""
+              selected
+              disabled>
+
+              Current value is not in Course Master:
+              ${escapeHtml(current)}
+
+            </option>
+
+          ` +
+          html;
+
+      }
+
+
+      return html;
 
     }
 
@@ -3845,6 +4108,8 @@
 
       /*
        * Course
+       *
+       * Must be one of the current Course Master entries.
        */
 
       if (
@@ -3853,7 +4118,23 @@
 
         setValidationMessage(
           "courseError",
-          "Course is required."
+          "Please select a Course from Course Master."
+        );
+
+        valid =
+          false;
+
+      }
+
+      else if (
+        !isCourseMasterValue(
+          data["Course"]
+        )
+      ) {
+
+        setValidationMessage(
+          "courseError",
+          "Please select a valid Course Master entry."
         );
 
         valid =
@@ -4121,6 +4402,44 @@
 
 
     /* =====================================================
+       COURSE MASTER VALIDATION
+       ===================================================== */
+
+    function isCourseMasterValue(
+      value
+    ) {
+
+      const candidate =
+        String(
+          value || ""
+        ).trim().toLowerCase();
+
+
+      return COURSE_MASTER.some(
+        function(course) {
+
+          const fullCourseName =
+            String(
+              course.courseCode || ""
+            ).trim() +
+            " - " +
+            String(
+              course.courseName || ""
+            ).trim();
+
+
+          return (
+            candidate ===
+            fullCourseName.toLowerCase()
+          );
+
+        }
+      );
+
+    }
+
+
+    /* =====================================================
        DATE VALIDATION
        ===================================================== */
 
@@ -4297,6 +4616,102 @@
 
 
     /* =====================================================
+       VALIDATE CORRECTIONS
+       ===================================================== */
+
+    function validateCorrections() {
+
+      if (
+        !currentRegistration
+      ) {
+
+        showSaveStatus(
+          "No registration is currently selected.",
+          "danger"
+        );
+
+        return false;
+
+      }
+
+
+      const data =
+        collectEditedData();
+
+
+      if (
+        !validateEditedData(
+          data
+        )
+      ) {
+
+        correctionsValidated =
+          false;
+
+
+        setSaveButtonEnabled(
+          false
+        );
+
+
+        showSaveStatus(
+          "Validation failed. Please correct the highlighted fields.",
+          "danger"
+        );
+
+
+        return false;
+
+      }
+
+
+      correctionsValidated =
+        true;
+
+
+      setSaveButtonEnabled(
+        true
+      );
+
+
+      showSaveStatus(
+        "Validation successful. The corrected data is ready to be saved to the same Form Responses 1 row.",
+        "success"
+      );
+
+
+      return true;
+
+    }
+
+
+    /* =====================================================
+       SET SAVE BUTTON ENABLED / DISABLED
+       ===================================================== */
+
+    function setSaveButtonEnabled(
+      enabled
+    ) {
+
+      const button =
+        document.getElementById(
+          "saveCorrectionsButton"
+        );
+
+
+      if (
+        button
+      ) {
+
+        button.disabled =
+          !enabled;
+
+      }
+
+    }
+
+
+    /* =====================================================
        SAVE CORRECTIONS
        ===================================================== */
 
@@ -4320,14 +4735,30 @@
         collectEditedData();
 
 
+      /*
+       * Save is allowed only after an explicit successful
+       * Validate step. Re-run validation as a safety check
+       * in case the form was changed after validation.
+       */
+
       if (
+        !correctionsValidated ||
         !validateEditedData(
           data
         )
       ) {
 
+        correctionsValidated =
+          false;
+
+
+        setSaveButtonEnabled(
+          false
+        );
+
+
         showSaveStatus(
-          "Please correct the highlighted fields.",
+          "Please Validate the corrected data before saving.",
           "danger"
         );
 
@@ -4424,6 +4855,10 @@
           "Corrections saved successfully.",
           "success"
         );
+
+
+        correctionsValidated =
+          false;
 
 
         /*
