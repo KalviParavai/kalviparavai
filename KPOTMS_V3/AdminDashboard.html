@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -1091,6 +1091,32 @@
 
     }
 
+
+
+
+    /* =====================================================
+       COURSE MASTER DROPDOWN
+       ===================================================== */
+
+    .course-master-select {
+      background-color: #ffffff !important;
+      color: var(--kp-text) !important;
+      cursor: pointer !important;
+      pointer-events: auto !important;
+      opacity: 1 !important;
+    }
+
+    .course-master-select:disabled {
+      background-color: #eef1f4 !important;
+      color: #6c757d !important;
+      cursor: not-allowed !important;
+      opacity: 1 !important;
+    }
+
+    .course-master-select:focus {
+      border-color: var(--kp-blue-light);
+      box-shadow: 0 0 0 0.15rem rgba(13, 110, 253, 0.12);
+    }
 
     .readonly-note {
 
@@ -3305,7 +3331,12 @@
 
             <select
               id="editCourse"
-              class="form-select edit-control">
+              class="form-select edit-control course-master-select"
+              name="editCourse"
+              required
+              aria-required="true"
+              aria-disabled="false"
+              onchange="courseSelectionChanged()">
 
               ${buildCourseMasterOptions(
                 getField(
@@ -3962,6 +3993,40 @@
         </option>
 
       `;
+
+    }
+
+
+
+
+    /* =====================================================
+       COURSE SELECTION CHANGED
+       ===================================================== */
+
+    function courseSelectionChanged() {
+
+      correctionsValidated = false;
+      setSaveButtonEnabled(false);
+
+      const course = getInputValue("editCourse");
+      const error = document.getElementById("courseError");
+
+      if (error) {
+        error.textContent =
+          course === ""
+            ? "Please select a Course from Course Master."
+            : "";
+      }
+
+      const status = document.getElementById("saveStatusMessage");
+
+      if (status && course !== "") {
+        status.className = "save-status me-auto text-muted";
+        status.innerHTML = `
+          <i class="fa-solid fa-circle-info me-1"></i>
+          Course changed. Please Validate before saving.
+        `;
+      }
 
     }
 
