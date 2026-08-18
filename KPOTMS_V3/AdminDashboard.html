@@ -14,7 +14,7 @@
 
 
   <!-- =====================================================
-       Bootstrap
+       BOOTSTRAP
        ===================================================== -->
 
   <link
@@ -23,7 +23,7 @@
 
 
   <!-- =====================================================
-       Font Awesome
+       FONT AWESOME
        ===================================================== -->
 
   <link
@@ -45,23 +45,17 @@
     :root {
 
       --kp-blue: #0b2a57;
-
       --kp-blue-light: #0d6efd;
-
       --kp-gold: #f5a623;
 
       --kp-bg: #f4f7fb;
-
       --kp-white: #ffffff;
 
       --kp-text: #263238;
-
       --kp-muted: #6c757d;
 
       --kp-green: #198754;
-
       --kp-red: #dc3545;
-
       --kp-orange: #fd7e14;
 
     }
@@ -145,7 +139,8 @@
 
       text-decoration: none;
 
-      color: var(--kp-blue);
+      color:
+        var(--kp-blue);
 
     }
 
@@ -273,7 +268,7 @@
 
 
     /* =====================================================
-       PAGE
+       MAIN CONTAINER
        ===================================================== */
 
     .dashboard-container {
@@ -289,7 +284,7 @@
 
 
     /* =====================================================
-       PAGE TITLE
+       PAGE HEADING
        ===================================================== */
 
     .page-heading {
@@ -335,7 +330,7 @@
 
 
     /* =====================================================
-       ACTION BUTTONS
+       BUTTONS
        ===================================================== */
 
     .btn-kp {
@@ -523,10 +518,6 @@
     }
 
 
-    /* =====================================================
-       CARD ACCENTS
-       ===================================================== */
-
     .card-pending {
 
       --card-accent: #fd7e14;
@@ -644,6 +635,213 @@
 
 
     /* =====================================================
+       PENDING BADGE
+       ===================================================== */
+
+    .pending-badge {
+
+      display: inline-flex;
+
+      align-items: center;
+
+      gap: 5px;
+
+      background:
+        #fff3cd;
+
+      color:
+        #856404;
+
+      border:
+        1px solid #ffe69c;
+
+      border-radius: 20px;
+
+      padding:
+        5px 11px;
+
+      font-size: 0.78rem;
+
+      font-weight: 700;
+
+    }
+
+
+    /* =====================================================
+       REGISTRATION CARD
+       ===================================================== */
+
+    .registration-card {
+
+      border:
+        1px solid #dfe6ef;
+
+      border-radius: 12px;
+
+      margin-bottom: 15px;
+
+      background:
+        #ffffff;
+
+      transition:
+        0.2s ease;
+
+    }
+
+
+    .registration-card:hover {
+
+      box-shadow:
+        0 5px 16px
+        rgba(11, 42, 87, 0.09);
+
+      border-color:
+        #c8d7e9;
+
+    }
+
+
+    .registration-header {
+
+      padding:
+        16px 18px;
+
+      background:
+        #f8fafc;
+
+      border-bottom:
+        1px solid #e5eaf0;
+
+      display: flex;
+
+      justify-content: space-between;
+
+      align-items: center;
+
+      gap: 12px;
+
+      flex-wrap: wrap;
+
+    }
+
+
+    .student-name {
+
+      color:
+        var(--kp-blue);
+
+      font-size: 1.05rem;
+
+      font-weight: 800;
+
+    }
+
+
+    .student-course {
+
+      color:
+        var(--kp-muted);
+
+      font-size: 0.82rem;
+
+      margin-top: 2px;
+
+    }
+
+
+    .status-pending {
+
+      display: inline-block;
+
+      background:
+        #fff3cd;
+
+      color:
+        #856404;
+
+      border:
+        1px solid #ffe69c;
+
+      border-radius: 15px;
+
+      padding:
+        4px 10px;
+
+      font-size: 0.74rem;
+
+      font-weight: 700;
+
+    }
+
+
+    .registration-body {
+
+      padding:
+        18px;
+
+    }
+
+
+    .detail-label {
+
+      color:
+        var(--kp-muted);
+
+      font-size: 0.72rem;
+
+      font-weight: 600;
+
+      margin-bottom: 3px;
+
+    }
+
+
+    .detail-value {
+
+      color:
+        var(--kp-text);
+
+      font-size: 0.86rem;
+
+      font-weight: 600;
+
+      word-break: break-word;
+
+    }
+
+
+    .registration-footer {
+
+      padding:
+        12px 18px;
+
+      border-top:
+        1px solid #e5eaf0;
+
+      display: flex;
+
+      justify-content: space-between;
+
+      align-items: center;
+
+      gap: 10px;
+
+      flex-wrap: wrap;
+
+    }
+
+
+    .row-reference {
+
+      font-size: 0.74rem;
+
+      color:
+        var(--kp-muted);
+
+    }
+
+
+    /* =====================================================
        EMPTY STATE
        ===================================================== */
 
@@ -701,53 +899,80 @@
 
 
     /* =====================================================
-       PENDING BADGE
+       LOADING
        ===================================================== */
 
-    .pending-badge {
+    .loading-state {
 
-      display: inline-flex;
-
-      align-items: center;
-
-      gap: 5px;
-
-      background:
-        #fff3cd;
-
-      color:
-        #856404;
-
-      border:
-        1px solid #ffe69c;
-
-      border-radius: 20px;
+      text-align: center;
 
       padding:
-        5px 11px;
+        45px 20px;
 
-      font-size: 0.78rem;
+      color:
+        var(--kp-muted);
 
-      font-weight: 700;
+    }
+
+
+    .loading-state i {
+
+      color:
+        var(--kp-blue-light);
+
+      font-size: 30px;
+
+      margin-bottom: 12px;
 
     }
 
 
     /* =====================================================
-       QUICK ACTIONS
+       ERROR STATE
        ===================================================== */
 
-    .quick-action {
+    .error-state {
 
-      display: flex;
+      background:
+        #fff5f5;
 
-      align-items: center;
+      border:
+        1px solid #f3c2c2;
 
-      gap: 14px;
+      border-radius: 10px;
 
-      width: 100%;
+      padding:
+        16px;
 
-      padding: 16px;
+      color:
+        #842029;
+
+    }
+
+
+    /* =====================================================
+       REVIEW MODAL
+       ===================================================== */
+
+    .modal-header {
+
+      background:
+        var(--kp-blue);
+
+      color:
+        white;
+
+    }
+
+
+    .modal-title {
+
+      font-weight: 750;
+
+    }
+
+
+    .review-field {
 
       background:
         #f8fafc;
@@ -755,76 +980,37 @@
       border:
         1px solid #e4e9f0;
 
-      border-radius: 11px;
+      border-radius: 8px;
 
-      text-decoration: none;
+      padding: 10px 12px;
 
-      color:
-        var(--kp-blue);
-
-      transition:
-        0.2s ease;
+      margin-bottom: 10px;
 
     }
 
 
-    .quick-action:hover {
+    .review-field-label {
 
-      background:
-        #eef5ff;
-
-      border-color:
-        #cddcf1;
-
-      transform:
-        translateY(-1px);
-
-      color:
-        var(--kp-blue);
-
-    }
-
-
-    .quick-icon {
-
-      width: 43px;
-
-      height: 43px;
-
-      border-radius: 10px;
-
-      background:
-        #eaf2ff;
-
-      color:
-        var(--kp-blue-light);
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: center;
-
-    }
-
-
-    .quick-title {
-
-      font-weight: 700;
-
-      font-size: 0.92rem;
-
-    }
-
-
-    .quick-description {
-
-      font-size: 0.76rem;
+      font-size: 0.70rem;
 
       color:
         var(--kp-muted);
 
-      margin-top: 2px;
+      font-weight: 700;
+
+      margin-bottom: 3px;
+
+    }
+
+
+    .review-field-value {
+
+      font-size: 0.86rem;
+
+      color:
+        var(--kp-text);
+
+      word-break: break-word;
 
     }
 
@@ -926,7 +1112,6 @@
 
     }
 
-
   </style>
 
 </head>
@@ -936,7 +1121,7 @@
 
 
   <!-- =====================================================
-       LOADING
+       INITIAL LOADING
        ===================================================== -->
 
   <div id="loadingOverlay">
@@ -968,7 +1153,7 @@
       <div class="header-inner">
 
 
-        <!-- Brand -->
+        <!-- BRAND -->
 
         <a
           href="index.html"
@@ -976,9 +1161,12 @@
 
           <div class="brand-icon">
 
-            <i class="fa-solid fa-graduation-cap"></i>
+            <i
+              class="fa-solid fa-graduation-cap">
+            </i>
 
           </div>
+
 
           <div>
 
@@ -995,13 +1183,15 @@
         </a>
 
 
-        <!-- Administrator -->
+        <!-- ADMIN PROFILE -->
 
         <div class="admin-profile">
 
           <div class="admin-avatar">
 
-            <i class="fa-solid fa-user-shield"></i>
+            <i
+              class="fa-solid fa-user-shield">
+            </i>
 
           </div>
 
@@ -1076,6 +1266,7 @@
 
         <button
           type="button"
+          id="refreshButton"
           class="btn btn-kp-outline me-1"
           onclick="refreshDashboard()">
 
@@ -1112,7 +1303,7 @@
     <div class="row g-4">
 
 
-      <!-- Pending -->
+      <!-- PENDING -->
 
       <div class="col-12 col-sm-6 col-xl-3">
 
@@ -1150,9 +1341,7 @@
 
 
           <div class="summary-status">
-
             Registrations awaiting Administrator review
-
           </div>
 
         </div>
@@ -1160,7 +1349,7 @@
       </div>
 
 
-      <!-- Active -->
+      <!-- APPROVED -->
 
       <div class="col-12 col-sm-6 col-xl-3">
 
@@ -1172,7 +1361,7 @@
             <div>
 
               <div class="summary-label">
-                Active Students
+                Approved
               </div>
 
             </div>
@@ -1189,7 +1378,7 @@
 
 
           <div
-            id="activeCount"
+            id="approvedCount"
             class="summary-number">
 
             —
@@ -1198,9 +1387,7 @@
 
 
           <div class="summary-status">
-
-            Approved students currently active
-
+            Registrations approved by Administrator
           </div>
 
         </div>
@@ -1208,7 +1395,7 @@
       </div>
 
 
-      <!-- Inactive -->
+      <!-- INACTIVE -->
 
       <div class="col-12 col-sm-6 col-xl-3">
 
@@ -1220,7 +1407,7 @@
             <div>
 
               <div class="summary-label">
-                Inactive Students
+                Inactive
               </div>
 
             </div>
@@ -1246,9 +1433,7 @@
 
 
           <div class="summary-status">
-
-            Approved students temporarily inactive
-
+            Student account status will be managed later
           </div>
 
         </div>
@@ -1256,7 +1441,7 @@
       </div>
 
 
-      <!-- Rejected -->
+      <!-- REJECTED -->
 
       <div class="col-12 col-sm-6 col-xl-3">
 
@@ -1294,9 +1479,7 @@
 
 
           <div class="summary-status">
-
-            Registrations not approved
-
+            Registrations rejected by Administrator
           </div>
 
         </div>
@@ -1329,38 +1512,75 @@
           </h2>
 
           <p class="section-subtitle">
-
             New student registrations requiring Administrator review.
-
           </p>
 
         </div>
 
 
-        <span class="pending-badge">
+        <span
+          id="pendingBadge"
+          class="pending-badge">
 
           <i
             class="fa-solid fa-flag">
           </i>
 
-          Pending Approval
+          Loading...
 
         </span>
 
       </div>
 
 
-      <div class="section-body">
+      <div
+        id="pendingRegistrationArea"
+        class="section-body">
 
+
+        <!-- Loading state -->
 
         <div
-          id="pendingRegistrationArea"
-          class="empty-state">
+          id="pendingLoading"
+          class="loading-state">
+
+          <i
+            class="fa-solid fa-spinner fa-spin d-block">
+          </i>
+
+          Loading pending registrations...
+
+        </div>
+
+
+        <!-- Error state -->
+
+        <div
+          id="pendingError"
+          class="error-state d-none">
+
+        </div>
+
+
+        <!-- Registration list -->
+
+        <div
+          id="pendingRegistrationList"
+          class="d-none">
+
+        </div>
+
+
+        <!-- Empty state -->
+
+        <div
+          id="pendingEmpty"
+          class="empty-state d-none">
 
           <div class="empty-icon">
 
             <i
-              class="fa-solid fa-database">
+              class="fa-solid fa-circle-check">
             </i>
 
           </div>
@@ -1368,28 +1588,16 @@
 
           <div class="empty-title">
 
-            Registration data connection pending
+            No Pending Registrations
 
           </div>
 
 
           <div>
-
-            The Administrator dashboard interface is ready.
-
-          </div>
-
-
-          <div class="small mt-2">
-
-            The next phase will connect this section to
-            <strong>Form Responses 1</strong> and display
-            registrations awaiting approval.
-
+            There are currently no registrations awaiting approval.
           </div>
 
         </div>
-
 
       </div>
 
@@ -1397,7 +1605,7 @@
 
 
     <!-- ===================================================
-         QUICK ACTIONS
+         ADMINISTRATOR ACTIONS
          =================================================== -->
 
     <section
@@ -1419,9 +1627,7 @@
           </h2>
 
           <p class="section-subtitle">
-
-            Administrative functions will be enabled progressively.
-
+            Additional administrative functions will be enabled progressively.
           </p>
 
         </div>
@@ -1434,14 +1640,14 @@
         <div class="row g-3">
 
 
-          <!-- Review Registrations -->
+          <!-- Review -->
 
           <div class="col-12 col-md-6 col-xl-3">
 
-            <a
-              href="javascript:void(0)"
-              class="quick-action"
-              onclick="showComingSoon('Review Registrations')">
+            <button
+              type="button"
+              class="quick-action w-100 text-start border"
+              onclick="focusPendingRegistrations()">
 
               <div class="quick-icon">
 
@@ -1464,7 +1670,7 @@
 
               </div>
 
-            </a>
+            </button>
 
           </div>
 
@@ -1473,9 +1679,9 @@
 
           <div class="col-12 col-md-6 col-xl-3">
 
-            <a
-              href="javascript:void(0)"
-              class="quick-action"
+            <button
+              type="button"
+              class="quick-action w-100 text-start border"
               onclick="showComingSoon('Student Management')">
 
               <div class="quick-icon">
@@ -1499,18 +1705,18 @@
 
               </div>
 
-            </a>
+            </button>
 
           </div>
 
 
-          <!-- Approval History -->
+          <!-- History -->
 
           <div class="col-12 col-md-6 col-xl-3">
 
-            <a
-              href="javascript:void(0)"
-              class="quick-action"
+            <button
+              type="button"
+              class="quick-action w-100 text-start border"
               onclick="showComingSoon('Approval History')">
 
               <div class="quick-icon">
@@ -1534,7 +1740,7 @@
 
               </div>
 
-            </a>
+            </button>
 
           </div>
 
@@ -1543,9 +1749,9 @@
 
           <div class="col-12 col-md-6 col-xl-3">
 
-            <a
-              href="javascript:void(0)"
-              class="quick-action"
+            <button
+              type="button"
+              class="quick-action w-100 text-start border"
               onclick="showComingSoon('Administrator Reports')">
 
               <div class="quick-icon">
@@ -1569,7 +1775,7 @@
 
               </div>
 
-            </a>
+            </button>
 
           </div>
 
@@ -1604,9 +1810,7 @@
           </h2>
 
           <p class="section-subtitle">
-
             Current Administrator portal status.
-
           </p>
 
         </div>
@@ -1648,17 +1852,18 @@
             <div class="p-3 border rounded-3">
 
               <div class="small text-muted">
-                Administrator Dashboard
+                Registration Data
               </div>
 
               <div
-                class="fw-bold text-success mt-1">
+                id="registrationConnectionStatus"
+                class="fw-bold mt-1">
 
                 <i
-                  class="fa-solid fa-circle-check me-1">
+                  class="fa-solid fa-spinner fa-spin me-1">
                 </i>
 
-                Loaded
+                Connecting...
 
               </div>
 
@@ -1672,18 +1877,17 @@
             <div class="p-3 border rounded-3">
 
               <div class="small text-muted">
-                Registration Data
+                Data Processing
               </div>
 
               <div
-                class="fw-bold mt-1"
-                style="color:#fd7e14;">
+                class="fw-bold text-warning mt-1">
 
                 <i
-                  class="fa-solid fa-clock me-1">
+                  class="fa-solid fa-lock me-1">
                 </i>
 
-                Backend Integration Pending
+                Read-Only Phase
 
               </div>
 
@@ -1723,10 +1927,110 @@
 
 
   <!-- =====================================================
+       REVIEW MODAL
+       ===================================================== -->
+
+  <div
+    class="modal fade"
+    id="reviewModal"
+    tabindex="-1"
+    aria-hidden="true">
+
+    <div
+      class="modal-dialog modal-lg modal-dialog-scrollable">
+
+      <div class="modal-content">
+
+
+        <div class="modal-header">
+
+          <h5
+            class="modal-title">
+
+            <i
+              class="fa-solid fa-user-check me-2">
+            </i>
+
+            Registration Details
+
+          </h5>
+
+
+          <button
+            type="button"
+            class="btn-close btn-close-white"
+            data-bs-dismiss="modal"
+            aria-label="Close">
+          </button>
+
+        </div>
+
+
+        <div
+          id="reviewModalBody"
+          class="modal-body">
+
+        </div>
+
+
+        <div class="modal-footer">
+
+          <span
+            class="me-auto text-muted small">
+
+            Approval / Rejection will be enabled
+            in the next phase.
+
+          </span>
+
+
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal">
+
+            Close
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       BOOTSTRAP JS
+       ===================================================== -->
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+
+
+  <!-- =====================================================
        JAVASCRIPT
        ===================================================== -->
 
   <script>
+
+
+    /* =====================================================
+       CONFIGURATION
+       ===================================================== */
+
+    const WEB_APP_URL =
+      "https://script.google.com/macros/s/AKfycbzxJ0qJ_uIVVCm_VZrCItEp6y_sniqVX52oD3WhTWwohuK_liNX8v9Wcm2IdEWbZbJs/exec";
+
+
+    /* =====================================================
+       GLOBAL DATA
+       ===================================================== */
+
+    let pendingRegistrations = [];
 
 
     /* =====================================================
@@ -1801,79 +2105,1009 @@
 
 
     /* =====================================================
-       DASHBOARD INITIALIZATION
+       GENERIC API CALL
        ===================================================== */
 
-    function initializeDashboard() {
+    async function callWebAPI(
+      action
+    ) {
+
+      const response =
+        await fetch(
+          WEB_APP_URL,
+          {
+
+            method: "POST",
+
+            headers: {
+
+              "Content-Type":
+                "text/plain;charset=utf-8"
+
+            },
+
+            body:
+              JSON.stringify({
+
+                action:
+                  action
+
+              })
+
+          }
+        );
+
 
       if (
-        !checkAdministratorSession()
+        !response.ok
       ) {
+
+        throw new Error(
+          "Web API request failed. HTTP " +
+          response.status
+        );
+
+      }
+
+
+      const result =
+        await response.json();
+
+
+      return result;
+
+    }
+
+
+    /* =====================================================
+       LOAD REGISTRATION SUMMARY
+       ===================================================== */
+
+    async function loadRegistrationSummary() {
+
+      const result =
+        await callWebAPI(
+          "getRegistrationSummary"
+        );
+
+
+      if (
+        !result ||
+        result.success !== true
+      ) {
+
+        throw new Error(
+          result &&
+          result.message
+            ? result.message
+            : "Unable to load registration summary."
+        );
+
+      }
+
+
+      document
+        .getElementById(
+          "pendingCount"
+        )
+        .textContent =
+          result.pending || 0;
+
+
+      document
+        .getElementById(
+          "approvedCount"
+        )
+        .textContent =
+          result.approved || 0;
+
+
+      document
+        .getElementById(
+          "rejectedCount"
+        )
+        .textContent =
+          result.rejected || 0;
+
+
+      /*
+       * Inactive is NOT stored in Form Responses 1.
+       *
+       * It will be connected later to 01_Students_Login.
+       *
+       * Therefore we deliberately keep it as —
+       */
+
+      document
+        .getElementById(
+          "inactiveCount"
+        )
+        .textContent =
+          "—";
+
+
+      updateRegistrationConnection(
+        true
+      );
+
+    }
+
+
+    /* =====================================================
+       LOAD PENDING REGISTRATIONS
+       ===================================================== */
+
+    async function loadPendingRegistrations() {
+
+      showPendingLoading();
+
+
+      const result =
+        await callWebAPI(
+          "getPendingRegistrations"
+        );
+
+
+      if (
+        !result ||
+        result.success !== true
+      ) {
+
+        throw new Error(
+          result &&
+          result.message
+            ? result.message
+            : "Unable to load pending registrations."
+        );
+
+      }
+
+
+      pendingRegistrations =
+        Array.isArray(
+          result.data
+        )
+          ? result.data
+          : [];
+
+
+      renderPendingRegistrations(
+        pendingRegistrations
+      );
+
+    }
+
+
+    /* =====================================================
+       RENDER PENDING REGISTRATIONS
+       ===================================================== */
+
+    function renderPendingRegistrations(
+      registrations
+    ) {
+
+      const loading =
+        document.getElementById(
+          "pendingLoading"
+        );
+
+
+      const error =
+        document.getElementById(
+          "pendingError"
+        );
+
+
+      const list =
+        document.getElementById(
+          "pendingRegistrationList"
+        );
+
+
+      const empty =
+        document.getElementById(
+          "pendingEmpty"
+        );
+
+
+      loading.classList.add(
+        "d-none"
+      );
+
+
+      error.classList.add(
+        "d-none"
+      );
+
+
+      list.classList.add(
+        "d-none"
+      );
+
+
+      empty.classList.add(
+        "d-none"
+      );
+
+
+      const count =
+        registrations.length;
+
+
+      document
+        .getElementById(
+          "pendingBadge"
+        )
+        .innerHTML =
+
+          '<i class="fa-solid fa-flag"></i> ' +
+          count +
+          ' Pending';
+
+
+      if (
+        count === 0
+      ) {
+
+        empty.classList.remove(
+          "d-none"
+        );
 
         return;
 
       }
 
 
-      loadAdministratorName();
+      list.innerHTML =
+        registrations
+          .map(
+            function(
+              registration,
+              index
+            ) {
+
+              return createRegistrationCard(
+                registration,
+                index
+              );
+
+            }
+          )
+          .join("");
 
 
-      /*
-       * ---------------------------------------------------
-       * Backend registration data will be connected in
-       * the next development phase.
-       *
-       * We deliberately do NOT display fabricated counts.
-       * ---------------------------------------------------
-       */
-
-
-      document
-        .getElementById(
-          "loadingOverlay"
-        )
-        .style.display =
-          "none";
+      list.classList.remove(
+        "d-none"
+      );
 
     }
 
 
     /* =====================================================
-       REFRESH
+       CREATE REGISTRATION CARD
        ===================================================== */
 
-    function refreshDashboard() {
+    function createRegistrationCard(
+      registration,
+      index
+    ) {
 
-      const button =
-        event &&
-        event.currentTarget;
+      const studentName =
+        getField(
+          registration,
+          "Student Name"
+        );
 
 
-      if (button) {
+      const course =
+        getField(
+          registration,
+          "Course"
+        );
 
-        button.disabled = true;
+
+      const school =
+        getField(
+          registration,
+          "School Name (Full)"
+        );
+
+
+      const gender =
+        getField(
+          registration,
+          "Gender"
+        );
+
+
+      const dob =
+        getField(
+          registration,
+          "Date of Birth"
+        );
+
+
+      const studentMobile =
+        getField(
+          registration,
+          "Student Mobile No"
+        );
+
+
+      const parentName =
+        getField(
+          registration,
+          "Parent Name"
+        );
+
+
+      const parentMobile =
+        getField(
+          registration,
+          "Parent Mobile Number"
+        );
+
+
+      const email =
+        getField(
+          registration,
+          "Google Email ID"
+        );
+
+
+      const timestamp =
+        getField(
+          registration,
+          "Timestamp"
+        );
+
+
+      const rowNumber =
+        registration._rowNumber ||
+        "—";
+
+
+      return `
+
+        <div class="registration-card">
+
+          <div class="registration-header">
+
+            <div>
+
+              <div class="student-name">
+                ${escapeHtml(
+                  studentName || "Unnamed Student"
+                )}
+              </div>
+
+              <div class="student-course">
+                ${escapeHtml(
+                  course || "Course not available"
+                )}
+              </div>
+
+            </div>
+
+            <span class="status-pending">
+
+              <i class="fa-solid fa-hourglass-half me-1"></i>
+
+              PENDING
+
+            </span>
+
+          </div>
+
+
+          <div class="registration-body">
+
+            <div class="row g-3">
+
+
+              <div class="col-12 col-md-6 col-lg-3">
+
+                <div class="detail-label">
+                  School
+                </div>
+
+                <div class="detail-value">
+                  ${escapeHtml(
+                    school || "—"
+                  )}
+                </div>
+
+              </div>
+
+
+              <div class="col-6 col-md-3 col-lg-2">
+
+                <div class="detail-label">
+                  Gender
+                </div>
+
+                <div class="detail-value">
+                  ${escapeHtml(
+                    gender || "—"
+                  )}
+                </div>
+
+              </div>
+
+
+              <div class="col-6 col-md-3 col-lg-2">
+
+                <div class="detail-label">
+                  Date of Birth
+                </div>
+
+                <div class="detail-value">
+                  ${escapeHtml(
+                    dob || "—"
+                  )}
+                </div>
+
+              </div>
+
+
+              <div class="col-12 col-md-6 col-lg-2">
+
+                <div class="detail-label">
+                  Student Mobile
+                </div>
+
+                <div class="detail-value">
+                  ${escapeHtml(
+                    studentMobile || "—"
+                  )}
+                </div>
+
+              </div>
+
+
+              <div class="col-12 col-md-6 col-lg-3">
+
+                <div class="detail-label">
+                  Google Email
+                </div>
+
+                <div class="detail-value">
+                  ${escapeHtml(
+                    email || "—"
+                  )}
+                </div>
+
+              </div>
+
+
+              <div class="col-12 col-md-6">
+
+                <div class="detail-label">
+                  Parent Name
+                </div>
+
+                <div class="detail-value">
+                  ${escapeHtml(
+                    parentName || "—"
+                  )}
+                </div>
+
+              </div>
+
+
+              <div class="col-12 col-md-6">
+
+                <div class="detail-label">
+                  Parent Mobile
+                </div>
+
+                <div class="detail-value">
+                  ${escapeHtml(
+                    parentMobile || "—"
+                  )}
+                </div>
+
+              </div>
+
+
+              <div class="col-12">
+
+                <div class="detail-label">
+                  Registration Time
+                </div>
+
+                <div class="detail-value">
+                  ${escapeHtml(
+                    timestamp || "—"
+                  )}
+                </div>
+
+              </div>
+
+
+            </div>
+
+          </div>
+
+
+          <div class="registration-footer">
+
+            <div class="row-reference">
+
+              <i class="fa-solid fa-table-list me-1"></i>
+
+              Form Responses 1 — Row ${escapeHtml(
+                String(rowNumber)
+              )}
+
+            </div>
+
+
+            <button
+              type="button"
+              class="btn btn-sm btn-kp-primary"
+              onclick="reviewRegistration(${index})">
+
+              <i class="fa-solid fa-eye me-1"></i>
+
+              Review
+
+            </button>
+
+          </div>
+
+        </div>
+
+      `;
+
+    }
+
+
+    /* =====================================================
+       REVIEW REGISTRATION
+       ===================================================== */
+
+    function reviewRegistration(
+      index
+    ) {
+
+      const registration =
+        pendingRegistrations[index];
+
+
+      if (!registration) {
+
+        return;
 
       }
 
 
-      setTimeout(
+      const modalBody =
+        document.getElementById(
+          "reviewModalBody"
+        );
 
-        function() {
 
-          initializeDashboard();
+      const excludedFields = [
+        "_rowNumber"
+      ];
 
 
-          if (button) {
+      let html = "";
 
-            button.disabled = false;
+
+      Object.keys(
+        registration
+      )
+      .forEach(
+        function(key) {
+
+          if (
+            excludedFields.includes(key)
+          ) {
+
+            return;
 
           }
 
-        },
 
-        300
+          const value =
+            registration[key];
 
+
+          html += `
+
+            <div class="review-field">
+
+              <div class="review-field-label">
+                ${escapeHtml(key)}
+              </div>
+
+              <div class="review-field-value">
+                ${escapeHtml(
+                  value || "—"
+                )}
+              </div>
+
+            </div>
+
+          `;
+
+        }
       );
+
+
+      modalBody.innerHTML =
+        html;
+
+
+      const modal =
+        bootstrap.Modal.getOrCreateInstance(
+          document.getElementById(
+            "reviewModal"
+          )
+        );
+
+
+      modal.show();
+
+    }
+
+
+    /* =====================================================
+       GET FIELD SAFELY
+       ===================================================== */
+
+    function getField(
+      registration,
+      fieldName
+    ) {
+
+      if (
+        !registration
+      ) {
+
+        return "";
+
+      }
+
+
+      return String(
+        registration[fieldName] || ""
+      ).trim();
+
+    }
+
+
+    /* =====================================================
+       HTML ESCAPE
+       ===================================================== */
+
+    function escapeHtml(
+      value
+    ) {
+
+      return String(
+        value || ""
+      )
+      .replace(
+        /&/g,
+        "&amp;"
+      )
+      .replace(
+        /</g,
+        "&lt;"
+      )
+      .replace(
+        />/g,
+        "&gt;"
+      )
+      .replace(
+        /"/g,
+        "&quot;"
+      )
+      .replace(
+        /'/g,
+        "&#039;"
+      );
+
+    }
+
+
+    /* =====================================================
+       SHOW LOADING
+       ===================================================== */
+
+    function showPendingLoading() {
+
+      document
+        .getElementById(
+          "pendingLoading"
+        )
+        .classList.remove(
+          "d-none"
+        );
+
+
+      document
+        .getElementById(
+          "pendingError"
+        )
+        .classList.add(
+          "d-none"
+        );
+
+
+      document
+        .getElementById(
+          "pendingRegistrationList"
+        )
+        .classList.add(
+          "d-none"
+        );
+
+
+      document
+        .getElementById(
+          "pendingEmpty"
+        )
+        .classList.add(
+          "d-none"
+        );
+
+
+      document
+        .getElementById(
+          "pendingBadge"
+        )
+        .innerHTML =
+
+          '<i class="fa-solid fa-spinner fa-spin"></i> Loading...';
+
+    }
+
+
+    /* =====================================================
+       SHOW ERROR
+       ===================================================== */
+
+    function showDashboardError(
+      message
+    ) {
+
+      const error =
+        document.getElementById(
+          "pendingError"
+        );
+
+
+      error.innerHTML = `
+
+        <i class="fa-solid fa-triangle-exclamation me-2"></i>
+
+        <strong>
+          Unable to load registration data.
+        </strong>
+
+        <div class="mt-1">
+          ${escapeHtml(
+            message
+          )}
+        </div>
+
+      `;
+
+
+      error.classList.remove(
+        "d-none"
+      );
+
+
+      document
+        .getElementById(
+          "pendingLoading"
+        )
+        .classList.add(
+          "d-none"
+        );
+
+
+      document
+        .getElementById(
+          "pendingRegistrationList"
+        )
+        .classList.add(
+          "d-none"
+        );
+
+
+      document
+        .getElementById(
+          "pendingEmpty"
+        )
+        .classList.add(
+          "d-none"
+        );
+
+
+      document
+        .getElementById(
+          "pendingBadge"
+        )
+        .innerHTML =
+
+          '<i class="fa-solid fa-triangle-exclamation"></i> Error';
+
+
+      updateRegistrationConnection(
+        false
+      );
+
+    }
+
+
+    /* =====================================================
+       REGISTRATION CONNECTION STATUS
+       ===================================================== */
+
+    function updateRegistrationConnection(
+      connected
+    ) {
+
+      const element =
+        document.getElementById(
+          "registrationConnectionStatus"
+        );
+
+
+      if (
+        connected
+      ) {
+
+        element.className =
+          "fw-bold text-success mt-1";
+
+
+        element.innerHTML = `
+
+          <i class="fa-solid fa-circle-check me-1"></i>
+
+          Connected
+
+        `;
+
+      }
+
+      else {
+
+        element.className =
+          "fw-bold text-danger mt-1";
+
+
+        element.innerHTML = `
+
+          <i class="fa-solid fa-circle-xmark me-1"></i>
+
+          Connection Error
+
+        `;
+
+      }
+
+    }
+
+
+    /* =====================================================
+       LOAD COMPLETE DASHBOARD DATA
+       ===================================================== */
+
+    async function loadDashboardData() {
+
+      try {
+
+        await Promise.all([
+
+          loadRegistrationSummary(),
+
+          loadPendingRegistrations()
+
+        ]);
+
+      }
+
+      catch (error) {
+
+        console.error(
+          "Dashboard loading error:",
+          error
+        );
+
+
+        showDashboardError(
+          error.message ||
+          "Unknown error."
+        );
+
+      }
+
+    }
+
+
+    /* =====================================================
+       REFRESH DASHBOARD
+       ===================================================== */
+
+    async function refreshDashboard() {
+
+      const button =
+        document.getElementById(
+          "refreshButton"
+        );
+
+
+      button.disabled =
+        true;
+
+
+      button.innerHTML = `
+
+        <i class="fa-solid fa-spinner fa-spin me-1"></i>
+
+        Refreshing...
+
+      `;
+
+
+      try {
+
+        await loadDashboardData();
+
+      }
+
+      finally {
+
+        button.disabled =
+          false;
+
+
+        button.innerHTML = `
+
+          <i class="fa-solid fa-rotate-right me-1"></i>
+
+          Refresh
+
+        `;
+
+      }
+
+    }
+
+
+    /* =====================================================
+       FOCUS PENDING REGISTRATIONS
+       ===================================================== */
+
+    function focusPendingRegistrations() {
+
+      const section =
+        document.querySelector(
+          ".section-card"
+        );
+
+
+      if (
+        section
+      ) {
+
+        section.scrollIntoView({
+
+          behavior: "smooth",
+
+          block: "start"
+
+        });
+
+      }
 
     }
 
@@ -1929,6 +3163,37 @@
 
     /* =====================================================
        INITIALIZE
+       ===================================================== */
+
+    async function initializeDashboard() {
+
+      if (
+        !checkAdministratorSession()
+      ) {
+
+        return;
+
+      }
+
+
+      loadAdministratorName();
+
+
+      await loadDashboardData();
+
+
+      document
+        .getElementById(
+          "loadingOverlay"
+        )
+        .style.display =
+          "none";
+
+    }
+
+
+    /* =====================================================
+       PAGE LOAD
        ===================================================== */
 
     document.addEventListener(
