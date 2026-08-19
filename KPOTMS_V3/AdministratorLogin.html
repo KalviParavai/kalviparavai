@@ -43,7 +43,7 @@
     /* =====================================================
        KPOTMS V4.0
        ADMINISTRATOR LOGIN
-       
+
        Theme aligned with existing Kalviparavai UI
        ===================================================== */
 
@@ -656,12 +656,108 @@
 
 
     /* =====================================================
-       IMPORTANT
-       -----------------------------------------------------
-       This is the CURRENT Web App deployment URL.
+       ADMINISTRATOR LOGIN ENTRY GATE
 
-       It corresponds to the Administrator Login deployment
-       created in Apps Script.
+       NORMAL ROUTE:
+
+           index.html
+                ↓
+           AdministratorLogin.html
+
+       index.html sets:
+
+           kpotmsAdministratorLoginAllowed = true
+
+       DIRECT URL:
+
+           AdministratorLogin.html
+                    ↓
+                 index.html
+
+       The gateway token is consumed immediately so that
+       refreshing/re-opening the login page does not provide
+       another entry path.
+       ===================================================== */
+
+
+    const ADMIN_LOGIN_ALLOWED_KEY =
+      "kpotmsAdministratorLoginAllowed";
+
+
+    function checkAdministratorLoginEntry() {
+
+      const allowed =
+        sessionStorage.getItem(
+          ADMIN_LOGIN_ALLOWED_KEY
+        );
+
+
+      /* ---------------------------------------------------
+         Valid entry from index.html
+         --------------------------------------------------- */
+
+      if (
+        allowed === "true"
+      ) {
+
+        /*
+         * Consume the one-time navigation token.
+         *
+         * Administrator authentication itself is handled
+         * separately after the login form is submitted.
+         */
+
+        sessionStorage.removeItem(
+          ADMIN_LOGIN_ALLOWED_KEY
+        );
+
+
+        return true;
+
+      }
+
+
+      /* ---------------------------------------------------
+         Direct browser access
+         ---------------------------------------------------
+
+         No valid navigation token means that the page was
+         opened directly, bookmarked, refreshed after the
+         token was consumed, or otherwise entered outside
+         the approved route.
+
+         Return to the main Home page.
+         --------------------------------------------------- */
+
+      window.location.replace(
+        "index.html"
+      );
+
+
+      return false;
+
+    }
+
+
+    /* =====================================================
+       ENTRY GATE MUST RUN BEFORE LOGIN UI IS USED
+       ===================================================== */
+
+    if (
+      !checkAdministratorLoginEntry()
+    ) {
+
+      /*
+       * Stop further initialization.
+       *
+       * The browser is already being redirected to index.html.
+       */
+
+    }
+
+
+    /* =====================================================
+       CURRENT WEB APP URL
        ===================================================== */
 
     const WEB_APP_URL =
