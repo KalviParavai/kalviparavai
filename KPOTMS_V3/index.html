@@ -239,6 +239,34 @@
 
 
             <!-- =================================================
+                 ADMINISTRATOR LOGIN
+                 =================================================
+
+                 IMPORTANT:
+                 This token allows AdministratorLogin.html to know
+                 that the page was opened from the Landing Page.
+
+                 Direct URL access without this token will
+                 return to index.html.
+                 ================================================= -->
+
+            <a
+                href="AdministratorLogin.html"
+                class="btn btn-danger me-2"
+                onclick="
+                    sessionStorage.setItem(
+                        'kpotmsAdministratorLoginAllowed',
+                        'true'
+                    );
+                ">
+
+                Administrator Login
+
+            </a>
+
+
+
+            <!-- =================================================
                  STUDENT REGISTRATION
                  ================================================= -->
 
@@ -549,7 +577,7 @@
                  STUDENT PORTAL
                  ================================================= -->
 
-            <div class="col-md-4">
+            <div class="col-md-3">
 
 
                 <div class="portal-card student">
@@ -607,7 +635,7 @@
                  COORDINATOR PORTAL
                  ================================================= -->
 
-            <div class="col-md-4">
+            <div class="col-md-3">
 
 
                 <div class="portal-card coord">
@@ -671,7 +699,7 @@
                  TEACHER PORTAL
                  ================================================= -->
 
-            <div class="col-md-4">
+            <div class="col-md-3">
 
 
                 <div class="portal-card teacher">
@@ -726,6 +754,76 @@
                         ">
 
                         Teacher Login
+
+                    </a>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 ADMINISTRATOR PORTAL
+                 ================================================= -->
+
+            <div class="col-md-3">
+
+
+                <div class="portal-card administrator">
+
+
+                    <h3>
+                        Administrator Portal
+                    </h3>
+
+
+                    <ul>
+
+
+                        <li>
+                            Review Student Registrations
+                        </li>
+
+
+                        <li>
+                            Edit / Correct Details
+                        </li>
+
+
+                        <li>
+                            Approve Registrations
+                        </li>
+
+
+                        <li>
+                            Manage Student Records
+                        </li>
+
+
+                    </ul>
+
+
+
+                    <!-- =========================================
+                         ADMINISTRATOR LOGIN
+
+                         Navigation token is REQUIRED.
+                         ========================================= -->
+
+                    <a
+                        href="AdministratorLogin.html"
+                        class="btn btn-danger"
+                        onclick="
+                            sessionStorage.setItem(
+                                'kpotmsAdministratorLoginAllowed',
+                                'true'
+                            );
+                        ">
+
+                        Administrator Login
 
                     </a>
 
