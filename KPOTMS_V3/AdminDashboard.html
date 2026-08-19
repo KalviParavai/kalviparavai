@@ -1,5548 +1,1096 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-  <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0">
-
-  <title>
-    Kalviparavai - Administrator Dashboard
-  </title>
-
-
-  <!-- =====================================================
-       BOOTSTRAP
-       ===================================================== -->
-
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-    rel="stylesheet">
-
-
-  <!-- =====================================================
-       FONT AWESOME
-       ===================================================== -->
-
-  <link
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-    rel="stylesheet">
-
-
-  <style>
-
-    /* =====================================================
-       KPOTMS V4.0
-       ADMINISTRATOR DASHBOARD
-
-       Theme:
-       Kalviparavai Blue + Gold
-       ===================================================== */
-
-    :root {
-
-      --kp-blue: #0b2a57;
-      --kp-blue-light: #0d6efd;
-      --kp-gold: #f5a623;
-
-      --kp-bg: #f4f7fb;
-      --kp-white: #ffffff;
-
-      --kp-text: #263238;
-      --kp-muted: #6c757d;
-
-      --kp-green: #198754;
-      --kp-red: #dc3545;
-      --kp-orange: #fd7e14;
-
-    }
-
-
-    /* =====================================================
-       BODY
-       ===================================================== */
-
-    body {
-
-      margin: 0;
-
-      min-height: 100vh;
-
-      font-family:
-        "Segoe UI",
-        Tahoma,
-        Arial,
-        sans-serif;
-
-      background:
-        var(--kp-bg);
-
-      color:
-        var(--kp-text);
-
-    }
-
-
-    /* =====================================================
-       TOP HEADER
-       ===================================================== */
-
-    .top-header {
-
-      background:
-        var(--kp-white);
-
-      border-bottom:
-        4px solid var(--kp-gold);
-
-      box-shadow:
-        0 3px 12px
-        rgba(0, 0, 0, 0.10);
-
-      position:
-        sticky;
-
-      top: 0;
-
-      z-index: 1000;
-
-    }
-
-
-    .header-inner {
-
-      min-height: 78px;
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: space-between;
-
-      gap: 20px;
-
-    }
-
-
-    /* =====================================================
-       BRAND
-       ===================================================== */
-
-    .brand {
-
-      display: flex;
-
-      align-items: center;
-
-      text-decoration: none;
-
-      color:
-        var(--kp-blue);
-
-    }
-
-
-    .brand-icon {
-
-      width: 52px;
-
-      height: 52px;
-
-      border-radius: 50%;
-
-      background:
-        #eef5ff;
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: center;
-
-      color:
-        var(--kp-blue-light);
-
-      font-size: 24px;
-
-      margin-right: 12px;
-
-    }
-
-
-    .brand-name {
-
-      margin: 0;
-
-      font-size: 1.45rem;
-
-      font-weight: 800;
-
-      line-height: 1.1;
-
-      color:
-        var(--kp-blue);
-
-    }
-
-
-    .brand-subtitle {
-
-      font-size: 0.82rem;
-
-      font-weight: 600;
-
-      color:
-        var(--kp-gold);
-
-    }
-
-
-    /* =====================================================
-       ADMIN PROFILE
-       ===================================================== */
-
-    .admin-profile {
-
-      display: flex;
-
-      align-items: center;
-
-      gap: 12px;
-
-    }
-
-
-    .admin-avatar {
-
-      width: 42px;
-
-      height: 42px;
-
-      border-radius: 50%;
-
-      background:
-        var(--kp-blue);
-
-      color:
-        white;
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: center;
-
-    }
-
-
-    .admin-info {
-
-      line-height: 1.15;
-
-    }
-
-
-    .admin-label {
-
-      font-size: 0.72rem;
-
-      color:
-        var(--kp-muted);
-
-    }
-
-
-    .admin-name {
-
-      font-size: 0.92rem;
-
-      font-weight: 700;
-
-      color:
-        var(--kp-blue);
-
-    }
-
-
-    /* =====================================================
-       MAIN CONTAINER
-       ===================================================== */
-
-    .dashboard-container {
-
-      max-width: 1400px;
-
-      margin: auto;
-
-      padding:
-        30px 20px 50px;
-
-    }
-
-
-    /* =====================================================
-       PAGE HEADING
-       ===================================================== */
-
-    .page-heading {
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: space-between;
-
-      flex-wrap: wrap;
-
-      gap: 15px;
-
-      margin-bottom: 25px;
-
-    }
-
-
-    .page-title {
-
-      margin: 0;
-
-      color:
-        var(--kp-blue);
-
-      font-size: 1.9rem;
-
-      font-weight: 800;
-
-    }
-
-
-    .page-description {
-
-      color:
-        var(--kp-muted);
-
-      margin:
-        5px 0 0;
-
-    }
-
-
-    /* =====================================================
-       BUTTONS
-       ===================================================== */
-
-    .btn-kp {
-
-      border-radius: 8px;
-
-      font-weight: 600;
-
-      padding:
-        9px 16px;
-
-    }
-
-
-    .btn-kp-primary {
-
-      background:
-        var(--kp-blue-light);
-
-      color:
-        white;
-
-      border:
-        1px solid var(--kp-blue-light);
-
-    }
-
-
-    .btn-kp-primary:hover {
-
-      background:
-        #0b5ed7;
-
-      color:
-        white;
-
-    }
-
-
-    .btn-kp-outline {
-
-      background:
-        white;
-
-      color:
-        var(--kp-blue);
-
-      border:
-        1px solid #ccd6e2;
-
-    }
-
-
-    .btn-kp-outline:hover {
-
-      background:
-        #eef5ff;
-
-      color:
-        var(--kp-blue);
-
-    }
-
-
-    /* =====================================================
-       SUMMARY CARDS
-       ===================================================== */
-
-    .summary-card {
-
-      background:
-        var(--kp-white);
-
-      border-radius: 15px;
-
-      border:
-        1px solid #e2e8f0;
-
-      box-shadow:
-        0 5px 18px
-        rgba(11, 42, 87, 0.07);
-
-      padding: 22px;
-
-      height: 100%;
-
-      position: relative;
-
-      overflow: hidden;
-
-    }
-
-
-    .summary-card::before {
-
-      content: "";
-
-      position: absolute;
-
-      top: 0;
-
-      left: 0;
-
-      width: 100%;
-
-      height: 4px;
-
-      background:
-        var(--card-accent);
-
-    }
-
-
-    .summary-top {
-
-      display: flex;
-
-      justify-content: space-between;
-
-      align-items: center;
-
-    }
-
-
-    .summary-icon {
-
-      width: 48px;
-
-      height: 48px;
-
-      border-radius: 12px;
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: center;
-
-      background:
-        var(--card-bg);
-
-      color:
-        var(--card-accent);
-
-      font-size: 20px;
-
-    }
-
-
-    .summary-number {
-
-      font-size: 2rem;
-
-      font-weight: 800;
-
-      color:
-        var(--kp-blue);
-
-      margin-top: 16px;
-
-    }
-
-
-    .summary-label {
-
-      color:
-        var(--kp-muted);
-
-      font-size: 0.92rem;
-
-      font-weight: 600;
-
-    }
-
-
-    .summary-status {
-
-      margin-top: 8px;
-
-      font-size: 0.78rem;
-
-      color:
-        var(--kp-muted);
-
-    }
-
-
-    .card-pending {
-
-      --card-accent: #fd7e14;
-
-      --card-bg: #fff4e8;
-
-    }
-
-
-    .card-active {
-
-      --card-accent: #198754;
-
-      --card-bg: #eaf7f0;
-
-    }
-
-
-    .card-inactive {
-
-      --card-accent: #6c757d;
-
-      --card-bg: #f0f1f2;
-
-    }
-
-
-    .card-rejected {
-
-      --card-accent: #dc3545;
-
-      --card-bg: #fdecef;
-
-    }
-
-
-    /* =====================================================
-       SECTION CARD
-       ===================================================== */
-
-    .section-card {
-
-      background:
-        var(--kp-white);
-
-      border:
-        1px solid #e1e7ef;
-
-      border-radius: 15px;
-
-      box-shadow:
-        0 5px 18px
-        rgba(11, 42, 87, 0.06);
-
-      margin-top: 25px;
-
-      overflow: hidden;
-
-    }
-
-
-    .section-header {
-
-      padding:
-        18px 22px;
-
-      border-bottom:
-        1px solid #e8edf3;
-
-      display: flex;
-
-      justify-content: space-between;
-
-      align-items: center;
-
-      flex-wrap: wrap;
-
-      gap: 10px;
-
-    }
-
-
-    .section-title {
-
-      margin: 0;
-
-      color:
-        var(--kp-blue);
-
-      font-size: 1.15rem;
-
-      font-weight: 750;
-
-    }
-
-
-    .section-subtitle {
-
-      margin:
-        3px 0 0;
-
-      color:
-        var(--kp-muted);
-
-      font-size: 0.82rem;
-
-    }
-
-
-    .section-body {
-
-      padding: 22px;
-
-    }
-
-
-    /* =====================================================
-       PENDING BADGE
-       ===================================================== */
-
-    .pending-badge {
-
-      display: inline-flex;
-
-      align-items: center;
-
-      gap: 5px;
-
-      background:
-        #fff3cd;
-
-      color:
-        #856404;
-
-      border:
-        1px solid #ffe69c;
-
-      border-radius: 20px;
-
-      padding:
-        5px 11px;
-
-      font-size: 0.78rem;
-
-      font-weight: 700;
-
-    }
-
-
-    /* =====================================================
-       REGISTRATION CARD
-       ===================================================== */
-
-    .registration-card {
-
-      border:
-        1px solid #dfe6ef;
-
-      border-radius: 12px;
-
-      margin-bottom: 15px;
-
-      background:
-        #ffffff;
-
-      transition:
-        0.2s ease;
-
-    }
-
-
-    .registration-card:hover {
-
-      box-shadow:
-        0 5px 16px
-        rgba(11, 42, 87, 0.09);
-
-      border-color:
-        #c8d7e9;
-
-    }
-
-
-    .registration-header {
-
-      padding:
-        16px 18px;
-
-      background:
-        #f8fafc;
-
-      border-bottom:
-        1px solid #e5eaf0;
-
-      display: flex;
-
-      justify-content: space-between;
-
-      align-items: center;
-
-      gap: 12px;
-
-      flex-wrap: wrap;
-
-    }
-
-
-    .student-name {
-
-      color:
-        var(--kp-blue);
-
-      font-size: 1.05rem;
-
-      font-weight: 800;
-
-    }
-
-
-    .student-course {
-
-      color:
-        var(--kp-muted);
-
-      font-size: 0.82rem;
-
-      margin-top: 2px;
-
-    }
-
-
-    .status-pending {
-
-      display: inline-block;
-
-      background:
-        #fff3cd;
-
-      color:
-        #856404;
-
-      border:
-        1px solid #ffe69c;
-
-      border-radius: 15px;
-
-      padding:
-        4px 10px;
-
-      font-size: 0.74rem;
-
-      font-weight: 700;
-
-    }
-
-
-    .registration-body {
-
-      padding:
-        18px;
-
-    }
-
-
-    .detail-label {
-
-      color:
-        var(--kp-muted);
-
-      font-size: 0.72rem;
-
-      font-weight: 600;
-
-      margin-bottom: 3px;
-
-    }
-
-
-    .detail-value {
-
-      color:
-        var(--kp-text);
-
-      font-size: 0.86rem;
-
-      font-weight: 600;
-
-      word-break: break-word;
-
-    }
-
-
-    .registration-footer {
-
-      padding:
-        12px 18px;
-
-      border-top:
-        1px solid #e5eaf0;
-
-      display: flex;
-
-      justify-content: space-between;
-
-      align-items: center;
-
-      gap: 10px;
-
-      flex-wrap: wrap;
-
-    }
-
-
-    .row-reference {
-
-      font-size: 0.74rem;
-
-      color:
-        var(--kp-muted);
-
-    }
-
-
-    /* =====================================================
-       EMPTY STATE
-       ===================================================== */
-
-    .empty-state {
-
-      text-align: center;
-
-      padding:
-        45px 20px;
-
-      color:
-        var(--kp-muted);
-
-    }
-
-
-    .empty-icon {
-
-      width: 70px;
-
-      height: 70px;
-
-      margin:
-        0 auto 15px;
-
-      border-radius: 50%;
-
-      background:
-        #eef5ff;
-
-      color:
-        var(--kp-blue-light);
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: center;
-
-      font-size: 28px;
-
-    }
-
-
-    .empty-title {
-
-      color:
-        var(--kp-blue);
-
-      font-weight: 700;
-
-      margin-bottom: 5px;
-
-    }
-
-
-    /* =====================================================
-       LOADING
-       ===================================================== */
-
-    .loading-state {
-
-      text-align: center;
-
-      padding:
-        45px 20px;
-
-      color:
-        var(--kp-muted);
-
-    }
-
-
-    .loading-state i {
-
-      color:
-        var(--kp-blue-light);
-
-      font-size: 30px;
-
-      margin-bottom: 12px;
-
-    }
-
-
-    /* =====================================================
-       ERROR STATE
-       ===================================================== */
-
-    .error-state {
-
-      background:
-        #fff5f5;
-
-      border:
-        1px solid #f3c2c2;
-
-      border-radius: 10px;
-
-      padding:
-        16px;
-
-      color:
-        #842029;
-
-    }
-
-
-    /* =====================================================
-       REVIEW MODAL
-       ===================================================== */
-
-    .modal-header {
-
-      background:
-        var(--kp-blue);
-
-      color:
-        white;
-
-    }
-
-
-    .modal-title {
-
-      font-weight: 750;
-
-    }
-
-
-    .review-field {
-
-      background:
-        #f8fafc;
-
-      border:
-        1px solid #e4e9f0;
-
-      border-radius: 8px;
-
-      padding: 10px 12px;
-
-      margin-bottom: 10px;
-
-    }
-
-
-    .review-field-label {
-
-      font-size: 0.70rem;
-
-      color:
-        var(--kp-muted);
-
-      font-weight: 700;
-
-      margin-bottom: 3px;
-
-    }
-
-
-    .review-field-value {
-
-      font-size: 0.86rem;
-
-      color:
-        var(--kp-text);
-
-      word-break: break-word;
-
-    }
-
-
-    /* =====================================================
-       EDIT FORM
-       ===================================================== */
-
-    .edit-section-title {
-
-      color:
-        var(--kp-blue);
-
-      font-size: 1rem;
-
-      font-weight: 800;
-
-      border-bottom:
-        2px solid #e9eef5;
-
-      padding-bottom: 8px;
-
-      margin-bottom: 16px;
-
-    }
-
-
-    .edit-label {
-
-      font-size: 0.78rem;
-
-      font-weight: 700;
-
-      color:
-        var(--kp-blue);
-
-      margin-bottom: 5px;
-
-    }
-
-
-    .edit-control {
-
-      border:
-        1px solid #ccd6e2;
-
-      border-radius: 7px;
-
-      min-height: 42px;
-
-      font-size: 0.88rem;
-
-    }
-
-
-    .edit-control:focus {
-
-      border-color:
-        var(--kp-blue-light);
-
-      box-shadow:
-        0 0 0 0.15rem
-        rgba(13, 110, 253, 0.12);
-
-    }
-
-
-    .readonly-control {
-
-      background:
-        #eef1f4 !important;
-
-      color:
-        #6c757d !important;
-
-      cursor:
-        not-allowed;
-
-    }
-
-
-
-
-    /* =====================================================
-       COURSE MASTER DROPDOWN
-       ===================================================== */
-
-    .course-master-select {
-      background-color: #ffffff !important;
-      color: var(--kp-text) !important;
-      cursor: pointer !important;
-      pointer-events: auto !important;
-      opacity: 1 !important;
-    }
-
-    .course-master-select:disabled {
-      background-color: #eef1f4 !important;
-      color: #6c757d !important;
-      cursor: not-allowed !important;
-      opacity: 1 !important;
-    }
-
-    .course-master-select:focus {
-      border-color: var(--kp-blue-light);
-      box-shadow: 0 0 0 0.15rem rgba(13, 110, 253, 0.12);
-    }
-
-    .readonly-note {
-
-      font-size: 0.70rem;
-
-      color:
-        var(--kp-muted);
-
-      margin-top: 4px;
-
-    }
-
-
-    .required-mark {
-
-      color:
-        var(--kp-red);
-
-    }
-
-
-    .validation-message {
-
-      color:
-        var(--kp-red);
-
-      font-size: 0.74rem;
-
-      margin-top: 4px;
-
-    }
-
-
-    .save-status {
-
-      min-height: 22px;
-
-      font-size: 0.82rem;
-
-      font-weight: 600;
-
-    }
-
-
-    .review-mode-badge {
-
-      display: inline-flex;
-
-      align-items: center;
-
-      gap: 6px;
-
-      padding:
-        5px 10px;
-
-      border-radius: 15px;
-
-      background:
-        #eaf7f0;
-
-      color:
-        #146c43;
-
-      border:
-        1px solid #badbcc;
-
-      font-size: 0.74rem;
-
-      font-weight: 700;
-
-    }
-
-
-    /* =====================================================
-       QUICK ACTIONS
-       ===================================================== */
-
-    .quick-action {
-
-      background:
-        #f8fafc;
-
-      border:
-        1px solid #dfe6ef !important;
-
-      padding:
-        14px;
-
-      border-radius: 8px;
-
-      min-height: 95px;
-
-      transition:
-        0.2s ease;
-
-    }
-
-
-    .quick-action:hover {
-
-      background:
-        #eef5ff;
-
-      border-color:
-        #c8d7e9 !important;
-
-    }
-
-
-    .quick-icon {
-
-      color:
-        var(--kp-blue);
-
-      font-size: 20px;
-
-      margin-bottom: 7px;
-
-    }
-
-
-    .quick-title {
-
-      color:
-        var(--kp-blue);
-
-      font-weight: 700;
-
-      font-size: 0.88rem;
-
-    }
-
-
-    .quick-description {
-
-      color:
-        var(--kp-muted);
-
-      font-size: 0.74rem;
-
-      margin-top: 2px;
-
-    }
-
-
-    /* =====================================================
-       FOOTER
-       ===================================================== */
-
-    .dashboard-footer {
-
-      text-align: center;
-
-      color:
-        #7b8794;
-
-      font-size: 0.78rem;
-
-      padding-top: 30px;
-
-    }
-
-
-    /* =====================================================
-       LOADING OVERLAY
-       ===================================================== */
-
-    #loadingOverlay {
-
-      position: fixed;
-
-      inset: 0;
-
-      background:
-        rgba(255, 255, 255, 0.92);
-
-      z-index: 5000;
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: center;
-
-    }
-
-
-    .loading-box {
-
-      text-align: center;
-
-      color:
-        var(--kp-blue);
-
-    }
-
-
-    .loading-box i {
-
-      font-size: 32px;
-
-      margin-bottom: 12px;
-
-    }
-
-
-    /* =====================================================
-       RESPONSIVE
-       ===================================================== */
-
-    @media (max-width: 768px) {
-
-      .header-inner {
-
-        min-height: 70px;
-
-      }
-
-
-      .admin-info {
-
-        display: none;
-
-      }
-
-
-      .page-title {
-
-        font-size: 1.55rem;
-
-      }
-
-
-      .dashboard-container {
-
-        padding:
-          22px 14px 40px;
-
-      }
-
-    }
-
-  </style>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kalviparavai - Administrator Dashboard</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+
+<style>
+:root{--kp-blue:#0b2a57;--kp-blue-light:#0d6efd;--kp-gold:#f5a623;--kp-bg:#f4f7fb;--kp-white:#fff;--kp-text:#263238;--kp-muted:#6c757d;--kp-green:#198754;--kp-red:#dc3545;--kp-orange:#fd7e14}
+body{margin:0;min-height:100vh;font-family:"Segoe UI",Tahoma,Arial,sans-serif;background:var(--kp-bg);color:var(--kp-text)}
+.top-header{background:#fff;border-bottom:4px solid var(--kp-gold);box-shadow:0 3px 12px rgba(0,0,0,.1);position:sticky;top:0;z-index:1000}
+.header-inner{min-height:78px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;text-decoration:none;color:var(--kp-blue)}
+.brand-icon{width:52px;height:52px;border-radius:50%;background:#eef5ff;display:flex;align-items:center;justify-content:center;color:var(--kp-blue-light);font-size:24px;margin-right:12px}
+.brand-name{margin:0;font-size:1.45rem;font-weight:800;line-height:1.1;color:var(--kp-blue)}
+.brand-subtitle{font-size:.82rem;font-weight:600;color:var(--kp-gold)}
+.admin-profile{display:flex;align-items:center;gap:12px}
+.admin-avatar{width:42px;height:42px;border-radius:50%;background:var(--kp-blue);color:#fff;display:flex;align-items:center;justify-content:center}
+.admin-info{line-height:1.15}.admin-label{font-size:.72rem;color:var(--kp-muted)}.admin-name{font-size:.92rem;font-weight:700;color:var(--kp-blue)}
+.dashboard-container{max-width:1400px;margin:auto;padding:30px 20px 50px}
+.page-heading{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:15px;margin-bottom:25px}
+.page-title{margin:0;color:var(--kp-blue);font-size:1.9rem;font-weight:800}.page-description{color:var(--kp-muted);margin:5px 0 0}
+.btn-kp{border-radius:8px;font-weight:600;padding:9px 16px}.btn-kp-primary{background:var(--kp-blue-light);color:#fff;border:1px solid var(--kp-blue-light)}.btn-kp-primary:hover{background:#0b5ed7;color:#fff}.btn-kp-success{background:var(--kp-green);color:#fff;border:1px solid var(--kp-green)}.btn-kp-success:hover{background:#157347;color:#fff}.btn-kp-outline{background:#fff;color:var(--kp-blue);border:1px solid #ccd6e2}.btn-kp-outline:hover{background:#eef5ff;color:var(--kp-blue)}
+.summary-card{background:#fff;border-radius:15px;border:1px solid #e2e8f0;box-shadow:0 5px 18px rgba(11,42,87,.07);padding:22px;height:100%;position:relative;overflow:hidden}.summary-card:before{content:"";position:absolute;top:0;left:0;width:100%;height:4px;background:var(--card-accent)}.summary-top{display:flex;justify-content:space-between;align-items:center}.summary-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:var(--card-bg);color:var(--card-accent);font-size:20px}.summary-number{font-size:2rem;font-weight:800;color:var(--kp-blue);margin-top:16px}.summary-label{color:var(--kp-muted);font-size:.92rem;font-weight:600}.summary-status{margin-top:8px;font-size:.78rem;color:var(--kp-muted)}
+.card-pending{--card-accent:#fd7e14;--card-bg:#fff4e8}.card-active{--card-accent:#198754;--card-bg:#eaf7f0}.card-inactive{--card-accent:#6c757d;--card-bg:#f0f1f2}.card-rejected{--card-accent:#dc3545;--card-bg:#fdecef}
+.section-card{background:#fff;border:1px solid #e1e7ef;border-radius:15px;box-shadow:0 5px 18px rgba(11,42,87,.06);margin-top:25px;overflow:hidden}.section-header{padding:18px 22px;border-bottom:1px solid #e8edf3;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}.section-title{margin:0;color:var(--kp-blue);font-size:1.15rem;font-weight:750}.section-subtitle{margin:3px 0 0;color:var(--kp-muted);font-size:.82rem}.section-body{padding:22px}
+.pending-badge,.status-pending{display:inline-flex;align-items:center;gap:5px;background:#fff3cd;color:#856404;border:1px solid #ffe69c;border-radius:20px;padding:5px 11px;font-size:.78rem;font-weight:700}.status-pending{display:inline-block;border-radius:15px;padding:4px 10px;font-size:.74rem}
+.registration-card{border:1px solid #dfe6ef;border-radius:12px;margin-bottom:15px;background:#fff;transition:.2s}.registration-card:hover{box-shadow:0 5px 16px rgba(11,42,87,.09);border-color:#c8d7e9}.registration-header{padding:16px 18px;background:#f8fafc;border-bottom:1px solid #e5eaf0;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.student-name{color:var(--kp-blue);font-size:1.05rem;font-weight:800}.student-course{color:var(--kp-muted);font-size:.82rem;margin-top:2px}.registration-body{padding:18px}.detail-label{color:var(--kp-muted);font-size:.72rem;font-weight:600;margin-bottom:3px}.detail-value{color:var(--kp-text);font-size:.86rem;font-weight:600;word-break:break-word}.registration-footer{padding:12px 18px;border-top:1px solid #e5eaf0;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.row-reference{font-size:.74rem;color:var(--kp-muted)}.registration-actions{display:flex;gap:8px;flex-wrap:wrap}
+.empty-state{text-align:center;padding:45px 20px;color:var(--kp-muted)}.empty-icon{width:70px;height:70px;margin:0 auto 15px;border-radius:50%;background:#eef5ff;color:var(--kp-blue-light);display:flex;align-items:center;justify-content:center;font-size:28px}.empty-title{color:var(--kp-blue);font-weight:700;margin-bottom:5px}
+.loading-state{text-align:center;padding:45px 20px;color:var(--kp-muted)}.loading-state i{color:var(--kp-blue-light);font-size:30px;margin-bottom:12px}.error-state{background:#fff5f5;border:1px solid #f3c2c2;border-radius:10px;padding:16px;color:#842029}
+.modal-header{background:var(--kp-blue);color:#fff}.modal-title{font-weight:750}.review-mode-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:15px;background:#eaf7f0;color:#146c43;border:1px solid #badbcc;font-size:.74rem;font-weight:700}
+.edit-section-title{color:var(--kp-blue);font-size:1rem;font-weight:800;border-bottom:2px solid #e9eef5;padding-bottom:8px;margin-bottom:16px}.edit-label{font-size:.78rem;font-weight:700;color:var(--kp-blue);margin-bottom:5px}.edit-control{border:1px solid #ccd6e2;border-radius:7px;min-height:42px;font-size:.88rem}.edit-control:focus{border-color:var(--kp-blue-light);box-shadow:0 0 0 .15rem rgba(13,110,253,.12)}.readonly-control{background:#eef1f4!important;color:#6c757d!important;cursor:not-allowed}.course-master-select{background:#fff!important;color:var(--kp-text)!important;cursor:pointer!important;pointer-events:auto!important;opacity:1!important}.readonly-note{font-size:.70rem;color:var(--kp-muted);margin-top:4px}.required-mark{color:var(--kp-red)}.validation-message{color:var(--kp-red);font-size:.74rem;margin-top:4px;min-height:16px}.save-status{min-height:22px;font-size:.82rem;font-weight:600}
+.quick-action{background:#f8fafc;border:1px solid #dfe6ef!important;padding:14px;border-radius:8px;min-height:95px;transition:.2s}.quick-action:hover{background:#eef5ff;border-color:#c8d7e9!important}.quick-icon{color:var(--kp-blue);font-size:20px;margin-bottom:7px}.quick-title{color:var(--kp-blue);font-weight:700;font-size:.88rem}.quick-description{color:var(--kp-muted);font-size:.74rem;margin-top:2px}.dashboard-footer{text-align:center;color:#7b8794;font-size:.78rem;padding-top:30px}
+#loadingOverlay{position:fixed;inset:0;background:rgba(255,255,255,.92);z-index:5000;display:flex;align-items:center;justify-content:center}.loading-box{text-align:center;color:var(--kp-blue)}.loading-box i{font-size:32px;margin-bottom:12px}
+@media(max-width:768px){.header-inner{min-height:70px}.admin-info{display:none}.page-title{font-size:1.55rem}.dashboard-container{padding:22px 14px 40px}.registration-actions{width:100%}}@media(max-width:576px){.brand-name{font-size:1.2rem}.brand-subtitle{font-size:.72rem}.brand-icon{width:44px;height:44px;font-size:20px}.page-heading>div:last-child{width:100%}}
+</style>
 </head>
-
 
 <body>
 
+<div id="loadingOverlay">
+  <div class="loading-box">
+    <i class="fa-solid fa-spinner fa-spin"></i>
+    <div>Loading Administrator Dashboard...</div>
+  </div>
+</div>
 
-  <!-- =====================================================
-       INITIAL LOADING
-       ===================================================== -->
+<header class="top-header">
+  <div class="container-fluid px-3 px-md-4">
+    <div class="header-inner">
+      <a href="index.html" class="brand">
+        <div class="brand-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+        <div>
+          <div class="brand-name">Kalviparavai</div>
+          <div class="brand-subtitle">Digital Class Room</div>
+        </div>
+      </a>
 
-  <div id="loadingOverlay">
-
-    <div class="loading-box">
-
-      <i
-        class="fa-solid fa-spinner fa-spin">
-      </i>
-
-      <div>
-        Loading Administrator Dashboard...
+      <div class="admin-profile">
+        <div class="admin-avatar"><i class="fa-solid fa-user-shield"></i></div>
+        <div class="admin-info">
+          <div class="admin-label">Administrator</div>
+          <div class="admin-name" id="administratorName">Administrator</div>
+        </div>
+        <button type="button" class="btn btn-sm btn-kp-outline" onclick="logoutAdministrator()">
+          <i class="fa-solid fa-right-from-bracket me-1"></i>Logout
+        </button>
       </div>
+    </div>
+  </div>
+</header>
 
+<main class="dashboard-container">
+
+<div class="page-heading">
+  <div>
+    <h1 class="page-title">Administrator Dashboard</h1>
+    <p class="page-description">Manage student registrations, approvals and account status.</p>
+  </div>
+  <div>
+    <button type="button" id="refreshButton" class="btn btn-kp-outline me-1" onclick="refreshDashboard()">
+      <i class="fa-solid fa-rotate-right me-1"></i>Refresh
+    </button>
+    <a href="index.html" class="btn btn-kp-primary">
+      <i class="fa-solid fa-house me-1"></i>Home
+    </a>
+  </div>
+</div>
+
+<div class="row g-4">
+
+  <div class="col-12 col-sm-6 col-xl-3">
+    <div class="summary-card card-pending">
+      <div class="summary-top">
+        <div><div class="summary-label">Pending Approval</div></div>
+        <div class="summary-icon"><i class="fa-solid fa-hourglass-half"></i></div>
+      </div>
+      <div id="pendingCount" class="summary-number">—</div>
+      <div class="summary-status">Registrations awaiting Administrator review</div>
+    </div>
+  </div>
+
+  <div class="col-12 col-sm-6 col-xl-3">
+    <div class="summary-card card-active">
+      <div class="summary-top">
+        <div><div class="summary-label">Approved</div></div>
+        <div class="summary-icon"><i class="fa-solid fa-user-check"></i></div>
+      </div>
+      <div id="approvedCount" class="summary-number">—</div>
+      <div class="summary-status">Registrations approved by Administrator</div>
+    </div>
+  </div>
+
+  <div class="col-12 col-sm-6 col-xl-3">
+    <div class="summary-card card-inactive">
+      <div class="summary-top">
+        <div><div class="summary-label">Inactive</div></div>
+        <div class="summary-icon"><i class="fa-solid fa-user-slash"></i></div>
+      </div>
+      <div id="inactiveCount" class="summary-number">—</div>
+      <div class="summary-status">Student account status will be managed later</div>
+    </div>
+  </div>
+
+  <div class="col-12 col-sm-6 col-xl-3">
+    <div class="summary-card card-rejected">
+      <div class="summary-top">
+        <div><div class="summary-label">Rejected</div></div>
+        <div class="summary-icon"><i class="fa-solid fa-user-xmark"></i></div>
+      </div>
+      <div id="rejectedCount" class="summary-number">—</div>
+      <div class="summary-status">Registrations rejected by Administrator</div>
+    </div>
+  </div>
+
+</div>
+
+<section id="pendingRegistrationsSection" class="section-card">
+
+  <div class="section-header">
+    <div>
+      <h2 class="section-title"><i class="fa-solid fa-user-clock me-2"></i>Pending Registrations</h2>
+      <p class="section-subtitle">New student registrations requiring Administrator review.</p>
+    </div>
+    <span id="pendingBadge" class="pending-badge">
+      <i class="fa-solid fa-flag"></i>Loading...
+    </span>
+  </div>
+
+  <div id="pendingRegistrationArea" class="section-body">
+
+    <div id="pendingLoading" class="loading-state">
+      <i class="fa-solid fa-spinner fa-spin d-block"></i>
+      Loading pending registrations...
+    </div>
+
+    <div id="pendingError" class="error-state d-none"></div>
+    <div id="pendingRegistrationList" class="d-none"></div>
+
+    <div id="pendingEmpty" class="empty-state d-none">
+      <div class="empty-icon"><i class="fa-solid fa-circle-check"></i></div>
+      <div class="empty-title">No Pending Registrations</div>
+      <div>There are currently no registrations awaiting approval.</div>
     </div>
 
   </div>
+</section>
 
+<section class="section-card">
+  <div class="section-header">
+    <div>
+      <h2 class="section-title"><i class="fa-solid fa-bolt me-2"></i>Administrator Actions</h2>
+      <p class="section-subtitle">Additional administrative functions will be enabled progressively.</p>
+    </div>
+  </div>
 
-  <!-- =====================================================
-       HEADER
-       ===================================================== -->
+  <div class="section-body">
+    <div class="row g-3">
 
-  <header class="top-header">
+      <div class="col-12 col-md-6 col-xl-3">
+        <button type="button" class="quick-action w-100 text-start" onclick="focusPendingRegistrations()">
+          <div class="quick-icon"><i class="fa-solid fa-list-check"></i></div>
+          <div class="quick-title">Review Registrations</div>
+          <div class="quick-description">Review and correct pending student registrations</div>
+        </button>
+      </div>
 
-    <div
-      class="container-fluid px-3 px-md-4">
+      <div class="col-12 col-md-6 col-xl-3">
+        <button type="button" class="quick-action w-100 text-start" onclick="showComingSoon('Student Management')">
+          <div class="quick-icon"><i class="fa-solid fa-users"></i></div>
+          <div class="quick-title">Student Management</div>
+          <div class="quick-description">Manage active and inactive students</div>
+        </button>
+      </div>
 
-      <div class="header-inner">
+      <div class="col-12 col-md-6 col-xl-3">
+        <button type="button" class="quick-action w-100 text-start" onclick="showComingSoon('Approval History')">
+          <div class="quick-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
+          <div class="quick-title">Approval History</div>
+          <div class="quick-description">View previous registration decisions</div>
+        </button>
+      </div>
 
-
-        <!-- BRAND -->
-
-        <a
-          href="index.html"
-          class="brand">
-
-          <div class="brand-icon">
-
-            <i
-              class="fa-solid fa-graduation-cap">
-            </i>
-
-          </div>
-
-
-          <div>
-
-            <div class="brand-name">
-              Kalviparavai
-            </div>
-
-            <div class="brand-subtitle">
-              Digital Class Room
-            </div>
-
-          </div>
-
-        </a>
-
-
-        <!-- ADMIN PROFILE -->
-
-        <div class="admin-profile">
-
-          <div class="admin-avatar">
-
-            <i
-              class="fa-solid fa-user-shield">
-            </i>
-
-          </div>
-
-
-          <div class="admin-info">
-
-            <div class="admin-label">
-              Administrator
-            </div>
-
-            <div
-              class="admin-name"
-              id="administratorName">
-
-              Administrator
-
-            </div>
-
-          </div>
-
-
-          <button
-            type="button"
-            class="btn btn-sm btn-kp-outline"
-            onclick="logoutAdministrator()">
-
-            <i
-              class="fa-solid fa-right-from-bracket me-1">
-            </i>
-
-            Logout
-
-          </button>
-
-        </div>
-
+      <div class="col-12 col-md-6 col-xl-3">
+        <button type="button" class="quick-action w-100 text-start" onclick="showComingSoon('Administrator Reports')">
+          <div class="quick-icon"><i class="fa-solid fa-chart-column"></i></div>
+          <div class="quick-title">Reports</div>
+          <div class="quick-description">Administrator and MIS reports</div>
+        </button>
       </div>
 
     </div>
+  </div>
+</section>
 
-  </header>
+<section class="section-card">
+  <div class="section-header">
+    <div>
+      <h2 class="section-title"><i class="fa-solid fa-circle-info me-2"></i>System Status</h2>
+      <p class="section-subtitle">Current Administrator portal status.</p>
+    </div>
+  </div>
 
+  <div class="section-body">
+    <div class="row g-3">
 
-  <!-- =====================================================
-       MAIN DASHBOARD
-       ===================================================== -->
-
-  <main
-    class="dashboard-container">
-
-
-    <!-- ===================================================
-         PAGE HEADING
-         =================================================== -->
-
-    <div class="page-heading">
-
-      <div>
-
-        <h1 class="page-title">
-          Administrator Dashboard
-        </h1>
-
-        <p class="page-description">
-          Manage student registrations, approvals and account status.
-        </p>
-
+      <div class="col-12 col-md-4">
+        <div class="p-3 border rounded-3">
+          <div class="small text-muted">Administrator Authentication</div>
+          <div class="fw-bold text-success mt-1">
+            <i class="fa-solid fa-circle-check me-1"></i>Connected
+          </div>
+        </div>
       </div>
 
+      <div class="col-12 col-md-4">
+        <div class="p-3 border rounded-3">
+          <div class="small text-muted">Registration Data</div>
+          <div id="registrationConnectionStatus" class="fw-bold mt-1">
+            <i class="fa-solid fa-spinner fa-spin me-1"></i>Connecting...
+          </div>
+        </div>
+      </div>
 
-      <div>
+      <div class="col-12 col-md-4">
+        <div class="p-3 border rounded-3">
+          <div class="small text-muted">Data Processing</div>
+          <div class="fw-bold text-warning mt-1">
+            <i class="fa-solid fa-lock me-1"></i>Read-Only / Review Phase
+          </div>
+        </div>
+      </div>
 
-        <button
-          type="button"
-          id="refreshButton"
-          class="btn btn-kp-outline me-1"
-          onclick="refreshDashboard()">
+    </div>
+  </div>
+</section>
 
-          <i
-            class="fa-solid fa-rotate-right me-1">
-          </i>
+<footer class="dashboard-footer">
+  Kalviparavai Digital Class Room
+  <span class="mx-1">|</span>
+  KPOTMS Version 4.0
+  <span class="mx-1">|</span>
+  Administrator Portal
+</footer>
 
-          Refresh
+</main>
 
+<div class="modal fade" id="reviewModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <div>
+          <h5 class="modal-title"><i class="fa-solid fa-user-pen me-2"></i>Administrator Review</h5>
+          <div class="small mt-1" style="opacity:.85">Review, correct, validate and approve the student's registration.</div>
+        </div>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div id="reviewModalBody" class="modal-body"></div>
+
+      <div class="modal-footer">
+        <div id="saveStatusMessage" class="save-status me-auto"></div>
+
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          <i class="fa-solid fa-xmark me-1"></i>Close
         </button>
 
+        <button type="button" id="validateCorrectionsButton" class="btn btn-outline-primary" onclick="validateCorrections()">
+          <i class="fa-solid fa-circle-check me-1"></i>Validate
+        </button>
 
-        <a
-          href="index.html"
-          class="btn btn-kp-primary">
+        <button type="button" id="saveCorrectionsButton" class="btn btn-kp-primary" onclick="saveCorrections()" disabled>
+          <i class="fa-solid fa-floppy-disk me-1"></i>Save Corrections
+        </button>
 
-          <i
-            class="fa-solid fa-house me-1">
-          </i>
-
-          Home
-
-        </a>
-
+        <button type="button" id="approveRegistrationButton" class="btn btn-kp-success" onclick="approveRegistration()" disabled>
+          <i class="fa-solid fa-user-check me-1"></i>Approve Registration
+        </button>
       </div>
 
     </div>
+  </div>
+</div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- ===================================================
-         SUMMARY CARDS
-         =================================================== -->
+<script>
+/* ==========================================================
+   KPOTMS V4.0 - ADMINISTRATOR DASHBOARD
+   COMPLETE ACCESS / DATA / REVIEW / APPROVAL BUILD
 
-    <div class="row g-4">
+   Route:
+       index.html
+           ↓
+       AdministratorLogin.html
+           ↓
+       AdminDashboard.html
 
+   Direct dashboard entry:
+       AdminDashboard.html
+           ↓
+       set kpotmsAdministratorLoginAllowed
+           ↓
+       AdministratorLogin.html
 
-      <!-- PENDING -->
+   This browser-side navigation token follows the same
+   navigation-control pattern used by Coordinator.
+   Backend authentication/authorization remains authoritative.
+   ========================================================== */
 
-      <div class="col-12 col-sm-6 col-xl-3">
+const WEB_APP_URL =
+  "https://script.google.com/macros/s/AKfycbzxJ0qJ_uIVVCm_VZrCItEp6y_sniqVX52oD3WhTWwohuK_liNX8v9Wcm2IdEWbZbJs/exec";
 
-        <div
-          class="summary-card card-pending">
+const UPDATE_PENDING_ACTION = "updatePendingRegistration";
+const APPROVE_PENDING_ACTION = "approvePendingRegistration";
+const ADMIN_LOGIN_ALLOWED_KEY = "kpotmsAdministratorLoginAllowed";
 
-          <div class="summary-top">
+const COURSE_MASTER = [
+  {courseID:"1",classCode:"10",courseCode:"X",courseName:"General"},
+  {courseID:"2",classCode:"11",courseCode:"XI",courseName:"Maths - BIO"},
+  {courseID:"3",classCode:"11",courseCode:"XI",courseName:"Maths - CS"},
+  {courseID:"4",classCode:"11",courseCode:"XI",courseName:"Pure Science"},
+  {courseID:"5",classCode:"12",courseCode:"XII",courseName:"Maths-BIO"},
+  {courseID:"6",classCode:"12",courseCode:"XII",courseName:"Maths - CS"},
+  {courseID:"7",classCode:"12",courseCode:"XII",courseName:"Pure Science"}
+];
 
-            <div>
+let pendingRegistrations=[];
+let currentRegistration=null;
+let currentRegistrationIndex=-1;
+let correctionsValidated=false;
+let approvalInProgress=false;
 
-              <div class="summary-label">
-                Pending Approval
-              </div>
+/* ==========================================================
+   ACCESS CONTROL
+   ========================================================== */
 
-            </div>
+function checkAdministratorSession(){
+  const loggedIn=sessionStorage.getItem("kpotmsLoggedIn");
+  const role=sessionStorage.getItem("kpotmsRole");
 
-            <div class="summary-icon">
+  if(loggedIn==="true" && role==="ADMINISTRATOR") return true;
 
-              <i
-                class="fa-solid fa-hourglass-half">
-              </i>
+  /* Same dashboard-to-login protection pattern as Coordinator. */
+  sessionStorage.setItem(ADMIN_LOGIN_ALLOWED_KEY,"true");
 
-            </div>
+  sessionStorage.removeItem("administratorID");
+  sessionStorage.removeItem("administratorName");
+  sessionStorage.removeItem("kpotmsLoggedIn");
+  sessionStorage.removeItem("kpotmsRole");
 
-          </div>
+  window.location.replace("AdministratorLogin.html");
+  return false;
+}
 
+/* ==========================================================
+   ADMINISTRATOR NAME
+   ========================================================== */
 
-          <div
-            id="pendingCount"
-            class="summary-number">
+function loadAdministratorName(){
+  const name=sessionStorage.getItem("administratorName");
+  const adminID=sessionStorage.getItem("administratorID");
+  document.getElementById("administratorName").textContent =
+    name || adminID || "Administrator";
+}
 
-            —
+/* ==========================================================
+   API
+   ========================================================== */
 
-          </div>
+async function callWebAPI(action,payload={}){
+  const loggedIn=sessionStorage.getItem("kpotmsLoggedIn");
+  const role=sessionStorage.getItem("kpotmsRole");
 
+  if(loggedIn!=="true" || role!=="ADMINISTRATOR"){
+    sessionStorage.setItem(ADMIN_LOGIN_ALLOWED_KEY,"true");
+    throw new Error("Administrator session is no longer valid.");
+  }
 
-          <div class="summary-status">
-            Registrations awaiting Administrator review
-          </div>
+  const response=await fetch(WEB_APP_URL,{
+    method:"POST",
+    headers:{"Content-Type":"text/plain;charset=utf-8"},
+    body:JSON.stringify({action,...payload}),
+    cache:"no-store"
+  });
 
-        </div>
+  if(!response.ok) throw new Error("Web API request failed. HTTP "+response.status);
 
+  const text=await response.text();
+  let result;
+
+  try{result=JSON.parse(text)}
+  catch(e){
+    console.error("Invalid JSON response:",text);
+    throw new Error("Invalid response received from Administrator server.");
+  }
+
+  return result;
+}
+
+/* ==========================================================
+   SUMMARY
+   ========================================================== */
+
+async function loadRegistrationSummary(){
+  const result=await callWebAPI("getRegistrationSummary");
+
+  if(!result || result.success!==true)
+    throw new Error(result?.message || "Unable to load registration summary.");
+
+  document.getElementById("pendingCount").textContent=result.pending||0;
+  document.getElementById("approvedCount").textContent=result.approved||0;
+  document.getElementById("rejectedCount").textContent=result.rejected||0;
+
+  /* Inactive will later connect to 01_Students_Login. */
+  document.getElementById("inactiveCount").textContent="—";
+
+  updateRegistrationConnection(true);
+}
+
+/* ==========================================================
+   PENDING LIST
+   ========================================================== */
+
+async function loadPendingRegistrations(){
+  showPendingLoading();
+
+  const result=await callWebAPI("getPendingRegistrations");
+
+  if(!result || result.success!==true)
+    throw new Error(result?.message || "Unable to load pending registrations.");
+
+  pendingRegistrations=Array.isArray(result.data)?result.data:[];
+  renderPendingRegistrations(pendingRegistrations);
+}
+
+function renderPendingRegistrations(registrations){
+  const loading=document.getElementById("pendingLoading");
+  const error=document.getElementById("pendingError");
+  const list=document.getElementById("pendingRegistrationList");
+  const empty=document.getElementById("pendingEmpty");
+
+  loading.classList.add("d-none");
+  error.classList.add("d-none");
+  list.classList.add("d-none");
+  empty.classList.add("d-none");
+
+  const count=registrations.length;
+
+  document.getElementById("pendingBadge").innerHTML =
+    '<i class="fa-solid fa-flag"></i> '+count+' Pending';
+
+  if(count===0){
+    empty.classList.remove("d-none");
+    return;
+  }
+
+  list.innerHTML=registrations.map((r,i)=>createRegistrationCard(r,i)).join("");
+  list.classList.remove("d-none");
+}
+
+function createRegistrationCard(registration,index){
+  const field=n=>getField(registration,n);
+  const row=registration._rowNumber||"—";
+
+  return `
+  <div class="registration-card">
+    <div class="registration-header">
+      <div>
+        <div class="student-name">${escapeHtml(field("Student Name")||"Unnamed Student")}</div>
+        <div class="student-course">${escapeHtml(field("Course")||"Course not available")}</div>
       </div>
-
-
-      <!-- APPROVED -->
-
-      <div class="col-12 col-sm-6 col-xl-3">
-
-        <div
-          class="summary-card card-active">
-
-          <div class="summary-top">
-
-            <div>
-
-              <div class="summary-label">
-                Approved
-              </div>
-
-            </div>
-
-            <div class="summary-icon">
-
-              <i
-                class="fa-solid fa-user-check">
-              </i>
-
-            </div>
-
-          </div>
-
-
-          <div
-            id="approvedCount"
-            class="summary-number">
-
-            —
-
-          </div>
-
-
-          <div class="summary-status">
-            Registrations approved by Administrator
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <!-- INACTIVE -->
-
-      <div class="col-12 col-sm-6 col-xl-3">
-
-        <div
-          class="summary-card card-inactive">
-
-          <div class="summary-top">
-
-            <div>
-
-              <div class="summary-label">
-                Inactive
-              </div>
-
-            </div>
-
-            <div class="summary-icon">
-
-              <i
-                class="fa-solid fa-user-slash">
-              </i>
-
-            </div>
-
-          </div>
-
-
-          <div
-            id="inactiveCount"
-            class="summary-number">
-
-            —
-
-          </div>
-
-
-          <div class="summary-status">
-            Student account status will be managed later
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <!-- REJECTED -->
-
-      <div class="col-12 col-sm-6 col-xl-3">
-
-        <div
-          class="summary-card card-rejected">
-
-          <div class="summary-top">
-
-            <div>
-
-              <div class="summary-label">
-                Rejected
-              </div>
-
-            </div>
-
-            <div class="summary-icon">
-
-              <i
-                class="fa-solid fa-user-xmark">
-              </i>
-
-            </div>
-
-          </div>
-
-
-          <div
-            id="rejectedCount"
-            class="summary-number">
-
-            —
-
-          </div>
-
-
-          <div class="summary-status">
-            Registrations rejected by Administrator
-          </div>
-
-        </div>
-
-      </div>
-
+      <span class="status-pending"><i class="fa-solid fa-hourglass-half me-1"></i>PENDING</span>
     </div>
 
-
-    <!-- ===================================================
-         PENDING REGISTRATIONS
-         =================================================== -->
-
-    <section
-      id="pendingRegistrationsSection"
-      class="section-card">
-
-
-      <div class="section-header">
-
-        <div>
-
-          <h2 class="section-title">
-
-            <i
-              class="fa-solid fa-user-clock me-2">
-            </i>
-
-            Pending Registrations
-
-          </h2>
-
-          <p class="section-subtitle">
-            New student registrations requiring Administrator review.
-          </p>
-
-        </div>
-
-
-        <span
-          id="pendingBadge"
-          class="pending-badge">
-
-          <i
-            class="fa-solid fa-flag">
-          </i>
-
-          Loading...
-
-        </span>
-
+    <div class="registration-body">
+      <div class="row g-3">
+        ${detail("School","School Name (Full)",field)}
+        ${detail("Gender","Gender",field,"col-6 col-md-3 col-lg-2")}
+        ${detail("Date of Birth","Date of Birth",field,"col-6 col-md-3 col-lg-2")}
+        ${detail("Student Mobile","Student Mobile No",field,"col-12 col-md-6 col-lg-2")}
+        ${detail("Google Email","Google Email ID",field,"col-12 col-md-6 col-lg-3")}
+        ${detail("Parent Name","Parent Name",field,"col-12 col-md-6")}
+        ${detail("Parent Mobile","Parent Mobile Number",field,"col-12 col-md-6")}
+        ${detail("Registration Time","Timestamp",field,"col-12")}
       </div>
-
-
-      <div
-        id="pendingRegistrationArea"
-        class="section-body">
-
-
-        <!-- Loading state -->
-
-        <div
-          id="pendingLoading"
-          class="loading-state">
-
-          <i
-            class="fa-solid fa-spinner fa-spin d-block">
-          </i>
-
-          Loading pending registrations...
-
-        </div>
-
-
-        <!-- Error state -->
-
-        <div
-          id="pendingError"
-          class="error-state d-none">
-
-        </div>
-
-
-        <!-- Registration list -->
-
-        <div
-          id="pendingRegistrationList"
-          class="d-none">
-
-        </div>
-
-
-        <!-- Empty state -->
-
-        <div
-          id="pendingEmpty"
-          class="empty-state d-none">
-
-          <div class="empty-icon">
-
-            <i
-              class="fa-solid fa-circle-check">
-            </i>
-
-          </div>
-
-
-          <div class="empty-title">
-
-            No Pending Registrations
-
-          </div>
-
-
-          <div>
-            There are currently no registrations awaiting approval.
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- ===================================================
-         ADMINISTRATOR ACTIONS
-         =================================================== -->
-
-    <section
-      class="section-card">
-
-
-      <div class="section-header">
-
-        <div>
-
-          <h2 class="section-title">
-
-            <i
-              class="fa-solid fa-bolt me-2">
-            </i>
-
-            Administrator Actions
-
-          </h2>
-
-          <p class="section-subtitle">
-            Additional administrative functions will be enabled progressively.
-          </p>
-
-        </div>
-
-      </div>
-
-
-      <div class="section-body">
-
-        <div class="row g-3">
-
-
-          <!-- Review -->
-
-          <div class="col-12 col-md-6 col-xl-3">
-
-            <button
-              type="button"
-              class="quick-action w-100 text-start"
-              onclick="focusPendingRegistrations()">
-
-              <div class="quick-icon">
-
-                <i
-                  class="fa-solid fa-list-check">
-                </i>
-
-              </div>
-
-
-              <div>
-
-                <div class="quick-title">
-                  Review Registrations
-                </div>
-
-                <div class="quick-description">
-                  Review and correct pending student registrations
-                </div>
-
-              </div>
-
-            </button>
-
-          </div>
-
-
-          <!-- Student Management -->
-
-          <div class="col-12 col-md-6 col-xl-3">
-
-            <button
-              type="button"
-              class="quick-action w-100 text-start"
-              onclick="showComingSoon('Student Management')">
-
-              <div class="quick-icon">
-
-                <i
-                  class="fa-solid fa-users">
-                </i>
-
-              </div>
-
-
-              <div>
-
-                <div class="quick-title">
-                  Student Management
-                </div>
-
-                <div class="quick-description">
-                  Manage active and inactive students
-                </div>
-
-              </div>
-
-            </button>
-
-          </div>
-
-
-          <!-- History -->
-
-          <div class="col-12 col-md-6 col-xl-3">
-
-            <button
-              type="button"
-              class="quick-action w-100 text-start"
-              onclick="showComingSoon('Approval History')">
-
-              <div class="quick-icon">
-
-                <i
-                  class="fa-solid fa-clock-rotate-left">
-                </i>
-
-              </div>
-
-
-              <div>
-
-                <div class="quick-title">
-                  Approval History
-                </div>
-
-                <div class="quick-description">
-                  View previous registration decisions
-                </div>
-
-              </div>
-
-            </button>
-
-          </div>
-
-
-          <!-- Reports -->
-
-          <div class="col-12 col-md-6 col-xl-3">
-
-            <button
-              type="button"
-              class="quick-action w-100 text-start"
-              onclick="showComingSoon('Administrator Reports')">
-
-              <div class="quick-icon">
-
-                <i
-                  class="fa-solid fa-chart-column">
-                </i>
-
-              </div>
-
-
-              <div>
-
-                <div class="quick-title">
-                  Reports
-                </div>
-
-                <div class="quick-description">
-                  Administrator and MIS reports
-                </div>
-
-              </div>
-
-            </button>
-
-          </div>
-
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- ===================================================
-         SYSTEM STATUS
-         =================================================== -->
-
-    <section
-      class="section-card">
-
-
-      <div class="section-header">
-
-        <div>
-
-          <h2 class="section-title">
-
-            <i
-              class="fa-solid fa-circle-info me-2">
-            </i>
-
-            System Status
-
-          </h2>
-
-          <p class="section-subtitle">
-            Current Administrator portal status.
-          </p>
-
-        </div>
-
-      </div>
-
-
-      <div class="section-body">
-
-        <div class="row g-3">
-
-
-          <div class="col-12 col-md-4">
-
-            <div class="p-3 border rounded-3">
-
-              <div class="small text-muted">
-                Administrator Authentication
-              </div>
-
-              <div
-                class="fw-bold text-success mt-1">
-
-                <i
-                  class="fa-solid fa-circle-check me-1">
-                </i>
-
-                Connected
-
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <div class="col-12 col-md-4">
-
-            <div class="p-3 border rounded-3">
-
-              <div class="small text-muted">
-                Registration Data
-              </div>
-
-              <div
-                id="registrationConnectionStatus"
-                class="fw-bold mt-1">
-
-                <i
-                  class="fa-solid fa-spinner fa-spin me-1">
-                </i>
-
-                Connecting...
-
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <div class="col-12 col-md-4">
-
-            <div class="p-3 border rounded-3">
-
-              <div class="small text-muted">
-                Data Processing
-              </div>
-
-              <div
-                class="fw-bold text-warning mt-1">
-
-                <i
-                  class="fa-solid fa-lock me-1">
-                </i>
-
-                Read-Only / Review Phase
-
-              </div>
-
-            </div>
-
-          </div>
-
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- ===================================================
-         FOOTER
-         =================================================== -->
-
-    <footer
-      class="dashboard-footer">
-
-      Kalviparavai Digital Class Room
-
-      <span class="mx-1">|</span>
-
-      KPOTMS Version 4.0
-
-      <span class="mx-1">|</span>
-
-      Administrator Portal
-
-    </footer>
-
-
-  </main>
-
-
-  <!-- =====================================================
-       REVIEW / EDIT MODAL
-       ===================================================== -->
-
-  <div
-    class="modal fade"
-    id="reviewModal"
-    tabindex="-1"
-    aria-hidden="true">
-
-    <div
-      class="modal-dialog modal-xl modal-dialog-scrollable">
-
-      <div class="modal-content">
-
-
-        <!-- MODAL HEADER -->
-
-        <div class="modal-header">
-
-          <div>
-
-            <h5
-              class="modal-title">
-
-              <i
-                class="fa-solid fa-user-pen me-2">
-              </i>
-
-              Administrator Review
-
-            </h5>
-
-            <div
-              class="small mt-1"
-              style="opacity:0.85;">
-
-              Review, correct and validate the student's registration.
-
-            </div>
-
-          </div>
-
-
-          <button
-            type="button"
-            class="btn-close btn-close-white"
-            data-bs-dismiss="modal"
-            aria-label="Close">
-          </button>
-
-        </div>
-
-
-        <!-- MODAL BODY -->
-
-        <div
-          id="reviewModalBody"
-          class="modal-body">
-
-        </div>
-
-
-        <!-- MODAL FOOTER -->
-
-        <div class="modal-footer">
-
-          <div
-            id="saveStatusMessage"
-            class="save-status me-auto">
-
-          </div>
-
-
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal">
-
-            <i
-              class="fa-solid fa-xmark me-1">
-            </i>
-
-            Close
-
-          </button>
-
-
-          <button
-            type="button"
-            id="validateCorrectionsButton"
-            class="btn btn-outline-primary"
-            onclick="validateCorrections()">
-
-            <i
-              class="fa-solid fa-circle-check me-1">
-            </i>
-
-            Validate
-
-          </button>
-
-
-          <button
-            type="button"
-            id="saveCorrectionsButton"
-            class="btn btn-kp-primary"
-            onclick="saveCorrections()"
-            disabled>
-
-            <i
-              class="fa-solid fa-floppy-disk me-1">
-            </i>
-
-            Save Corrections
-
-          </button>
-
-        </div>
-
-      </div>
-
     </div>
 
+    <div class="registration-footer">
+      <div class="row-reference">
+        <i class="fa-solid fa-table-list me-1"></i>
+        Form Responses 1 — Row ${escapeHtml(String(row))}
+      </div>
+
+      <div class="registration-actions">
+        <button type="button" class="btn btn-sm btn-kp-outline" onclick="reviewRegistration(${index})">
+          <i class="fa-solid fa-pen-to-square me-1"></i>Review / Edit
+        </button>
+
+        <button type="button" class="btn btn-sm btn-kp-success" onclick="approveRegistrationByIndex(${index})">
+          <i class="fa-solid fa-user-check me-1"></i>Approve
+        </button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function detail(label,key,field,classes="col-12 col-md-6 col-lg-3"){
+  return `
+  <div class="${classes}">
+    <div class="detail-label">${escapeHtml(label)}</div>
+    <div class="detail-value">${escapeHtml(field(key)||"—")}</div>
+  </div>`;
+}
+
+/* ==========================================================
+   REVIEW / EDIT
+   ========================================================== */
+
+function reviewRegistration(index){
+  const registration=pendingRegistrations[index];
+  if(!registration)return;
+
+  currentRegistration=registration;
+  currentRegistrationIndex=index;
+  correctionsValidated=false;
+
+  document.getElementById("saveStatusMessage").innerHTML="";
+  document.getElementById("reviewModalBody").innerHTML=buildEditForm(registration);
+
+  setSaveButtonEnabled(false);
+  setApproveButtonEnabled(false);
+
+  bootstrap.Modal.getOrCreateInstance(
+    document.getElementById("reviewModal")
+  ).show();
+}
+
+function buildEditForm(registration){
+  const timestamp=getField(registration,"Timestamp");
+  const status=getField(registration,"Status")||"PENDING";
+
+  return `
+  <div class="mb-3">
+    <span class="review-mode-badge">
+      <i class="fa-solid fa-pen-to-square"></i>
+      Administrator Review / Correction
+    </span>
   </div>
 
+  <div class="alert alert-info py-2">
+    <i class="fa-solid fa-circle-info me-1"></i>
+    Please verify the information with the student. Correct any wrong or incomplete entries before validating and saving.
+  </div>
 
-  <!-- =====================================================
-       BOOTSTRAP JS
-       ===================================================== -->
+  <div class="edit-section-title"><i class="fa-solid fa-lock me-2"></i>Registration Control Information</div>
 
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
-  </script>
+  <div class="row g-3 mb-4">
+    <div class="col-12 col-md-6">
+      <label class="edit-label">Registration Timestamp</label>
+      <input type="text" class="form-control edit-control readonly-control" value="${escapeHtml(timestamp||"—")}" readonly>
+      <div class="readonly-note"><i class="fa-solid fa-lock me-1"></i>Original Google Form submission timestamp. Administrator cannot edit this field.</div>
+    </div>
 
+    <div class="col-12 col-md-6">
+      <label class="edit-label">Registration Status</label>
+      <input type="text" id="editStatus" class="form-control edit-control readonly-control" value="${escapeHtml(status)}" readonly>
+      <div class="readonly-note"><i class="fa-solid fa-lock me-1"></i>Status is controlled by the Administrator workflow.</div>
+    </div>
+  </div>
 
-  <!-- =====================================================
-       JAVASCRIPT
-       ===================================================== -->
+  <div class="edit-section-title"><i class="fa-solid fa-user-graduate me-2"></i>Student Details</div>
 
-  <script>
+  <div class="row g-3 mb-4">
+    ${inputField("editStudentName","Student Name","Student Name",registration,true,"col-12 col-md-6")}
+    ${courseField(registration)}
+    ${inputField("editSchool","School Name (Full)","School Name (Full)",registration,true,"col-12")}
+    ${selectField("editMedium","Medium",["English Medium","Tamil Medium","Other"],registration,"col-12 col-md-6")}
+    ${inputField("editEmis","EMIS Number","EMIS Number",registration,false,"col-12 col-md-6")}
+    ${selectField("editGender","Gender",["Male","Female","Other"],registration,"col-12 col-md-6")}
+    ${inputField("editDob","Date of Birth","Date of Birth",registration,true,"col-12 col-md-6","DD-MM-YYYY")}
+  </div>
 
+  <div class="edit-section-title"><i class="fa-solid fa-address-book me-2"></i>Parent / Contact Details</div>
 
-    /* =====================================================
-       CONFIGURATION
-       ===================================================== */
+  <div class="row g-3 mb-4">
+    ${inputField("editParentName","Parent Name","Parent Name",registration,true,"col-12 col-md-6")}
+    ${inputField("editParentMobile","Parent Mobile Number","Parent Mobile Number",registration,true,"col-12 col-md-6","",10,"tel")}
+    ${inputField("editStudentMobile","Student Mobile No","Student Mobile No",registration,false,"col-12 col-md-6","",10,"tel")}
+    ${inputField("editEmail","Google Email ID","Google Email ID",registration,true,"col-12 col-md-6","",150,"email")}
+    ${textareaField("editAddress","Address","Address",registration,true,"col-12")}
+  </div>
 
-    const WEB_APP_URL =
-      "https://script.google.com/macros/s/AKfycbzxJ0qJ_uIVVCm_VZrCItEp6y_sniqVX52oD3WhTWwohuK_liNX8v9Wcm2IdEWbZbJs/exec";
+  <div class="edit-section-title"><i class="fa-solid fa-circle-check me-2"></i>Student Confirmation</div>
 
+  <div class="row g-3">
+    ${textareaField("editAgreement","I Agree / Confirmation","I agree",registration,true,"col-12")}
+  </div>
 
-    /*
-     * Backend action for the next V4 phase.
-     *
-     * This action will update the SAME row in
-     * Form Responses 1.
-     */
+  <div class="alert alert-warning mt-4 mb-0">
+    <i class="fa-solid fa-triangle-exclamation me-1"></i>
+    <strong>Important:</strong>
+    Saving corrections updates the <strong>same row</strong> in <strong>Form Responses 1</strong>.
+    The original submission timestamp remains unchanged. Course must be selected from Course Master.
+    No new data sheet is created.
+  </div>`;
+}
 
-    const UPDATE_PENDING_ACTION =
-      "updatePendingRegistration";
+function inputField(id,label,key,r,required,classes,placeholder="",maxLength="",type="text"){
+  return `
+  <div class="${classes}">
+    <label for="${id}" class="edit-label">${escapeHtml(label)} ${required?'<span class="required-mark">*</span>':""}</label>
+    <input type="${type}" id="${id}" class="form-control edit-control" value="${escapeHtml(getField(r,key))}" maxlength="${maxLength}" placeholder="${escapeHtml(placeholder)}">
+    <div id="${id.replace("edit","").replace(/^[A-Z]/,m=>m.toLowerCase())}Error" class="validation-message"></div>
+  </div>`;
+}
 
+function textareaField(id,label,key,r,required,classes){
+  return `
+  <div class="${classes}">
+    <label for="${id}" class="edit-label">${escapeHtml(label)} ${required?'<span class="required-mark">*</span>':""}</label>
+    <textarea id="${id}" class="form-control edit-control" rows="3">${escapeHtml(getField(r,key))}</textarea>
+    <div id="${id.replace("edit","").replace(/^[A-Z]/,m=>m.toLowerCase())}Error" class="validation-message"></div>
+  </div>`;
+}
 
-    /*
-     * =====================================================
-     * COURSE MASTER
-     * =====================================================
-     *
-     * Current Course Master supplied for KPOTMS V4 testing.
-     *
-     * CourseID is retained internally so the Administrator
-     * selects only a valid Course Master entry.
-     *
-     * The value written back to Form Responses 1 remains
-     * the CourseName shown to the user, preserving the
-     * existing Form Responses 1 structure.
-     *
-     * Current Course Master:
-     *
-     * 1 | X   | X   | General
-     * 2 | XI  | XI  | Maths - BIO
-     * 3 | XI  | XI  | Maths - CS
-     * 4 | XI  | XI  | Pure Science
-     * 5 | XII | XII | Maths-BIO
-     * 6 | XII | XII | Maths - CS
-     * 7 | XII | XII | Pure Science
-     *
-     * IMPORTANT:
-     * The Apps Script save function must validate the
-     * selected Course against the actual Course Master
-     * before writing to Form Responses 1.
-     */
+function selectField(id,label,options,r,classes){
+  const current=getField(r,label);
+  const errorId=id.replace("edit","").replace(/^[A-Z]/,m=>m.toLowerCase())+"Error";
+  return `
+  <div class="${classes}">
+    <label for="${id}" class="edit-label">${escapeHtml(label)} <span class="required-mark">*</span></label>
+    <select id="${id}" class="form-select edit-control">
+      ${options.map(v=>`<option value="${escapeHtml(v)}" ${current.toLowerCase()===v.toLowerCase()?"selected":""}>${escapeHtml(v)}</option>`).join("")}
+    </select>
+    <div id="${errorId}" class="validation-message"></div>
+  </div>`;
+}
 
-    const COURSE_MASTER =
-      [
+function courseField(r){
+  return `
+  <div class="col-12 col-md-6">
+    <label for="editCourse" class="edit-label">Course <span class="required-mark">*</span></label>
+    <select id="editCourse" class="form-select edit-control course-master-select" onchange="courseSelectionChanged()" required>
+      ${buildCourseMasterOptions(getField(r,"Course"))}
+    </select>
+    <div class="readonly-note"><i class="fa-solid fa-book-open me-1"></i>Course is selected from the current Course Master. Invalid free-text course entries are not permitted.</div>
+    <div id="courseError" class="validation-message"></div>
+  </div>`;
+}
 
-        {
-          courseID: "1",
-          classCode: "10",
-          courseCode: "X",
-          courseName: "General"
-        },
+function buildCourseMasterOptions(currentValue){
+  const current=String(currentValue||"").trim();
+  let html='<option value="">Select Course</option>';
 
-        {
-          courseID: "2",
-          classCode: "11",
-          courseCode: "XI",
-          courseName: "Maths - BIO"
-        },
+  COURSE_MASTER.forEach(course=>{
+    const full=String(course.courseCode||"").trim()+" - "+String(course.courseName||"").trim();
+    const selected=current.toLowerCase()===full.toLowerCase()||current.toLowerCase()===String(course.courseName||"").trim().toLowerCase()?"selected":"";
+    html+=`<option value="${escapeHtml(full)}" data-course-id="${escapeHtml(course.courseID)}" data-class-code="${escapeHtml(course.classCode)}" data-course-code="${escapeHtml(course.courseCode)}" ${selected}>${escapeHtml(full)}</option>`;
+  });
 
-        {
-          courseID: "3",
-          classCode: "11",
-          courseCode: "XI",
-          courseName: "Maths - CS"
-        },
+  const exists=COURSE_MASTER.some(course=>{
+    const full=String(course.courseCode||"").trim()+" - "+String(course.courseName||"").trim();
+    return current.toLowerCase()===full.toLowerCase()||current.toLowerCase()===String(course.courseName||"").trim().toLowerCase();
+  });
 
-        {
-          courseID: "4",
-          classCode: "11",
-          courseCode: "XI",
-          courseName: "Pure Science"
-        },
+  if(current && !exists){
+    html=`<option value="" selected disabled>Current value is not in Course Master: ${escapeHtml(current)}</option>`+html;
+  }
+  return html;
+}
 
-        {
-          courseID: "5",
-          classCode: "12",
-          courseCode: "XII",
-          courseName: "Maths-BIO"
-        },
+/* ==========================================================
+   FORM DATA / VALIDATION
+   ========================================================== */
 
-        {
-          courseID: "6",
-          classCode: "12",
-          courseCode: "XII",
-          courseName: "Maths - CS"
-        },
+function getInputValue(id){
+  const el=document.getElementById(id);
+  return el?String(el.value||"").trim():"";
+}
 
-        {
-          courseID: "7",
-          classCode: "12",
-          courseCode: "XII",
-          courseName: "Pure Science"
-        }
+function collectEditedData(){
+  return {
+    "Student Name":getInputValue("editStudentName"),
+    "Course":getInputValue("editCourse"),
+    "School Name (Full)":getInputValue("editSchool"),
+    "Medium":getInputValue("editMedium"),
+    "EMIS Number":getInputValue("editEmis"),
+    "Parent Name":getInputValue("editParentName"),
+    "Parent Mobile Number":getInputValue("editParentMobile"),
+    "Address":getInputValue("editAddress"),
+    "I agree":getInputValue("editAgreement"),
+    "Gender":getInputValue("editGender"),
+    "Date of Birth":getInputValue("editDob"),
+    "Student Mobile No":getInputValue("editStudentMobile"),
+    "Google Email ID":getInputValue("editEmail")
+  };
+}
 
-      ];
+function setValidationMessage(id,message){
+  const el=document.getElementById(id);
+  if(el)el.textContent=message;
+}
 
+function clearValidationMessages(){
+  [
+    "studentNameError","courseError","schoolError","mediumError","emisError",
+    "parentNameError","parentMobileError","studentMobileError",
+    "addressError","agreementError","genderError","dobError","emailError"
+  ].forEach(id=>setValidationMessage(id,""));
+}
 
-    /* =====================================================
-       GLOBAL DATA
-       =====================================================
+function isCourseMasterValue(value){
+  const candidate=String(value||"").trim().toLowerCase();
+  return COURSE_MASTER.some(course=>{
+    const full=String(course.courseCode||"").trim()+" - "+String(course.courseName||"").trim();
+    return candidate===full.toLowerCase();
+  });
+}
 
-    let pendingRegistrations = [];
+function isValidDateValue(value){
+  const m=String(value||"").trim().match(/^(\d{1,2})[-\/](\d{1,2})[-\/](\d{4})$/);
+  if(!m)return false;
+  const d=Number(m[1]),mo=Number(m[2]),y=Number(m[3]);
+  if(mo<1||mo>12||d<1||d>31||y<1900||y>new Date().getFullYear())return false;
+  const date=new Date(y,mo-1,d);
+  return date.getFullYear()===y&&date.getMonth()===mo-1&&date.getDate()===d;
+}
 
-    let currentRegistration =
-      null;
+function isValidEmail(email){
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email||"").trim());
+}
 
-    let currentRegistrationIndex =
-      -1;
+function validateEditedData(data){
+  clearValidationMessages();
+  let valid=true;
 
+  const required=[
+    ["Student Name","studentNameError","Student Name is required."],
+    ["School Name (Full)","schoolError","School Name is required."],
+    ["Medium","mediumError","Medium is required."],
+    ["Parent Name","parentNameError","Parent Name is required."],
+    ["Address","addressError","Address is required."],
+    ["I agree","agreementError","Student confirmation is required."],
+    ["Gender","genderError","Gender is required."],
+    ["Date of Birth","dobError","Date of Birth is required."],
+    ["Google Email ID","emailError","Google Email ID is required."]
+  ];
 
-    let correctionsValidated =
-      false;
+  required.forEach(([key,id,msg])=>{
+    if(data[key]===""){setValidationMessage(id,msg);valid=false;}
+  });
 
+  if(data.Course==="" ){setValidationMessage("courseError","Please select a Course from Course Master.");valid=false}
+  else if(!isCourseMasterValue(data.Course)){setValidationMessage("courseError","Please select a valid Course Master entry.");valid=false}
 
-    /* =====================================================
-       AUTHENTICATION CHECK
-       ===================================================== */
+  if(data["EMIS Number"]!==""&&!/^[0-9A-Za-z\-\/ ]+$/.test(data["EMIS Number"])){setValidationMessage("emisError","EMIS Number contains invalid characters.");valid=false}
+  if(!/^[0-9]{10}$/.test(data["Parent Mobile Number"])){setValidationMessage("parentMobileError","Parent Mobile Number must contain exactly 10 digits.");valid=false}
+  if(data["Student Mobile No"]!==""&&!/^[0-9]{10}$/.test(data["Student Mobile No"])){setValidationMessage("studentMobileError","Student Mobile Number must contain exactly 10 digits.");valid=false}
+  if(data["Date of Birth"]!==""&&!isValidDateValue(data["Date of Birth"])){setValidationMessage("dobError","Enter a valid Date of Birth.");valid=false}
+  if(data["Google Email ID"]!==""&&!isValidEmail(data["Google Email ID"])){setValidationMessage("emailError","Enter a valid email address.");valid=false}
 
-    function checkAdministratorSession() {
+  return valid;
+}
 
-      const loggedIn =
-        sessionStorage.getItem(
-          "kpotmsLoggedIn"
-        );
+function courseSelectionChanged(){
+  correctionsValidated=false;
+  setSaveButtonEnabled(false);
+  setApproveButtonEnabled(false);
+  const course=getInputValue("editCourse");
+  setValidationMessage("courseError",course?"":"Please select a Course from Course Master.");
+  if(course)showSaveStatus("Course changed. Please Validate before saving.","muted");
+}
 
+function validateCorrections(){
+  if(!currentRegistration){showSaveStatus("No registration is currently selected.","danger");return false}
 
-      const role =
-        sessionStorage.getItem(
-          "kpotmsRole"
-        );
+  const data=collectEditedData();
+  if(!validateEditedData(data)){
+    correctionsValidated=false;
+    setSaveButtonEnabled(false);
+    setApproveButtonEnabled(false);
+    showSaveStatus("Validation failed. Please correct the highlighted fields.","danger");
+    return false;
+  }
 
+  correctionsValidated=true;
+  setSaveButtonEnabled(true);
+  setApproveButtonEnabled(true);
+  showSaveStatus("Validation successful. The corrected data is ready to be saved to the same Form Responses 1 row.","success");
+  return true;
+}
 
-      if (
-        loggedIn !== "true" ||
-        role !== "ADMINISTRATOR"
-      ) {
+function setSaveButtonEnabled(enabled){
+  const b=document.getElementById("saveCorrectionsButton");
+  if(b)b.disabled=!enabled;
+}
 
-        window.location.replace(
-          "AdministratorLogin.html"
-        );
+function setApproveButtonEnabled(enabled){
+  const b=document.getElementById("approveRegistrationButton");
+  if(b)b.disabled=!enabled;
+}
 
-        return false;
+/* ==========================================================
+   SAVE CORRECTIONS
+   ========================================================== */
 
-      }
+async function saveCorrections(){
+  if(!currentRegistration){showSaveStatus("No registration is currently selected.","danger");return}
 
+  const data=collectEditedData();
 
-      return true;
+  if(!correctionsValidated||!validateEditedData(data)){
+    correctionsValidated=false;
+    setSaveButtonEnabled(false);
+    setApproveButtonEnabled(false);
+    showSaveStatus("Please Validate the corrected data before saving.","danger");
+    return;
+  }
 
+  const rowNumber=currentRegistration._rowNumber;
+  if(!rowNumber){showSaveStatus("Form Responses 1 row number is missing.","danger");return}
+
+  const button=document.getElementById("saveCorrectionsButton");
+  button.disabled=true;
+  setApproveButtonEnabled(false);
+  button.innerHTML='<i class="fa-solid fa-spinner fa-spin me-1"></i>Saving...';
+  showSaveStatus("Saving corrections to Form Responses 1...","muted");
+
+  try{
+    const result=await callWebAPI(UPDATE_PENDING_ACTION,{rowNumber,data});
+    if(!result||result.success!==true)throw new Error(result?.message||"Unable to save corrections.");
+
+    Object.keys(data).forEach(k=>currentRegistration[k]=data[k]);
+    correctionsValidated=false;
+    showSaveStatus("Corrections saved successfully.","success");
+    await loadDashboardData();
+
+    setTimeout(()=>{
+      const modal=bootstrap.Modal.getInstance(document.getElementById("reviewModal"));
+      if(modal)modal.hide();
+    },700);
+  }catch(error){
+    console.error("Save corrections error:",error);
+    showSaveStatus(error.message||"Unable to save corrections.","danger");
+  }finally{
+    button.innerHTML='<i class="fa-solid fa-floppy-disk me-1"></i>Save Corrections';
+    button.disabled=!correctionsValidated;
+    setApproveButtonEnabled(correctionsValidated);
+  }
+}
+
+/* ==========================================================
+   APPROVAL
+   ========================================================== */
+
+async function approveRegistrationByIndex(index){
+  const registration=pendingRegistrations[index];
+  if(!registration)return;
+
+  const name=getField(registration,"Student Name")||"this student";
+  if(!window.confirm("Approve the registration for "+name+"?\n\nThe Administrator approval action will be sent to the server."))return;
+
+  await performApproval(registration);
+}
+
+async function approveRegistration(){
+  if(!currentRegistration){showSaveStatus("No registration is currently selected.","danger");return}
+
+  const data=collectEditedData();
+
+  if(!correctionsValidated||!validateEditedData(data)){
+    correctionsValidated=false;
+    setApproveButtonEnabled(false);
+    showSaveStatus("Please Validate the registration before approving it.","danger");
+    return;
+  }
+
+  /* Do not approve unsaved edits. */
+  if(Object.keys(data).some(k=>String(currentRegistration[k]||"").trim()!==String(data[k]||"").trim())){
+    showSaveStatus("The registration has unsaved corrections. Please Save Corrections first, then Validate and Approve again.","danger");
+    return;
+  }
+
+  const name=getField(currentRegistration,"Student Name")||"this student";
+  if(!window.confirm("Approve the registration for "+name+"?\n\nThe Administrator approval action will be sent to the server."))return;
+
+  await performApproval(currentRegistration);
+}
+
+async function performApproval(registration){
+  if(approvalInProgress)return;
+
+  const rowNumber=registration&&registration._rowNumber;
+  if(!rowNumber){
+    if(currentRegistration===registration)showSaveStatus("Form Responses 1 row number is missing.","danger");
+    else alert("Form Responses 1 row number is missing.");
+    return;
+  }
+
+  approvalInProgress=true;
+
+  const button=document.getElementById("approveRegistrationButton");
+  if(button){
+    button.disabled=true;
+    button.innerHTML='<i class="fa-solid fa-spinner fa-spin me-1"></i>Approving...';
+  }
+
+  try{
+    const result=await callWebAPI(APPROVE_PENDING_ACTION,{rowNumber:Number(rowNumber)});
+
+    if(!result||result.success!==true)
+      throw new Error(result?.message||"Unable to approve registration.");
+
+    correctionsValidated=false;
+    showSaveStatus("Registration approved successfully.","success");
+
+    await loadDashboardData();
+
+    if(currentRegistration===registration){
+      setTimeout(()=>{
+        const modal=bootstrap.Modal.getInstance(document.getElementById("reviewModal"));
+        if(modal)modal.hide();
+      },700);
+    }
+  }catch(error){
+    console.error("Approval error:",error);
+    if(currentRegistration===registration)showSaveStatus(error.message||"Unable to approve registration.","danger");
+    else alert("Unable to approve registration.\n\n"+(error.message||"Unknown error."));
+  }finally{
+    approvalInProgress=false;
+    if(button){
+      button.innerHTML='<i class="fa-solid fa-user-check me-1"></i>Approve Registration';
+      button.disabled=!correctionsValidated;
+    }
+  }
+}
+
+/* ==========================================================
+   STATUS / HELPERS
+   ========================================================== */
+
+function showSaveStatus(message,type){
+  const element=document.getElementById("saveStatusMessage");
+  if(!element)return;
+
+  if(type==="success"){
+    element.className="save-status me-auto text-success";
+    element.innerHTML='<i class="fa-solid fa-circle-check me-1"></i>'+escapeHtml(message);
+  }else if(type==="danger"){
+    element.className="save-status me-auto text-danger";
+    element.innerHTML='<i class="fa-solid fa-circle-xmark me-1"></i>'+escapeHtml(message);
+  }else{
+    element.className="save-status me-auto text-muted";
+    element.innerHTML='<i class="fa-solid fa-spinner fa-spin me-1"></i>'+escapeHtml(message);
+  }
+}
+
+function getField(registration,fieldName){
+  return registration?String(registration[fieldName]||"").trim():"";
+}
+
+function escapeHtml(value){
+  return String(value||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
+}
+
+function showPendingLoading(){
+  document.getElementById("pendingLoading").classList.remove("d-none");
+  document.getElementById("pendingError").classList.add("d-none");
+  document.getElementById("pendingRegistrationList").classList.add("d-none");
+  document.getElementById("pendingEmpty").classList.add("d-none");
+  document.getElementById("pendingBadge").innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Loading...';
+}
+
+function showDashboardError(message){
+  const error=document.getElementById("pendingError");
+  error.innerHTML='<i class="fa-solid fa-triangle-exclamation me-2"></i><strong>Unable to load registration data.</strong><div class="mt-1">'+escapeHtml(message)+'</div>';
+  error.classList.remove("d-none");
+  document.getElementById("pendingLoading").classList.add("d-none");
+  document.getElementById("pendingRegistrationList").classList.add("d-none");
+  document.getElementById("pendingEmpty").classList.add("d-none");
+  document.getElementById("pendingBadge").innerHTML='<i class="fa-solid fa-triangle-exclamation"></i> Error';
+  updateRegistrationConnection(false);
+}
+
+function updateRegistrationConnection(connected){
+  const el=document.getElementById("registrationConnectionStatus");
+  if(connected){
+    el.className="fw-bold text-success mt-1";
+    el.innerHTML='<i class="fa-solid fa-circle-check me-1"></i>Connected';
+  }else{
+    el.className="fw-bold text-danger mt-1";
+    el.innerHTML='<i class="fa-solid fa-circle-xmark me-1"></i>Connection Error';
+  }
+}
+
+/* ==========================================================
+   LOAD / REFRESH
+   ========================================================== */
+
+async function loadDashboardData(){
+  try{
+    await Promise.all([loadRegistrationSummary(),loadPendingRegistrations()]);
+  }catch(error){
+    console.error("Dashboard loading error:",error);
+
+    if(error&&error.message==="Administrator session is no longer valid."){
+      sessionStorage.setItem(ADMIN_LOGIN_ALLOWED_KEY,"true");
+      window.location.replace("AdministratorLogin.html");
+      return;
     }
 
-
-    /* =====================================================
-       LOAD ADMINISTRATOR NAME
-       ===================================================== */
-
-    function loadAdministratorName() {
-
-      const name =
-        sessionStorage.getItem(
-          "administratorName"
-        );
-
-
-      const adminID =
-        sessionStorage.getItem(
-          "administratorID"
-        );
-
-
-      const displayName =
-        name ||
-        adminID ||
-        "Administrator";
-
-
-      document
-        .getElementById(
-          "administratorName"
-        )
-        .textContent =
-          displayName;
-
-    }
-
-
-    /* =====================================================
-       GENERIC API CALL
-       ===================================================== */
-
-    async function callWebAPI(
-      action,
-      payload = {}
-    ) {
-
-      const requestBody = {
-
-        action:
-          action,
-
-        ...payload
-
-      };
-
-
-      const response =
-        await fetch(
-          WEB_APP_URL,
-          {
-
-            method: "POST",
-
-            headers: {
-
-              "Content-Type":
-                "text/plain;charset=utf-8"
-
-            },
-
-            body:
-              JSON.stringify(
-                requestBody
-              )
-
-          }
-        );
-
-
-      if (
-        !response.ok
-      ) {
-
-        throw new Error(
-          "Web API request failed. HTTP " +
-          response.status
-        );
-
-      }
-
-
-      const result =
-        await response.json();
-
-
-      return result;
-
-    }
-
-
-    /* =====================================================
-       LOAD REGISTRATION SUMMARY
-       ===================================================== */
-
-    async function loadRegistrationSummary() {
-
-      const result =
-        await callWebAPI(
-          "getRegistrationSummary"
-        );
-
-
-      if (
-        !result ||
-        result.success !== true
-      ) {
-
-        throw new Error(
-          result &&
-          result.message
-            ? result.message
-            : "Unable to load registration summary."
-        );
-
-      }
-
-
-      document
-        .getElementById(
-          "pendingCount"
-        )
-        .textContent =
-          result.pending || 0;
-
-
-      document
-        .getElementById(
-          "approvedCount"
-        )
-        .textContent =
-          result.approved || 0;
-
-
-      document
-        .getElementById(
-          "rejectedCount"
-        )
-        .textContent =
-          result.rejected || 0;
-
-
-      /*
-       * Inactive is not stored in Form Responses 1.
-       * It will be connected later to 01_Students_Login.
-       */
-
-      document
-        .getElementById(
-          "inactiveCount"
-        )
-        .textContent =
-          "—";
-
-
-      updateRegistrationConnection(
-        true
-      );
-
-    }
-
-
-    /* =====================================================
-       LOAD PENDING REGISTRATIONS
-       ===================================================== */
-
-    async function loadPendingRegistrations() {
-
-      showPendingLoading();
-
-
-      const result =
-        await callWebAPI(
-          "getPendingRegistrations"
-        );
-
-
-      if (
-        !result ||
-        result.success !== true
-      ) {
-
-        throw new Error(
-          result &&
-          result.message
-            ? result.message
-            : "Unable to load pending registrations."
-        );
-
-      }
-
-
-      pendingRegistrations =
-        Array.isArray(
-          result.data
-        )
-          ? result.data
-          : [];
-
-
-      renderPendingRegistrations(
-        pendingRegistrations
-      );
-
-    }
-
-
-    /* =====================================================
-       RENDER PENDING REGISTRATIONS
-       ===================================================== */
-
-    function renderPendingRegistrations(
-      registrations
-    ) {
-
-      const loading =
-        document.getElementById(
-          "pendingLoading"
-        );
-
-
-      const error =
-        document.getElementById(
-          "pendingError"
-        );
-
-
-      const list =
-        document.getElementById(
-          "pendingRegistrationList"
-        );
-
-
-      const empty =
-        document.getElementById(
-          "pendingEmpty"
-        );
-
-
-      loading.classList.add(
-        "d-none"
-      );
-
-
-      error.classList.add(
-        "d-none"
-      );
-
-
-      list.classList.add(
-        "d-none"
-      );
-
-
-      empty.classList.add(
-        "d-none"
-      );
-
-
-      const count =
-        registrations.length;
-
-
-      document
-        .getElementById(
-          "pendingBadge"
-        )
-        .innerHTML =
-
-          '<i class="fa-solid fa-flag"></i> ' +
-          count +
-          ' Pending';
-
-
-      if (
-        count === 0
-      ) {
-
-        empty.classList.remove(
-          "d-none"
-        );
-
-        return;
-
-      }
-
-
-      list.innerHTML =
-        registrations
-          .map(
-            function(
-              registration,
-              index
-            ) {
-
-              return createRegistrationCard(
-                registration,
-                index
-              );
-
-            }
-          )
-          .join("");
-
-
-      list.classList.remove(
-        "d-none"
-      );
-
-    }
-
-
-    /* =====================================================
-       CREATE REGISTRATION CARD
-       ===================================================== */
-
-    function createRegistrationCard(
-      registration,
-      index
-    ) {
-
-      const studentName =
-        getField(
-          registration,
-          "Student Name"
-        );
-
-
-      const course =
-        getField(
-          registration,
-          "Course"
-        );
-
-
-      const school =
-        getField(
-          registration,
-          "School Name (Full)"
-        );
-
-
-      const gender =
-        getField(
-          registration,
-          "Gender"
-        );
-
-
-      const dob =
-        getField(
-          registration,
-          "Date of Birth"
-        );
-
-
-      const studentMobile =
-        getField(
-          registration,
-          "Student Mobile No"
-        );
-
-
-      const parentName =
-        getField(
-          registration,
-          "Parent Name"
-        );
-
-
-      const parentMobile =
-        getField(
-          registration,
-          "Parent Mobile Number"
-        );
-
-
-      const email =
-        getField(
-          registration,
-          "Google Email ID"
-        );
-
-
-      const timestamp =
-        getField(
-          registration,
-          "Timestamp"
-        );
-
-
-      const rowNumber =
-        registration._rowNumber ||
-        "—";
-
-
-      return `
-
-        <div class="registration-card">
-
-          <div class="registration-header">
-
-            <div>
-
-              <div class="student-name">
-                ${escapeHtml(
-                  studentName || "Unnamed Student"
-                )}
-              </div>
-
-              <div class="student-course">
-                ${escapeHtml(
-                  course || "Course not available"
-                )}
-              </div>
-
-            </div>
-
-            <span class="status-pending">
-
-              <i class="fa-solid fa-hourglass-half me-1"></i>
-
-              PENDING
-
-            </span>
-
-          </div>
-
-
-          <div class="registration-body">
-
-            <div class="row g-3">
-
-
-              <div class="col-12 col-md-6 col-lg-3">
-
-                <div class="detail-label">
-                  School
-                </div>
-
-                <div class="detail-value">
-                  ${escapeHtml(
-                    school || "—"
-                  )}
-                </div>
-
-              </div>
-
-
-              <div class="col-6 col-md-3 col-lg-2">
-
-                <div class="detail-label">
-                  Gender
-                </div>
-
-                <div class="detail-value">
-                  ${escapeHtml(
-                    gender || "—"
-                  )}
-                </div>
-
-              </div>
-
-
-              <div class="col-6 col-md-3 col-lg-2">
-
-                <div class="detail-label">
-                  Date of Birth
-                </div>
-
-                <div class="detail-value">
-                  ${escapeHtml(
-                    dob || "—"
-                  )}
-                </div>
-
-              </div>
-
-
-              <div class="col-12 col-md-6 col-lg-2">
-
-                <div class="detail-label">
-                  Student Mobile
-                </div>
-
-                <div class="detail-value">
-                  ${escapeHtml(
-                    studentMobile || "—"
-                  )}
-                </div>
-
-              </div>
-
-
-              <div class="col-12 col-md-6 col-lg-3">
-
-                <div class="detail-label">
-                  Google Email
-                </div>
-
-                <div class="detail-value">
-                  ${escapeHtml(
-                    email || "—"
-                  )}
-                </div>
-
-              </div>
-
-
-              <div class="col-12 col-md-6">
-
-                <div class="detail-label">
-                  Parent Name
-                </div>
-
-                <div class="detail-value">
-                  ${escapeHtml(
-                    parentName || "—"
-                  )}
-                </div>
-
-              </div>
-
-
-              <div class="col-12 col-md-6">
-
-                <div class="detail-label">
-                  Parent Mobile
-                </div>
-
-                <div class="detail-value">
-                  ${escapeHtml(
-                    parentMobile || "—"
-                  )}
-                </div>
-
-              </div>
-
-
-              <div class="col-12">
-
-                <div class="detail-label">
-                  Registration Time
-                </div>
-
-                <div class="detail-value">
-                  ${escapeHtml(
-                    timestamp || "—"
-                  )}
-                </div>
-
-              </div>
-
-
-            </div>
-
-          </div>
-
-
-          <div class="registration-footer">
-
-            <div class="row-reference">
-
-              <i class="fa-solid fa-table-list me-1"></i>
-
-              Form Responses 1 — Row ${escapeHtml(
-                String(rowNumber)
-              )}
-
-            </div>
-
-
-            <button
-              type="button"
-              class="btn btn-sm btn-kp-primary"
-              onclick="reviewRegistration(${index})">
-
-              <i class="fa-solid fa-pen-to-square me-1"></i>
-
-              Review / Edit
-
-            </button>
-
-          </div>
-
-        </div>
-
-      `;
-
-    }
-
-
-    /* =====================================================
-       REVIEW REGISTRATION
-       ===================================================== */
-
-    function reviewRegistration(
-      index
-    ) {
-
-      const registration =
-        pendingRegistrations[index];
-
-
-      if (!registration) {
-
-        return;
-
-      }
-
-
-      currentRegistration =
-        registration;
-
-      currentRegistrationIndex =
-        index;
-
-
-      const modalBody =
-        document.getElementById(
-          "reviewModalBody"
-        );
-
-
-      const saveStatus =
-        document.getElementById(
-          "saveStatusMessage"
-        );
-
-
-      saveStatus.innerHTML =
-        "";
-
-
-      correctionsValidated =
-        false;
-
-
-      modalBody.innerHTML =
-        buildEditForm(
-          registration
-        );
-
-
-      setSaveButtonEnabled(
-        false
-      );
-
-
-      const modal =
-        bootstrap.Modal.getOrCreateInstance(
-          document.getElementById(
-            "reviewModal"
-          )
-        );
-
-
-      modal.show();
-
-    }
-
-
-    /* =====================================================
-       BUILD EDIT FORM
-       ===================================================== */
-
-    function buildEditForm(
-      registration
-    ) {
-
-      const timestamp =
-        getField(
-          registration,
-          "Timestamp"
-        );
-
-
-      const status =
-        getField(
-          registration,
-          "Status"
-        ) ||
-        "PENDING";
-
-
-      return `
-
-        <div class="mb-3">
-
-          <span class="review-mode-badge">
-
-            <i class="fa-solid fa-pen-to-square"></i>
-
-            Administrator Review / Correction
-
-          </span>
-
-        </div>
-
-
-        <div class="alert alert-info py-2">
-
-          <i class="fa-solid fa-circle-info me-1"></i>
-
-          Please verify the information with the student.
-          Correct any wrong or incomplete entries before
-          saving the registration.
-
-        </div>
-
-
-        <!-- =============================================
-             REGISTRATION CONTROL INFORMATION
-             ============================================= -->
-
-        <div class="edit-section-title">
-
-          <i class="fa-solid fa-lock me-2"></i>
-
-          Registration Control Information
-
-        </div>
-
-
-        <div class="row g-3 mb-4">
-
-
-          <!-- Timestamp -->
-
-          <div class="col-12 col-md-6">
-
-            <label class="edit-label">
-
-              Registration Timestamp
-
-            </label>
-
-            <input
-              type="text"
-              class="form-control edit-control readonly-control"
-              value="${escapeHtml(timestamp || "—")}"
-              readonly>
-
-            <div class="readonly-note">
-
-              <i class="fa-solid fa-lock me-1"></i>
-
-              Original Google Form submission timestamp.
-              Administrator cannot edit this field.
-
-            </div>
-
-          </div>
-
-
-          <!-- Status -->
-
-          <div class="col-12 col-md-6">
-
-            <label class="edit-label">
-
-              Registration Status
-
-            </label>
-
-            <input
-              type="text"
-              id="editStatus"
-              class="form-control edit-control readonly-control"
-              value="${escapeHtml(status)}"
-              readonly>
-
-            <div class="readonly-note">
-
-              <i class="fa-solid fa-lock me-1"></i>
-
-              Status is controlled by the Administrator workflow.
-
-            </div>
-
-          </div>
-
-
-        </div>
-
-
-        <!-- =============================================
-             STUDENT DETAILS
-             ============================================= -->
-
-        <div class="edit-section-title">
-
-          <i class="fa-solid fa-user-graduate me-2"></i>
-
-          Student Details
-
-        </div>
-
-
-        <div class="row g-3 mb-4">
-
-
-          <!-- Student Name -->
-
-          <div class="col-12 col-md-6">
-
-            <label
-              for="editStudentName"
-              class="edit-label">
-
-              Student Name
-              <span class="required-mark">*</span>
-
-            </label>
-
-            <input
-              type="text"
-              id="editStudentName"
-              class="form-control edit-control"
-              value="${escapeHtml(
-                getField(
-                  registration,
-                  "Student Name"
-                )
-              )}"
-              maxlength="100">
-
-            <div
-              id="studentNameError"
-              class="validation-message">
-            </div>
-
-          </div>
-
-
-          <!-- Course -->
-
-          <div class="col-12 col-md-6">
-
-            <label
-              for="editCourse"
-              class="edit-label">
-
-              Course
-              <span class="required-mark">*</span>
-
-            </label>
-
-            <select
-              id="editCourse"
-              class="form-select edit-control course-master-select"
-              name="editCourse"
-              required
-              aria-required="true"
-              aria-disabled="false"
-              onchange="courseSelectionChanged()">
-
-              ${buildCourseMasterOptions(
-                getField(
-                  registration,
-                  "Course"
-                )
-              )}
-
-            </select>
-
-            <div class="readonly-note">
-
-              <i class="fa-solid fa-book-open me-1"></i>
-
-              Course is selected from the current Course Master.
-              Administrator cannot enter an invalid free-text course.
-
-            </div>
-
-            <div
-              id="courseError"
-              class="validation-message">
-            </div>
-
-          </div>
-
-
-          <!-- School -->
-
-          <div class="col-12">
-
-            <label
-              for="editSchool"
-              class="edit-label">
-
-              School Name (Full)
-              <span class="required-mark">*</span>
-
-            </label>
-
-            <input
-              type="text"
-              id="editSchool"
-              class="form-control edit-control"
-              value="${escapeHtml(
-                getField(
-                  registration,
-                  "School Name (Full)"
-                )
-              )}"
-              maxlength="200">
-
-            <div
-              id="schoolError"
-              class="validation-message">
-            </div>
-
-          </div>
-
-
-          <!-- Medium -->
-
-          <div class="col-12 col-md-6">
-
-            <label
-              for="editMedium"
-              class="edit-label">
-
-              Medium
-              <span class="required-mark">*</span>
-
-            </label>
-
-            <select
-              id="editMedium"
-              class="form-select edit-control">
-
-              ${buildSelectOption(
-                "English Medium",
-                getField(
-                  registration,
-                  "Medium"
-                )
-              )}
-
-              ${buildSelectOption(
-                "Tamil Medium",
-                getField(
-                  registration,
-                  "Medium"
-                )
-              )}
-
-              ${buildSelectOption(
-                "Other",
-                getField(
-                  registration,
-                  "Medium"
-                )
-              )}
-
-            </select>
-
-            <div
-              id="mediumError"
-              class="validation-message">
-            </div>
-
-          </div>
-
-
-          <!-- EMIS -->
-
-          <div class="col-12 col-md-6">
-
-            <label
-              for="editEmis"
-              class="edit-label">
-
-              EMIS Number
-
-            </label>
-
-            <input
-              type="text"
-              id="editEmis"
-              class="form-control edit-control"
-              value="${escapeHtml(
-                getField(
-                  registration,
-                  "EMIS Number"
-                )
-              )}"
-              maxlength="30">
-
-            <div
-              id="emisError"
-              class="validation-message">
-            </div>
-
-          </div>
-
-
-          <!-- Gender -->
-
-          <div class="col-12 col-md-6">
-
-            <label
-              for="editGender"
-              class="edit-label">
-
-              Gender
-              <span class="required-mark">*</span>
-
-            </label>
-
-            <select
-              id="editGender"
-              class="form-select edit-control">
-
-              ${buildSelectOption(
-                "Male",
-                getField(
-                  registration,
-                  "Gender"
-                )
-              )}
-
-              ${buildSelectOption(
-                "Female",
-                getField(
-                  registration,
-                  "Gender"
-                )
-              )}
-
-              ${buildSelectOption(
-                "Other",
-                getField(
-                  registration,
-                  "Gender"
-                )
-              )}
-
-            </select>
-
-            <div
-              id="genderError"
-              class="validation-message">
-            </div>
-
-          </div>
-
-
-          <!-- Date of Birth -->
-
-          <div class="col-12 col-md-6">
-
-            <label
-              for="editDob"
-              class="edit-label">
-
-              Date of Birth
-              <span class="required-mark">*</span>
-
-            </label>
-
-            <input
-              type="text"
-              id="editDob"
-              class="form-control edit-control"
-              value="${escapeHtml(
-                getField(
-                  registration,
-                  "Date of Birth"
-                )
-              )}"
-              placeholder="DD-MM-YYYY">
-
-            <div
-              id="dobError"
-              class="validation-message">
-            </div>
-
-          </div>
-
-
-        </div>
-
-
-        <!-- =============================================
-             PARENT / CONTACT DETAILS
-             ============================================= -->
-
-        <div class="edit-section-title">
-
-          <i class="fa-solid fa-address-book me-2"></i>
-
-          Parent / Contact Details
-
-        </div>
-
-
-        <div class="row g-3 mb-4">
-
-
-          <!-- Parent Name -->
-
-          <div class="col-12 col-md-6">
-
-            <label
-              for="editParentName"
-              class="edit-label">
-
-              Parent Name
-              <span class="required-mark">*</span>
-
-            </label>
-
-            <input
-              type="text"
-              id="editParentName"
-              class="form-control edit-control"
-              value="${escapeHtml(
-                getField(
-                  registration,
-                  "Parent Name"
-                )
-              )}"
-              maxlength="100">
-
-            <div
-              id="parentNameError"
-              class="validation-message">
-            </div>
-
-          </div>
-
-
-          <!-- Parent Mobile -->
-
-          <div class="col-12 col-md-6">
-
-            <label
-              for="editParentMobile"
-              class="edit-label">
-
-              Parent Mobile Number
-              <span class="required-mark">*</span>
-
-            </label>
-
-            <input
-              type="tel"
-              id="editParentMobile"
-              class="form-control edit-control"
-              value="${escapeHtml(
-                getField(
-                  registration,
-                  "Parent Mobile Number"
-                )
-              )}"
-              maxlength="10"
-              inputmode="numeric">
-
-            <div
-              id="parentMobileError"
-              class="validation-message">
-            </div>
-
-          </div>
-
-
-          <!-- Student Mobile -->
-
-          <div class="col-12 col-md-6">
-
-            <label
-              for="editStudentMobile"
-              class="edit-label">
-
-              Student Mobile No
-
-            </label>
-
-            <input
-              type="tel"
-              id="editStudentMobile"
-              class="form-control edit-control"
-              value="${escapeHtml(
-                getField(
-                  registration,
-                  "Student Mobile No"
-                )
-              )}"
-              maxlength="10"
-              inputmode="numeric">
-
-            <div
-              id="studentMobileError"
-              class="validation-message">
-            </div>
-
-          </div>
-
-
-          <!-- Google Email -->
-
-          <div class="col-12 col-md-6">
-
-            <label
-              for="editEmail"
-              class="edit-label">
-
-              Google Email ID
-              <span class="required-mark">*</span>
-
-            </label>
-
-            <input
-              type="email"
-              id="editEmail"
-              class="form-control edit-control"
-              value="${escapeHtml(
-                getField(
-                  registration,
-                  "Google Email ID"
-                )
-              )}"
-              maxlength="150">
-
-            <div
-              id="emailError"
-              class="validation-message">
-            </div>
-
-          </div>
-
-
-          <!-- Address -->
-
-          <div class="col-12">
-
-            <label
-              for="editAddress"
-              class="edit-label">
-
-              Address
-              <span class="required-mark">*</span>
-
-            </label>
-
-            <textarea
-              id="editAddress"
-              class="form-control edit-control"
-              rows="3"
-              maxlength="500">${escapeHtml(
-                getField(
-                  registration,
-                  "Address"
-                )
-              )}</textarea>
-
-            <div
-              id="addressError"
-              class="validation-message">
-            </div>
-
-          </div>
-
-
-        </div>
-
-
-        <!-- =============================================
-             CONFIRMATION
-             ============================================= -->
-
-        <div class="edit-section-title">
-
-          <i class="fa-solid fa-circle-check me-2"></i>
-
-          Student Confirmation
-
-        </div>
-
-
-        <div class="row g-3">
-
-
-          <div class="col-12">
-
-            <label
-              for="editAgreement"
-              class="edit-label">
-
-              I Agree / Confirmation
-              <span class="required-mark">*</span>
-
-            </label>
-
-            <textarea
-              id="editAgreement"
-              class="form-control edit-control"
-              rows="2"
-              maxlength="300">${escapeHtml(
-                getField(
-                  registration,
-                  "I agree"
-                )
-              )}</textarea>
-
-            <div
-              id="agreementError"
-              class="validation-message">
-            </div>
-
-          </div>
-
-
-        </div>
-
-
-        <!-- =============================================
-             REVIEW NOTE
-             ============================================= -->
-
-        <div class="alert alert-warning mt-4 mb-0">
-
-          <i class="fa-solid fa-triangle-exclamation me-1"></i>
-
-          <strong>Important:</strong>
-
-          Saving corrections will update the
-          <strong>same row</strong> in
-          <strong>Form Responses 1</strong>.
-
-          The original submission timestamp will remain unchanged.
-          Course must be selected from the Course Master list.
-          No new data sheet is created.
-
-        </div>
-
-      `;
-
-    }
-
-
-    /* =====================================================
-       BUILD COURSE MASTER OPTIONS
-       ===================================================== */
-
-    function buildCourseMasterOptions(
-      currentValue
-    ) {
-
-      const current =
-        String(
-          currentValue || ""
-        ).trim();
-
-
-      let html = `
-
-        <option value="">
-          Select Course
-        </option>
-
-      `;
-
-
-      COURSE_MASTER.forEach(
-        function(course) {
-
-          const fullCourseName =
-            String(
-              course.courseCode || ""
-            ).trim() +
-            " - " +
-            String(
-              course.courseName || ""
-            ).trim();
-
-
-          const selected =
-            (
-              current.toLowerCase() ===
-              fullCourseName.toLowerCase()
-            ) ||
-            (
-              current.toLowerCase() ===
-              String(
-                course.courseName || ""
-              ).trim().toLowerCase()
-            )
-              ? "selected"
-              : "";
-
-
-          html += `
-
-            <option
-              value="${escapeHtml(fullCourseName)}"
-              data-course-id="${escapeHtml(course.courseID)}"
-              data-class-code="${escapeHtml(course.classCode)}"
-              data-course-code="${escapeHtml(course.courseCode)}"
-              ${selected}>
-
-              ${escapeHtml(fullCourseName)}
-
-            </option>
-
-          `;
-
-        }
-      );
-
-
-      /*
-       * If an old/current Form Responses 1 value is not
-       * present in Course Master, preserve it visibly so
-       * the Administrator is not shown a blank course.
-       *
-       * The value must still be corrected to a valid
-       * Course Master entry before saving.
-       */
-
-      const exists =
-        COURSE_MASTER.some(
-          function(course) {
-
-            const fullCourseName =
-              String(
-                course.courseCode || ""
-              ).trim() +
-              " - " +
-              String(
-                course.courseName || ""
-              ).trim();
-
-
-            return (
-              current.toLowerCase() ===
-              fullCourseName.toLowerCase()
-            ) ||
-            (
-              current.toLowerCase() ===
-              String(
-                course.courseName || ""
-              ).trim().toLowerCase()
-            );
-
-          }
-        );
-
-
-      if (
-        current !== "" &&
-        !exists
-      ) {
-
-        html =
-          `
-
-            <option
-              value=""
-              selected
-              disabled>
-
-              Current value is not in Course Master:
-              ${escapeHtml(current)}
-
-            </option>
-
-          ` +
-          html;
-
-      }
-
-
-      return html;
-
-    }
-
-
-    /* =====================================================
-       BUILD SELECT OPTION
-       ===================================================== */
-
-    function buildSelectOption(
-      value,
-      currentValue
-    ) {
-
-      const selected =
-        String(
-          currentValue || ""
-        ).trim().toLowerCase() ===
-        String(
-          value
-        ).trim().toLowerCase()
-          ? "selected"
-          : "";
-
-
-      return `
-
-        <option
-          value="${escapeHtml(value)}"
-          ${selected}>
-
-          ${escapeHtml(value)}
-
-        </option>
-
-      `;
-
-    }
-
-
-
-
-    /* =====================================================
-       COURSE SELECTION CHANGED
-       ===================================================== */
-
-    function courseSelectionChanged() {
-
-      correctionsValidated = false;
-      setSaveButtonEnabled(false);
-
-      const course = getInputValue("editCourse");
-      const error = document.getElementById("courseError");
-
-      if (error) {
-        error.textContent =
-          course === ""
-            ? "Please select a Course from Course Master."
-            : "";
-      }
-
-      const status = document.getElementById("saveStatusMessage");
-
-      if (status && course !== "") {
-        status.className = "save-status me-auto text-muted";
-        status.innerHTML = `
-          <i class="fa-solid fa-circle-info me-1"></i>
-          Course changed. Please Validate before saving.
-        `;
-      }
-
-    }
-
-
-    /* =====================================================
-       COLLECT EDITED FORM DATA
-       ===================================================== */
-
-    function collectEditedData() {
-
-      return {
-
-        "Student Name":
-          getInputValue(
-            "editStudentName"
-          ),
-
-        "Course":
-          getInputValue(
-            "editCourse"
-          ),
-
-        "School Name (Full)":
-          getInputValue(
-            "editSchool"
-          ),
-
-        "Medium":
-          getInputValue(
-            "editMedium"
-          ),
-
-        "EMIS Number":
-          getInputValue(
-            "editEmis"
-          ),
-
-        "Parent Name":
-          getInputValue(
-            "editParentName"
-          ),
-
-        "Parent Mobile Number":
-          getInputValue(
-            "editParentMobile"
-          ),
-
-        "Address":
-          getInputValue(
-            "editAddress"
-          ),
-
-        "I agree":
-          getInputValue(
-            "editAgreement"
-          ),
-
-        "Gender":
-          getInputValue(
-            "editGender"
-          ),
-
-        "Date of Birth":
-          getInputValue(
-            "editDob"
-          ),
-
-        "Student Mobile No":
-          getInputValue(
-            "editStudentMobile"
-          ),
-
-        "Google Email ID":
-          getInputValue(
-            "editEmail"
-          )
-
-      };
-
-    }
-
-
-    /* =====================================================
-       GET INPUT VALUE
-       ===================================================== */
-
-    function getInputValue(
-      id
-    ) {
-
-      const element =
-        document.getElementById(
-          id
-        );
-
-
-      if (!element) {
-
-        return "";
-
-      }
-
-
-      return String(
-        element.value || ""
-      ).trim();
-
-    }
-
-
-    /* =====================================================
-       VALIDATE EDITED DATA
-       ===================================================== */
-
-    function validateEditedData(
-      data
-    ) {
-
-      clearValidationMessages();
-
-
-      let valid =
-        true;
-
-
-      /*
-       * Student Name
-       */
-
-      if (
-        data["Student Name"] === ""
-      ) {
-
-        setValidationMessage(
-          "studentNameError",
-          "Student Name is required."
-        );
-
-        valid =
-          false;
-
-      }
-
-
-      /*
-       * Course
-       *
-       * Must be one of the current Course Master entries.
-       */
-
-      if (
-        data["Course"] === ""
-      ) {
-
-        setValidationMessage(
-          "courseError",
-          "Please select a Course from Course Master."
-        );
-
-        valid =
-          false;
-
-      }
-
-      else if (
-        !isCourseMasterValue(
-          data["Course"]
-        )
-      ) {
-
-        setValidationMessage(
-          "courseError",
-          "Please select a valid Course Master entry."
-        );
-
-        valid =
-          false;
-
-      }
-
-
-      /*
-       * School
-       */
-
-      if (
-        data["School Name (Full)"] === ""
-      ) {
-
-        setValidationMessage(
-          "schoolError",
-          "School Name is required."
-        );
-
-        valid =
-          false;
-
-      }
-
-
-      /*
-       * Medium
-       */
-
-      if (
-        data["Medium"] === ""
-      ) {
-
-        setValidationMessage(
-          "mediumError",
-          "Medium is required."
-        );
-
-        valid =
-          false;
-
-      }
-
-
-      /*
-       * EMIS
-       *
-       * Optional at registration stage.
-       */
-
-      if (
-        data["EMIS Number"] !== "" &&
-        !/^[0-9A-Za-z\-\/ ]+$/.test(
-          data["EMIS Number"]
-        )
-      ) {
-
-        setValidationMessage(
-          "emisError",
-          "EMIS Number contains invalid characters."
-        );
-
-        valid =
-          false;
-
-      }
-
-
-      /*
-       * Parent Name
-       */
-
-      if (
-        data["Parent Name"] === ""
-      ) {
-
-        setValidationMessage(
-          "parentNameError",
-          "Parent Name is required."
-        );
-
-        valid =
-          false;
-
-      }
-
-
-      /*
-       * Parent Mobile
-       */
-
-      if (
-        !/^[0-9]{10}$/.test(
-          data["Parent Mobile Number"]
-        )
-      ) {
-
-        setValidationMessage(
-          "parentMobileError",
-          "Parent Mobile Number must contain exactly 10 digits."
-        );
-
-        valid =
-          false;
-
-      }
-
-
-      /*
-       * Student Mobile
-       *
-       * Optional.
-       */
-
-      if (
-        data["Student Mobile No"] !== "" &&
-        !/^[0-9]{10}$/.test(
-          data["Student Mobile No"]
-        )
-      ) {
-
-        setValidationMessage(
-          "studentMobileError",
-          "Student Mobile Number must contain exactly 10 digits."
-        );
-
-        valid =
-          false;
-
-      }
-
-
-      /*
-       * Address
-       */
-
-      if (
-        data["Address"] === ""
-      ) {
-
-        setValidationMessage(
-          "addressError",
-          "Address is required."
-        );
-
-        valid =
-          false;
-
-      }
-
-
-      /*
-       * Agreement
-       */
-
-      if (
-        data["I agree"] === ""
-      ) {
-
-        setValidationMessage(
-          "agreementError",
-          "Student confirmation is required."
-        );
-
-        valid =
-          false;
-
-      }
-
-
-      /*
-       * Gender
-       */
-
-      if (
-        data["Gender"] === ""
-      ) {
-
-        setValidationMessage(
-          "genderError",
-          "Gender is required."
-        );
-
-        valid =
-          false;
-
-      }
-
-
-      /*
-       * Date of Birth
-       */
-
-      if (
-        data["Date of Birth"] === ""
-      ) {
-
-        setValidationMessage(
-          "dobError",
-          "Date of Birth is required."
-        );
-
-        valid =
-          false;
-
-      }
-
-      else if (
-        !isValidDateValue(
-          data["Date of Birth"]
-        )
-      ) {
-
-        setValidationMessage(
-          "dobError",
-          "Enter a valid Date of Birth."
-        );
-
-        valid =
-          false;
-
-      }
-
-
-      /*
-       * Google Email
-       */
-
-      if (
-        data["Google Email ID"] === ""
-      ) {
-
-        setValidationMessage(
-          "emailError",
-          "Google Email ID is required."
-        );
-
-        valid =
-          false;
-
-      }
-
-      else if (
-        !isValidEmail(
-          data["Google Email ID"]
-        )
-      ) {
-
-        setValidationMessage(
-          "emailError",
-          "Enter a valid email address."
-        );
-
-        valid =
-          false;
-
-      }
-
-
-      return valid;
-
-    }
-
-
-    /* =====================================================
-       COURSE MASTER VALIDATION
-       ===================================================== */
-
-    function isCourseMasterValue(
-      value
-    ) {
-
-      const candidate =
-        String(
-          value || ""
-        ).trim().toLowerCase();
-
-
-      return COURSE_MASTER.some(
-        function(course) {
-
-          const fullCourseName =
-            String(
-              course.courseCode || ""
-            ).trim() +
-            " - " +
-            String(
-              course.courseName || ""
-            ).trim();
-
-
-          return (
-            candidate ===
-            fullCourseName.toLowerCase()
-          );
-
-        }
-      );
-
-    }
-
-
-    /* =====================================================
-       DATE VALIDATION
-       ===================================================== */
-
-    function isValidDateValue(
-      value
-    ) {
-
-      const text =
-        String(
-          value || ""
-        ).trim();
-
-
-      /*
-       * Accept the common formats already
-       * present in Form Responses 1.
-       */
-
-      const match =
-        text.match(
-          /^(\d{1,2})[-\/](\d{1,2})[-\/](\d{4})$/
-        );
-
-
-      if (!match) {
-
-        return false;
-
-      }
-
-
-      const day =
-        Number(
-          match[1]
-        );
-
-
-      const month =
-        Number(
-          match[2]
-        );
-
-
-      const year =
-        Number(
-          match[3]
-        );
-
-
-      if (
-        month < 1 ||
-        month > 12 ||
-        day < 1 ||
-        day > 31 ||
-        year < 1900 ||
-        year > new Date().getFullYear()
-      ) {
-
-        return false;
-
-      }
-
-
-      const date =
-        new Date(
-          year,
-          month - 1,
-          day
-        );
-
-
-      return (
-        date.getFullYear() === year &&
-        date.getMonth() === month - 1 &&
-        date.getDate() === day
-      );
-
-    }
-
-
-    /* =====================================================
-       EMAIL VALIDATION
-       ===================================================== */
-
-    function isValidEmail(
-      email
-    ) {
-
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
-        String(
-          email || ""
-        ).trim()
-      );
-
-    }
-
-
-    /* =====================================================
-       CLEAR VALIDATION MESSAGES
-       ===================================================== */
-
-    function clearValidationMessages() {
-
-      const ids = [
-
-        "studentNameError",
-
-        "courseError",
-
-        "schoolError",
-
-        "mediumError",
-
-        "emisError",
-
-        "parentNameError",
-
-        "parentMobileError",
-
-        "studentMobileError",
-
-        "addressError",
-
-        "agreementError",
-
-        "genderError",
-
-        "dobError",
-
-        "emailError"
-
-      ];
-
-
-      ids.forEach(
-        function(id) {
-
-          setValidationMessage(
-            id,
-            ""
-          );
-
-        }
-      );
-
-    }
-
-
-    /* =====================================================
-       SET VALIDATION MESSAGE
-       ===================================================== */
-
-    function setValidationMessage(
-      id,
-      message
-    ) {
-
-      const element =
-        document.getElementById(
-          id
-        );
-
-
-      if (
-        element
-      ) {
-
-        element.textContent =
-          message;
-
-      }
-
-    }
-
-
-    /* =====================================================
-       VALIDATE CORRECTIONS
-       ===================================================== */
-
-    function validateCorrections() {
-
-      if (
-        !currentRegistration
-      ) {
-
-        showSaveStatus(
-          "No registration is currently selected.",
-          "danger"
-        );
-
-        return false;
-
-      }
-
-
-      const data =
-        collectEditedData();
-
-
-      if (
-        !validateEditedData(
-          data
-        )
-      ) {
-
-        correctionsValidated =
-          false;
-
-
-        setSaveButtonEnabled(
-          false
-        );
-
-
-        showSaveStatus(
-          "Validation failed. Please correct the highlighted fields.",
-          "danger"
-        );
-
-
-        return false;
-
-      }
-
-
-      correctionsValidated =
-        true;
-
-
-      setSaveButtonEnabled(
-        true
-      );
-
-
-      showSaveStatus(
-        "Validation successful. The corrected data is ready to be saved to the same Form Responses 1 row.",
-        "success"
-      );
-
-
-      return true;
-
-    }
-
-
-    /* =====================================================
-       SET SAVE BUTTON ENABLED / DISABLED
-       ===================================================== */
-
-    function setSaveButtonEnabled(
-      enabled
-    ) {
-
-      const button =
-        document.getElementById(
-          "saveCorrectionsButton"
-        );
-
-
-      if (
-        button
-      ) {
-
-        button.disabled =
-          !enabled;
-
-      }
-
-    }
-
-
-    /* =====================================================
-       SAVE CORRECTIONS
-       ===================================================== */
-
-    async function saveCorrections() {
-
-      if (
-        !currentRegistration
-      ) {
-
-        showSaveStatus(
-          "No registration is currently selected.",
-          "danger"
-        );
-
-        return;
-
-      }
-
-
-      const data =
-        collectEditedData();
-
-
-      /*
-       * Save is allowed only after an explicit successful
-       * Validate step. Re-run validation as a safety check
-       * in case the form was changed after validation.
-       */
-
-      if (
-        !correctionsValidated ||
-        !validateEditedData(
-          data
-        )
-      ) {
-
-        correctionsValidated =
-          false;
-
-
-        setSaveButtonEnabled(
-          false
-        );
-
-
-        showSaveStatus(
-          "Please Validate the corrected data before saving.",
-          "danger"
-        );
-
-        return;
-
-      }
-
-
-      const rowNumber =
-        currentRegistration._rowNumber;
-
-
-      if (
-        !rowNumber
-      ) {
-
-        showSaveStatus(
-          "Form Responses 1 row number is missing.",
-          "danger"
-        );
-
-        return;
-
-      }
-
-
-      const button =
-        document.getElementById(
-          "saveCorrectionsButton"
-        );
-
-
-      button.disabled =
-        true;
-
-
-      button.innerHTML = `
-
-        <i class="fa-solid fa-spinner fa-spin me-1"></i>
-
-        Saving...
-
-      `;
-
-
-      showSaveStatus(
-        "Saving corrections to Form Responses 1...",
-        "muted"
-      );
-
-
-      try {
-
-        /*
-         * IMPORTANT
-         *
-         * This sends the row number and corrected
-         * fields to the Apps Script backend.
-         *
-         * The backend will update the SAME row.
-         */
-
-        const result =
-          await callWebAPI(
-            UPDATE_PENDING_ACTION,
-            {
-
-              rowNumber:
-                rowNumber,
-
-              data:
-                data
-
-            }
-          );
-
-
-        if (
-          !result ||
-          result.success !== true
-        ) {
-
-          throw new Error(
-            result &&
-            result.message
-              ? result.message
-              : "Unable to save corrections."
-          );
-
-        }
-
-
-        showSaveStatus(
-          "Corrections saved successfully.",
-          "success"
-        );
-
-
-        correctionsValidated =
-          false;
-
-
-        /*
-         * Update local copy immediately.
-         */
-
-        Object.keys(
-          data
-        )
-        .forEach(
-          function(key) {
-
-            currentRegistration[key] =
-              data[key];
-
-          }
-        );
-
-
-        /*
-         * Refresh the dashboard after a
-         * successful backend update.
-         */
-
-        await loadDashboardData();
-
-
-        /*
-         * Close modal after successful save.
-         */
-
-        setTimeout(
-          function() {
-
-            const modal =
-              bootstrap.Modal.getInstance(
-                document.getElementById(
-                  "reviewModal"
-                )
-              );
-
-
-            if (
-              modal
-            ) {
-
-              modal.hide();
-
-            }
-
-          },
-          700
-        );
-
-      }
-
-      catch (error) {
-
-        console.error(
-          "Save corrections error:",
-          error
-        );
-
-
-        showSaveStatus(
-          error.message ||
-          "Unable to save corrections.",
-          "danger"
-        );
-
-      }
-
-      finally {
-
-        button.disabled =
-          false;
-
-
-        button.innerHTML = `
-
-          <i class="fa-solid fa-floppy-disk me-1"></i>
-
-          Save Corrections
-
-        `;
-
-      }
-
-    }
-
-
-    /* =====================================================
-       SHOW SAVE STATUS
-       ===================================================== */
-
-    function showSaveStatus(
-      message,
-      type
-    ) {
-
-      const element =
-        document.getElementById(
-          "saveStatusMessage"
-        );
-
-
-      if (
-        type === "success"
-      ) {
-
-        element.className =
-          "save-status me-auto text-success";
-
-
-        element.innerHTML = `
-
-          <i class="fa-solid fa-circle-check me-1"></i>
-
-          ${escapeHtml(message)}
-
-        `;
-
-      }
-
-      else if (
-        type === "danger"
-      ) {
-
-        element.className =
-          "save-status me-auto text-danger";
-
-
-        element.innerHTML = `
-
-          <i class="fa-solid fa-circle-xmark me-1"></i>
-
-          ${escapeHtml(message)}
-
-        `;
-
-      }
-
-      else {
-
-        element.className =
-          "save-status me-auto text-muted";
-
-
-        element.innerHTML = `
-
-          <i class="fa-solid fa-spinner fa-spin me-1"></i>
-
-          ${escapeHtml(message)}
-
-        `;
-
-      }
-
-    }
-
-
-    /* =====================================================
-       GET FIELD SAFELY
-       ===================================================== */
-
-    function getField(
-      registration,
-      fieldName
-    ) {
-
-      if (
-        !registration
-      ) {
-
-        return "";
-
-      }
-
-
-      return String(
-        registration[fieldName] || ""
-      ).trim();
-
-    }
-
-
-    /* =====================================================
-       HTML ESCAPE
-       ===================================================== */
-
-    function escapeHtml(
-      value
-    ) {
-
-      return String(
-        value || ""
-      )
-      .replace(
-        /&/g,
-        "&amp;"
-      )
-      .replace(
-        /</g,
-        "&lt;"
-      )
-      .replace(
-        />/g,
-        "&gt;"
-      )
-      .replace(
-        /"/g,
-        "&quot;"
-      )
-      .replace(
-        /'/g,
-        "&#039;"
-      );
-
-    }
-
-
-    /* =====================================================
-       SHOW LOADING
-       ===================================================== */
-
-    function showPendingLoading() {
-
-      document
-        .getElementById(
-          "pendingLoading"
-        )
-        .classList.remove(
-          "d-none"
-        );
-
-
-      document
-        .getElementById(
-          "pendingError"
-        )
-        .classList.add(
-          "d-none"
-        );
-
-
-      document
-        .getElementById(
-          "pendingRegistrationList"
-        )
-        .classList.add(
-          "d-none"
-        );
-
-
-      document
-        .getElementById(
-          "pendingEmpty"
-        )
-        .classList.add(
-          "d-none"
-        );
-
-
-      document
-        .getElementById(
-          "pendingBadge"
-        )
-        .innerHTML =
-
-          '<i class="fa-solid fa-spinner fa-spin"></i> Loading...';
-
-    }
-
-
-    /* =====================================================
-       SHOW ERROR
-       ===================================================== */
-
-    function showDashboardError(
-      message
-    ) {
-
-      const error =
-        document.getElementById(
-          "pendingError"
-        );
-
-
-      error.innerHTML = `
-
-        <i class="fa-solid fa-triangle-exclamation me-2"></i>
-
-        <strong>
-          Unable to load registration data.
-        </strong>
-
-        <div class="mt-1">
-          ${escapeHtml(
-            message
-          )}
-        </div>
-
-      `;
-
-
-      error.classList.remove(
-        "d-none"
-      );
-
-
-      document
-        .getElementById(
-          "pendingLoading"
-        )
-        .classList.add(
-          "d-none"
-        );
-
-
-      document
-        .getElementById(
-          "pendingRegistrationList"
-        )
-        .classList.add(
-          "d-none"
-        );
-
-
-      document
-        .getElementById(
-          "pendingEmpty"
-        )
-        .classList.add(
-          "d-none"
-        );
-
-
-      document
-        .getElementById(
-          "pendingBadge"
-        )
-        .innerHTML =
-
-          '<i class="fa-solid fa-triangle-exclamation"></i> Error';
-
-
-      updateRegistrationConnection(
-        false
-      );
-
-    }
-
-
-    /* =====================================================
-       REGISTRATION CONNECTION STATUS
-       ===================================================== */
-
-    function updateRegistrationConnection(
-      connected
-    ) {
-
-      const element =
-        document.getElementById(
-          "registrationConnectionStatus"
-        );
-
-
-      if (
-        connected
-      ) {
-
-        element.className =
-          "fw-bold text-success mt-1";
-
-
-        element.innerHTML = `
-
-          <i class="fa-solid fa-circle-check me-1"></i>
-
-          Connected
-
-        `;
-
-      }
-
-      else {
-
-        element.className =
-          "fw-bold text-danger mt-1";
-
-
-        element.innerHTML = `
-
-          <i class="fa-solid fa-circle-xmark me-1"></i>
-
-          Connection Error
-
-        `;
-
-      }
-
-    }
-
-
-    /* =====================================================
-       LOAD COMPLETE DASHBOARD DATA
-       ===================================================== */
-
-    async function loadDashboardData() {
-
-      try {
-
-        await Promise.all([
-
-          loadRegistrationSummary(),
-
-          loadPendingRegistrations()
-
-        ]);
-
-      }
-
-      catch (error) {
-
-        console.error(
-          "Dashboard loading error:",
-          error
-        );
-
-
-        showDashboardError(
-          error.message ||
-          "Unknown error."
-        );
-
-      }
-
-    }
-
-
-    /* =====================================================
-       REFRESH DASHBOARD
-       ===================================================== */
-
-    async function refreshDashboard() {
-
-      const button =
-        document.getElementById(
-          "refreshButton"
-        );
-
-
-      button.disabled =
-        true;
-
-
-      button.innerHTML = `
-
-        <i class="fa-solid fa-spinner fa-spin me-1"></i>
-
-        Refreshing...
-
-      `;
-
-
-      try {
-
-        await loadDashboardData();
-
-      }
-
-      finally {
-
-        button.disabled =
-          false;
-
-
-        button.innerHTML = `
-
-          <i class="fa-solid fa-rotate-right me-1"></i>
-
-          Refresh
-
-        `;
-
-      }
-
-    }
-
-
-    /* =====================================================
-       FOCUS PENDING REGISTRATIONS
-       ===================================================== */
-
-    function focusPendingRegistrations() {
-
-      const section =
-        document.getElementById(
-          "pendingRegistrationsSection"
-        );
-
-
-      if (
-        section
-      ) {
-
-        section.scrollIntoView({
-
-          behavior: "smooth",
-
-          block: "start"
-
-        });
-
-      }
-
-    }
-
-
-    /* =====================================================
-       LOGOUT
-       ===================================================== */
-
-    function logoutAdministrator() {
-
-      sessionStorage.removeItem(
-        "kpotmsLoggedIn"
-      );
-
-
-      sessionStorage.removeItem(
-        "kpotmsRole"
-      );
-
-
-      sessionStorage.removeItem(
-        "administratorID"
-      );
-
-
-      sessionStorage.removeItem(
-        "administratorName"
-      );
-
-
-      window.location.replace(
-        "AdministratorLogin.html"
-      );
-
-    }
-
-
-    /* =====================================================
-       COMING SOON
-       ===================================================== */
-
-    function showComingSoon(
-      feature
-    ) {
-
-      alert(
-        feature +
-        " will be enabled in the next phase of KPOTMS Version 4.0."
-      );
-
-    }
-
-
-    /* =====================================================
-       INITIALIZE
-       ===================================================== */
-
-    async function initializeDashboard() {
-
-      if (
-        !checkAdministratorSession()
-      ) {
-
-        return;
-
-      }
-
-
-      loadAdministratorName();
-
-
-      await loadDashboardData();
-
-
-      document
-        .getElementById(
-          "loadingOverlay"
-        )
-        .style.display =
-          "none";
-
-    }
-
-
-    /* =====================================================
-       PAGE LOAD
-       ===================================================== */
-
-    document.addEventListener(
-
-      "DOMContentLoaded",
-
-      function() {
-
-        initializeDashboard();
-
-      }
-
-    );
-
-
-  </script>
-
+    showDashboardError(error.message||"Unknown error.");
+  }
+}
+
+async function refreshDashboard(){
+  const button=document.getElementById("refreshButton");
+  button.disabled=true;
+  button.innerHTML='<i class="fa-solid fa-spinner fa-spin me-1"></i>Refreshing...';
+
+  try{await loadDashboardData()}
+  finally{
+    button.disabled=false;
+    button.innerHTML='<i class="fa-solid fa-rotate-right me-1"></i>Refresh';
+  }
+}
+
+function focusPendingRegistrations(){
+  const section=document.getElementById("pendingRegistrationsSection");
+  if(section)section.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+/* ==========================================================
+   LOGOUT
+   ========================================================== */
+
+function logoutAdministrator(){
+  sessionStorage.removeItem("administratorID");
+  sessionStorage.removeItem("administratorName");
+  sessionStorage.removeItem("kpotmsLoggedIn");
+  sessionStorage.removeItem("kpotmsRole");
+
+  /* AdministratorLogin is protected by a navigation token. */
+  sessionStorage.setItem(ADMIN_LOGIN_ALLOWED_KEY,"true");
+
+  window.location.replace("AdministratorLogin.html");
+}
+
+function showComingSoon(feature){
+  alert(feature+" will be enabled in the next phase of KPOTMS Version 4.0.");
+}
+
+/* ==========================================================
+   INITIALIZATION
+   ========================================================== */
+
+async function initializeDashboard(){
+  if(!checkAdministratorSession())return;
+
+  loadAdministratorName();
+  await loadDashboardData();
+
+  const overlay=document.getElementById("loadingOverlay");
+  if(overlay)overlay.style.display="none";
+}
+
+document.addEventListener("DOMContentLoaded",initializeDashboard);
+</script>
 
 </body>
-
 </html>
