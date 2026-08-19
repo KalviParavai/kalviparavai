@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -1502,6 +1502,20 @@ Save Corrections
 
 <button
 type="button"
+id="rejectRegistrationButton"
+class="btn btn-danger"
+onclick="rejectRegistration()">
+
+<i class="fa-solid fa-user-xmark me-1"></i>
+
+Reject Registration
+
+</button>
+
+
+
+<button
+type="button"
 id="approveRegistrationButton"
 class="btn btn-kp-success"
 onclick="approveRegistration()"
@@ -1568,6 +1582,10 @@ const UPDATE_PENDING_ACTION =
 
 const APPROVE_PENDING_ACTION =
 "approvePendingRegistration";
+
+
+const REJECT_PENDING_ACTION =
+"rejectPendingRegistration";
 
 
 const ADMIN_LOGIN_ALLOWED_KEY =
@@ -1637,6 +1655,8 @@ let currentRegistrationIndex=-1;
 let correctionsValidated=false;
 
 let approvalInProgress=false;
+
+let rejectionInProgress=false;
 
 
 /* ==========================================================
@@ -2236,6 +2256,18 @@ onclick="approveRegistrationByIndex(${index})">
 <i class="fa-solid fa-user-check me-1"></i>
 
 Approve
+
+</button>
+
+
+<button
+type="button"
+class="btn btn-sm btn-danger"
+onclick="rejectRegistrationByIndex(${index})">
+
+<i class="fa-solid fa-user-xmark me-1"></i>
+
+Reject
 
 </button>
 
@@ -3830,6 +3862,316 @@ async function saveCorrections(){
         setApproveButtonEnabled(
             correctionsValidated
         );
+
+    }
+
+}
+
+
+/* ==========================================================
+   REJECTION
+   ========================================================== */
+
+/*
+ * Reject is deliberately independent of the approval workflow.
+ *
+ * PENDING -> REJECTED
+ *
+ * It does NOT:
+ * - generate KPSID
+ * - touch 00_Sequence
+ * - create 01_Students
+ * - create 01_Students_Login
+ *
+ * The server changes only the existing Status cell in
+ * Form Responses 1. The original Timestamp and all other
+ * columns remain unchanged.
+ */
+
+async function rejectRegistrationByIndex(
+    index
+){
+
+    const registration =
+        pendingRegistrations[index];
+
+    if(!registration)
+        return;
+
+    const name =
+        getField(
+            registration,
+            "Student Name"
+        ) ||
+        "this student";
+
+    if(
+        !window.confirm(
+            "Reject the registration for " +
+            name +
+            "?\n\n" +
+            "The same Form Responses 1 row will be retained " +
+            "and its Status will be changed from PENDING to REJECTED.\n\n" +
+            "No KPSID will be generated.\n" +
+            "00_Sequence will not be changed.\n" +
+            "No student or student-login record will be created."
+        )
+    ){
+
+        return;
+
+    }
+
+    await performRejection(
+        registration
+    );
+
+}
+
+
+async function rejectRegistration(){
+
+    if(!currentRegistration){
+
+        showSaveStatus(
+            "No registration is currently selected.",
+            "danger"
+        );
+
+        return;
+
+    }
+
+    const name =
+        getField(
+            currentRegistration,
+            "Student Name"
+        ) ||
+        "this student";
+
+    if(
+        !window.confirm(
+            "Reject the registration for " +
+            name +
+            "?\n\n" +
+            "The same Form Responses 1 row will be retained " +
+            "and its Status will be changed from PENDING to REJECTED.\n\n" +
+            "No KPSID will be generated.\n" +
+            "00_Sequence will not be changed.\n" +
+            "No student or student-login record will be created."
+        )
+    ){
+
+        return;
+
+    }
+
+    await performRejection(
+        currentRegistration
+    );
+
+}
+
+
+async function performRejection(
+    registration
+){
+
+    if(rejectionInProgress)
+        return;
+
+    const rowNumber =
+        registration &&
+        registration._rowNumber;
+
+    if(!rowNumber){
+
+        const message =
+            "Form Responses 1 row number is missing.";
+
+        if(
+            currentRegistration ===
+            registration
+        ){
+
+            showSaveStatus(
+                message,
+                "danger"
+            );
+
+        }
+        else{
+
+            alert(message);
+
+        }
+
+        return;
+
+    }
+
+    rejectionInProgress =
+        true;
+
+    const modalButton =
+        document.getElementById(
+            "rejectRegistrationButton"
+        );
+
+    if(modalButton){
+
+        modalButton.disabled =
+            true;
+
+        modalButton.innerHTML =
+            '<i class="fa-solid fa-spinner fa-spin me-1"></i>Rejecting...';
+
+    }
+
+    try{
+
+        if(
+            currentRegistration ===
+            registration
+        ){
+
+            showSaveStatus(
+                "Rejecting registration...",
+                "muted"
+            );
+
+        }
+
+        const result =
+            await callWebAPI(
+                REJECT_PENDING_ACTION,
+                {
+                    rowNumber:
+                        Number(rowNumber)
+                }
+            );
+
+        if(
+            !result ||
+            result.success !== true
+        ){
+
+            throw new Error(
+                result?.message ||
+                "Unable to reject registration."
+            );
+
+        }
+
+        correctionsValidated =
+            false;
+
+        setSaveButtonEnabled(
+            false
+        );
+
+        setApproveButtonEnabled(
+            false
+        );
+
+        if(
+            currentRegistration ===
+            registration
+        ){
+
+            showSaveStatus(
+                "Registration rejected successfully. The same Form Responses 1 row has been retained.",
+                "success"
+            );
+
+        }
+        else{
+
+            alert(
+                "Registration rejected successfully."
+            );
+
+        }
+
+        await loadDashboardData();
+
+        if(
+            currentRegistration ===
+            registration
+        ){
+
+            currentRegistration =
+                null;
+
+            currentRegistrationIndex =
+                -1;
+
+            setTimeout(
+                () => {
+
+                    const modal =
+                        bootstrap.Modal.getInstance(
+                            document.getElementById(
+                                "reviewModal"
+                            )
+                        );
+
+                    if(modal)
+                        modal.hide();
+
+                },
+                700
+            );
+
+        }
+
+    }
+    catch(error){
+
+        console.error(
+            "Rejection error:",
+            error
+        );
+
+        if(
+            currentRegistration ===
+            registration
+        ){
+
+            showSaveStatus(
+                error.message ||
+                "Unable to reject registration.",
+                "danger"
+            );
+
+        }
+        else{
+
+            alert(
+                "Unable to reject registration.\n\n" +
+                (
+                    error.message ||
+                    "Unknown error."
+                )
+            );
+
+        }
+
+    }
+    finally{
+
+        rejectionInProgress =
+            false;
+
+        if(modalButton){
+
+            modalButton.innerHTML =
+                '<i class="fa-solid fa-user-xmark me-1"></i>Reject Registration';
+
+            modalButton.disabled =
+                false;
+
+        }
 
     }
 
