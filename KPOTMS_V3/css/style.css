@@ -1,12 +1,71 @@
-
 body{font-family:Segoe UI,Tahoma,sans-serif;color:#233;}
+
 .navbar-brand img{width:70px;height:auto}
-.hero{padding:70px 0;background:linear-gradient(#fff,#eef5ff)}
-.hero h1{font-size:4rem;font-weight:800;color:#0b2a57}
-.hero h1 span{color:#f5a623;display:block}
-.hero h2{font-style:italic;color:#2b5fb3;margin:20px 0}
-.feature,.portal-card{background:#fff;padding:25px;border-radius:18px;box-shadow:0 8px 24px rgba(0,0,0,.08);height:100%}
-.feature i{font-size:42px;color:#2b5fb3;margin-bottom:15px}
-.student{border-top:5px solid #0d6efd}
-.coord{border-top:5px solid #f5a623}
-footer{background:#0b2a57;color:#fff}
+
+.hero{
+    padding:70px 0;
+    background:linear-gradient(#fff,#eef5ff)
+}
+
+.hero h1{
+    font-size:4rem;
+    font-weight:800;
+    color:#0b2a57
+}
+
+.hero h1 span{
+    color:#f5a623;
+    display:block
+}
+
+.hero h2{
+    font-style:italic;
+    color:#2b5fb3;
+    margin:20px 0
+}
+
+.feature,
+.portal-card{
+    background:#fff;
+    padding:25px;
+    border-radius:18px;
+    box-shadow:0 8px 24px rgba(0,0,0,.08);
+    height:100%
+}
+
+.feature i{
+    font-size:42px;
+    color:#2b5fb3;
+    margin-bottom:15px
+}
+
+
+/* =========================================================
+   KPOTMS PORTAL COLOUR ACCENTS
+   ========================================================= */
+
+.student{
+    border-top:5px solid #0d6efd
+}
+
+.coord{
+    border-top:5px solid #f5a623
+}
+
+.teacher{
+    border-top:5px solid #198754
+}
+
+.administrator{
+    border-top:5px solid #dc3545
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+footer{
+    background:#0b2a57;
+    color:#fff
+}
