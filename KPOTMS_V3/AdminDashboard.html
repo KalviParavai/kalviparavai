@@ -1152,7 +1152,7 @@ Review and correct pending student registrations
 <button
 type="button"
 class="quick-action w-100 text-start"
-onclick="showComingSoon('Student Management')">
+onclick="openStudentSearch()">
 
 <div class="quick-icon">
 
@@ -1162,13 +1162,13 @@ onclick="showComingSoon('Student Management')">
 
 
 <div class="quick-title">
-Student Management
+Search Students
 </div>
 
 
 <div class="quick-description">
 
-Manage active and inactive students
+Search approved students by KPSID, name, mobile or Google Email
 
 </div>
 
@@ -4901,6 +4901,13 @@ function logoutAdministrator(){
     window.location.replace(
         "index.html"
     );
+
+}
+
+
+function openStudentSearch(){
+
+    window.location.href = "AdminStudentSearch.html";
 
 }
 
