@@ -1,28 +1,2302 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1"
+>
+
 <title>KPOTMS - Accepted Student Search</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+
+<link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+>
+
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  rel="stylesheet"
+>
+
 <style>
-:root{--b:#0b4f8a;--bd:#083b67;--g:#f5a623;--m:#667085;--l:#f5f8fc;--br:#d9e2ec}body{margin:0;background:var(--l);color:#1f2937;font-family:Arial,Helvetica,sans-serif}.top{background:#fff;border-bottom:1px solid var(--br);box-shadow:0 2px 8px #0000000d}.hi{min-height:76px;display:flex;align-items:center;justify-content:space-between}.brand{display:flex;gap:12px;align-items:center;color:var(--b);text-decoration:none}.bi,.av{display:flex;align-items:center;justify-content:center}.bi{width:48px;height:48px;border-radius:12px;background:var(--b);color:#fff;font-size:22px}.bn{font-size:1.35rem;font-weight:800}.bs{font-size:.78rem;color:var(--m)}.ap{display:flex;align-items:center;gap:10px}.av{width:40px;height:40px;border-radius:50%;background:#eaf3ff;color:var(--b)}.al{font-size:.7rem;color:var(--m)}.an{font-weight:700;color:var(--b)}.wrap{max-width:1500px;margin:auto;padding:30px 18px 45px}.ph{display:flex;justify-content:space-between;gap:18px;margin-bottom:24px}.pt{color:var(--b);font-weight:800;margin:0}.pd{color:var(--m);margin:5px 0 0}.cardx{background:#fff;border:1px solid var(--br);border-radius:14px;box-shadow:0 3px 12px #0000000a;overflow:hidden}.sh{padding:18px 20px;border-bottom:1px solid var(--br)}.st{color:var(--b);font-weight:800;font-size:1.15rem;margin:0}.ss{color:var(--m);font-size:.84rem;margin:4px 0 0}.sb{padding:20px}.panel{background:#f8fbff;border:1px solid #d9e8f8;border-radius:12px;padding:18px}.form-label{font-weight:700;color:#344054}.note{color:var(--m);font-size:.8rem}.ro{display:inline-flex;gap:5px;background:#fff5df;color:#8a5a00;border:1px solid #f0d28a;border-radius:20px;padding:5px 10px;font-size:.75rem;font-weight:700}.tw{overflow-x:auto;border:1px solid var(--br);border-radius:10px}.tbl{min-width:1250px;margin:0;font-size:.82rem}.tbl thead th{background:var(--b);color:#fff;white-space:nowrap}.tbl tbody td{white-space:nowrap;vertical-align:middle}.tbl tbody tr:nth-child(even){background:#f8fbff}.tbl tbody tr:hover{background:#eef5ff}.empty,.load,.err{padding:38px 20px;text-align:center;color:var(--m)}.err{color:#b42318}.foot{text-align:center;color:#7b8794;font-size:.78rem;padding-top:28px}@media(max-width:768px){.hi{min-height:70px}.ainfo{display:none}.ph{flex-direction:column}.wrap{padding:22px 12px 40px}}
-</style></head>
+
+:root{
+  --b:#0b4f8a;
+  --bd:#083b67;
+  --g:#f5a623;
+  --m:#667085;
+  --l:#f5f8fc;
+  --br:#d9e2ec;
+}
+
+body{
+  margin:0;
+  background:var(--l);
+  color:#1f2937;
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+.top{
+  background:#fff;
+  border-bottom:1px solid var(--br);
+  box-shadow:0 2px 8px #0000000d;
+}
+
+.hi{
+  min-height:76px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.brand{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  color:var(--b);
+  text-decoration:none;
+}
+
+.bi,
+.av{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.bi{
+  width:48px;
+  height:48px;
+  border-radius:12px;
+  background:var(--b);
+  color:#fff;
+  font-size:22px;
+}
+
+.bn{
+  font-size:1.35rem;
+  font-weight:800;
+}
+
+.bs{
+  font-size:.78rem;
+  color:var(--m);
+}
+
+.ap{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.av{
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  background:#eaf3ff;
+  color:var(--b);
+}
+
+.al{
+  font-size:.7rem;
+  color:var(--m);
+}
+
+.an{
+  font-weight:700;
+  color:var(--b);
+}
+
+.wrap{
+  max-width:1500px;
+  margin:auto;
+  padding:30px 18px 45px;
+}
+
+.ph{
+  display:flex;
+  justify-content:space-between;
+  gap:18px;
+  margin-bottom:24px;
+}
+
+.pt{
+  color:var(--b);
+  font-weight:800;
+  margin:0;
+}
+
+.pd{
+  color:var(--m);
+  margin:5px 0 0;
+}
+
+.cardx{
+  background:#fff;
+  border:1px solid var(--br);
+  border-radius:14px;
+  box-shadow:0 3px 12px #0000000a;
+  overflow:hidden;
+}
+
+.sh{
+  padding:18px 20px;
+  border-bottom:1px solid var(--br);
+}
+
+.st{
+  color:var(--b);
+  font-weight:800;
+  font-size:1.15rem;
+  margin:0;
+}
+
+.ss{
+  color:var(--m);
+  font-size:.84rem;
+  margin:4px 0 0;
+}
+
+.sb{
+  padding:20px;
+}
+
+.panel{
+  background:#f8fbff;
+  border:1px solid #d9e8f8;
+  border-radius:12px;
+  padding:18px;
+}
+
+.form-label{
+  font-weight:700;
+  color:#344054;
+}
+
+.note{
+  color:var(--m);
+  font-size:.8rem;
+}
+
+.ro{
+  display:inline-flex;
+  gap:5px;
+  background:#fff5df;
+  color:#8a5a00;
+  border:1px solid #f0d28a;
+  border-radius:20px;
+  padding:5px 10px;
+  font-size:.75rem;
+  font-weight:700;
+}
+
+.tw{
+  overflow-x:auto;
+  border:1px solid var(--br);
+  border-radius:10px;
+}
+
+.tbl{
+  min-width:1500px;
+  margin:0;
+  font-size:.82rem;
+}
+
+.tbl thead th{
+  background:var(--b);
+  color:#fff;
+  white-space:nowrap;
+}
+
+.tbl tbody td{
+  white-space:nowrap;
+  vertical-align:middle;
+}
+
+.tbl tbody tr:nth-child(even){
+  background:#f8fbff;
+}
+
+.tbl tbody tr:hover{
+  background:#eef5ff;
+}
+
+.empty,
+.load,
+.err{
+  padding:38px 20px;
+  text-align:center;
+  color:var(--m);
+}
+
+.err{
+  color:#b42318;
+}
+
+.foot{
+  text-align:center;
+  color:#7b8794;
+  font-size:.78rem;
+  padding-top:28px;
+}
+
+
+/* ============================================================
+   STUDENT STATUS
+   ============================================================ */
+
+.status-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  border-radius:20px;
+  padding:5px 10px;
+  font-size:.72rem;
+  font-weight:800;
+  white-space:nowrap;
+}
+
+.status-active{
+  background:#e9f8ef;
+  color:#087443;
+  border:1px solid #a9dfc0;
+}
+
+.status-inactive{
+  background:#fdebec;
+  color:#b42318;
+  border:1px solid #f3b7bb;
+}
+
+.status-unknown{
+  background:#f2f4f7;
+  color:#667085;
+  border:1px solid #d0d5dd;
+}
+
+.status-action{
+  min-width:125px;
+  font-size:.76rem;
+  font-weight:700;
+  white-space:nowrap;
+}
+
+.status-cell{
+  text-align:center;
+}
+
+.action-cell{
+  text-align:center;
+}
+
+.status-processing{
+  opacity:.7;
+  pointer-events:none;
+}
+
+
+/* ============================================================
+   STATUS INFORMATION
+   ============================================================ */
+
+.status-control-note{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  background:#eef5ff;
+  color:#0b4f8a;
+  border:1px solid #c8dcf5;
+  border-radius:20px;
+  padding:5px 10px;
+  font-size:.75rem;
+  font-weight:700;
+}
+
+
+/* ============================================================
+   STATUS SUCCESS / WARNING MESSAGE
+   ============================================================ */
+
+.status-success-message{
+  color:#087443;
+  font-weight:700;
+}
+
+.status-warning-message{
+  color:#8a5a00;
+  font-weight:700;
+}
+
+
+/* ============================================================
+   CONFIRMATION MODAL
+   ============================================================ */
+
+.status-modal-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(11,42,87,.45);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+  padding:20px;
+}
+
+.status-modal{
+  width:100%;
+  max-width:500px;
+  background:#fff;
+  border-radius:16px;
+  box-shadow:0 15px 45px rgba(0,0,0,.20);
+  overflow:hidden;
+}
+
+.status-modal-header{
+  background:var(--b);
+  color:#fff;
+  padding:18px 20px;
+}
+
+.status-modal-header h3{
+  margin:0;
+  font-size:1.15rem;
+  font-weight:800;
+}
+
+.status-modal-body{
+  padding:22px 20px;
+  color:#344054;
+}
+
+.status-modal-body .student-name{
+  color:var(--b);
+  font-weight:800;
+}
+
+.status-modal-body .kpsid{
+  font-weight:700;
+}
+
+.status-change-box{
+  margin-top:15px;
+  background:#f8fbff;
+  border:1px solid #d9e8f8;
+  border-radius:10px;
+  padding:14px;
+}
+
+.status-modal-footer{
+  padding:15px 20px;
+  border-top:1px solid var(--br);
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
+}
+
+@media(max-width:768px){
+
+  .hi{
+    min-height:70px;
+  }
+
+  .ainfo{
+    display:none;
+  }
+
+  .ph{
+    flex-direction:column;
+  }
+
+  .wrap{
+    padding:22px 12px 40px;
+  }
+
+  .status-modal-footer{
+    flex-direction:column;
+  }
+
+  .status-modal-footer button{
+    width:100%;
+  }
+
+}
+
+</style>
+
+</head>
+
+
 <body>
-<header class="top"><div class="container-fluid px-3 px-md-4"><div class="hi"><a href="index.html" class="brand"><div class="bi"><i class="fa-solid fa-graduation-cap"></i></div><div><div class="bn">Kalviparavai</div><div class="bs">Digital Class Room</div></div></a><div class="ap"><div class="av"><i class="fa-solid fa-user-shield"></i></div><div class="ainfo"><div class="al">Administrator</div><div id="administratorName" class="an">Administrator</div></div><button class="btn btn-sm btn-outline-primary" onclick="logoutAdministrator()"><i class="fa-solid fa-right-from-bracket me-1"></i>Logout</button></div></div></div></header>
-<main class="wrap"><div class="ph"><div><h1 class="pt"><i class="fa-solid fa-magnifying-glass me-2"></i>Accepted Student Search</h1><p class="pd">Search the active student master directly from 01_Students.</p></div><div><span class="ro"><i class="fa-solid fa-lock"></i> READ ONLY</span><a href="AdminDashboard.html" class="btn btn-primary ms-2"><i class="fa-solid fa-arrow-left me-1"></i>Back to Dashboard</a></div></div>
-<section class="cardx"><div class="sh"><h2 class="st"><i class="fa-solid fa-user-graduate me-2"></i>Student Master Search</h2><p class="ss">Search by KPSID, Student Name, Student Mobile Number or Google_Email.</p></div><div class="sb"><div class="panel"><div class="row g-3 align-items-start"><div class="col-12 col-md-4"><label class="form-label" for="searchBy">Search By</label><select id="searchBy" class="form-select"><option value="KPSID">KPSID</option><option value="Student Name">Student Name</option><option value="Student Mobile">Student Mobile Number</option><option value="Google_Email">Google_Email</option></select></div><div class="col-12 col-md-5"><label class="form-label" for="searchValue">Search Value</label><input id="searchValue" class="form-control" placeholder="Enter search value" autocomplete="off"><div class="note mt-1">Case-insensitive; partial matching supported.</div></div><div class="col-12 col-md-3"><button id="searchButton" class="btn btn-primary w-100" onclick="performSearch()"><i class="fa-solid fa-magnifying-glass me-1"></i>SEARCH</button></div></div><div class="mt-3 d-flex justify-content-between"><div id="statusMessage"></div><button class="btn btn-sm btn-outline-secondary" onclick="clearSearch"><i class="fa-solid fa-eraser me-1"></i>Clear</button></div></div><div class="mt-4"><div id="resultSummary" class="mb-2"></div><div id="loadingState" class="load d-none"><i class="fa-solid fa-spinner fa-spin d-block"></i>Searching 01_Students...</div><div id="errorState" class="err d-none"><i class="fa-solid fa-triangle-exclamation d-block"></i><span id="errorText"></span></div><div id="emptyState" class="empty"><i class="fa-solid fa-magnifying-glass d-block"></i><b>Enter a search value</b><div>Search using one of the four available fields.</div></div><div id="resultTableArea" class="tw d-none"><table class="table table-sm tbl"><thead><tr><th>KPSID</th><th>Student Name</th><th>Course</th><th>Class</th><th>School Name</th><th>Gender</th><th>Date of Birth</th><th>Parent Name</th><th>Student Mobile</th><th>Parent Mobile</th></tr></thead><tbody id="resultTableBody"></tbody></table></div></div><div class="note mt-3"><i class="fa-solid fa-circle-info me-1"></i>Source: <strong>01_Students</strong> directly. Strictly read-only; no data is updated, reformatted, deleted or copied.</div></div></section><div class="foot">Kalviparavai Digital Class Room <span class="mx-1">|</span> KPOTMS Version 4.0 <span class="mx-1">|</span> Administrator Portal</div></main>
+
+
+<!-- ==========================================================
+     HEADER
+     ========================================================== -->
+
+<header class="top">
+
+  <div class="container-fluid px-3 px-md-4">
+
+    <div class="hi">
+
+      <a
+        href="index.html"
+        class="brand"
+      >
+
+        <div class="bi">
+          <i class="fa-solid fa-graduation-cap"></i>
+        </div>
+
+        <div>
+
+          <div class="bn">
+            Kalviparavai
+          </div>
+
+          <div class="bs">
+            Digital Class Room
+          </div>
+
+        </div>
+
+      </a>
+
+
+      <div class="ap">
+
+        <div class="av">
+          <i class="fa-solid fa-user-shield"></i>
+        </div>
+
+        <div class="ainfo">
+
+          <div class="al">
+            Administrator
+          </div>
+
+          <div
+            id="administratorName"
+            class="an"
+          >
+            Administrator
+          </div>
+
+        </div>
+
+        <button
+          class="btn btn-sm btn-outline-primary"
+          onclick="logoutAdministrator()"
+        >
+
+          <i class="fa-solid fa-right-from-bracket me-1"></i>
+          Logout
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</header>
+
+
+
+<!-- ==========================================================
+     MAIN
+     ========================================================== -->
+
+<main class="wrap">
+
+
+  <!-- ========================================================
+       PAGE HEADER
+       ======================================================== -->
+
+  <div class="ph">
+
+    <div>
+
+      <h1 class="pt">
+
+        <i class="fa-solid fa-magnifying-glass me-2"></i>
+
+        Accepted Student Search
+
+      </h1>
+
+      <p class="pd">
+        Search the active student master directly from 01_Students.
+      </p>
+
+    </div>
+
+
+    <div>
+
+      <span class="ro">
+
+        <i class="fa-solid fa-lock"></i>
+
+        STUDENT DATA READ ONLY
+
+      </span>
+
+
+      <span class="status-control-note ms-1">
+
+        <i class="fa-solid fa-user-gear"></i>
+
+        STATUS CONTROL
+
+      </span>
+
+
+      <a
+        href="AdminDashboard.html"
+        class="btn btn-primary ms-2"
+      >
+
+        <i class="fa-solid fa-arrow-left me-1"></i>
+
+        Back to Dashboard
+
+      </a>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- ========================================================
+       SEARCH CARD
+       ======================================================== -->
+
+  <section class="cardx">
+
+
+    <div class="sh">
+
+      <h2 class="st">
+
+        <i class="fa-solid fa-user-graduate me-2"></i>
+
+        Student Master Search
+
+      </h2>
+
+      <p class="ss">
+
+        Search by KPSID, Student Name, Student Mobile Number or Google_Email.
+
+      </p>
+
+    </div>
+
+
+    <div class="sb">
+
+
+      <!-- ====================================================
+           SEARCH PANEL
+           ==================================================== -->
+
+      <div class="panel">
+
+
+        <div class="row g-3 align-items-start">
+
+
+          <!-- SEARCH BY -->
+
+          <div class="col-12 col-md-4">
+
+            <label
+              class="form-label"
+              for="searchBy"
+            >
+              Search By
+            </label>
+
+            <select
+              id="searchBy"
+              class="form-select"
+            >
+
+              <option value="KPSID">
+                KPSID
+              </option>
+
+              <option value="Student Name">
+                Student Name
+              </option>
+
+              <option value="Student Mobile">
+                Student Mobile Number
+              </option>
+
+              <option value="Google_Email">
+                Google_Email
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <!-- SEARCH VALUE -->
+
+          <div class="col-12 col-md-5">
+
+            <label
+              class="form-label"
+              for="searchValue"
+            >
+              Search Value
+            </label>
+
+            <input
+              id="searchValue"
+              class="form-control"
+              placeholder="Enter search value"
+              autocomplete="off"
+            >
+
+            <div class="note mt-1">
+              Case-insensitive; partial matching supported.
+            </div>
+
+          </div>
+
+
+          <!-- SEARCH BUTTON -->
+
+          <div class="col-12 col-md-3">
+
+            <button
+              id="searchButton"
+              class="btn btn-primary w-100"
+              onclick="performSearch()"
+            >
+
+              <i class="fa-solid fa-magnifying-glass me-1"></i>
+
+              SEARCH
+
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- ==================================================
+             SEARCH STATUS / CLEAR
+             ================================================== -->
+
+        <div class="mt-3 d-flex justify-content-between">
+
+          <div id="statusMessage"></div>
+
+          <button
+            class="btn btn-sm btn-outline-secondary"
+            onclick="clearSearch()"
+          >
+
+            <i class="fa-solid fa-eraser me-1"></i>
+
+            Clear
+
+          </button>
+
+        </div>
+
+
+      </div>
+
+
+
+      <!-- ====================================================
+           RESULT AREA
+           ==================================================== -->
+
+      <div class="mt-4">
+
+
+        <div
+          id="resultSummary"
+          class="mb-2"
+        ></div>
+
+
+        <!-- LOADING -->
+
+        <div
+          id="loadingState"
+          class="load d-none"
+        >
+
+          <i class="fa-solid fa-spinner fa-spin d-block"></i>
+
+          Searching 01_Students...
+
+        </div>
+
+
+        <!-- ERROR -->
+
+        <div
+          id="errorState"
+          class="err d-none"
+        >
+
+          <i class="fa-solid fa-triangle-exclamation d-block"></i>
+
+          <span id="errorText"></span>
+
+        </div>
+
+
+        <!-- EMPTY -->
+
+        <div
+          id="emptyState"
+          class="empty"
+        >
+
+          <i class="fa-solid fa-magnifying-glass d-block"></i>
+
+          <b>
+            Enter a search value
+          </b>
+
+          <div>
+            Search using one of the four available fields.
+          </div>
+
+        </div>
+
+
+        <!-- ==================================================
+             TABLE
+             ================================================== -->
+
+        <div
+          id="resultTableArea"
+          class="tw d-none"
+        >
+
+          <table class="table table-sm tbl">
+
+            <thead>
+
+              <tr>
+
+                <th>KPSID</th>
+
+                <th>Student Name</th>
+
+                <th>Course</th>
+
+                <th>Class</th>
+
+                <th>School Name</th>
+
+                <th>Gender</th>
+
+                <th>Date of Birth</th>
+
+                <th>Parent Name</th>
+
+                <th>Student Mobile</th>
+
+                <th>Parent Mobile</th>
+
+                <th class="text-center">
+                  Status
+                </th>
+
+                <th class="text-center">
+                  Action
+                </th>
+
+              </tr>
+
+            </thead>
+
+
+            <tbody id="resultTableBody"></tbody>
+
+          </table>
+
+        </div>
+
+
+        <!-- ==================================================
+             SOURCE NOTE
+             ================================================== -->
+
+        <div class="note mt-3">
+
+          <i class="fa-solid fa-circle-info me-1"></i>
+
+          Source:
+          <strong>01_Students</strong>
+          directly.
+
+          Student information is strictly read-only.
+          Only the Administrator-controlled account Status
+          can be changed through the Status Action button.
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- ========================================================
+       FOOTER
+       ======================================================== -->
+
+  <div class="foot">
+
+    Kalviparavai Digital Class Room
+
+    <span class="mx-1">|</span>
+
+    KPOTMS Version 4.0
+
+    <span class="mx-1">|</span>
+
+    Administrator Portal
+
+  </div>
+
+
+</main>
+
+
+
+<!-- ==========================================================
+     STATUS CONFIRMATION MODAL
+     ========================================================== -->
+
+<div
+  id="statusModalOverlay"
+  class="status-modal-overlay d-none"
+>
+
+  <div class="status-modal">
+
+
+    <div class="status-modal-header">
+
+      <h3>
+
+        <i class="fa-solid fa-user-gear me-2"></i>
+
+        Change Student Account Status
+
+      </h3>
+
+    </div>
+
+
+    <div class="status-modal-body">
+
+      <div>
+
+        Student:
+        <span
+          id="modalStudentName"
+          class="student-name"
+        >
+        </span>
+
+      </div>
+
+
+      <div class="mt-1">
+
+        KPSID:
+        <span
+          id="modalKpsid"
+          class="kpsid"
+        >
+        </span>
+
+      </div>
+
+
+      <div
+        id="statusChangeBox"
+        class="status-change-box"
+      >
+
+        <div>
+
+          Current Status:
+
+          <strong id="modalCurrentStatus">
+          </strong>
+
+        </div>
+
+
+        <div class="mt-2">
+
+          New Status:
+
+          <strong id="modalNewStatus">
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <div class="note mt-3">
+
+        <i class="fa-solid fa-circle-info me-1"></i>
+
+        This action changes the student's account status
+        in both <strong>01_Students</strong> and
+        <strong>01_Students_Login</strong>.
+
+        No other student information will be changed.
+
+      </div>
+
+    </div>
+
+
+    <div class="status-modal-footer">
+
+      <button
+        id="cancelStatusButton"
+        type="button"
+        class="btn btn-outline-secondary"
+        onclick="closeStatusModal()"
+      >
+
+        <i class="fa-solid fa-xmark me-1"></i>
+
+        Cancel
+
+      </button>
+
+
+      <button
+        id="confirmStatusButton"
+        type="button"
+        class="btn btn-primary"
+        onclick="confirmStatusChange()"
+      >
+
+        <i class="fa-solid fa-check me-1"></i>
+
+        Confirm Status Change
+
+      </button>
+
+    </div>
+
+
+  </div>
+
+</div>
+
+
+
 <script>
-const WEB_APP_URL="https://script.google.com/macros/s/AKfycbzxJ0qJ_uIVVCm_VZrCItEp6y_sniqVX52oD3WhTWwohuK_liNX8v9Wcm2IdEWbZbJs/exec";
-const ADMIN_LOGIN_ALLOWED_KEY="kpotmsAdministratorLoginAllowed";
-function checkAdministratorSession(){const l=sessionStorage.getItem("kpotmsLoggedIn"),r=sessionStorage.getItem("kpotmsRole");if(l==="true"&&r==="ADMINISTRATOR")return true;sessionStorage.removeItem("administratorID");sessionStorage.removeItem("administratorName");sessionStorage.removeItem("kpotmsLoggedIn");sessionStorage.removeItem("kpotmsRole");sessionStorage.removeItem(ADMIN_LOGIN_ALLOWED_KEY);window.location.replace("index.html");return false}
-function loadAdministratorName(){document.getElementById("administratorName").textContent=sessionStorage.getItem("administratorName")||sessionStorage.getItem("administratorID")||"Administrator"}
-function logoutAdministrator(){sessionStorage.removeItem("administratorID");sessionStorage.removeItem("administratorName");sessionStorage.removeItem("kpotmsLoggedIn");sessionStorage.removeItem("kpotmsRole");sessionStorage.removeItem(ADMIN_LOGIN_ALLOWED_KEY);window.location.replace("index.html")}
-async function callWebAPI(action,payload={}){if(sessionStorage.getItem("kpotmsLoggedIn")!=="true"||sessionStorage.getItem("kpotmsRole")!=="ADMINISTRATOR")throw new Error("Administrator session is no longer valid.");const r=await fetch(WEB_APP_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({action,...payload}),cache:"no-store"});if(!r.ok)throw new Error("Web API request failed. HTTP "+r.status);let x;try{x=JSON.parse(await r.text())}catch(e){throw new Error("Invalid response received from server.")}return x}
-function esc(v){return String(v??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;")}
-function states(){["loadingState","errorState","emptyState","resultTableArea"].forEach(id=>document.getElementById(id).classList.add("d-none"))}
-function performSearch(){const by=document.getElementById("searchBy").value,val=document.getElementById("searchValue").value.trim();if(!val){document.getElementById("statusMessage").innerHTML='<span class="text-danger fw-semibold">Please enter a search value.</span>';return}const b=document.getElementById("searchButton");b.disabled=true;b.innerHTML='<i class="fa-solid fa-spinner fa-spin me-1"></i>SEARCHING...';states();document.getElementById("loadingState").classList.remove("d-none");document.getElementById("resultSummary").innerHTML="";callWebAPI("searchStudentsMaster",{searchBy:by,searchValue:val}).then(r=>{if(!r||r.success!==true)throw new Error(r?.message||"Unable to search Student Master.");render(r.data||[])}).catch(e=>{if(e.message==="Administrator session is no longer valid."){logoutAdministrator();return}states();document.getElementById("errorText").textContent=e.message||"Unable to search Student Master.";document.getElementById("errorState").classList.remove("d-none")}).finally(()=>{b.disabled=false;b.innerHTML='<i class="fa-solid fa-magnifying-glass me-1"></i>SEARCH'})}
-function render(a){states();document.getElementById("resultSummary").innerHTML=a.length?'<b class="text-primary">'+a.length+'</b> matching record(s) found.':'No matching student record found.';if(!a.length){document.getElementById("emptyState").classList.remove("d-none");return}const tb=document.getElementById("resultTableBody");tb.innerHTML="";a.forEach(s=>{const tr=document.createElement("tr");tr.innerHTML=`<td>${esc(s.KPSID)}</td><td>${esc(s.Student_Name)}</td><td>${esc(s.Course)}</td><td>${esc(s.Class)}</td><td>${esc(s.School_Name)}</td><td>${esc(s.Gender)}</td><td>${esc(s.Date_of_Birth)}</td><td>${esc(s.Parent_Name)}</td><td>${esc(s.Student_Mobile)}</td><td>${esc(s.Parent_Mobile)}</td>`;tb.appendChild(tr)});document.getElementById("resultTableArea").classList.remove("d-none")}
-function clearSearch(){document.getElementById("searchValue").value="";document.getElementById("resultSummary").innerHTML="";document.getElementById("statusMessage").innerHTML="";states();document.getElementById("emptyState").classList.remove("d-none");document.getElementById("searchValue").focus()}
-document.addEventListener("DOMContentLoaded",()=>{if(!checkAdministratorSession())return;loadAdministratorName();document.getElementById("searchValue").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();performSearch()}});document.getElementById("searchValue").focus()});
-</script></body></html>
+
+
+/* ============================================================
+   WEB APP URL
+   ============================================================ */
+
+const WEB_APP_URL =
+  "https://script.google.com/macros/s/AKfycbzxJ0qJ_uIVVCm_VZrCItEp6y_sniqVX52oD3WhTWwohuK_liNX8v9Wcm2IdEWbZbJs/exec";
+
+
+/* ============================================================
+   ADMINISTRATOR SESSION KEY
+   ============================================================ */
+
+const ADMIN_LOGIN_ALLOWED_KEY =
+  "kpotmsAdministratorLoginAllowed";
+
+
+/* ============================================================
+   SEARCH RESULT CACHE
+   ============================================================ */
+
+let lastSearchResults = [];
+
+
+/* ============================================================
+   STATUS CHANGE REQUEST
+   ============================================================ */
+
+let pendingStatusChange = null;
+
+
+/* ============================================================
+   ADMINISTRATOR SESSION CHECK
+   ============================================================ */
+
+function checkAdministratorSession(){
+
+  const loggedIn =
+    sessionStorage.getItem(
+      "kpotmsLoggedIn"
+    );
+
+  const role =
+    sessionStorage.getItem(
+      "kpotmsRole"
+    );
+
+
+  if(
+    loggedIn === "true" &&
+    role === "ADMINISTRATOR"
+  ){
+
+    return true;
+
+  }
+
+
+  sessionStorage.removeItem(
+    "administratorID"
+  );
+
+  sessionStorage.removeItem(
+    "administratorName"
+  );
+
+  sessionStorage.removeItem(
+    "kpotmsLoggedIn"
+  );
+
+  sessionStorage.removeItem(
+    "kpotmsRole"
+  );
+
+  sessionStorage.removeItem(
+    ADMIN_LOGIN_ALLOWED_KEY
+  );
+
+
+  window.location.replace(
+    "index.html"
+  );
+
+
+  return false;
+
+}
+
+
+/* ============================================================
+   LOAD ADMINISTRATOR NAME
+   ============================================================ */
+
+function loadAdministratorName(){
+
+  document.getElementById(
+    "administratorName"
+  ).textContent =
+    sessionStorage.getItem(
+      "administratorName"
+    ) ||
+    sessionStorage.getItem(
+      "administratorID"
+    ) ||
+    "Administrator";
+
+}
+
+
+/* ============================================================
+   ADMINISTRATOR LOGOUT
+   ============================================================ */
+
+function logoutAdministrator(){
+
+  sessionStorage.removeItem(
+    "administratorID"
+  );
+
+  sessionStorage.removeItem(
+    "administratorName"
+  );
+
+  sessionStorage.removeItem(
+    "kpotmsLoggedIn"
+  );
+
+  sessionStorage.removeItem(
+    "kpotmsRole"
+  );
+
+  sessionStorage.removeItem(
+    ADMIN_LOGIN_ALLOWED_KEY
+  );
+
+
+  window.location.replace(
+    "index.html"
+  );
+
+}
+
+
+/* ============================================================
+   WEB API
+   ============================================================ */
+
+async function callWebAPI(
+  action,
+  payload = {}
+){
+
+  if(
+    sessionStorage.getItem(
+      "kpotmsLoggedIn"
+    ) !== "true" ||
+
+    sessionStorage.getItem(
+      "kpotmsRole"
+    ) !== "ADMINISTRATOR"
+  ){
+
+    throw new Error(
+      "Administrator session is no longer valid."
+    );
+
+  }
+
+
+  const response =
+    await fetch(
+      WEB_APP_URL,
+      {
+        method:"POST",
+
+        headers:{
+          "Content-Type":
+            "text/plain;charset=utf-8"
+        },
+
+        body:
+          JSON.stringify({
+            action,
+            ...payload
+          }),
+
+        cache:"no-store"
+      }
+    );
+
+
+  if(
+    !response.ok
+  ){
+
+    throw new Error(
+      "Web API request failed. HTTP " +
+      response.status
+    );
+
+  }
+
+
+  let result;
+
+
+  try{
+
+    result =
+      JSON.parse(
+        await response.text()
+      );
+
+  }
+
+  catch(error){
+
+    throw new Error(
+      "Invalid response received from server."
+    );
+
+  }
+
+
+  return result;
+
+}
+
+
+/* ============================================================
+   HTML ESCAPE
+   ============================================================ */
+
+function esc(value){
+
+  return String(
+    value ?? ""
+  )
+  .replace(
+    /&/g,
+    "&amp;"
+  )
+  .replace(
+    /</g,
+    "&lt;"
+  )
+  .replace(
+    />/g,
+    "&gt;"
+  )
+  .replace(
+    /"/g,
+    "&quot;"
+  )
+  .replace(
+    /'/g,
+    "&#039;"
+  );
+
+}
+
+
+/* ============================================================
+   SEARCH FIELD ESCAPE FOR HTML ATTRIBUTE
+   ============================================================ */
+
+function escAttr(value){
+
+  return String(
+    value ?? ""
+  )
+  .replace(
+    /&/g,
+    "&amp;"
+  )
+  .replace(
+    /"/g,
+    "&quot;"
+  )
+  .replace(
+    /'/g,
+    "&#039;"
+  )
+  .replace(
+    /</g,
+    "&lt;"
+  )
+  .replace(
+    />/g,
+    "&gt;"
+  );
+
+}
+
+
+/* ============================================================
+   HIDE ALL RESULT STATES
+   ============================================================ */
+
+function states(){
+
+  [
+    "loadingState",
+    "errorState",
+    "emptyState",
+    "resultTableArea"
+  ]
+  .forEach(
+    function(id){
+
+      document
+        .getElementById(id)
+        .classList
+        .add("d-none");
+
+    }
+  );
+
+}
+
+
+/* ============================================================
+   PERFORM SEARCH
+   ============================================================ */
+
+function performSearch(){
+
+  const searchBy =
+    document.getElementById(
+      "searchBy"
+    ).value;
+
+
+  const searchValue =
+    document.getElementById(
+      "searchValue"
+    ).value.trim();
+
+
+  if(
+    !searchValue
+  ){
+
+    document.getElementById(
+      "statusMessage"
+    ).innerHTML =
+      '<span class="text-danger fw-semibold">' +
+      'Please enter a search value.' +
+      '</span>';
+
+    return;
+
+  }
+
+
+  const searchButton =
+    document.getElementById(
+      "searchButton"
+    );
+
+
+  searchButton.disabled =
+    true;
+
+
+  searchButton.innerHTML =
+    '<i class="fa-solid fa-spinner fa-spin me-1"></i>' +
+    'SEARCHING...';
+
+
+  states();
+
+
+  document.getElementById(
+    "statusMessage"
+  ).innerHTML =
+    "";
+
+
+  document.getElementById(
+    "loadingState"
+  )
+  .classList
+  .remove("d-none");
+
+
+  callWebAPI(
+    "searchStudentsMaster",
+    {
+      searchBy:
+        searchBy,
+
+      searchValue:
+        searchValue
+    }
+  )
+
+  .then(
+    function(result){
+
+      if(
+        !result ||
+        result.success !== true
+      ){
+
+        throw new Error(
+          result?.message ||
+          "Unable to search Student Master."
+        );
+
+      }
+
+
+      lastSearchResults =
+        Array.isArray(
+          result.data
+        )
+        ? result.data
+        : [];
+
+
+      render(
+        lastSearchResults
+      );
+
+    }
+  )
+
+  .catch(
+    function(error){
+
+      if(
+        error.message ===
+        "Administrator session is no longer valid."
+      ){
+
+        logoutAdministrator();
+
+        return;
+
+      }
+
+
+      states();
+
+
+      document.getElementById(
+        "errorText"
+      ).textContent =
+        error.message ||
+        "Unable to search Student Master.";
+
+
+      document.getElementById(
+        "errorState"
+      )
+      .classList
+      .remove("d-none");
+
+    }
+  )
+
+  .finally(
+    function(){
+
+      searchButton.disabled =
+        false;
+
+
+      searchButton.innerHTML =
+        '<i class="fa-solid fa-magnifying-glass me-1"></i>' +
+        'SEARCH';
+
+    }
+  );
+
+}
+
+
+/* ============================================================
+   STATUS BADGE
+   ============================================================ */
+
+function statusBadge(
+  status
+){
+
+  const normalized =
+    String(
+      status || ""
+    )
+    .trim()
+    .toUpperCase();
+
+
+  if(
+    normalized === "ACTIVE"
+  ){
+
+    return `
+      <span class="status-badge status-active">
+        <i class="fa-solid fa-circle-check"></i>
+        ACTIVE
+      </span>
+    `;
+
+  }
+
+
+  if(
+    normalized === "INACTIVE"
+  ){
+
+    return `
+      <span class="status-badge status-inactive">
+        <i class="fa-solid fa-circle-xmark"></i>
+        INACTIVE
+      </span>
+    `;
+
+  }
+
+
+  return `
+    <span class="status-badge status-unknown">
+      <i class="fa-solid fa-circle-question"></i>
+      ${esc(normalized || "NOT SET")}
+    </span>
+  `;
+
+}
+
+
+/* ============================================================
+   STATUS ACTION BUTTON
+   ============================================================ */
+
+function statusActionButton(
+  student
+){
+
+  const status =
+    String(
+      student.Status || ""
+    )
+    .trim()
+    .toUpperCase();
+
+
+  const kpsid =
+    escAttr(
+      student.KPSID
+    );
+
+
+  if(
+    status === "ACTIVE"
+  ){
+
+    return `
+      <button
+        type="button"
+        class="btn btn-sm btn-outline-danger status-action"
+        onclick="openStatusModal(
+          '${kpsid}',
+          'INACTIVE'
+        )"
+      >
+        <i class="fa-solid fa-user-slash me-1"></i>
+        Make Inactive
+      </button>
+    `;
+
+  }
+
+
+  if(
+    status === "INACTIVE"
+  ){
+
+    return `
+      <button
+        type="button"
+        class="btn btn-sm btn-outline-success status-action"
+        onclick="openStatusModal(
+          '${kpsid}',
+          'ACTIVE'
+        )"
+      >
+        <i class="fa-solid fa-user-check me-1"></i>
+        Make Active
+      </button>
+    `;
+
+  }
+
+
+  return `
+    <button
+      type="button"
+      class="btn btn-sm btn-outline-secondary status-action"
+      disabled
+    >
+      <i class="fa-solid fa-ban me-1"></i>
+      Status Unavailable
+    </button>
+  `;
+
+}
+
+
+/* ============================================================
+   RENDER SEARCH RESULTS
+   ============================================================ */
+
+function render(
+  students
+){
+
+  states();
+
+
+  document.getElementById(
+    "resultSummary"
+  ).innerHTML =
+
+    students.length
+
+      ? '<b class="text-primary">' +
+        students.length +
+        '</b> matching record(s) found.'
+
+      : 'No matching student record found.';
+
+
+  if(
+    !students.length
+  ){
+
+    document.getElementById(
+      "emptyState"
+    )
+    .classList
+    .remove("d-none");
+
+    return;
+
+  }
+
+
+  const tableBody =
+    document.getElementById(
+      "resultTableBody"
+    );
+
+
+  tableBody.innerHTML =
+    "";
+
+
+  students.forEach(
+    function(student){
+
+      const tr =
+        document.createElement(
+          "tr"
+        );
+
+
+      tr.innerHTML = `
+
+        <td>
+          ${esc(student.KPSID)}
+        </td>
+
+        <td>
+          ${esc(student.Student_Name)}
+        </td>
+
+        <td>
+          ${esc(student.Course)}
+        </td>
+
+        <td>
+          ${esc(student.Class)}
+        </td>
+
+        <td>
+          ${esc(student.School_Name)}
+        </td>
+
+        <td>
+          ${esc(student.Gender)}
+        </td>
+
+        <td>
+          ${esc(student.Date_of_Birth)}
+        </td>
+
+        <td>
+          ${esc(student.Parent_Name)}
+        </td>
+
+        <td>
+          ${esc(student.Student_Mobile)}
+        </td>
+
+        <td>
+          ${esc(student.Parent_Mobile)}
+        </td>
+
+        <td class="status-cell">
+
+          ${statusBadge(
+            student.Status
+          )}
+
+        </td>
+
+        <td class="action-cell">
+
+          ${statusActionButton(
+            student
+          )}
+
+        </td>
+
+      `;
+
+
+      tableBody.appendChild(
+        tr
+      );
+
+    }
+  );
+
+
+  document.getElementById(
+    "resultTableArea"
+  )
+  .classList
+  .remove("d-none");
+
+}
+
+
+/* ============================================================
+   OPEN STATUS CONFIRMATION MODAL
+   ============================================================ */
+
+function openStatusModal(
+  kpsid,
+  newStatus
+){
+
+  const student =
+    lastSearchResults.find(
+      function(item){
+
+        return String(
+          item.KPSID || ""
+        )
+        .trim()
+        .toUpperCase() ===
+
+        String(
+          kpsid || ""
+        )
+        .trim()
+        .toUpperCase();
+
+      }
+    );
+
+
+  if(
+    !student
+  ){
+
+    showStatusMessage(
+      "Student record could not be found in the current search.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const currentStatus =
+    String(
+      student.Status || ""
+    )
+    .trim()
+    .toUpperCase();
+
+
+  const requestedStatus =
+    String(
+      newStatus || ""
+    )
+    .trim()
+    .toUpperCase();
+
+
+  if(
+    currentStatus !== "ACTIVE" &&
+    currentStatus !== "INACTIVE"
+  ){
+
+    showStatusMessage(
+      "The current student status is invalid. Status was not changed.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  if(
+    requestedStatus !== "ACTIVE" &&
+    requestedStatus !== "INACTIVE"
+  ){
+
+    showStatusMessage(
+      "Invalid new student status.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  if(
+    currentStatus === requestedStatus
+  ){
+
+    showStatusMessage(
+      "The student already has this status.",
+      "warning"
+    );
+
+    return;
+
+  }
+
+
+  pendingStatusChange = {
+
+    kpsid:
+      student.KPSID,
+
+    studentName:
+      student.Student_Name,
+
+    currentStatus:
+      currentStatus,
+
+    newStatus:
+      requestedStatus
+
+  };
+
+
+  document.getElementById(
+    "modalStudentName"
+  ).textContent =
+    student.Student_Name ||
+    "";
+
+
+  document.getElementById(
+    "modalKpsid"
+  ).textContent =
+    student.KPSID ||
+    "";
+
+
+  document.getElementById(
+    "modalCurrentStatus"
+  ).innerHTML =
+    statusBadge(
+      currentStatus
+    );
+
+
+  document.getElementById(
+    "modalNewStatus"
+  ).innerHTML =
+    statusBadge(
+      requestedStatus
+    );
+
+
+  document.getElementById(
+    "statusModalOverlay"
+  )
+  .classList
+  .remove("d-none");
+
+}
+
+
+/* ============================================================
+   CLOSE STATUS MODAL
+   ============================================================ */
+
+function closeStatusModal(){
+
+  pendingStatusChange =
+    null;
+
+
+  document.getElementById(
+    "statusModalOverlay"
+  )
+  .classList
+  .add("d-none");
+
+}
+
+
+/* ============================================================
+   CONFIRM STATUS CHANGE
+   ============================================================ */
+
+async function confirmStatusChange(){
+
+  if(
+    !pendingStatusChange
+  ){
+
+    closeStatusModal();
+
+    return;
+
+  }
+
+
+  const change =
+    pendingStatusChange;
+
+
+  const confirmButton =
+    document.getElementById(
+      "confirmStatusButton"
+    );
+
+
+  const cancelButton =
+    document.getElementById(
+      "cancelStatusButton"
+    );
+
+
+  confirmButton.disabled =
+    true;
+
+  cancelButton.disabled =
+    true;
+
+
+  confirmButton.innerHTML =
+    '<i class="fa-solid fa-spinner fa-spin me-1"></i>' +
+    'Updating...';
+
+
+  try{
+
+    const result =
+      await callWebAPI(
+        "toggleStudentStatus",
+        {
+          kpsid:
+            change.kpsid
+        }
+      );
+
+
+    if(
+      !result ||
+      result.success !== true
+    ){
+
+      throw new Error(
+        result?.message ||
+        "Unable to change student status."
+      );
+
+    }
+
+
+    /*
+     * Update the cached search result locally.
+     * No new search is required.
+     */
+
+    lastSearchResults =
+      lastSearchResults.map(
+        function(student){
+
+          if(
+            String(
+              student.KPSID || ""
+            )
+            .trim()
+            .toUpperCase() ===
+
+            String(
+              change.kpsid || ""
+            )
+            .trim()
+            .toUpperCase()
+          ){
+
+            return {
+              ...student,
+              Status:
+                result.newStatus ||
+                change.newStatus
+            };
+
+          }
+
+
+          return student;
+
+        }
+      );
+
+
+    closeStatusModal();
+
+
+    render(
+      lastSearchResults
+    );
+
+
+    showStatusMessage(
+      "Student " +
+      change.kpsid +
+      " status changed successfully from " +
+      change.currentStatus +
+      " to " +
+      (
+        result.newStatus ||
+        change.newStatus
+      ) +
+      ".",
+      "success"
+    );
+
+
+  }
+
+  catch(error){
+
+    if(
+      error.message ===
+      "Administrator session is no longer valid."
+    ){
+
+      logoutAdministrator();
+
+      return;
+
+    }
+
+
+    confirmButton.disabled =
+      false;
+
+    cancelButton.disabled =
+      false;
+
+
+    confirmButton.innerHTML =
+      '<i class="fa-solid fa-check me-1"></i>' +
+      'Confirm Status Change';
+
+
+    showStatusMessage(
+      error.message ||
+      "Unable to change student status.",
+      "error"
+    );
+
+  }
+
+}
+
+
+/* ============================================================
+   STATUS MESSAGE
+   ============================================================ */
+
+function showStatusMessage(
+  message,
+  type
+){
+
+  const element =
+    document.getElementById(
+      "statusMessage"
+    );
+
+
+  if(
+    type === "success"
+  ){
+
+    element.innerHTML =
+      '<span class="status-success-message">' +
+      '<i class="fa-solid fa-circle-check me-1"></i>' +
+      esc(message) +
+      '</span>';
+
+    return;
+
+  }
+
+
+  if(
+    type === "warning"
+  ){
+
+    element.innerHTML =
+      '<span class="status-warning-message">' +
+      '<i class="fa-solid fa-triangle-exclamation me-1"></i>' +
+      esc(message) +
+      '</span>';
+
+    return;
+
+  }
+
+
+  element.innerHTML =
+    '<span class="text-danger fw-semibold">' +
+    '<i class="fa-solid fa-circle-exclamation me-1"></i>' +
+    esc(message) +
+    '</span>';
+
+}
+
+
+/* ============================================================
+   CLEAR SEARCH
+   ============================================================ */
+
+function clearSearch(){
+
+  document.getElementById(
+    "searchValue"
+  ).value =
+    "";
+
+
+  document.getElementById(
+    "resultSummary"
+  ).innerHTML =
+    "";
+
+
+  document.getElementById(
+    "statusMessage"
+  ).innerHTML =
+    "";
+
+
+  lastSearchResults =
+    [];
+
+
+  states();
+
+
+  document.getElementById(
+    "emptyState"
+  )
+  .classList
+  .remove("d-none");
+
+
+  document.getElementById(
+    "searchValue"
+  ).focus();
+
+}
+
+
+/* ============================================================
+   ENTER KEY SEARCH
+   ============================================================ */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function(){
+
+    if(
+      !checkAdministratorSession()
+    ){
+
+      return;
+
+    }
+
+
+    loadAdministratorName();
+
+
+    document
+      .getElementById(
+        "searchValue"
+      )
+      .addEventListener(
+        "keydown",
+        function(event){
+
+          if(
+            event.key === "Enter"
+          ){
+
+            event.preventDefault();
+
+            performSearch();
+
+          }
+
+        }
+      );
+
+
+    /*
+     * Close modal if the dark background itself is clicked.
+     * Clicking inside the modal does not close it.
+     */
+
+    document
+      .getElementById(
+        "statusModalOverlay"
+      )
+      .addEventListener(
+        "click",
+        function(event){
+
+          if(
+            event.target === this
+          ){
+
+            closeStatusModal();
+
+          }
+
+        }
+      );
+
+
+    document
+      .getElementById(
+        "searchValue"
+      )
+      .focus();
+
+  }
+);
+
+</script>
+
+
+</body>
+
+</html>
