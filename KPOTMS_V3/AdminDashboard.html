@@ -761,7 +761,7 @@ Administrator Dashboard
 </h1>
 
 <p class="page-description">
-Manage student registrations, approvals and account status.
+Manage student registrations, approvals, account status and MIS reporting.
 </p>
 
 </div>
@@ -790,6 +790,18 @@ onclick="openStudentSearch()">
 <i class="fa-solid fa-users me-1"></i>
 
 Search Students
+
+</button>
+
+
+<button
+type="button"
+class="btn btn-kp-primary me-1"
+onclick="openMISReports()">
+
+<i class="fa-solid fa-chart-column me-1"></i>
+
+MIS Reports
 
 </button>
 
@@ -1200,7 +1212,7 @@ View previous registration decisions
 <button
 type="button"
 class="quick-action w-100 text-start"
-onclick="showComingSoon('Administrator Reports')">
+onclick="openMISReports()">
 
 <div class="quick-icon">
 
@@ -1216,7 +1228,7 @@ Reports
 
 <div class="quick-description">
 
-Administrator and MIS reports
+Registration, strength and student MIS reports
 
 </div>
 
@@ -1576,6 +1588,17 @@ const ADMIN_LOGIN_ALLOWED_KEY =
 "kpotmsAdministratorLoginAllowed";
 
 
+/*
+ * MIS REPORTS ACCESS GATE
+ *
+ * AdminMISReports.html is reached from this Dashboard only.
+ * The MIS page must verify this short-lived session flag before
+ * allowing access. This does not replace the Administrator login.
+ */
+const MIS_REPORT_ACCESS_KEY =
+"kpotmsMISReportsAccess";
+
+
 const COURSE_MASTER = [
 
 {
@@ -1727,6 +1750,11 @@ function checkAdministratorSession(){
 
     sessionStorage.removeItem(
         ADMIN_LOGIN_ALLOWED_KEY
+    );
+
+
+    sessionStorage.removeItem(
+        MIS_REPORT_ACCESS_KEY
     );
 
 
@@ -4882,6 +4910,11 @@ function logoutAdministrator(){
     );
 
 
+    sessionStorage.removeItem(
+        MIS_REPORT_ACCESS_KEY
+    );
+
+
     window.location.replace(
         "index.html"
     );
@@ -4892,6 +4925,42 @@ function logoutAdministrator(){
 function openStudentSearch(){
 
     window.location.href = "AdminStudentSearch.html";
+
+}
+
+
+/* ==========================================================
+   MIS REPORTS NAVIGATION
+
+   The MIS page is intentionally NOT exposed as a normal
+   public navigation link. This function establishes a
+   session-only access flag and then opens the MIS page.
+
+   AdminMISReports.html must independently verify both: 
+       1. Administrator login session
+       2. MIS_REPORT_ACCESS_KEY
+
+   Directly typing AdminMISReports.html will therefore fail
+   the second check.
+   ========================================================== */
+
+function openMISReports(){
+
+    if(!checkAdministratorSession()){
+
+        return;
+
+    }
+
+
+    sessionStorage.setItem(
+        MIS_REPORT_ACCESS_KEY,
+        "true"
+    );
+
+
+    window.location.href =
+        "AdminMISReports.html";
 
 }
 
