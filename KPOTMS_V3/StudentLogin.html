@@ -1,33 +1,21 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
 
 <meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Kalviparavai - Student Login</title>
-
 
 <style>
 
 * {
-
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-
-    font-family:
-        "Segoe UI",
-        Arial,
-        sans-serif;
-
+    font-family: "Segoe UI", Arial, sans-serif;
 }
-
 
 body {
 
@@ -42,8 +30,7 @@ body {
 
     background-size: 400% 400%;
 
-    animation:
-        bgmove 15s ease infinite;
+    animation: bgmove 15s ease infinite;
 
     min-height: 100vh;
 
@@ -52,32 +39,22 @@ body {
     justify-content: center;
 
     align-items: center;
-
 }
-
 
 @keyframes bgmove {
 
     0% {
-
         background-position: 0% 50%;
-
     }
 
     50% {
-
         background-position: 100% 50%;
-
     }
 
     100% {
-
         background-position: 0% 50%;
-
     }
-
 }
-
 
 .card {
 
@@ -95,16 +72,12 @@ body {
 
     box-shadow:
         0 15px 40px rgba(0,0,0,.30);
-
 }
-
 
 .logo {
 
     font-size: 65px;
-
 }
-
 
 .title {
 
@@ -115,9 +88,7 @@ body {
     font-weight: bold;
 
     margin-top: 10px;
-
 }
-
 
 .subtitle {
 
@@ -126,9 +97,7 @@ body {
     margin-top: 5px;
 
     margin-bottom: 25px;
-
 }
-
 
 input {
 
@@ -143,18 +112,14 @@ input {
     border: 1px solid #cccccc;
 
     font-size: 16px;
-
 }
-
 
 input:focus {
 
     outline: none;
 
     border: 1px solid #1565C0;
-
 }
-
 
 button {
 
@@ -175,25 +140,19 @@ button {
     font-size: 18px;
 
     cursor: pointer;
-
 }
-
 
 button:hover {
 
     background: #0D47A1;
-
 }
-
 
 button:disabled {
 
     background: #999;
 
     cursor: wait;
-
 }
-
 
 #error {
 
@@ -202,9 +161,7 @@ button:disabled {
     margin-top: 15px;
 
     font-weight: bold;
-
 }
-
 
 #student {
 
@@ -219,9 +176,7 @@ button:disabled {
     padding: 20px;
 
     text-align: left;
-
 }
-
 
 #student h2 {
 
@@ -230,25 +185,19 @@ button:disabled {
     text-align: center;
 
     margin-bottom: 15px;
-
 }
-
 
 .info {
 
     margin: 10px 0;
 
     font-size: 17px;
-
 }
-
 
 .continue {
 
     margin-top: 20px;
-
 }
-
 
 .footer {
 
@@ -257,9 +206,7 @@ button:disabled {
     color: #888;
 
     font-size: 13px;
-
 }
-
 
 .loading {
 
@@ -268,6 +215,62 @@ button:disabled {
     margin-top: 15px;
 
     font-weight: bold;
+}
+
+/* ==========================================================
+   INACTIVE ACCOUNT MESSAGE
+   ========================================================== */
+
+#inactiveAccount {
+
+    display: none;
+
+    margin-top: 20px;
+
+    padding: 18px;
+
+    border-radius: 12px;
+
+    background: #fdecef;
+
+    border: 1px solid #f5b7c0;
+
+    color: #b02a37;
+
+    font-weight: 700;
+
+    line-height: 1.6;
+
+    text-align: center;
+}
+
+#inactiveAccount .inactive-icon {
+
+    font-size: 34px;
+
+    margin-bottom: 8px;
+}
+
+
+/* ==========================================================
+   DIRECT ENTRY BLOCK
+   ========================================================== */
+
+#accessDenied {
+
+    display: none;
+
+    color: #C62828;
+
+    font-weight: bold;
+
+    line-height: 1.6;
+}
+
+
+#loginContent {
+
+    display: block;
 
 }
 
@@ -283,108 +286,159 @@ button:disabled {
 
 
     <!-- =====================================================
-         STUDENT LOGIN
+         ACCESS DENIED MESSAGE
          ===================================================== -->
 
+    <div id="accessDenied">
 
-    <div class="logo">
-        🦜
+        <div class="logo">
+            🦜
+        </div>
+
+        <div class="title">
+            KALVIPARAVAI
+        </div>
+
+        <div class="subtitle">
+            Student Login
+        </div>
+
+        <p>
+            Direct access to Student Login is not permitted.
+        </p>
+
+        <p style="margin-top:10px;color:#666;">
+            Please enter through the Kalviparavai home page.
+        </p>
+
     </div>
 
 
-    <div class="title">
-        KALVIPARAVAI
-    </div>
+    <!-- =====================================================
+         NORMAL LOGIN CONTENT
+         ===================================================== -->
+
+    <div id="loginContent">
 
 
-    <div class="subtitle">
-        Student Login
-    </div>
-
-
-    <!-- =================================================
-         LOGIN INPUTS
-         ================================================= -->
-
-
-    <input
-        id="kpsid"
-        type="text"
-        placeholder="Enter KPSID"
-        autocomplete="username"
-    >
-
-
-    <input
-        id="dob"
-        type="text"
-        placeholder="Date of Birth (DD-MM-YYYY)"
-        autocomplete="off"
-    >
-
-
-    <button
-        id="loginButton"
-        onclick="login()"
-    >
-        LOGIN
-    </button>
-
-
-    <div id="loading"></div>
-
-
-    <div id="error"></div>
-
-
-    <!-- =================================================
-         STUDENT INFORMATION
-
-         CourseID is deliberately NOT displayed.
-         ================================================= -->
-
-
-    <div id="student">
-
-
-        <h2>
-            Welcome
-        </h2>
-
-
-        <div class="info">
-
-            <b>Student :</b>
-
-            <span id="studentName"></span>
-
+        <div class="logo">
+            🦜
         </div>
 
 
-        <div class="info">
-
-            <b>KPSID :</b>
-
-            <span id="studentID"></span>
-
+        <div class="title">
+            KALVIPARAVAI
         </div>
 
 
-        <div class="info">
-
-            <b>Course :</b>
-
-            <span id="studentCourse"></span>
-
+        <div class="subtitle">
+            Student Login
         </div>
+
+
+        <!-- =================================================
+             LOGIN INPUTS
+             ================================================= -->
+
+        <input
+            id="kpsid"
+            type="text"
+            placeholder="Enter KPSID"
+            autocomplete="username"
+        >
+
+
+        <input
+            id="dob"
+            type="text"
+            placeholder="Date of Birth (DD-MM-YYYY)"
+            autocomplete="off"
+        >
 
 
         <button
-            class="continue"
-            onclick="openStudentSessions()"
+            id="loginButton"
+            onclick="login()"
         >
-            CONTINUE
+            LOGIN
         </button>
+
+
+        <div id="loading"></div>
+
+
+        <div id="error"></div>
+
+
+        <!-- =================================================
+             INACTIVE ACCOUNT MESSAGE
+             ================================================= -->
+
+        <div id="inactiveAccount">
+
+            <div class="inactive-icon">
+                🔒
+            </div>
+
+            <div>
+                Your account is presently INACTIVE.
+                You are not permitted to join sessions at this time.
+                Please contact the Administrator.
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             STUDENT INFORMATION
+
+             CourseID is deliberately NOT displayed.
+             ================================================= -->
+
+        <div id="student">
+
+
+            <h2>
+                Welcome
+            </h2>
+
+
+            <div class="info">
+
+                <b>Student :</b>
+
+                <span id="studentName"></span>
+
+            </div>
+
+
+            <div class="info">
+
+                <b>KPSID :</b>
+
+                <span id="studentID"></span>
+
+            </div>
+
+
+            <div class="info">
+
+                <b>Course :</b>
+
+                <span id="studentCourse"></span>
+
+            </div>
+
+
+            <button
+                class="continue"
+                onclick="openStudentSessions()"
+            >
+                CONTINUE
+            </button>
+
+
+        </div>
 
 
     </div>
@@ -392,7 +446,7 @@ button:disabled {
 
     <div class="footer">
 
-        KPOTMS Version 3.0
+        KPOTMS Version 4.0
 
     </div>
 
@@ -404,7 +458,7 @@ button:disabled {
 
 
 /* ==========================================================
-   KPOTMS V3.0
+   KPOTMS V4.0
    STUDENT LOGIN ENTRY CONTROL
 
    ----------------------------------------------------------
@@ -420,7 +474,7 @@ button:disabled {
             ↓
        index.html
 
-   No access-denied screen is displayed.
+   No access-denied screen is displayed for direct access.
    ========================================================== */
 
 
@@ -454,15 +508,6 @@ button:disabled {
 
             /*
              * Allow entry from index.html.
-             *
-             * Examples:
-             *
-             * /index.html
-             *
-             * /kalviparavai/index.html
-             *
-             * /some-folder/index.html
-             *
              */
 
             if (
@@ -511,11 +556,6 @@ button:disabled {
      * ------------------------------------------------------
      * DIRECT ACCESS BLOCK
      * ------------------------------------------------------
-     *
-     * If StudentsLogin.html was opened directly,
-     * immediately return to index.html.
-     *
-     * No message is displayed.
      */
 
     if (!allowed) {
@@ -536,7 +576,6 @@ button:disabled {
    DATA SOURCE
    ========================================================== */
 
-
 const csvURL =
 "https://docs.google.com/spreadsheets/d/e/2PACX-1vSJxSOEW0y5LERF7KJQKN-ivKxL9D_1tbX9S09kAvn_jTw7719AZInIgGYwd3ent-IX4ky11N2TrS4s/pub?gid=55364272&single=true&output=csv";
 
@@ -544,7 +583,6 @@ const csvURL =
 /* ==========================================================
    CSV PARSER
    ========================================================== */
-
 
 function parseCSVLine(line) {
 
@@ -650,7 +688,6 @@ function parseCSVLine(line) {
    NORMALIZE DATE
    ========================================================== */
 
-
 function normalizeDOB(value) {
 
 
@@ -668,9 +705,123 @@ function normalizeDOB(value) {
 
 
 /* ==========================================================
-   LOGIN
+   NORMALIZE HEADER
    ========================================================== */
 
+function normalizeHeader(value) {
+
+    return String(
+        value || ""
+    )
+    .toLowerCase()
+    .replace(
+        /[\s_]+/g,
+        " "
+    )
+    .trim();
+
+}
+
+
+/* ==========================================================
+   FIND HEADER COLUMN
+   ========================================================== */
+
+function findHeaderIndex(
+    headers,
+    aliases
+) {
+
+    const normalizedAliases =
+        aliases.map(
+            function(alias) {
+
+                return normalizeHeader(
+                    alias
+                );
+
+            }
+        );
+
+
+    for (
+        let i = 0;
+        i < headers.length;
+        i++
+    ) {
+
+        if (
+            normalizedAliases.includes(
+                normalizeHeader(
+                    headers[i]
+                )
+            )
+        ) {
+
+            return i;
+
+        }
+
+    }
+
+
+    return -1;
+
+}
+
+
+/* ==========================================================
+   CLEAR STUDENT SESSION DATA
+   ========================================================== */
+
+function clearStudentSessionData() {
+
+
+    sessionStorage.removeItem(
+        "kpotms_student_name"
+    );
+
+
+    sessionStorage.removeItem(
+        "kpotms_student_id"
+    );
+
+
+    sessionStorage.removeItem(
+        "kpotms_student_course"
+    );
+
+
+    sessionStorage.removeItem(
+        "kpotms_student_course_id"
+    );
+
+
+    sessionStorage.removeItem(
+        "studentName"
+    );
+
+
+    sessionStorage.removeItem(
+        "studentID"
+    );
+
+
+    sessionStorage.removeItem(
+        "studentCourse"
+    );
+
+
+    sessionStorage.removeItem(
+        "courseID"
+    );
+
+}
+
+
+/* ==========================================================
+   LOGIN
+   ========================================================== */
 
 async function login() {
 
@@ -693,6 +844,12 @@ async function login() {
         );
 
 
+    const inactiveElement =
+        document.getElementById(
+            "inactiveAccount"
+        );
+
+
     const loginButton =
         document.getElementById(
             "loginButton"
@@ -709,6 +866,13 @@ async function login() {
 
     studentElement.style.display =
         "none";
+
+
+    inactiveElement.style.display =
+        "none";
+
+
+    clearStudentSessionData();
 
 
     const kpsid =
@@ -791,6 +955,138 @@ async function login() {
             );
 
 
+        if (
+            rows.length < 2
+        ) {
+
+
+            throw new Error(
+                "Student database contains no records."
+            );
+
+
+        }
+
+
+        const headers =
+            parseCSVLine(
+                rows[0]
+            );
+
+
+        /*
+         * Current 01_Students_Login structure:
+         *
+         * A = KPSID
+         * B = Date_of_Birth
+         * C = Student_Name
+         * D = Course
+         * E = CourseID
+         * F = Google_Email
+         * G = Status
+         *
+         * Header-based lookup is used so the Status column
+         * remains safe even if columns are rearranged later.
+         */
+
+
+        const kpsidColumn =
+            findHeaderIndex(
+                headers,
+                [
+                    "KPSID",
+                    "KPS ID"
+                ]
+            );
+
+
+        const dobColumn =
+            findHeaderIndex(
+                headers,
+                [
+                    "Date_of_Birth",
+                    "Date of Birth",
+                    "DOB"
+                ]
+            );
+
+
+        const nameColumn =
+            findHeaderIndex(
+                headers,
+                [
+                    "Student_Name",
+                    "Student Name"
+                ]
+            );
+
+
+        const courseColumn =
+            findHeaderIndex(
+                headers,
+                [
+                    "Course"
+                ]
+            );
+
+
+        const courseIDColumn =
+            findHeaderIndex(
+                headers,
+                [
+                    "CourseID",
+                    "Course ID"
+                ]
+            );
+
+
+        const statusColumn =
+            findHeaderIndex(
+                headers,
+                [
+                    "Status",
+                    "Student Status",
+                    "Account Status"
+                ]
+            );
+
+
+        if (
+            kpsidColumn === -1 ||
+            dobColumn === -1 ||
+            nameColumn === -1 ||
+            courseColumn === -1 ||
+            courseIDColumn === -1
+        ) {
+
+
+            throw new Error(
+                "Required student login columns are missing in 01_Students_Login."
+            );
+
+
+        }
+
+
+        /*
+         * Status is now required for the V4.0 account-control
+         * workflow.
+         */
+
+
+        if (
+            statusColumn === -1
+        ) {
+
+
+            throw new Error(
+                "Status column is missing in 01_Students_Login."
+            );
+
+
+        }
+
+
         const enteredDOB =
             normalizeDOB(
                 dob
@@ -802,7 +1098,7 @@ async function login() {
 
 
         /* --------------------------------------------------
-           Search student
+           SEARCH STUDENT
            -------------------------------------------------- */
 
 
@@ -830,18 +1126,9 @@ async function login() {
                 );
 
 
-            /*
-             * A = KPSID
-             * B = Date_of_Birth
-             * C = Student_Name
-             * D = Course
-             * E = CourseID
-             */
-
-
             const id =
                 String(
-                    cols[0] || ""
+                    cols[kpsidColumn] || ""
                 )
                 .trim()
                 .toUpperCase();
@@ -849,40 +1136,115 @@ async function login() {
 
             const birth =
                 normalizeDOB(
-                    cols[1] || ""
+                    cols[dobColumn] || ""
                 );
 
 
-            const name =
-                String(
-                    cols[2] || ""
-                )
-                .trim();
-
-
-            const course =
-                String(
-                    cols[3] || ""
-                )
-                .trim();
-
-
-            const courseID =
-                String(
-                    cols[4] || ""
-                )
-                .trim();
-
-
-            /* ------------------------------------------------
-               MATCH KPSID + DOB
-               ------------------------------------------------ */
+            /*
+             * MATCH KPSID + DOB
+             */
 
 
             if (
                 id === kpsid &&
                 birth === enteredDOB
             ) {
+
+
+                studentFound =
+                    true;
+
+
+                const name =
+                    String(
+                        cols[nameColumn] || ""
+                    )
+                    .trim();
+
+
+                const course =
+                    String(
+                        cols[courseColumn] || ""
+                    )
+                    .trim();
+
+
+                const courseID =
+                    String(
+                        cols[courseIDColumn] || ""
+                    )
+                    .trim();
+
+
+                const status =
+                    String(
+                        cols[statusColumn] || ""
+                    )
+                    .trim()
+                    .toUpperCase();
+
+
+                /*
+                 * ------------------------------------------------
+                 * INACTIVE ACCOUNT
+                 * ------------------------------------------------
+                 *
+                 * IMPORTANT:
+                 *
+                 * An inactive student must NOT receive a
+                 * Student session or CourseID session state.
+                 *
+                 * The exact approved message is displayed.
+                 */
+
+
+                if (
+                    status === "INACTIVE"
+                ) {
+
+
+                    clearStudentSessionData();
+
+
+                    loadingElement.innerHTML =
+                        "";
+
+
+                    inactiveElement.style.display =
+                        "block";
+
+
+                    return;
+
+
+                }
+
+
+                /*
+                 * ------------------------------------------------
+                 * ACTIVE ACCOUNT
+                 * ------------------------------------------------
+                 *
+                 * Only ACTIVE students proceed normally.
+                 */
+
+
+                if (
+                    status !== "ACTIVE"
+                ) {
+
+
+                    clearStudentSessionData();
+
+
+                    errorElement.innerHTML =
+                        "Student account status is not available. Please contact the Administrator.";
+
+
+                    return;
+
+
+                }
 
 
                 /*
@@ -908,24 +1270,7 @@ async function login() {
                  */
 
 
-                sessionStorage.removeItem(
-                    "kpotms_student_name"
-                );
-
-
-                sessionStorage.removeItem(
-                    "kpotms_student_id"
-                );
-
-
-                sessionStorage.removeItem(
-                    "kpotms_student_course"
-                );
-
-
-                sessionStorage.removeItem(
-                    "kpotms_student_course_id"
-                );
+                clearStudentSessionData();
 
 
                 /*
@@ -1023,10 +1368,6 @@ async function login() {
                     "block";
 
 
-                studentFound =
-                    true;
-
-
                 return;
 
 
@@ -1036,12 +1377,19 @@ async function login() {
         }
 
 
-        /* --------------------------------------------------
-           STUDENT NOT FOUND
-           -------------------------------------------------- */
+        /*
+         * --------------------------------------------------
+         * STUDENT NOT FOUND
+         * --------------------------------------------------
+         */
 
 
-        if (!studentFound) {
+        if (
+            !studentFound
+        ) {
+
+
+            clearStudentSessionData();
 
 
             errorElement.innerHTML =
@@ -1061,6 +1409,9 @@ async function login() {
             "Student Login Error:",
             error
         );
+
+
+        clearStudentSessionData();
 
 
         errorElement.innerHTML =
@@ -1091,7 +1442,6 @@ async function login() {
 /* ==========================================================
    OPEN STUDENT SESSIONS
    ========================================================== */
-
 
 function openStudentSessions() {
 
@@ -1150,7 +1500,6 @@ document
 
             }
 
-
         }
     );
 
@@ -1173,7 +1522,6 @@ document
 
 
             }
-
 
         }
     );
