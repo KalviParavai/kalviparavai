@@ -943,7 +943,7 @@ class="summary-number">
 
 
 <div class="summary-status">
-Student account status will be managed later
+Student accounts currently inactive
 </div>
 
 </div>
@@ -1944,7 +1944,7 @@ async function loadRegistrationSummary(){
     document.getElementById(
         "inactiveCount"
     ).textContent =
-        "—";
+        result.inactive || 0;
 
 
     updateRegistrationConnection(
