@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -940,11 +940,32 @@ function renderReport(
         document.getElementById(elementId);
 
     /*
-     * Defensive compatibility:
-     * If a future backend version returns the complete
-     * {total, rows} object instead of only rows, this function
-     * will still work.
+     * Code.gs returns the report as:
+     *
+     * {
+     *     total: ...,
+     *     rows: [...]
+     * }
+     *
+     * Depending on the backend grouping structure, each row
+     * may be either:
+     *
+     *     ["XI", 6]
+     *
+     * or:
+     *
+     *     { "XI": 6 }
+     *
+     * or:
+     *
+     *     { name: "XI", count: 6 }
+     *
+     * The earlier version handled only the last form.
+     * This caused the counts to appear while the group names
+     * appeared blank. This renderer now normalizes all of
+     * these read-only response formats.
      */
+
     if(
         rows &&
         !Array.isArray(rows) &&
@@ -970,6 +991,170 @@ function renderReport(
         return;
     }
 
+
+    function normalizeRow(row){
+
+        /* -----------------------------------------------
+           Array format:
+           ["XI", 6]
+           ----------------------------------------------- */
+
+        if(Array.isArray(row)){
+
+            return {
+                name:
+                    row.length > 0
+                        ? row[0]
+                        : "—",
+
+                count:
+                    row.length > 1
+                        ? Number(row[1]) || 0
+                        : 0
+            };
+
+        }
+
+
+        /* -----------------------------------------------
+           Primitive format
+           ----------------------------------------------- */
+
+        if(
+            row === null ||
+            typeof row !== "object"
+        ){
+
+            return {
+                name: row ?? "—",
+                count: 0
+            };
+
+        }
+
+
+        /* -----------------------------------------------
+           Common explicit-name formats
+           ----------------------------------------------- */
+
+        const explicitName =
+            row.name ??
+            row.label ??
+            row.key ??
+            row.valueName ??
+            row.group ??
+            row[ label ] ??
+            row[
+                String(label).toLowerCase()
+            ];
+
+        const explicitCount =
+            row.count ??
+            row.strength ??
+            row.total ??
+            row.studentCount ??
+            row.valueCount;
+
+
+        if(
+            explicitName !== undefined
+        ){
+
+            return {
+                name:
+                    explicitName,
+
+                count:
+                    Number(
+                        explicitCount ?? 0
+                    ) || 0
+            };
+
+        }
+
+
+        /* -----------------------------------------------
+           Single-key object format:
+           { "XI": 6 }
+           ----------------------------------------------- */
+
+        const keys =
+            Object.keys(row);
+
+        if(keys.length > 0){
+
+            const candidateKeys =
+                keys.filter(
+                    key =>
+                        ![
+                            "count",
+                            "strength",
+                            "total",
+                            "studentCount",
+                            "valueCount"
+                        ].includes(
+                            String(key)
+                        )
+                );
+
+            const nameKey =
+                candidateKeys[0] ||
+                keys[0];
+
+            return {
+                name:
+                    row[nameKey],
+
+                count:
+                    Number(
+                        explicitCount ??
+                        row[nameKey] ??
+                        0
+                    ) || 0
+            };
+
+        }
+
+
+        return {
+            name:"—",
+            count:0
+        };
+    }
+
+
+    const normalizedRows =
+        rows
+            .map(normalizeRow)
+            .filter(
+                row =>
+                    String(
+                        row.name ?? ""
+                    ).trim() !== ""
+            );
+
+
+    if(normalizedRows.length === 0){
+
+        container.innerHTML = `
+<div class="empty-state">
+    <div class="empty-icon">
+        <i class="fa-solid fa-chart-column"></i>
+    </div>
+    <div>No data available for this report.</div>
+</div>
+`;
+
+        return;
+    }
+
+
+    /*
+     * The backend has already grouped the records.
+     * We deliberately do NOT regroup or modify the data here.
+     * We only display the grouped rows returned by Code.gs.
+     */
+
     let html = `
 <div class="table-responsive">
 <table class="table table-sm mis-table">
@@ -984,20 +1169,14 @@ function renderReport(
 
     let total = 0;
 
-    rows.forEach(row => {
+
+    normalizedRows.forEach(row => {
 
         const name =
-            row[label] ??
-            row.name ??
-            "—";
+            row.name ?? "—";
 
         const count =
-            Number(
-                row.count ??
-                row.strength ??
-                row.total ??
-                0
-            );
+            Number(row.count) || 0;
 
         total += count;
 
@@ -1008,6 +1187,7 @@ function renderReport(
 </tr>
 `;
     });
+
 
     html += `
 <tr class="total-row">
