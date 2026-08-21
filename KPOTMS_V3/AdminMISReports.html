@@ -1,25 +1,15 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kalviparavai - Administrator MIS Reports</title>
 
-<link
-href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-rel="stylesheet">
-
-<link
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
 
 <style>
-
 :root{
     --kp-blue:#0b2a57;
     --kp-blue-light:#0d6efd;
@@ -40,11 +30,6 @@ body{
     background:var(--kp-bg);
     color:var(--kp-text);
 }
-
-
-/* ==========================================================
-   HEADER
-   ========================================================== */
 
 .top-header{
     background:#fff;
@@ -129,11 +114,6 @@ body{
     color:var(--kp-blue);
 }
 
-
-/* ==========================================================
-   MAIN
-   ========================================================== */
-
 .reports-container{
     max-width:1400px;
     margin:auto;
@@ -160,11 +140,6 @@ body{
     color:var(--kp-muted);
     margin:5px 0 0;
 }
-
-
-/* ==========================================================
-   BUTTONS
-   ========================================================== */
 
 .btn-kp{
     border-radius:8px;
@@ -193,11 +168,6 @@ body{
     background:#eef5ff;
     color:var(--kp-blue);
 }
-
-
-/* ==========================================================
-   REPORT CARDS
-   ========================================================== */
 
 .report-card{
     background:#fff;
@@ -245,11 +215,6 @@ body{
     padding:20px;
 }
 
-
-/* ==========================================================
-   SUMMARY NUMBERS
-   ========================================================== */
-
 .summary-box{
     border:1px solid #dfe6ef;
     border-radius:11px;
@@ -271,26 +236,10 @@ body{
     margin-top:5px;
 }
 
-.summary-box.pending{
-    border-left:4px solid var(--kp-orange);
-}
-
-.summary-box.approved{
-    border-left:4px solid var(--kp-green);
-}
-
-.summary-box.rejected{
-    border-left:4px solid var(--kp-red);
-}
-
-.summary-box.total{
-    border-left:4px solid var(--kp-blue-light);
-}
-
-
-/* ==========================================================
-   TABLES
-   ========================================================== */
+.summary-box.pending{border-left:4px solid var(--kp-orange);}
+.summary-box.approved{border-left:4px solid var(--kp-green);}
+.summary-box.rejected{border-left:4px solid var(--kp-red);}
+.summary-box.total{border-left:4px solid var(--kp-blue-light);}
 
 .table-responsive{
     border:1px solid #dfe6ef;
@@ -333,11 +282,6 @@ body{
 .total-row td{
     color:var(--kp-blue);
 }
-
-
-/* ==========================================================
-   STATUS
-   ========================================================== */
 
 .loading-state{
     text-align:center;
@@ -383,22 +327,12 @@ body{
     font-weight:600;
 }
 
-
-/* ==========================================================
-   FOOTER
-   ========================================================== */
-
 .dashboard-footer{
     text-align:center;
     color:#7b8794;
     font-size:.78rem;
     padding-top:30px;
 }
-
-
-/* ==========================================================
-   LOADING OVERLAY
-   ========================================================== */
 
 #loadingOverlay{
     position:fixed;
@@ -420,680 +354,276 @@ body{
     margin-bottom:12px;
 }
 
-
-/* ==========================================================
-   RESPONSIVE
-   ========================================================== */
-
 @media(max-width:768px){
-
-    .header-inner{
-        min-height:70px;
-    }
-
-    .admin-info{
-        display:none;
-    }
-
-    .page-title{
-        font-size:1.55rem;
-    }
-
-    .reports-container{
-        padding:22px 14px 40px;
-    }
-
+    .header-inner{min-height:70px;}
+    .admin-info{display:none;}
+    .page-title{font-size:1.55rem;}
+    .reports-container{padding:22px 14px 40px;}
 }
 
 @media(max-width:576px){
-
-    .brand-name{
-        font-size:1.2rem;
-    }
-
-    .brand-subtitle{
-        font-size:.72rem;
-    }
-
+    .brand-name{font-size:1.2rem;}
+    .brand-subtitle{font-size:.72rem;}
     .brand-icon{
         width:44px;
         height:44px;
         font-size:20px;
     }
-
-    .page-heading>div:last-child{
-        width:100%;
-    }
-
-    .page-heading>div:last-child .btn{
-        margin-bottom:5px;
-    }
-
+    .page-heading>div:last-child{width:100%;}
+    .page-heading>div:last-child .btn{margin-bottom:5px;}
 }
-
 </style>
-
 </head>
-
 
 <body>
 
-
-<!-- ========================================================
-     LOADING OVERLAY
-     ======================================================== -->
-
 <div id="loadingOverlay">
-
     <div class="loading-box">
-
         <i class="fa-solid fa-spinner fa-spin"></i>
-
-        <div>
-            Loading Administrator MIS Reports...
-        </div>
-
+        <div>Loading Administrator MIS Reports...</div>
     </div>
-
 </div>
-
-
-<!-- ========================================================
-     HEADER
-     ======================================================== -->
 
 <header class="top-header">
-
 <div class="container-fluid px-3 px-md-4">
-
 <div class="header-inner">
 
-
-<a
-href="index.html"
-class="brand">
-
-<div class="brand-icon">
-
-<i class="fa-solid fa-graduation-cap"></i>
-
-</div>
-
-<div>
-
-<div class="brand-name">
-Kalviparavai
-</div>
-
-<div class="brand-subtitle">
-Digital Class Room
-</div>
-
-</div>
-
+<a href="index.html" class="brand">
+    <div class="brand-icon">
+        <i class="fa-solid fa-graduation-cap"></i>
+    </div>
+    <div>
+        <div class="brand-name">Kalviparavai</div>
+        <div class="brand-subtitle">Digital Class Room</div>
+    </div>
 </a>
 
-
 <div class="admin-profile">
+    <div class="admin-avatar">
+        <i class="fa-solid fa-user-shield"></i>
+    </div>
 
-<div class="admin-avatar">
+    <div class="admin-info">
+        <div class="admin-label">Administrator</div>
+        <div class="admin-name" id="administratorName">Administrator</div>
+    </div>
 
-<i class="fa-solid fa-user-shield"></i>
-
-</div>
-
-<div class="admin-info">
-
-<div class="admin-label">
-Administrator
-</div>
-
-<div
-class="admin-name"
-id="administratorName">
-
-Administrator
-
+    <button type="button" class="btn btn-sm btn-kp-outline"
+            onclick="logoutAdministrator()">
+        <i class="fa-solid fa-right-from-bracket me-1"></i>
+        Logout
+    </button>
 </div>
 
 </div>
-
-
-<button
-type="button"
-class="btn btn-sm btn-kp-outline"
-onclick="logoutAdministrator()">
-
-<i class="fa-solid fa-right-from-bracket me-1"></i>
-
-Logout
-
-</button>
-
 </div>
-
-
-</div>
-
-</div>
-
 </header>
-
-
-<!-- ========================================================
-     MAIN
-     ======================================================== -->
 
 <main class="reports-container">
 
-
 <div class="page-heading">
+<div>
+    <h1 class="page-title">
+        <i class="fa-solid fa-chart-column me-2"></i>
+        Administrator MIS Reports
+    </h1>
+    <p class="page-description">
+        Read-only management information reports for Administrator use.
+    </p>
+</div>
 
 <div>
+    <button type="button" id="refreshButton"
+            class="btn btn-kp-outline me-1"
+            onclick="loadMISReports()">
+        <i class="fa-solid fa-rotate-right me-1"></i>
+        Refresh
+    </button>
 
-<h1 class="page-title">
+    <a href="AdminStudentSearch.html"
+       class="btn btn-kp-primary me-1">
+        <i class="fa-solid fa-users me-1"></i>
+        Search Students
+    </a>
 
-<i class="fa-solid fa-chart-column me-2"></i>
-
-Administrator MIS Reports
-
-</h1>
-
-<p class="page-description">
-
-Read-only management information reports for Administrator use.
-
-</p>
-
+    <a href="AdminDashboard.html"
+       class="btn btn-kp-primary">
+        <i class="fa-solid fa-house me-1"></i>
+        Dashboard
+    </a>
+</div>
 </div>
 
-
-<div>
-
-<button
-type="button"
-id="refreshButton"
-class="btn btn-kp-outline me-1"
-onclick="loadMISReports()">
-
-<i class="fa-solid fa-rotate-right me-1"></i>
-
-Refresh
-
-</button>
-
-
-<a
-href="AdminStudentSearch.html"
-class="btn btn-kp-primary me-1">
-
-<i class="fa-solid fa-users me-1"></i>
-
-Search Students
-
-</a>
-
-
-<a
-href="AdminDashboard.html"
-class="btn btn-kp-primary">
-
-<i class="fa-solid fa-house me-1"></i>
-
-Dashboard
-
-</a>
-
-</div>
-
-</div>
-
-
-<!-- ========================================================
-     ERROR AREA
-     ======================================================== -->
-
-<div
-id="errorArea"
-class="error-state d-none mb-4">
-</div>
-
-
-<!-- ========================================================
-     REGISTRATION SUMMARY
-     ======================================================== -->
+<div id="errorArea" class="error-state d-none mb-4"></div>
 
 <section class="report-card mb-4">
-
 <div class="report-header">
-
-<div class="report-icon">
-
-<i class="fa-solid fa-clipboard-list"></i>
-
+    <div class="report-icon">
+        <i class="fa-solid fa-clipboard-list"></i>
+    </div>
+    <div>
+        <h2 class="report-title">1. Registration Summary</h2>
+        <p class="report-subtitle">Overall registration status</p>
+    </div>
 </div>
-
-<div>
-
-<h2 class="report-title">
-1. Registration Summary
-</h2>
-
-<p class="report-subtitle">
-Overall registration status
-</p>
-
-</div>
-
-</div>
-
 
 <div class="report-body">
-
 <div class="row g-3">
 
-
 <div class="col-12 col-sm-6 col-lg-3">
-
 <div class="summary-box total">
-
-<div class="summary-label">
-Total Registrations
+    <div class="summary-label">Total Registrations</div>
+    <div id="totalRegistrations" class="summary-number">—</div>
 </div>
-
-<div
-id="totalRegistrations"
-class="summary-number">
-
-—
-
 </div>
-
-</div>
-
-</div>
-
 
 <div class="col-12 col-sm-6 col-lg-3">
-
 <div class="summary-box pending">
-
-<div class="summary-label">
-Pending Approval
+    <div class="summary-label">Pending Approval</div>
+    <div id="pendingRegistrations" class="summary-number">—</div>
 </div>
-
-<div
-id="pendingRegistrations"
-class="summary-number">
-
-—
-
 </div>
-
-</div>
-
-</div>
-
 
 <div class="col-12 col-sm-6 col-lg-3">
-
 <div class="summary-box approved">
-
-<div class="summary-label">
-Approved
+    <div class="summary-label">Approved</div>
+    <div id="approvedRegistrations" class="summary-number">—</div>
 </div>
-
-<div
-id="approvedRegistrations"
-class="summary-number">
-
-—
-
 </div>
-
-</div>
-
-</div>
-
 
 <div class="col-12 col-sm-6 col-lg-3">
-
 <div class="summary-box rejected">
-
-<div class="summary-label">
-Rejected
+    <div class="summary-label">Rejected</div>
+    <div id="rejectedRegistrations" class="summary-number">—</div>
 </div>
-
-<div
-id="rejectedRegistrations"
-class="summary-number">
-
-—
-
 </div>
 
 </div>
-
 </div>
-
-
-</div>
-
-</div>
-
 </section>
-
-
-<!-- ========================================================
-     CLASS-WISE
-     ======================================================== -->
 
 <section class="report-card mb-4">
-
 <div class="report-header">
-
-<div class="report-icon">
-
-<i class="fa-solid fa-school"></i>
-
+    <div class="report-icon"><i class="fa-solid fa-school"></i></div>
+    <div>
+        <h2 class="report-title">2. Class-wise Student Strength</h2>
+        <p class="report-subtitle">Student strength by Standard</p>
+    </div>
 </div>
-
-<div>
-
-<h2 class="report-title">
-2. Class-wise Student Strength
-</h2>
-
-<p class="report-subtitle">
-Student strength by Standard
-</p>
-
-</div>
-
-</div>
-
-
 <div class="report-body">
-
-<div
-id="classReport"
-class="loading-state">
-
-<i class="fa-solid fa-spinner fa-spin d-block"></i>
-
-Loading Class-wise Strength...
-
+    <div id="classReport" class="loading-state">
+        <i class="fa-solid fa-spinner fa-spin d-block"></i>
+        Loading Class-wise Strength...
+    </div>
 </div>
-
-</div>
-
 </section>
-
-
-<!-- ========================================================
-     COURSE-WISE
-     ======================================================== -->
 
 <section class="report-card mb-4">
-
 <div class="report-header">
-
-<div class="report-icon">
-
-<i class="fa-solid fa-book-open"></i>
-
+    <div class="report-icon"><i class="fa-solid fa-book-open"></i></div>
+    <div>
+        <h2 class="report-title">3. Course-wise Student Strength</h2>
+        <p class="report-subtitle">Student strength by selected course</p>
+    </div>
 </div>
-
-<div>
-
-<h2 class="report-title">
-3. Course-wise Student Strength
-</h2>
-
-<p class="report-subtitle">
-Student strength by selected course
-</p>
-
-</div>
-
-</div>
-
-
 <div class="report-body">
-
-<div
-id="courseReport"
-class="loading-state">
-
-<i class="fa-solid fa-spinner fa-spin d-block"></i>
-
-Loading Course-wise Strength...
-
+    <div id="courseReport" class="loading-state">
+        <i class="fa-solid fa-spinner fa-spin d-block"></i>
+        Loading Course-wise Strength...
+    </div>
 </div>
-
-</div>
-
 </section>
-
-
-<!-- ========================================================
-     SCHOOL-WISE
-     ======================================================== -->
 
 <section class="report-card mb-4">
-
 <div class="report-header">
-
-<div class="report-icon">
-
-<i class="fa-solid fa-building-columns"></i>
-
+    <div class="report-icon"><i class="fa-solid fa-building-columns"></i></div>
+    <div>
+        <h2 class="report-title">4. School-wise Student Strength</h2>
+        <p class="report-subtitle">Student strength by school</p>
+    </div>
 </div>
-
-<div>
-
-<h2 class="report-title">
-4. School-wise Student Strength
-</h2>
-
-<p class="report-subtitle">
-Student strength by school
-</p>
-
-</div>
-
-</div>
-
-
 <div class="report-body">
-
-<div
-id="schoolReport"
-class="loading-state">
-
-<i class="fa-solid fa-spinner fa-spin d-block"></i>
-
-Loading School-wise Strength...
-
+    <div id="schoolReport" class="loading-state">
+        <i class="fa-solid fa-spinner fa-spin d-block"></i>
+        Loading School-wise Strength...
+    </div>
 </div>
-
-</div>
-
 </section>
-
-
-<!-- ========================================================
-     GENDER-WISE
-     ======================================================== -->
 
 <section class="report-card mb-4">
-
 <div class="report-header">
-
-<div class="report-icon">
-
-<i class="fa-solid fa-venus-mars"></i>
-
+    <div class="report-icon"><i class="fa-solid fa-venus-mars"></i></div>
+    <div>
+        <h2 class="report-title">5. Gender-wise Student Strength</h2>
+        <p class="report-subtitle">Student strength by gender</p>
+    </div>
 </div>
-
-<div>
-
-<h2 class="report-title">
-5. Gender-wise Student Strength
-</h2>
-
-<p class="report-subtitle">
-Student strength by gender
-</p>
-
-</div>
-
-</div>
-
-
 <div class="report-body">
-
-<div
-id="genderReport"
-class="loading-state">
-
-<i class="fa-solid fa-spinner fa-spin d-block"></i>
-
-Loading Gender-wise Strength...
-
+    <div id="genderReport" class="loading-state">
+        <i class="fa-solid fa-spinner fa-spin d-block"></i>
+        Loading Gender-wise Strength...
+    </div>
 </div>
-
-</div>
-
 </section>
-
-
-<!-- ========================================================
-     DATA STATUS
-     ======================================================== -->
 
 <section class="report-card">
-
 <div class="report-header">
-
-<div class="report-icon">
-
-<i class="fa-solid fa-circle-info"></i>
-
+    <div class="report-icon"><i class="fa-solid fa-circle-info"></i></div>
+    <div>
+        <h2 class="report-title">MIS Data Status</h2>
+        <p class="report-subtitle">Current reporting connection status</p>
+    </div>
 </div>
-
-<div>
-
-<h2 class="report-title">
-MIS Data Status
-</h2>
-
-<p class="report-subtitle">
-Current reporting connection status
-</p>
-
-</div>
-
-</div>
-
 
 <div class="report-body">
-
 <div class="row g-3">
 
+<div class="col-12 col-md-4">
+<div class="p-3 border rounded-3">
+    <div class="small text-muted">Administrator Authentication</div>
+    <div class="connection-status text-success mt-1">
+        <i class="fa-solid fa-circle-check me-1"></i>
+        Connected
+    </div>
+</div>
+</div>
 
 <div class="col-12 col-md-4">
-
 <div class="p-3 border rounded-3">
-
-<div class="small text-muted">
-Administrator Authentication
+    <div class="small text-muted">MIS Data</div>
+    <div id="misConnectionStatus"
+         class="connection-status text-warning mt-1">
+        <i class="fa-solid fa-spinner fa-spin me-1"></i>
+        Connecting...
+    </div>
 </div>
-
-<div class="connection-status text-success mt-1">
-
-<i class="fa-solid fa-circle-check me-1"></i>
-
-Connected
-
 </div>
-
-</div>
-
-</div>
-
 
 <div class="col-12 col-md-4">
-
 <div class="p-3 border rounded-3">
-
-<div class="small text-muted">
-MIS Data
+    <div class="small text-muted">Data Processing</div>
+    <div class="connection-status text-success mt-1">
+        <i class="fa-solid fa-lock me-1"></i>
+        Read-Only
+    </div>
 </div>
-
-<div
-id="misConnectionStatus"
-class="connection-status text-warning mt-1">
-
-<i class="fa-solid fa-spinner fa-spin me-1"></i>
-
-Connecting...
-
 </div>
 
 </div>
-
 </div>
-
-
-<div class="col-12 col-md-4">
-
-<div class="p-3 border rounded-3">
-
-<div class="small text-muted">
-Data Processing
-</div>
-
-<div class="connection-status text-success mt-1">
-
-<i class="fa-solid fa-lock me-1"></i>
-
-Read-Only
-
-</div>
-
-</div>
-
-</div>
-
-
-</div>
-
-</div>
-
 </section>
 
-
 <footer class="dashboard-footer">
-
-Kalviparavai Digital Class Room
-
-<span class="mx-1">|</span>
-
-KPOTMS Version 4.0
-
-<span class="mx-1">|</span>
-
-Administrator MIS Reports
-
+    Kalviparavai Digital Class Room
+    <span class="mx-1">|</span>
+    KPOTMS Version 4.0
+    <span class="mx-1">|</span>
+    Administrator MIS Reports
 </footer>
-
 
 </main>
 
-
 <script>
-
 const WEB_APP_URL =
 "https://script.google.com/macros/s/AKfycbzxJ0qJ_uIVVCm_VZrCItEp6y_sniqVX52oD3WhTWwohuK_liNX8v9Wcm2IdEWbZbJs/exec";
 
@@ -1105,50 +635,27 @@ const WEB_APP_URL =
 function checkAdministratorSession(){
 
     const loggedIn =
-        sessionStorage.getItem(
-            "kpotmsLoggedIn"
-        );
+        sessionStorage.getItem("kpotmsLoggedIn");
 
     const role =
-        sessionStorage.getItem(
-            "kpotmsRole"
-        );
+        sessionStorage.getItem("kpotmsRole");
 
     if(
         loggedIn === "true" &&
         role === "ADMINISTRATOR"
     ){
-
         return true;
-
     }
 
-    sessionStorage.removeItem(
-        "administratorID"
-    );
+    sessionStorage.removeItem("administratorID");
+    sessionStorage.removeItem("administratorName");
+    sessionStorage.removeItem("kpotmsLoggedIn");
+    sessionStorage.removeItem("kpotmsRole");
+    sessionStorage.removeItem("kpotmsAdministratorLoginAllowed");
 
-    sessionStorage.removeItem(
-        "administratorName"
-    );
-
-    sessionStorage.removeItem(
-        "kpotmsLoggedIn"
-    );
-
-    sessionStorage.removeItem(
-        "kpotmsRole"
-    );
-
-    sessionStorage.removeItem(
-        "kpotmsAdministratorLoginAllowed"
-    );
-
-    window.location.replace(
-        "index.html"
-    );
+    window.location.replace("index.html");
 
     return false;
-
 }
 
 
@@ -1159,22 +666,13 @@ function checkAdministratorSession(){
 function loadAdministratorName(){
 
     const name =
-        sessionStorage.getItem(
-            "administratorName"
-        );
+        sessionStorage.getItem("administratorName");
 
     const adminID =
-        sessionStorage.getItem(
-            "administratorID"
-        );
+        sessionStorage.getItem("administratorID");
 
-    document.getElementById(
-        "administratorName"
-    ).textContent =
-        name ||
-        adminID ||
-        "Administrator";
-
+    document.getElementById("administratorName").textContent =
+        name || adminID || "Administrator";
 }
 
 
@@ -1182,30 +680,21 @@ function loadAdministratorName(){
    API
    ========================================================== */
 
-async function callWebAPI(
-    action,
-    payload={}
-){
+async function callWebAPI(action,payload={}){
 
     const loggedIn =
-        sessionStorage.getItem(
-            "kpotmsLoggedIn"
-        );
+        sessionStorage.getItem("kpotmsLoggedIn");
 
     const role =
-        sessionStorage.getItem(
-            "kpotmsRole"
-        );
+        sessionStorage.getItem("kpotmsRole");
 
     if(
         loggedIn !== "true" ||
         role !== "ADMINISTRATOR"
     ){
-
         throw new Error(
             "Administrator session is no longer valid."
         );
-
     }
 
     const response =
@@ -1213,45 +702,33 @@ async function callWebAPI(
             WEB_APP_URL,
             {
                 method:"POST",
-
                 headers:{
                     "Content-Type":
                     "text/plain;charset=utf-8"
                 },
-
                 body:
                 JSON.stringify({
                     action,
                     ...payload
                 }),
-
                 cache:"no-store"
             }
         );
 
-
     if(!response.ok){
-
         throw new Error(
             "Web API request failed. HTTP " +
             response.status
         );
-
     }
-
 
     const text =
         await response.text();
 
-
     try{
-
         return JSON.parse(text);
-
     }
-
     catch(error){
-
         console.error(
             "Invalid MIS response:",
             text
@@ -1260,9 +737,7 @@ async function callWebAPI(
         throw new Error(
             "Invalid response received from Administrator server."
         );
-
     }
-
 }
 
 
@@ -1273,99 +748,90 @@ async function callWebAPI(
 async function loadMISReports(){
 
     const button =
-        document.getElementById(
-            "refreshButton"
-        );
+        document.getElementById("refreshButton");
 
     const errorArea =
-        document.getElementById(
-            "errorArea"
-        );
+        document.getElementById("errorArea");
 
+    errorArea.classList.add("d-none");
 
-    errorArea.classList.add(
-        "d-none"
-    );
-
-
-    button.disabled =
-        true;
+    button.disabled = true;
 
     button.innerHTML =
         '<i class="fa-solid fa-spinner fa-spin me-1"></i>Loading...';
 
-
     try{
 
         const result =
-            await callWebAPI(
-                "getMISReports"
-            );
-
+            await callWebAPI("getMISReports");
 
         if(
             !result ||
             result.success !== true
         ){
-
             throw new Error(
                 result?.message ||
                 "Unable to load MIS reports."
             );
-
         }
-
 
         renderRegistrationSummary(
             result.registrationSummary
         );
 
+        /*
+         * IMPORTANT DATA-STRUCTURE FIX
+         *
+         * Code.gs returns:
+         *
+         *   classWise:  { total: ..., rows: [...] }
+         *   courseWise: { total: ..., rows: [...] }
+         *   schoolWise:{ total: ..., rows: [...] }
+         *   genderWise:{ total: ..., rows: [...] }
+         *
+         * The previous HTML passed the complete object to
+         * renderReport(), which expected an array.
+         *
+         * We now pass the .rows array.
+         */
 
         renderReport(
             "classReport",
-            result.classWise,
+            result.classWise?.rows || [],
             "Class"
         );
 
-
         renderReport(
             "courseReport",
-            result.courseWise,
+            result.courseWise?.rows || [],
             "Course"
         );
 
-
         renderReport(
             "schoolReport",
-            result.schoolWise,
+            result.schoolWise?.rows || [],
             "School"
         );
 
-
         renderReport(
             "genderReport",
-            result.genderWise,
+            result.genderWise?.rows || [],
             "Gender"
         );
-
 
         const status =
             document.getElementById(
                 "misConnectionStatus"
             );
 
-
         status.className =
             "connection-status text-success mt-1";
-
 
         status.innerHTML =
             '<i class="fa-solid fa-circle-check me-1"></i>' +
             "Connected";
 
-
     }
-
     catch(error){
 
         console.error(
@@ -1373,20 +839,13 @@ async function loadMISReports(){
             error
         );
 
-
         if(
             error.message ===
             "Administrator session is no longer valid."
         ){
-
-            window.location.replace(
-                "index.html"
-            );
-
+            window.location.replace("index.html");
             return;
-
         }
-
 
         errorArea.innerHTML =
             '<i class="fa-solid fa-triangle-exclamation me-2"></i>' +
@@ -1398,43 +857,31 @@ async function loadMISReports(){
             ) +
             '</div>';
 
-
-        errorArea.classList.remove(
-            "d-none"
-        );
-
+        errorArea.classList.remove("d-none");
 
         const status =
             document.getElementById(
                 "misConnectionStatus"
             );
 
-
         status.className =
             "connection-status text-danger mt-1";
-
 
         status.innerHTML =
             '<i class="fa-solid fa-circle-xmark me-1"></i>' +
             "Connection Error";
-
     }
-
     finally{
 
-        button.disabled =
-            false;
+        button.disabled = false;
 
         button.innerHTML =
             '<i class="fa-solid fa-rotate-right me-1"></i>Refresh';
 
         document.getElementById(
             "loadingOverlay"
-        ).style.display =
-            "none";
-
+        ).style.display = "none";
     }
-
 }
 
 
@@ -1442,64 +889,40 @@ async function loadMISReports(){
    REGISTRATION SUMMARY
    ========================================================== */
 
-function renderRegistrationSummary(
-    summary
-){
+function renderRegistrationSummary(summary){
 
-    summary =
-        summary || {};
-
+    summary = summary || {};
 
     const pending =
-        Number(
-            summary.pending || 0
-        );
-
+        Number(summary.pending || 0);
 
     const approved =
-        Number(
-            summary.approved || 0
-        );
-
+        Number(summary.approved || 0);
 
     const rejected =
-        Number(
-            summary.rejected || 0
-        );
-
+        Number(summary.rejected || 0);
 
     const total =
         Number(
             summary.total ??
-            pending +
-            approved +
-            rejected
+            pending + approved + rejected
         );
-
 
     document.getElementById(
         "totalRegistrations"
-    ).textContent =
-        total;
-
+    ).textContent = total;
 
     document.getElementById(
         "pendingRegistrations"
-    ).textContent =
-        pending;
-
+    ).textContent = pending;
 
     document.getElementById(
         "approvedRegistrations"
-    ).textContent =
-        approved;
-
+    ).textContent = approved;
 
     document.getElementById(
         "rejectedRegistrations"
-    ).textContent =
-        rejected;
-
+    ).textContent = rejected;
 }
 
 
@@ -1514,10 +937,21 @@ function renderReport(
 ){
 
     const container =
-        document.getElementById(
-            elementId
-        );
+        document.getElementById(elementId);
 
+    /*
+     * Defensive compatibility:
+     * If a future backend version returns the complete
+     * {total, rows} object instead of only rows, this function
+     * will still work.
+     */
+    if(
+        rows &&
+        !Array.isArray(rows) &&
+        Array.isArray(rows.rows)
+    ){
+        rows = rows.rows;
+    }
 
     if(
         !Array.isArray(rows) ||
@@ -1525,123 +959,67 @@ function renderReport(
     ){
 
         container.innerHTML = `
-
 <div class="empty-state">
-
-<div class="empty-icon">
-
-<i class="fa-solid fa-chart-column"></i>
-
+    <div class="empty-icon">
+        <i class="fa-solid fa-chart-column"></i>
+    </div>
+    <div>No data available for this report.</div>
 </div>
-
-<div>
-No data available for this report.
-</div>
-
-</div>
-
 `;
 
         return;
-
     }
 
-
     let html = `
-
 <div class="table-responsive">
-
 <table class="table table-sm mis-table">
-
 <thead>
-
 <tr>
-
-<th>${escapeHtml(label)}</th>
-
-<th class="text-end">
-Student Strength
-</th>
-
+    <th>${escapeHtml(label)}</th>
+    <th class="text-end">Student Strength</th>
 </tr>
-
 </thead>
-
 <tbody>
-
 `;
-
 
     let total = 0;
 
+    rows.forEach(row => {
 
-    rows.forEach(
-        row => {
+        const name =
+            row[label] ??
+            row.name ??
+            "—";
 
-            const name =
-                row[label] ??
-                row.name ??
-                "—";
+        const count =
+            Number(
+                row.count ??
+                row.strength ??
+                row.total ??
+                0
+            );
 
+        total += count;
 
-            const count =
-                Number(
-                    row.count ??
-                    row.strength ??
-                    row.total ??
-                    0
-                );
-
-
-            total += count;
-
-
-            html += `
-
+        html += `
 <tr>
-
-<td>
-${escapeHtml(name)}
-</td>
-
-<td class="count-cell">
-${count}
-</td>
-
+    <td>${escapeHtml(name)}</td>
+    <td class="count-cell">${count}</td>
 </tr>
-
 `;
-
-        }
-    );
-
+    });
 
     html += `
-
 <tr class="total-row">
-
-<td>
-Total
-</td>
-
-<td class="count-cell">
-${total}
-</td>
-
+    <td>Total</td>
+    <td class="count-cell">${total}</td>
 </tr>
-
 </tbody>
-
 </table>
-
 </div>
-
 `;
 
-
-    container.innerHTML =
-        html;
-
+    container.innerHTML = html;
 }
 
 
@@ -1651,30 +1029,13 @@ ${total}
 
 function logoutAdministrator(){
 
-    sessionStorage.removeItem(
-        "administratorID"
-    );
+    sessionStorage.removeItem("administratorID");
+    sessionStorage.removeItem("administratorName");
+    sessionStorage.removeItem("kpotmsLoggedIn");
+    sessionStorage.removeItem("kpotmsRole");
+    sessionStorage.removeItem("kpotmsAdministratorLoginAllowed");
 
-    sessionStorage.removeItem(
-        "administratorName"
-    );
-
-    sessionStorage.removeItem(
-        "kpotmsLoggedIn"
-    );
-
-    sessionStorage.removeItem(
-        "kpotmsRole"
-    );
-
-    sessionStorage.removeItem(
-        "kpotmsAdministratorLoginAllowed"
-    );
-
-    window.location.replace(
-        "index.html"
-    );
-
+    window.location.replace("index.html");
 }
 
 
@@ -1682,34 +1043,14 @@ function logoutAdministrator(){
    ESCAPE HTML
    ========================================================== */
 
-function escapeHtml(
-    value
-){
+function escapeHtml(value){
 
-    return String(
-        value ?? ""
-    )
-    .replace(
-        /&/g,
-        "&amp;"
-    )
-    .replace(
-        /</g,
-        "&lt;"
-    )
-    .replace(
-        />/g,
-        "&gt;"
-    )
-    .replace(
-        /"/g,
-        "&quot;"
-    )
-    .replace(
-        /'/g,
-        "&#039;"
-    );
-
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
 }
 
 
@@ -1722,26 +1063,19 @@ async function initializeMIS(){
     if(
         !checkAdministratorSession()
     ){
-
         return;
-
     }
-
 
     loadAdministratorName();
 
     await loadMISReports();
-
 }
-
 
 document.addEventListener(
     "DOMContentLoaded",
     initializeMIS
 );
-
 </script>
 
 </body>
-
 </html>
