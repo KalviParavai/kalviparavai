@@ -567,6 +567,38 @@ font-size:.74rem;
 margin-top:2px
 }
 
+/* ==========================================================
+   REGISTRATION CONTROL
+   Uses the same existing Quick Action design.
+   No new colour theme is introduced.
+   ========================================================== */
+
+.registration-control-button{
+cursor:pointer;
+text-align:left;
+width:100%;
+position:relative
+}
+
+.registration-control-button:disabled{
+cursor:wait;
+opacity:.75
+}
+
+.registration-control-status{
+margin-top:4px;
+font-size:.74rem;
+font-weight:600
+}
+
+.registration-open-status{
+color:var(--kp-green)
+}
+
+.registration-closed-status{
+color:var(--kp-red)
+}
+
 .dashboard-footer{
 text-align:center;
 color:#7b8794;
@@ -1171,10 +1203,6 @@ Review and correct pending student registrations
 
 
 
-
-
-
-
 <div class="col-12 col-md-6 col-xl-3">
 
 <button
@@ -1229,6 +1257,49 @@ Reports
 <div class="quick-description">
 
 Registration, strength and student MIS reports
+
+</div>
+
+
+</button>
+
+</div>
+
+
+<!-- ======================================================
+     REGISTRATION OPEN / CLOSE
+     ====================================================== -->
+
+<div class="col-12 col-md-6 col-xl-3">
+
+<button
+type="button"
+id="registrationControlButton"
+class="quick-action registration-control-button"
+onclick="toggleRegistrationControl()">
+
+<div class="quick-icon">
+
+<i
+id="registrationControlIcon"
+class="fa-solid fa-pen-to-square">
+</i>
+
+</div>
+
+
+<div class="quick-title">
+
+Registration Open / Close
+
+</div>
+
+
+<div
+id="registrationControlStatus"
+class="registration-control-status">
+
+Checking current registration status...
 
 </div>
 
@@ -1548,23 +1619,13 @@ src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.j
 /* ==========================================================
    KPOTMS V4.0 - ADMINISTRATOR DASHBOARD
 
-   ROUTE:
+   Existing Administrator Dashboard functionality preserved.
 
-       index.html
-           ↓
-       AdministratorLogin.html
-           ↓
-       AdminDashboard.html
+   Added:
+       Registration Open / Close control
 
-
-   DIRECT ACCESS:
-
-       AdminDashboard.html
-           ↓
-       index.html
-
-   IMPORTANT:
-   Administrator Dashboard cannot be opened directly.
+   Registration control is Administrator-only and uses
+   the existing Administrator Web App session.
    ========================================================== */
 
 
@@ -1588,15 +1649,20 @@ const ADMIN_LOGIN_ALLOWED_KEY =
 "kpotmsAdministratorLoginAllowed";
 
 
-/*
- * MIS REPORTS ACCESS GATE
- *
- * AdminMISReports.html is reached from this Dashboard only.
- * The MIS page must verify this short-lived session flag before
- * allowing access. This does not replace the Administrator login.
- */
 const MIS_REPORT_ACCESS_KEY =
 "kpotmsMISReportsAccess";
+
+
+/* ==========================================================
+   REGISTRATION CONTROL ACTIONS
+   ========================================================== */
+
+const GET_REGISTRATION_CONTROL_ACTION =
+"getRegistrationControl";
+
+
+const SET_REGISTRATION_CONTROL_ACTION =
+"setRegistrationControl";
 
 
 const COURSE_MASTER = [
@@ -1667,21 +1733,16 @@ let rejectionInProgress=false;
 
 
 /* ==========================================================
-   ACCESS CONTROL
-
-   IMPORTANT CORRECTION
-
-   Valid Administrator session:
-       → allow dashboard
-
-   No valid Administrator session:
-       → index.html
-
-   NOT AdministratorLogin.html
-
-   This prevents direct URL access to AdminDashboard.html.
+   REGISTRATION CONTROL STATE
    ========================================================== */
 
+let currentRegistrationControlStatus =
+"OFF";
+
+
+/* ==========================================================
+   ACCESS CONTROL
+   ========================================================== */
 
 function checkAdministratorSession(){
 
@@ -1697,10 +1758,6 @@ function checkAdministratorSession(){
         );
 
 
-    /* ------------------------------------------------------
-       VALID ADMINISTRATOR SESSION
-       ------------------------------------------------------ */
-
     if(
         loggedIn === "true" &&
         role === "ADMINISTRATOR"
@@ -1709,23 +1766,6 @@ function checkAdministratorSession(){
         return true;
 
     }
-
-
-    /* ------------------------------------------------------
-       INVALID / DIRECT ACCESS
-
-       Clear Administrator session information.
-
-       Then return to the MAIN HOME PAGE.
-
-       The Administrator must subsequently follow:
-
-           index.html
-                ↓
-           AdministratorLogin.html
-                ↓
-           AdminDashboard.html
-       ------------------------------------------------------ */
 
 
     sessionStorage.removeItem(
@@ -1772,7 +1812,6 @@ function checkAdministratorSession(){
    ADMINISTRATOR NAME
    ========================================================== */
 
-
 function loadAdministratorName(){
 
     const name =
@@ -1800,7 +1839,6 @@ function loadAdministratorName(){
 /* ==========================================================
    API
    ========================================================== */
-
 
 async function callWebAPI(
     action,
@@ -1898,9 +1936,437 @@ async function callWebAPI(
 
 
 /* ==========================================================
-   SUMMARY
+   REGISTRATION OPEN / CLOSE CONTROL
    ========================================================== */
 
+
+/*
+ * Reads the current Registration value from the
+ * Administrator data source.
+ *
+ * Expected server response:
+ *
+ * {
+ *     success:true,
+ *     registration:"ON"
+ * }
+ *
+ * or
+ *
+ * {
+ *     success:true,
+ *     registration:"OFF"
+ * }
+ */
+
+async function loadRegistrationControl(){
+
+    const button =
+        document.getElementById(
+            "registrationControlButton"
+        );
+
+
+    const statusElement =
+        document.getElementById(
+            "registrationControlStatus"
+        );
+
+
+    const icon =
+        document.getElementById(
+            "registrationControlIcon"
+        );
+
+
+    if(
+        !button ||
+        !statusElement
+    ){
+
+        return;
+
+    }
+
+
+    try{
+
+        button.disabled =
+            true;
+
+
+        statusElement.innerHTML =
+            '<i class="fa-solid fa-spinner fa-spin me-1"></i>' +
+            'Checking current registration status...';
+
+
+        const result =
+            await callWebAPI(
+                GET_REGISTRATION_CONTROL_ACTION
+            );
+
+
+        if(
+            !result ||
+            result.success !== true
+        ){
+
+            throw new Error(
+                result?.message ||
+                "Unable to read Registration status."
+            );
+
+        }
+
+
+        const status =
+            String(
+                result.registration ||
+                result.status ||
+                result.data?.registration ||
+                result.data?.status ||
+                ""
+            )
+            .trim()
+            .toUpperCase();
+
+
+        if(
+            status !== "ON" &&
+            status !== "OFF"
+        ){
+
+            throw new Error(
+                "Invalid Registration status received from server."
+            );
+
+        }
+
+
+        currentRegistrationControlStatus =
+            status;
+
+
+        updateRegistrationControlUI(
+            status
+        );
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Registration control load error:",
+            error
+        );
+
+
+        statusElement.className =
+            "registration-control-status registration-closed-status";
+
+
+        statusElement.innerHTML =
+            '<i class="fa-solid fa-triangle-exclamation me-1"></i>' +
+            'Unable to read status';
+
+
+        if(icon){
+
+            icon.className =
+                "fa-solid fa-triangle-exclamation";
+
+        }
+
+
+        button.disabled =
+            false;
+
+    }
+
+}
+
+
+/* ==========================================================
+   REGISTRATION CONTROL UI
+   ========================================================== */
+
+function updateRegistrationControlUI(
+    status
+){
+
+    const button =
+        document.getElementById(
+            "registrationControlButton"
+        );
+
+
+    const statusElement =
+        document.getElementById(
+            "registrationControlStatus"
+        );
+
+
+    const icon =
+        document.getElementById(
+            "registrationControlIcon"
+        );
+
+
+    if(
+        !button ||
+        !statusElement
+    ){
+
+        return;
+
+    }
+
+
+    currentRegistrationControlStatus =
+        status;
+
+
+    button.disabled =
+        false;
+
+
+    if(
+        status === "ON"
+    ){
+
+        statusElement.className =
+            "registration-control-status registration-open-status";
+
+
+        statusElement.innerHTML =
+            '<i class="fa-solid fa-circle-check me-1"></i>' +
+            'OPEN — Students can register';
+
+
+        if(icon){
+
+            icon.className =
+                "fa-solid fa-toggle-on";
+
+        }
+
+    }
+
+    else{
+
+        statusElement.className =
+            "registration-control-status registration-closed-status";
+
+
+        statusElement.innerHTML =
+            '<i class="fa-solid fa-circle-xmark me-1"></i>' +
+            'CLOSED — Registration stopped';
+
+
+        if(icon){
+
+            icon.className =
+                "fa-solid fa-toggle-off";
+
+        }
+
+    }
+
+}
+
+
+/* ==========================================================
+   TOGGLE REGISTRATION OPEN / CLOSE
+   ========================================================== */
+
+async function toggleRegistrationControl(){
+
+    if(
+        !checkAdministratorSession()
+    ){
+
+        return;
+
+    }
+
+
+    const current =
+        currentRegistrationControlStatus;
+
+
+    const newStatus =
+        current === "ON"
+            ? "OFF"
+            : "ON";
+
+
+    const button =
+        document.getElementById(
+            "registrationControlButton"
+        );
+
+
+    const statusElement =
+        document.getElementById(
+            "registrationControlStatus"
+        );
+
+
+    const actionText =
+        newStatus === "ON"
+            ? "OPEN"
+            : "CLOSE";
+
+
+    const message =
+        newStatus === "ON"
+
+        ?
+
+        "Open Student Registration now?\n\n" +
+        "Students will be allowed to access the Student Registration Form."
+
+        :
+
+        "Close Student Registration now?\n\n" +
+        "Students will no longer be able to submit new registrations.";
+
+
+    if(
+        !window.confirm(
+            message
+        )
+    ){
+
+        return;
+
+    }
+
+
+    try{
+
+        button.disabled =
+            true;
+
+
+        statusElement.className =
+            "registration-control-status";
+
+
+        statusElement.innerHTML =
+            '<i class="fa-solid fa-spinner fa-spin me-1"></i>' +
+            actionText +
+            'ING registration...';
+
+
+        const result =
+            await callWebAPI(
+                SET_REGISTRATION_CONTROL_ACTION,
+                {
+                    status:
+                        newStatus
+                }
+            );
+
+
+        if(
+            !result ||
+            result.success !== true
+        ){
+
+            throw new Error(
+                result?.message ||
+                "Unable to change Registration status."
+            );
+
+        }
+
+
+        const confirmedStatus =
+            String(
+                result.registration ||
+                result.status ||
+                result.data?.registration ||
+                result.data?.status ||
+                newStatus
+            )
+            .trim()
+            .toUpperCase();
+
+
+        if(
+            confirmedStatus !== "ON" &&
+            confirmedStatus !== "OFF"
+        ){
+
+            throw new Error(
+                "Invalid Registration status returned by server."
+            );
+
+        }
+
+
+        currentRegistrationControlStatus =
+            confirmedStatus;
+
+
+        updateRegistrationControlUI(
+            confirmedStatus
+        );
+
+
+        alert(
+            confirmedStatus === "ON"
+
+            ?
+
+            "Student Registration is now OPEN."
+
+            :
+
+            "Student Registration is now CLOSED."
+        );
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Registration control update error:",
+            error
+        );
+
+
+        alert(
+            "Unable to change Registration status.\n\n" +
+            (
+                error.message ||
+                "Unknown error."
+            )
+        );
+
+
+        await loadRegistrationControl();
+
+    }
+
+    finally{
+
+        if(button){
+
+            button.disabled =
+                false;
+
+        }
+
+    }
+
+}
+
+
+/* ==========================================================
+   SUMMARY
+   ========================================================== */
 
 async function loadRegistrationSummary(){
 
@@ -1957,7 +2423,6 @@ async function loadRegistrationSummary(){
 /* ==========================================================
    PENDING LIST
    ========================================================== */
-
 
 async function loadPendingRegistrations(){
 
@@ -2333,7 +2798,6 @@ field(key) || "—"
 /* ==========================================================
    REVIEW / EDIT
    ========================================================== */
-
 
 function reviewRegistration(
     index
@@ -3080,7 +3544,6 @@ ${escapeHtml(full)}
    FORM DATA / VALIDATION
    ========================================================== */
 
-
 function getInputValue(id){
 
     const el =
@@ -3685,7 +4148,6 @@ function setApproveButtonEnabled(
    SAVE CORRECTIONS
    ========================================================== */
 
-
 async function saveCorrections(){
 
     if(!currentRegistration){
@@ -3883,22 +4345,6 @@ async function saveCorrections(){
 /* ==========================================================
    REJECTION
    ========================================================== */
-
-/*
- * Reject is deliberately independent of the approval workflow.
- *
- * PENDING -> REJECTED
- *
- * It does NOT:
- * - generate KPSID
- * - touch 00_Sequence
- * - create 01_Students
- * - create 01_Students_Login
- *
- * The server changes only the existing Status cell in
- * Form Responses 1. The original Timestamp and all other
- * columns remain unchanged.
- */
 
 async function rejectRegistrationByIndex(
     index
@@ -4193,7 +4639,6 @@ async function performRejection(
 /* ==========================================================
    APPROVAL
    ========================================================== */
-
 
 async function approveRegistrationByIndex(
     index
@@ -4522,7 +4967,6 @@ async function performApproval(
    STATUS / HELPERS
    ========================================================== */
 
-
 function showSaveStatus(
     message,
     type
@@ -4757,7 +5201,6 @@ function updateRegistrationConnection(
    LOAD / REFRESH
    ========================================================== */
 
-
 async function loadDashboardData(){
 
     try{
@@ -4840,6 +5283,13 @@ async function refreshDashboard(){
 
         await loadDashboardData();
 
+        /*
+         * Also refresh the Registration Open / Close
+         * state whenever the Administrator presses Refresh.
+         */
+
+        await loadRegistrationControl();
+
     }
 
     finally{
@@ -4882,7 +5332,6 @@ function focusPendingRegistrations(){
    LOGOUT
    ========================================================== */
 
-
 function logoutAdministrator(){
 
     sessionStorage.removeItem(
@@ -4924,29 +5373,21 @@ function logoutAdministrator(){
 
 function openStudentSearch(){
 
-    window.location.href = "AdminStudentSearch.html";
+    window.location.href =
+        "AdminStudentSearch.html";
 
 }
 
 
 /* ==========================================================
    MIS REPORTS NAVIGATION
-
-   The MIS page is intentionally NOT exposed as a normal
-   public navigation link. This function establishes a
-   session-only access flag and then opens the MIS page.
-
-   AdminMISReports.html must independently verify both: 
-       1. Administrator login session
-       2. MIS_REPORT_ACCESS_KEY
-
-   Directly typing AdminMISReports.html will therefore fail
-   the second check.
    ========================================================== */
 
 function openMISReports(){
 
-    if(!checkAdministratorSession()){
+    if(
+        !checkAdministratorSession()
+    ){
 
         return;
 
@@ -4981,17 +5422,7 @@ function showComingSoon(
    INITIALIZATION
    ========================================================== */
 
-
 async function initializeDashboard(){
-
-    /*
-     * FIRST:
-     * Check Administrator session.
-     *
-     * If direct/invalid access:
-     * checkAdministratorSession() sends the browser
-     * to index.html and returns false.
-     */
 
     if(
         !checkAdministratorSession()
@@ -5005,7 +5436,20 @@ async function initializeDashboard(){
     loadAdministratorName();
 
 
+    /*
+     * Existing Dashboard loading remains unchanged.
+     */
+
     await loadDashboardData();
+
+
+    /*
+     * NEW:
+     * Load the Registration ON/OFF state after the
+     * Administrator Dashboard data has loaded.
+     */
+
+    await loadRegistrationControl();
 
 
     const overlay =
