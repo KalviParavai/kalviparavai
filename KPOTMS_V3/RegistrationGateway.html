@@ -1,96 +1,360 @@
 <!DOCTYPE html>
-<html lang="en">a
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Kalviparavai - Student Registration</title>
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
+
 <style>
-:root{--kp-blue:#0b2a57;--kp-primary:#0d6efd;--kp-orange:#f5a623;--kp-green:#198754;--kp-red:#dc3545;--kp-muted:#667085;--kp-light:#eef5ff}
-body{min-height:100vh;margin:0;font-family:"Segoe UI",Tahoma,Arial,sans-serif;background:linear-gradient(135deg,#fff 0%,#eef5ff 100%);color:#233}
-.registration-header{background:#fff;border-bottom:4px solid var(--kp-orange);box-shadow:0 3px 12px rgba(0,0,0,.10);padding:14px 0}
-.brand-area{display:flex;align-items:center;text-decoration:none}.brand-logo{width:58px;height:58px;object-fit:contain;margin-right:12px}.brand-name{margin:0;color:var(--kp-blue);font-size:1.65rem;font-weight:800;line-height:1.1}.brand-subtitle{color:var(--kp-orange);font-size:.95rem;font-weight:600}
-.gateway-area{min-height:calc(100vh - 91px);display:flex;align-items:center;justify-content:center;padding:45px 15px}.gateway-card{width:100%;max-width:650px;background:#fff;border-radius:22px;padding:42px 45px;box-shadow:0 15px 45px rgba(11,42,87,.14);border-top:6px solid var(--kp-orange);text-align:center}
-.gateway-icon{width:82px;height:82px;margin:0 auto 20px;border-radius:50%;background:var(--kp-light);color:var(--kp-primary);display:flex;align-items:center;justify-content:center;font-size:36px}.gateway-title{color:var(--kp-blue);font-size:1.9rem;font-weight:800;margin-bottom:10px}.loading-message{color:var(--kp-blue);font-size:1rem}.open-panel,.closed-panel,.error-panel{display:none}.state-icon{margin-bottom:20px}.open-panel .state-icon{color:var(--kp-green)}.closed-panel .state-icon,.error-panel .state-icon{color:var(--kp-red)}
-.open-message{color:var(--kp-blue);font-size:1.05rem;margin-bottom:24px}.register-button,.back-button{display:inline-flex;align-items:center;justify-content:center;gap:9px;border-radius:8px;font-weight:600;text-decoration:none}.register-button{min-width:220px;padding:12px 24px;background:var(--kp-primary);border:1px solid var(--kp-primary);color:#fff}.register-button:hover{background:#0b5ed7;color:#fff}.closed-title{color:var(--kp-blue);font-size:1.45rem;font-weight:750;margin-bottom:14px}.closed-message{color:var(--kp-muted);font-size:1.05rem;line-height:1.7;margin-bottom:25px}.back-button{padding:10px 20px;border:1px solid #c8d7e9;background:#fff;color:var(--kp-blue)}.back-button:hover{background:var(--kp-light);color:var(--kp-blue)}.error-title{color:var(--kp-red);font-size:1.35rem;font-weight:750;margin-bottom:10px}.error-message{color:var(--kp-muted);line-height:1.6;margin-bottom:22px}.retry-button{border:0;border-radius:8px;padding:10px 20px;background:var(--kp-primary);color:#fff;font-weight:600}.gateway-footer{margin-top:30px;color:#7b8794;font-size:.82rem}
-@media(max-width:576px){.gateway-area{padding:28px 14px}.gateway-card{padding:32px 22px;border-radius:18px}.brand-logo{width:48px;height:48px}.brand-name{font-size:1.35rem}.brand-subtitle{font-size:.82rem}.gateway-title{font-size:1.55rem}.closed-title{font-size:1.25rem}}
+:root{
+    --kp-blue:#0b2a57;
+    --kp-primary:#0d6efd;
+    --kp-orange:#f5a623;
+    --kp-green:#198754;
+    --kp-red:#dc3545;
+    --kp-muted:#667085;
+    --kp-light:#eef5ff;
+}
+body{
+    min-height:100vh;
+    margin:0;
+    font-family:"Segoe UI",Tahoma,Arial,sans-serif;
+    background:linear-gradient(135deg,#ffffff 0%,#eef5ff 100%);
+    color:#233;
+}
+.registration-header{
+    background:#fff;
+    border-bottom:4px solid var(--kp-orange);
+    box-shadow:0 3px 12px rgba(0,0,0,.10);
+    padding:14px 0;
+}
+.brand-area{display:flex;align-items:center;text-decoration:none}
+.brand-logo{width:58px;height:58px;object-fit:contain;margin-right:12px}
+.brand-name{margin:0;color:var(--kp-blue);font-size:1.65rem;font-weight:800;line-height:1.1}
+.brand-subtitle{color:var(--kp-orange);font-size:.95rem;font-weight:600}
+.gateway-area{
+    min-height:calc(100vh - 91px);
+    display:flex;align-items:center;justify-content:center;
+    padding:45px 15px;
+}
+.gateway-card{
+    width:100%;max-width:650px;background:#fff;border-radius:22px;
+    padding:42px 45px;box-shadow:0 15px 45px rgba(11,42,87,.14);
+    border-top:6px solid var(--kp-orange);text-align:center;
+}
+.gateway-icon{
+    width:82px;height:82px;margin:0 auto 20px;border-radius:50%;
+    background:var(--kp-light);color:var(--kp-primary);
+    display:flex;align-items:center;justify-content:center;font-size:36px;
+}
+.gateway-title{color:var(--kp-blue);font-size:1.9rem;font-weight:800;margin-bottom:10px}
+.loading-message{color:var(--kp-blue);font-size:1rem}
+.open-panel,.closed-panel,.error-panel{display:none}
+.open-panel .state-icon{color:var(--kp-green)}
+.closed-panel .state-icon,.error-panel .state-icon{color:var(--kp-red)}
+.open-message,.closed-message,.error-message{color:var(--kp-muted);line-height:1.7;font-size:1.05rem}
+.closed-title,.error-title{color:var(--kp-blue);font-size:1.45rem;font-weight:750;margin-bottom:14px}
+.register-button,.back-button,.retry-button{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:10px 20px;border-radius:8px;font-weight:600;text-decoration:none;
+}
+.register-button{min-width:220px;background:var(--kp-primary);border:1px solid var(--kp-primary);color:#fff}
+.register-button:hover{background:#0b5ed7;color:#fff}
+.back-button{border:1px solid #c8d7e9;background:#fff;color:var(--kp-blue)}
+.back-button:hover{background:var(--kp-light);color:var(--kp-blue)}
+.retry-button{border:0;background:var(--kp-primary);color:#fff}
+.error-title{color:var(--kp-red)}
+.gateway-footer{margin-top:25px;color:#7b8794;font-size:.82rem}
+@media(max-width:576px){
+    .gateway-card{padding:32px 22px;border-radius:18px}
+    .brand-logo{width:48px;height:48px}
+    .brand-name{font-size:1.35rem}
+    .gateway-title{font-size:1.55rem}
+}
 </style>
 </head>
+
 <body>
-<header class="registration-header"><div class="container"><a href="index.html" class="brand-area"><img src="images/logo.png" alt="Kalviparavai Logo" class="brand-logo" onerror="this.style.display='none';"><div><h1 class="brand-name">Kalviparavai</h1><div class="brand-subtitle">Digital Class Room</div></div></a></div></header>
-<main class="gateway-area"><section class="gateway-card" aria-live="polite">
-<div id="loadingPanel"><div class="gateway-icon"><i class="fa-solid fa-spinner fa-spin"></i></div><h2 class="gateway-title">Student Registration</h2><div class="status-area"><div class="loading-message">Checking current registration status...</div></div></div>
-<div id="openPanel" class="open-panel"><div class="gateway-icon state-icon"><i class="fa-solid fa-user-graduate"></i></div><h2 class="gateway-title">Student Registration</h2><p class="open-message">Registration is currently open. You may proceed to complete your student registration.</p><a id="registerButton" href="#" class="register-button"><i class="fa-solid fa-arrow-right-to-bracket"></i>Continue to Student Registration</a><div class="gateway-footer">Kalviparavai Digital Class Room</div></div>
-<div id="closedPanel" class="closed-panel"><div class="gateway-icon state-icon"><i class="fa-solid fa-lock"></i></div><h2 class="closed-title">Student Registration is Currently Closed</h2><p class="closed-message">Student registration for the current academic year is presently closed.<br>You are welcome to register your details once registration is reopened by <strong>Kalviparavai authorities</strong>.<br>Please check this page again when registration is announced as open.</p><a href="index.html" class="back-button"><i class="fa-solid fa-house"></i>Back to Kalviparavai Home</a><div class="gateway-footer">Thank you for your interest in Kalviparavai Digital Class Room.</div></div>
-<div id="errorPanel" class="error-panel"><div class="gateway-icon state-icon"><i class="fa-solid fa-triangle-exclamation"></i></div><h2 class="error-title">Registration Status Unavailable</h2><p id="errorMessage" class="error-message">We are temporarily unable to check the registration status. Please try again.</p><button type="button" class="retry-button" onclick="loadRegistrationStatus()"><i class="fa-solid fa-rotate-right me-1"></i>Try Again</button><div class="gateway-footer">If the problem continues, please try again later.</div></div>
-</section></main>
+
+<header class="registration-header">
+<div class="container">
+<a href="index.html" class="brand-area">
+<img src="images/logo.png" alt="Kalviparavai Logo" class="brand-logo"
+     onerror="this.style.display='none';">
+<div>
+<h1 class="brand-name">Kalviparavai</h1>
+<div class="brand-subtitle">Digital Class Room</div>
+</div>
+</a>
+</div>
+</header>
+
+<main class="gateway-area">
+<section class="gateway-card" aria-live="polite">
+
+<div id="loadingPanel">
+<div class="gateway-icon"><i class="fa-solid fa-spinner fa-spin"></i></div>
+<h2 class="gateway-title">Student Registration</h2>
+<p class="loading-message">Checking current registration status...</p>
+</div>
+
+<div id="openPanel" class="open-panel">
+<div class="gateway-icon state-icon"><i class="fa-solid fa-user-graduate"></i></div>
+<h2 class="gateway-title">Student Registration</h2>
+<p class="open-message">
+Registration is currently open. You may proceed to complete your student registration.
+</p>
+<a id="registerButton" href="#" class="register-button">
+<i class="fa-solid fa-arrow-right-to-bracket"></i>
+Continue to Student Registration
+</a>
+<div class="gateway-footer">Kalviparavai Digital Class Room</div>
+</div>
+
+<div id="closedPanel" class="closed-panel">
+<div class="gateway-icon state-icon"><i class="fa-solid fa-lock"></i></div>
+<h2 class="closed-title">Student Registration is Currently Closed</h2>
+<p class="closed-message">
+Student registration for the current academic year is presently closed.
+<br><br>
+You are welcome to register your details once registration is reopened by
+<strong>Kalviparavai authorities</strong>.
+<br><br>
+Please check again later when registration is announced as open.
+</p>
+<a href="index.html" class="back-button">
+<i class="fa-solid fa-house"></i>
+Back to Kalviparavai Home
+</a>
+<div class="gateway-footer">
+Thank you for your interest in Kalviparavai Digital Class Room.
+</div>
+</div>
+
+<div id="errorPanel" class="error-panel">
+<div class="gateway-icon state-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+<h2 class="error-title">Registration Status Unavailable</h2>
+<p id="errorMessage" class="error-message">
+We are temporarily unable to check the registration status. Please try again.
+</p>
+<button type="button" class="retry-button" onclick="loadRegistrationStatus()">
+<i class="fa-solid fa-rotate-right"></i> Try Again
+</button>
+<div class="gateway-footer">If the problem continues, please try again later.</div>
+</div>
+
+</section>
+</main>
+
 <script>
 /* ==========================================================
-   KPOTMS V4.0 - STUDENT REGISTRATION GATEWAY
-   Uses ONLY the isolated Registration Control Web App.
-   Does NOT use the frozen Version 35 Web App.
+   REGISTRATION GATEWAY
+   Normal route:
+       index.html
+           ↓
+       RegistrationGateway.html
+           ↓
+       isolated Registration Control Web App
    ========================================================== */
-const REGISTRATION_CONTROL_WEB_APP_URL="https://script.google.com/macros/s/AKfycbz_3-p_mRDI0xc4PQ7vwXzA3i90x3HWSoce4XFGqws_2DAgqU_UDMMfL3_xXLY1st1Q/exec";
-const STUDENT_REGISTRATION_FORM_URL="https://docs.google.com/forms/d/e/1FAIpQLSfQkIG-QEZZVHQUqvgPFrVxrm_Tl8u8bXjmkICNd8d9ZGAPeA/viewform";
 
-/* Normal public route: index.html -> RegistrationGateway.html.
-   GitHub Pages cannot physically hide a static file, so direct
-   browser entry is redirected back to index.html. */
+const REGISTRATION_CONTROL_WEB_APP_URL =
+"https://script.google.com/macros/s/AKfycbz_3-p_mRDI0xc4PQ7vwXzA3i90x3HWSoce4XFGqws_2DAgqU_UDMMfL3_xXLY1st1Q/exec";
+
+const STUDENT_REGISTRATION_FORM_URL =
+"https://docs.google.com/forms/d/e/1FAIpQLSfQkIG-QEZZVHQUqvgPFrVxrm_Tl8u8bXjmkICNd8d9ZGAPeA/viewform";
+
+
+/* ==========================================================
+   INDEX.HTML HANDOFF
+   ========================================================== */
+
 (function checkGatewayEntry(){
-  const referrer=document.referrer||"";
-  let allowed=false;
-  try{
-    if(referrer){
-      const u=new URL(referrer,window.location.href);
-      if(u.pathname.toLowerCase().endsWith("/index.html")) allowed=true;
+
+    const allowed =
+        sessionStorage.getItem(
+            "kpotmsRegistrationGatewayAllowed"
+        );
+
+    if(
+        allowed !== "true"
+    ){
+        window.location.replace("index.html");
+        return;
     }
-  }catch(error){console.warn("Gateway entry check warning:",error);}
-  if(!allowed) window.location.replace("index.html");
+
+    /*
+     * Consume the handoff so the Gateway is reached through
+     * the intended index.html navigation.
+     */
+    sessionStorage.removeItem(
+        "kpotmsRegistrationGatewayAllowed"
+    );
+
 })();
 
+
 function showPanel(panelID){
-  ["loadingPanel","openPanel","closedPanel","errorPanel"].forEach(id=>{
-    const el=document.getElementById(id); if(el) el.style.display="none";
-  });
-  const selected=document.getElementById(panelID); if(selected) selected.style.display="block";
+
+    [
+        "loadingPanel",
+        "openPanel",
+        "closedPanel",
+        "errorPanel"
+    ].forEach(function(id){
+
+        const panel =
+            document.getElementById(id);
+
+        if(panel){
+            panel.style.display = "none";
+        }
+
+    });
+
+    const selected =
+        document.getElementById(panelID);
+
+    if(selected){
+        selected.style.display = "block";
+    }
+
 }
+
 
 async function loadRegistrationStatus(){
-  showPanel("loadingPanel");
-  try{
-    const response=await fetch(REGISTRATION_CONTROL_WEB_APP_URL,{
-      method:"POST",
-      headers:{"Content-Type":"text/plain;charset=utf-8"},
-      body:JSON.stringify({action:"getRegistrationControl"}),
-      cache:"no-store"
-    });
-    if(!response.ok) throw new Error("Registration service returned HTTP "+response.status+".");
-    const text=await response.text();
-    let result;
-    try{result=JSON.parse(text);}catch(e){console.error("Invalid Registration Control response:",text);throw new Error("Invalid response received from the Registration service.");}
-    console.log("Registration Control response:",result);
-    if(!result||result.success!==true) throw new Error(result&&result.message?result.message:"Unable to read Registration status.");
-    const registration=String(result.registration||"").trim().toUpperCase();
-    if(registration==="ON"){
-      document.getElementById("registerButton").href=STUDENT_REGISTRATION_FORM_URL;
-      showPanel("openPanel");
-      return;
+
+    showPanel("loadingPanel");
+
+    try{
+
+        /*
+         * Read-only request to the isolated Registration
+         * Control Web App.
+         *
+         * No Version 35 Web App is used here.
+         */
+
+        const response =
+            await fetch(
+                REGISTRATION_CONTROL_WEB_APP_URL,
+                {
+                    method:"POST",
+                    headers:{
+                        "Content-Type":
+                            "text/plain;charset=utf-8"
+                    },
+                    body:JSON.stringify({
+                        action:
+                            "getRegistrationControl"
+                    }),
+                    cache:"no-store"
+                }
+            );
+
+        if(!response.ok){
+            throw new Error(
+                "Registration service returned HTTP " +
+                response.status + "."
+            );
+        }
+
+        const text =
+            await response.text();
+
+        let result;
+
+        try{
+            result = JSON.parse(text);
+        }
+        catch(parseError){
+            console.error(
+                "Invalid Registration Control response:",
+                text
+            );
+            throw new Error(
+                "Invalid response received from the Registration service."
+            );
+        }
+
+        console.log(
+            "Registration Control response:",
+            result
+        );
+
+        if(
+            !result ||
+            result.success !== true
+        ){
+            throw new Error(
+                result && result.message
+                    ? result.message
+                    : "Unable to read Registration status."
+            );
+        }
+
+        const registration =
+            String(
+                result.registration || ""
+            )
+            .trim()
+            .toUpperCase();
+
+        if(
+            registration === "ON"
+        ){
+
+            document
+                .getElementById("registerButton")
+                .href =
+                    STUDENT_REGISTRATION_FORM_URL;
+
+            showPanel("openPanel");
+            return;
+        }
+
+        if(
+            registration === "OFF"
+        ){
+
+            showPanel("closedPanel");
+            return;
+        }
+
+        throw new Error(
+            "Registration service returned an invalid status."
+        );
+
     }
-    if(registration==="OFF"){
-      showPanel("closedPanel");
-      return;
+    catch(error){
+
+        console.error(
+            "Registration Gateway error:",
+            error
+        );
+
+        document
+            .getElementById("errorMessage")
+            .textContent =
+                "We are temporarily unable to check the student " +
+                "registration status. Please try again.";
+
+        showPanel("errorPanel");
     }
-    throw new Error("Registration service returned an invalid status.");
-  }catch(error){
-    console.error("Registration Gateway error:",error);
-    document.getElementById("errorMessage").textContent="We are temporarily unable to check the student registration status. Please try again. "+(error&&error.message?error.message:"");
-    showPanel("errorPanel");
-  }
+
 }
 
-window.addEventListener("load",function(){loadRegistrationStatus();});
+
+window.addEventListener(
+    "load",
+    function(){
+        loadRegistrationStatus();
+    }
+);
 </script>
+
 </body>
 </html>
