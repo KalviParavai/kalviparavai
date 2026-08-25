@@ -1969,6 +1969,68 @@ async function callWebAPI(
  * }
  */
 
+async function registrationControlGet(
+    action
+){
+
+    const response =
+        await fetch(
+            REGISTRATION_CONTROL_URL +
+            "?action=" +
+            encodeURIComponent(
+                action
+            ),
+            {
+                method:"GET",
+                cache:"no-store"
+            }
+        );
+
+
+    if(!response.ok){
+
+        throw new Error(
+            "Registration Control request failed. HTTP " +
+            response.status
+        );
+
+    }
+
+
+    const text =
+        await response.text();
+
+
+    let result;
+
+
+    try{
+
+        result =
+            JSON.parse(text);
+
+    }
+
+    catch(e){
+
+        console.error(
+            "Invalid Registration Control response:",
+            text
+        );
+
+
+        throw new Error(
+            "Invalid response received from Registration Control server."
+        );
+
+    }
+
+
+    return result;
+
+}
+
+
 async function registrationControlAPI(
     action,
     payload={}
@@ -2094,7 +2156,7 @@ async function loadRegistrationControl(){
             'Checking current registration status...';
 
         const result =
-            await registrationControlAPI(
+            await registrationControlGet(
                 GET_REGISTRATION_CONTROL_ACTION
             );
 
@@ -2372,7 +2434,14 @@ async function toggleRegistrationControl(){
             )
         );
 
-        await loadRegistrationControl();
+        loadRegistrationControl().catch(function(error){
+
+            console.error(
+                "Registration status load failed:",
+                error
+            );
+
+        });
 
     }
     finally{
