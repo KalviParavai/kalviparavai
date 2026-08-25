@@ -2331,14 +2331,10 @@ async function toggleRegistrationControl(){
     const message =
         newStatus === "ON"
         ?
-        "Open Student Registration now?
-
-" +
+        "Open Student Registration now?\n\n" +
         "Students will be allowed to access the Student Registration Form."
         :
-        "Close Student Registration now?
-
-" +
+        "Close Student Registration now?\n\n" +
         "Students will no longer be able to submit new registrations.";
 
     if(
@@ -2425,9 +2421,7 @@ async function toggleRegistrationControl(){
         );
 
         alert(
-            "Unable to change Registration status.
-
-" +
+            "Unable to change Registration status.\n\n" +
             (
                 error.message ||
                 "Unknown error."
