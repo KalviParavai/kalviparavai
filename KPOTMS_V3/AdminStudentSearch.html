@@ -1951,7 +1951,6 @@ function closeStatusModal(){
 /* ============================================================
    CONFIRM STATUS CHANGE
    ============================================================ */
-
 async function confirmStatusChange(){
 
   if(
@@ -1981,6 +1980,11 @@ async function confirmStatusChange(){
     );
 
 
+  /*
+   * Prevent duplicate clicks while the server
+   * is processing the request.
+   */
+
   confirmButton.disabled =
     true;
 
@@ -1995,6 +1999,12 @@ async function confirmStatusChange(){
 
   try{
 
+    /*
+     * --------------------------------------------------------
+     * SERVER UPDATE
+     * --------------------------------------------------------
+     */
+
     const result =
       await callWebAPI(
         "toggleStudentStatus",
@@ -2004,6 +2014,12 @@ async function confirmStatusChange(){
         }
       );
 
+
+    /*
+     * --------------------------------------------------------
+     * VERIFY SERVER RESULT
+     * --------------------------------------------------------
+     */
 
     if(
       !result ||
@@ -2018,9 +2034,22 @@ async function confirmStatusChange(){
     }
 
 
+    const finalStatus =
+      String(
+        result.newStatus ||
+        change.newStatus ||
+        ""
+      )
+      .trim()
+      .toUpperCase();
+
+
     /*
-     * Update the cached search result locally.
-     * No new search is required.
+     * --------------------------------------------------------
+     * UPDATE LOCAL SEARCH CACHE
+     *
+     * No second server request.
+     * --------------------------------------------------------
      */
 
     lastSearchResults =
@@ -2044,8 +2073,7 @@ async function confirmStatusChange(){
             return {
               ...student,
               Status:
-                result.newStatus ||
-                change.newStatus
+                finalStatus
             };
 
           }
@@ -2057,13 +2085,33 @@ async function confirmStatusChange(){
       );
 
 
+    /*
+     * --------------------------------------------------------
+     * CLOSE MODAL IMMEDIATELY
+     *
+     * Do this BEFORE rendering the table.
+     * --------------------------------------------------------
+     */
+
     closeStatusModal();
 
+
+    /*
+     * --------------------------------------------------------
+     * REFRESH ONLY THE LOCAL TABLE
+     * --------------------------------------------------------
+     */
 
     render(
       lastSearchResults
     );
 
+
+    /*
+     * --------------------------------------------------------
+     * SUCCESS MESSAGE
+     * --------------------------------------------------------
+     */
 
     showStatusMessage(
       "Student " +
@@ -2071,10 +2119,7 @@ async function confirmStatusChange(){
       " status changed successfully from " +
       change.currentStatus +
       " to " +
-      (
-        result.newStatus ||
-        change.newStatus
-      ) +
+      finalStatus +
       ".",
       "success"
     );
@@ -2084,10 +2129,16 @@ async function confirmStatusChange(){
 
   catch(error){
 
+    /*
+     * Administrator session expired.
+     */
+
     if(
       error.message ===
       "Administrator session is no longer valid."
     ){
+
+      closeStatusModal();
 
       logoutAdministrator();
 
@@ -2095,6 +2146,11 @@ async function confirmStatusChange(){
 
     }
 
+
+    /*
+     * Keep modal open so the Administrator
+     * can see the error and try again.
+     */
 
     confirmButton.disabled =
       false;
@@ -2116,9 +2172,36 @@ async function confirmStatusChange(){
 
   }
 
+  finally{
+
+    /*
+     * IMPORTANT:
+     *
+     * Never leave the confirmation buttons
+     * permanently locked after the request
+     * has finished.
+     */
+
+    if(
+      pendingStatusChange
+    ){
+
+      confirmButton.disabled =
+        false;
+
+      cancelButton.disabled =
+        false;
+
+      confirmButton.innerHTML =
+        '<i class="fa-solid fa-check me-1"></i>' +
+        'Confirm Status Change';
+
+    }
+
+  }
+
 }
-
-
+ 
 /* ============================================================
    STATUS MESSAGE
    ============================================================ */
