@@ -1633,6 +1633,16 @@ const WEB_APP_URL =
 "https://script.google.com/macros/s/AKfycbzxJ0qJ_uIVVCm_VZrCItEp6y_sniqVX52oD3WhTWwohuK_liNX8v9Wcm2IdEWbZbJs/exec";
 
 
+/* ==========================================================
+   ISOLATED REGISTRATION CONTROL WEB APP
+   Separate from the protected KPOTMS Version 35 API.
+   Registration Open / Close only uses this URL.
+   ========================================================== */
+
+const REGISTRATION_CONTROL_URL =
+"https://script.google.com/macros/s/AKfycbz_3-p_mRDI0xc4PQ7vwXzA3i90x3HWSoce4XFGqws_2DAgqU_UDMMfL3_xXLY1st1Q/exec";
+
+
 const UPDATE_PENDING_ACTION =
 "updatePendingRegistration";
 
@@ -1959,6 +1969,97 @@ async function callWebAPI(
  * }
  */
 
+async function registrationControlAPI(
+    action,
+    payload={}
+){
+
+    const loggedIn =
+        sessionStorage.getItem(
+            "kpotmsLoggedIn"
+        );
+
+    const role =
+        sessionStorage.getItem(
+            "kpotmsRole"
+        );
+
+    if(
+        loggedIn !== "true" ||
+        role !== "ADMINISTRATOR"
+    ){
+        throw new Error(
+            "Administrator session is no longer valid."
+        );
+    }
+
+    const administratorID =
+        String(
+            sessionStorage.getItem(
+                "administratorID"
+            ) || ""
+        ).trim();
+
+    if(!administratorID){
+        throw new Error(
+            "Administrator ID is not available in the current session."
+        );
+    }
+
+    const response =
+        await fetch(
+            REGISTRATION_CONTROL_URL,
+            {
+                method:"POST",
+                headers:{
+                    "Content-Type":
+                    "text/plain;charset=utf-8"
+                },
+                body:
+                JSON.stringify({
+                    action,
+                    adminID:
+                        administratorID,
+                    ...payload
+                }),
+                cache:"no-store"
+            }
+        );
+
+    if(!response.ok){
+        throw new Error(
+            "Registration Control request failed. HTTP " +
+            response.status
+        );
+    }
+
+    const text =
+        await response.text();
+
+    let result;
+
+    try{
+        result =
+            JSON.parse(text);
+    }
+    catch(e){
+        console.error(
+            "Invalid Registration Control response:",
+            text
+        );
+        throw new Error(
+            "Invalid response received from Registration Control server."
+        );
+    }
+
+    return result;
+}
+
+
+/* ==========================================================
+   REGISTRATION OPEN / CLOSE CONTROL
+   ========================================================== */
+
 async function loadRegistrationControl(){
 
     const button =
@@ -1966,58 +2067,46 @@ async function loadRegistrationControl(){
             "registrationControlButton"
         );
 
-
     const statusElement =
         document.getElementById(
             "registrationControlStatus"
         );
-
 
     const icon =
         document.getElementById(
             "registrationControlIcon"
         );
 
-
     if(
         !button ||
         !statusElement
     ){
-
         return;
-
     }
-
 
     try{
 
         button.disabled =
             true;
 
-
         statusElement.innerHTML =
             '<i class="fa-solid fa-spinner fa-spin me-1"></i>' +
             'Checking current registration status...';
 
-
         const result =
-            await callWebAPI(
+            await registrationControlAPI(
                 GET_REGISTRATION_CONTROL_ACTION
             );
-
 
         if(
             !result ||
             result.success !== true
         ){
-
             throw new Error(
                 result?.message ||
                 "Unable to read Registration status."
             );
-
         }
-
 
         const status =
             String(
@@ -2030,29 +2119,23 @@ async function loadRegistrationControl(){
             .trim()
             .toUpperCase();
 
-
         if(
             status !== "ON" &&
             status !== "OFF"
         ){
-
             throw new Error(
-                "Invalid Registration status received from server."
+                "Invalid Registration status received from Registration Control server."
             );
-
         }
-
 
         currentRegistrationControlStatus =
             status;
-
 
         updateRegistrationControlUI(
             status
         );
 
     }
-
     catch(error){
 
         console.error(
@@ -2060,29 +2143,21 @@ async function loadRegistrationControl(){
             error
         );
 
-
         statusElement.className =
             "registration-control-status registration-closed-status";
-
 
         statusElement.innerHTML =
             '<i class="fa-solid fa-triangle-exclamation me-1"></i>' +
             'Unable to read status';
 
-
         if(icon){
-
             icon.className =
                 "fa-solid fa-triangle-exclamation";
-
         }
-
 
         button.disabled =
             false;
-
     }
-
 }
 
 
@@ -2099,36 +2174,28 @@ function updateRegistrationControlUI(
             "registrationControlButton"
         );
 
-
     const statusElement =
         document.getElementById(
             "registrationControlStatus"
         );
-
 
     const icon =
         document.getElementById(
             "registrationControlIcon"
         );
 
-
     if(
         !button ||
         !statusElement
     ){
-
         return;
-
     }
-
 
     currentRegistrationControlStatus =
         status;
 
-
     button.disabled =
         false;
-
 
     if(
         status === "ON"
@@ -2137,41 +2204,30 @@ function updateRegistrationControlUI(
         statusElement.className =
             "registration-control-status registration-open-status";
 
-
         statusElement.innerHTML =
             '<i class="fa-solid fa-circle-check me-1"></i>' +
             'OPEN — Students can register';
 
-
         if(icon){
-
             icon.className =
                 "fa-solid fa-toggle-on";
-
         }
 
     }
-
     else{
 
         statusElement.className =
             "registration-control-status registration-closed-status";
 
-
         statusElement.innerHTML =
             '<i class="fa-solid fa-circle-xmark me-1"></i>' +
             'CLOSED — Registration stopped';
 
-
         if(icon){
-
             icon.className =
                 "fa-solid fa-toggle-off";
-
         }
-
     }
-
 }
 
 
@@ -2184,83 +2240,68 @@ async function toggleRegistrationControl(){
     if(
         !checkAdministratorSession()
     ){
-
         return;
-
     }
-
 
     const current =
         currentRegistrationControlStatus;
-
 
     const newStatus =
         current === "ON"
             ? "OFF"
             : "ON";
 
-
     const button =
         document.getElementById(
             "registrationControlButton"
         );
-
 
     const statusElement =
         document.getElementById(
             "registrationControlStatus"
         );
 
-
     const actionText =
         newStatus === "ON"
             ? "OPEN"
             : "CLOSE";
 
-
     const message =
         newStatus === "ON"
-
         ?
+        "Open Student Registration now?
 
-        "Open Student Registration now?\n\n" +
+" +
         "Students will be allowed to access the Student Registration Form."
-
         :
+        "Close Student Registration now?
 
-        "Close Student Registration now?\n\n" +
+" +
         "Students will no longer be able to submit new registrations.";
-
 
     if(
         !window.confirm(
             message
         )
     ){
-
         return;
-
     }
-
 
     try{
 
         button.disabled =
             true;
 
-
         statusElement.className =
             "registration-control-status";
-
 
         statusElement.innerHTML =
             '<i class="fa-solid fa-spinner fa-spin me-1"></i>' +
             actionText +
             'ING registration...';
 
-
         const result =
-            await callWebAPI(
+            await registrationControlAPI(
                 SET_REGISTRATION_CONTROL_ACTION,
                 {
                     status:
@@ -2268,19 +2309,15 @@ async function toggleRegistrationControl(){
                 }
             );
 
-
         if(
             !result ||
             result.success !== true
         ){
-
             throw new Error(
                 result?.message ||
                 "Unable to change Registration status."
             );
-
         }
-
 
         const confirmedStatus =
             String(
@@ -2293,42 +2330,31 @@ async function toggleRegistrationControl(){
             .trim()
             .toUpperCase();
 
-
         if(
             confirmedStatus !== "ON" &&
             confirmedStatus !== "OFF"
         ){
-
             throw new Error(
-                "Invalid Registration status returned by server."
+                "Invalid Registration status returned by Registration Control server."
             );
-
         }
-
 
         currentRegistrationControlStatus =
             confirmedStatus;
-
 
         updateRegistrationControlUI(
             confirmedStatus
         );
 
-
         alert(
             confirmedStatus === "ON"
-
             ?
-
             "Student Registration is now OPEN."
-
             :
-
             "Student Registration is now CLOSED."
         );
 
     }
-
     catch(error){
 
         console.error(
@@ -2336,31 +2362,26 @@ async function toggleRegistrationControl(){
             error
         );
 
-
         alert(
-            "Unable to change Registration status.\n\n" +
+            "Unable to change Registration status.
+
+" +
             (
                 error.message ||
                 "Unknown error."
             )
         );
 
-
         await loadRegistrationControl();
 
     }
-
     finally{
 
         if(button){
-
             button.disabled =
                 false;
-
         }
-
     }
-
 }
 
 
